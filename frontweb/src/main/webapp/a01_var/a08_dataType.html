@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h2>데이터유형</h2>
+</body>
+<script type="text/javascript">
+/*
+#데이터 유형
+1. 자바스크립트에서는 여러가지 데이터 유형 사용
+2. 종류
+	1) 문자열
+		String: "데이터", '데이터'
+		ps) C, Java 문자데이터유형 'A', 문자가 모여서 문자열 데이터 타입을
+		따로 사용하고 있으나 자바스크립트에서는 문자열 사용
+		var name = "홍길동"
+		document.write("이름"+name+"<br>")
+		document.write("데이터유형:"+typeof(name))
+		// typeof()라는 내장함수를 사용하여 어떤 유형인지 나타냄
+		
+ */
+var name = "홍길동"
+document.write("이름:"+name+"<br>")
+document.write("데이터유형:"+typeof(name)+"<br>")
+/*
+	2) 숫자형
+		number: 정수(25,70), 실수(3.14, 170.2)
+		var num01 = 30
+		var num02 = 177.7
+		var kor = 80
+		var eng = 90
+		var avg = kor/eng
+		document.write("숫자1:"+num01)
+		document.write("숫자2:"+num02)
+		document.write("데이터유형(숫자1):"+typeof(num01))
+		document.write("데이터유형(숫자2):"+typeof(num02))
+		
+에러 발생 시 브라우저에서 f12-console 에서 위치확인 후 수정
+ */
+var num01 = 30
+var num02 = 177.7
+var kor = 80
+var eng = 90
+var avg = (kor+eng)/2
+document.write("숫자1:"+num01+"<br>")
+document.write("숫자2:"+num02+"<br>")
+document.write("국어:"+kor+"<br>")
+document.write("영어:"+eng+"<br>")
+document.write("평균:"+avg+"<br>")
+document.write("데이터유형:"+typeof(avg)+"<br>")
+ 
+
+
+</script>
+</html>

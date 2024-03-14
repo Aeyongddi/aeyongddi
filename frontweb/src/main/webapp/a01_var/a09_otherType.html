@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h2>기타데이터 유형</h2>
+</body>
+<script type="text/javascript">
+/*
+# 기타데이터 유형
+3. boolean
+	true/false의 진리값을 처리하는 데이터 유형
+	비교연산자(==, >, <, >=, <=, !=) 결과로 두개의 숫자나
+	문자열을 비교하여 진리값을 처리하여 그 결과를 할당하여 사용되는 데이터 유형
+	ex)
+	var point = 80
+	var isPass = point>=70
+	// true 데이터가 isPass에 할당 처리
+	var age = 15
+	var isAdult = age>=18
+	// false 데이터가 isAdult에 할당 처리
+4. boolean 유형의 데이터는 주로 if(조건문), for(반복문)에서 처리할 때 활용
+ */
+ var point = 80
+ var isPass = point>=70
+ document.write("점수:"+point+"<br>")
+ document.write("합격여부:"+isPass+"<br>")
+ var age = 15
+ var isAdult = age>=18
+ document.write("나이:"+age+"<br>")
+ document.write("성인여부:"+isAdult+"<br>")
+ // ex) 바나나의 가격(bananaPrice)을 할당한 후 해당 바나나의 가격이 5000원 이상 일때에는 isPriceOver
+ // 	라는 변수가 true, 그외에는 false로 할당하기
+ var bananaPrice = 3000
+ var isPriceOver = bananaPrice>=5000
+ document.write("가격:"+bananaPrice+"<br>")
+ document.write("비쌈:"+isPriceOver+"<br>")
+
+ /*
+# 함수형 function
+1. 기본 형식
+	// 함수 정의
+	var fun01 = function(){
+	 	document.write("함수가 호출")
+ 
+ }
+ // 함수 호출
+ fun01()
+ fun01()
+ document.write("데이터 유형:"+typeof(fun01))
+ 
+ */
+ var fun01 = function(){
+	 document.write("함수 호출<br>")
+ }
+ fun01()
+ fun01()
+ document.write("데이터유형:"+typeof(fun01))
+ 
+/*
+ # 객체형 object
+ 1. 객체는 변수와 기능메서드를 가지고있는 복합체
+ 2. 여러가지 유형의 데이터를 가지고 있을 뿐만 아니라 
+ 여러가지 기능도 처리할 수 있음
+ 3. 객체의 가장 대표적인 유형 json(javascript object notation)
+ 					속성: 속성값
+ 	1) 객체 선언
+ 	var person = { name:"홍길동", age: 25, loc:"수원"}
+ 	2) 객체의 선언된 내용 호출
+ 	person.name: 객체명, 속성: 해당 객체가 가지고 있는 할당값
+ 	person.age: person객체가 가지고 있는 age의 속성값 호출
+ 	person.loc: person객체가 가지고 있는 loc의 속성값 호출
+ 	typeof(person) => object
+ 
+ */
+ var person = {name:"홍길동", age: 25, loc:"수원"}
+ document.write("객체 호출:"+person+"<br>")
+ document.write("person의 name 속성 호출: "+person.name+"<br>")
+ document.write("person의 age 속성 호출: "+person.age+"<br>")
+ document.write("person의 loc 속성 호출: "+person.loc+"<br>")
+ document.wrtie("데이터 유형:"+typeof(person)+"<br>")
+ 
+
+
+
+</script>
+</html>

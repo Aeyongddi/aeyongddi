@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h2>타이틀</h2>
+</body>
+<script type="text/javascript">
+var bdObj = document.body
+bdObj.innerHTML += "화면에 나타낼 데이터<br>"
+/*
+# 조건문
+1. 기본 순서 처리를 한 후 조건에 따라서 처리할 flow가 있으면 조건문 활용
+ex) tot 가격이 10000이상일 때 가격이 비싸다 표시
+2. 기본 형식
+	1) if(비교연산식 또는 논리연산식){
+			위 조건식이 true일 경우 처리할 내용
+		}
+	2) if(조건식){
+			위 조건식이 true일 경우 처리할 내용
+		}else{
+			위 조건식이 false일 경우 처리할 내용
+		}
+	3) if(조건1){
+			조건1인 경우 처리할 내용
+	}else if(조건2){
+			위의 나열된 조건이 아니고 조건2인 경우
+	}else if(조건3){
+			위의 나열된 조건이 아니고 조건3인 경우
+	}else{
+			위의 나열된 조건이 모두 아닌경우
+	}
+			
+			
+ */
+ var temp = 30
+ bdObj.innerHTML += "프로세스 처리 시작 <br>"
+ bdObj.innerHTML += "현재 온도는 "+temp+" ℃입니다. <br>"
+ if(temp >= 25){
+	 bdObj.innerHTML += "여행가기 좋은 날씨 입니다. <br>"
+ }
+ bdObj.innerHTML += "프로세스 처리 끝 <br>"
+ // ex) 라면을 끓이는 순서를 출력하고 물 온도가 100이상일 경우 면을 넣으라고 출력하기
+ /*
+ 1. 물 넣기
+ 2. 물 끓이기
+ 3. 물 온도가 ## 입니다. <조건문 처리>
+ 4. 라면 끓이기 프로세스 끝
+ */
+ 
+ var waterTemp = 100
+ bdObj.innerHTML += "# 라면 끓이기 프로세스 처리 시작 #<br>"
+ bdObj.innerHTML += "1. 물을 넣으세요. <br>"
+ bdObj.innerHTML += "2. 물을 끓이세요. <br>"
+ bdObj.innerHTML += "현재 물온도는 "+waterTemp+" ℃입니다. <br>"
+ if(waterTemp >= 100){
+	 bdObj.innerHTML += "물온도가 100을 넘었으므로 면을 넣으세요. <br>"
+ }
+ bdObj.innerHTML += "프로세스 처리 끝. <br>"
+ 
+
+
+
+</script>
+</html>

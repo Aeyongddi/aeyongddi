@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h2>if else</h2>
+</body>
+<script type="text/javascript">
+var bdObj = document.body
+
+/*
+# if else
+1. 특정한 조건문에서 true와 false를 나누어 분기를 처리할 때 활용
+2. 점수에 따라서 합격/불합격을 처리해야 하는 경우 등
+3. 기본 형식
+	if(조건){
+		true일 경우 처리할 내용
+	}else{
+		false일 경우 처리할 내용
+	}
+ */
+ var point = 80
+ bdObj.innerHTML += "획득 점수는:"+point+" 점 <br>"
+ if(point>=60){
+	 bdObj.innerHTML += "합격입니다. <br>"
+ }else{
+	 bdObj.innerHTML += "불합격입니다. <br>"
+ }
+ // ex) 나이를 입력받고 출력한뒤 나이가 18세 이상일 경우 성인, 그 외에는 미성년자
+var age = prompt("나이를 입력하세요. : ","0")
+bdObj.innerHTML += "나의 나이는:"+age+" 세 <br>"
+if(age>=18){
+	bdObj.innerHTML += "성인입니다. <br>"
+}else{
+	bdObj.innerHTML += "미성년자입니다. <br>"
+}
+
+</script>
+</html>

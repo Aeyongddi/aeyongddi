@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h2>if else if else</h2>
+</body>
+<script type="text/javascript">
+var bdObj = document.body
+
+/*
+# 분기 조건이 여러개일 때 사용하는 if else if
+1. 하나의 분기 조건이 아니고 여러개의 분기 조건이 필요할 때 사용
+2. 기본 형식
+	if(조건1){
+		조건1일 경우 처리할 구문
+	}else if(조건2){
+		조건2일 경우 처리할 구문
+	}else if(조건3){
+		조건3일 경우 처리할 구문
+	}... : 그 외 조건들이 있을 경우 추가
+	}else{
+		위의 나열된 조건을 제외한 내용을 처리할 경우
+	}
+	ex) 90~100 A
+		80~89  B
+	if(pt>=90 && pt<=100){
+		A grade
+	}
+	if(pt>=80 && pt<90){
+		B grade
+	}
+	====> 처리 내용
+	if(pt>100 || pt<0){
+		범위를 초과
+	}else if(pt>=90){ else: 상위에 있는 조건을 제외
+		A grade
+	}else if(pt>=80){
+		B grade
+	}
+ */
+var pt=24
+bdObj.innerHTML += "입력된 점수는 "+pt+" 점. <br>"
+if(pt>100 || pt<0){
+	bdObj.innerHTML += "점수 입력 범위는 0~100입니다. <br>"
+}else if(pt>=90){
+	bdObj.innerHTML += "90~100 이므로 A grade. <br>"
+}else if(pt>=80){
+	bdObj.innerHTML += "80~90 이므로 B grade. <br>"
+}else if(pt>=70){
+	bdObj.innerHTML += "70~80 이므로 C grade. <br>"
+}else if(pt>=60){
+	bdObj.innerHTML += "60~70 이므로 D grade. <br>"
+}else if(pt>=0){
+	bdObj.innerHTML += "0~60 이므로 F grade. <br>"
+}else{
+	bdObj.innerHTML += "데이터 입력은 숫자로 입력. <br>"
+}
+// ex) 현재 시간을 입력 받아 오전/오후/0~23시간 입력범위/ 숫자로 입력하시오 로 나누어 처리
+var hour= prompt("시간을 입력하시오. :","0")
+bdObj.innerHTML += "현재 시간은: "+time+" 시 <br>"
+if(hour>23 || time<0){
+	bdObj.innerHTML += "시간 입력 범위는 0~23입니다. <br>"
+}else if(time<12){
+	bdObj.innerHTML += "0~12 이므로 오전입니다. <br>"
+}else if(time<24){
+	bdObj.innerHTML += "13~23 이므로 오후입니다. <br>"
+}else{ // 입력하지 않거나 문자열로 입력되었을 때 처리
+	bdObj.innerHTML += "데이터를 숫자로 입력하세요. <br>"
+}
+
+</script>
+</html>

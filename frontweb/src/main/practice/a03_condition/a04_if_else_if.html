@@ -60,13 +60,13 @@ if(pt>100 || pt<0){
 	bdObj.innerHTML += "데이터 입력은 숫자로 입력. <br>"
 }
 // ex) 현재 시간을 입력 받아 오전/오후/0~23시간 입력범위/ 숫자로 입력하시오 로 나누어 처리
-var hour= prompt("시간을 입력하시오. :","0")
-bdObj.innerHTML += "현재 시간은: "+time+" 시 <br>"
-if(hour>23 || time<0){
+var hour = prompt("시간을 입력하시오. :","0")
+bdObj.innerHTML += "현재 시간은: "+hour+" 시입니다. <br>"
+if(hour>23 || hour<0){
 	bdObj.innerHTML += "시간 입력 범위는 0~23입니다. <br>"
-}else if(time<12){
+}else if(hour<12){
 	bdObj.innerHTML += "0~12 이므로 오전입니다. <br>"
-}else if(time<24){
+}else if(hour<24){
 	bdObj.innerHTML += "13~23 이므로 오후입니다. <br>"
 }else{ // 입력하지 않거나 문자열로 입력되었을 때 처리
 	bdObj.innerHTML += "데이터를 숫자로 입력하세요. <br>"

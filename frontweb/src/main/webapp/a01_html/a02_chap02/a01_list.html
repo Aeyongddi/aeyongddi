@@ -54,15 +54,15 @@ dl을 통해서는 자기소개서로 이름, 취미, 경력, 교육 등 타이�
 		<li>전자제품</li>
 		<li>옷</li>
 		<li>이동수단</li>
-		
+
 	</ol>
 	<h3>실제 구매할 물건</h3>
-	<ol>
+	<ul>
 		<li>컴퓨터</li>
 		<li>책상</li>
 		<li>자전거</li>
 		<!-- VSC: Shift + Alt + ↓: 아래로 복붙 -->
-	</ol>
+	</ul>
 	<h3>자기 소개서</h3>
 	<dl>
 		<dt>이름</dt>
@@ -72,8 +72,33 @@ dl을 통해서는 자기소개서로 이름, 취미, 경력, 교육 등 타이�
 		<dt>경력</dt>
 		<dd>없음</dd>
 		<dt>교육</dt>
-		<dd>코딩</dd>
+		<dd>경영학과</dd>
 
 	</dl>
+	<!--
+# 속성
+1. type: 마커 종류
+    1) default type="1" 1,2,3
+    2) type="A" A, B ,C, D
+    3) type="I" I, II, III
+2. start: 시작값 지정 가능
+    start="5" 5부터 리스트 처리
+    
+	  -->
+	<ol type="A">
+		<li>사과</li>
+		<li>바나나</li>
+		<li>파인애플</li>
+	</ol>
+	<ol type="I">
+		<li>사과</li>
+		<li>바나나</li>
+		<li>파인애플</li>
+	</ol>
+	<ol start="7">
+		<li>사과</li>
+		<li>바나나</li>
+		<li>파인애플</li>
+	</ol>
 </body>
 </html>

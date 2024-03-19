@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 
+# 표만들기(table)
+1. HTML에서 가장 중요한 데이터들의 정렬이나 이미지들을 효과적으로 출력하기 위한 틀 구조
+2. 테이블의 구성 요소
+    1) 테이블은 계층 구조로 여러가지 구성요소 존재
+    2) table: 테이블 태그의 최상위로 표 전체를 담는 컨테이너 역할
+    3) caption: 표 제목
+    4) thead: 헤딩 셀 그룹
+    5) tbody: 데이터 셀 그룹
+    6) tfoot: 바닥 셀 그룹
+    7) tr: 행 항목으로 여러가지의 td, th 포함
+    8) th: 열 제목(헤딩) 셀
+    9) td: 데이터 셀
+ -->
+	<table border>
+		<!-- border: 테이블 전체 cell border 굵기 -->
+		<caption>1학기 성적</caption>
+		<thead>
+			<tr>
+				<th>이름</th>
+				<th>HTML</th>
+				<th>CSS</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>가가가</td>
+				<td>80</td>
+				<td>70</td>
+			</tr>
+			<tr>
+				<td>나나나</td>
+				<td>77</td>
+				<td>55</td>
+			</tr>
+			<tr>
+				<td>다다다</td>
+				<td>30</td>
+				<td>95</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>합</th>
+				<th>187</th>
+				<th>220</th>
+			</tr>
+		</tfoot>
+	</table>
+	<!-- 
+    ex) 위 테이블 구성요소를 이용하여 아래와 같은 쇼핑몰 구매 내역 출력하기
+            물품구매내역
+번호      구매물품        가격      가격수량
+1           @@@            @@@         @@@
+2           @@@            @@@         @@@
+3           @@@            @@@         @@@
+총계                       @@@         @@@
+ -->
+	<table border>
+		<caption>쇼핑몰 구매 내역</caption>
+		<thead>
+			<tr>
+				<th>번호</th>
+				<th>구매물품</th>
+				<th>가격</th>
+				<th>가격수량</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>1</td>
+				<td>가가가</td>
+				<td>11111원</td>
+				<td>1개</td>
+			</tr>
+			<tr>
+				<td>2</td>
+				<td>나나나</td>
+				<td>22222원</td>
+				<td>2개</td>
+			</tr>
+			<tr>
+				<td>3</td>
+				<td>다다다</td>
+				<td>33333원</td>
+				<td>3개</td>
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<th>총계</th>
+				<th></th>
+				<th>66666원</th>
+				<th>6개</th>
+			</tr>
+		</tfoot>
+
+
+	</table>
+</body>
+</html>

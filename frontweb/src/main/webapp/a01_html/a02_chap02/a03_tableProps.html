@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>테이블 속성</title>
 </head>
 <body>
 	<!-- 
@@ -28,7 +28,7 @@
  -->
 	<table widht="100" height="100">
 		<tr>
-			<td>테이블</td>
+			<td>테이블(기본)</td>
 		</tr>
 	</table>
 	<table widht="100" height="100" border>
@@ -66,5 +66,32 @@
 			<td>테이블(cellspacing)</td>
 		</tr>
 	</table>
+	<table width="100" height="100" border>
+	   <col width="30%">
+	   <col height="70%">
+        <tr>
+            <td>컬럼1</td><td>컬럼2</td>
+        </tr>
+    </table>
+    <table width="100" height="100" border>
+       <col width="50%">
+       <col height="50%">
+        <tr>
+            <td rowspan="2">셀1</td><td>셀2</td>
+        </tr>
+        <tr>
+            <td>셀4</td>
+        </tr>
+    </table>
+    <table width="100" height="100" border>
+       <col width="50%">
+       <col height="50%">
+        <tr>
+            <td colspan="2">셀1</td>
+        </tr>
+        <tr>
+            <td>셀3</td><td>셀4</td>
+        </tr>
+    </table>
 </body>
 </html>

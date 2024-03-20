@@ -15,6 +15,9 @@
     
      http://localhost:8080/frontweb : 웹 서버 가동 시 기준점
      물리적 파일 경로: frontweb\src\main\webapp
+     ex) frontweb\src\main\webapp\Elvis.png 위치에 특정한 이미지 파일 위치시키면
+     
+     http://localhost:8080/frontweb/Elvis.png
 2. 웹 서버가 있는 OS의 경로로 설정
     브라우저 단위로 실행했을때 접근 할 수 있는 경로
     C:\\@@@\@@@ 로 처리하는 것
@@ -22,5 +25,24 @@
 	<h3>운영체제 절대경로명으로 접근(파일시스템에서 해당 HTML을 실행했을 때만 호출가능)</h3>
 	<img
 		src="C:\Users\human-22\git\aeyongddi\frontweb\src\main\webapp\a01_html\a01_chap01\apple.png" />
+	<!-- 
+3. 외부 이미지 파일 호출
+    # 링크 이미지
+    1) 인터넷상에 검색하여 이미지의 주소 복사
+    2) 복사된 주소를 src=""의 속성값 할당
+    3) 기타 이미지의 width/height 등의 속성 설정
+    4) 출력 확인
+    # 다운로드
+    1) 인터넷상에 검색하여 이미지 다운로드
+        파일명 변경 후 현재폴더에 복사
+    2) 복사된 주소를 src="변경된 파일명으로 속성값 할당"의 속성값 할당
+    3) 기타 이미지의 width/height 등의 속성 설정
+    4) 출력 확인
+ -->
+	<h2>외부 이미지 호출</h2>
+	<img width="400" height="500"
+		src="https://ak-d.tripcdn.com/images/1mi6e2215eko2e7eo20C1_W_640_0_R5_Q80.jpg?proc=source/trip" />
+	<h3>이미지 복사 출력</h3>
+	<img width="300" height="600" src="광화문.jpg" />
 </body>
 </html>

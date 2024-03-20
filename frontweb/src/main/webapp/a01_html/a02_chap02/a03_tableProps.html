@@ -18,13 +18,15 @@
     2) width/height: 테이블의 높이와 넓이를 지정
     절대적인 속성값을 @@pt, @@px 등으로 지정 가능
     상대적인 속성값은 화면전체대비 @@% 인지를 설정하여 처리 가능
-    3) border: 테이블의 굵기를 지정 가능
+    3) border: 테이블의 테두리 굵기를 지정 가능
         설정하지 않거나 border='0'으로 할 경우 셀 간의 구분선이 사라짐
     4) cellpadding: 테이블 내부의 글자와 셀 간의 간격
     5) cellspacing: 테이블의 border[셀 간의 간격] 조정
 4. 기타 추가 하위 태그
     col: table 바로 밑에 선언하여 열 간의 간격을 지정할 때 사용
-5. td, th의 속성 colspan="병합될 셀의 개수"
+5. td, th의 속성 
+    colspan="열단위 병합될 셀의 개수"
+    rowspan="행단위 병합될 셀의 개수
  -->
 	<table widht="100" height="100">
 		<tr>
@@ -67,31 +69,35 @@
 		</tr>
 	</table>
 	<table width="100" height="100" border>
-	   <col width="30%">
-	   <col height="70%">
-        <tr>
-            <td>컬럼1</td><td>컬럼2</td>
-        </tr>
-    </table>
-    <table width="100" height="100" border>
-       <col width="50%">
-       <col height="50%">
-        <tr>
-            <td rowspan="2">셀1</td><td>셀2</td>
-        </tr>
-        <tr>
-            <td>셀4</td>
-        </tr>
-    </table>
-    <table width="100" height="100" border>
-       <col width="50%">
-       <col height="50%">
-        <tr>
-            <td colspan="2">셀1</td>
-        </tr>
-        <tr>
-            <td>셀3</td><td>셀4</td>
-        </tr>
-    </table>
+		<col width="30%">
+		<col height="70%">
+		<!-- 컬럼의 크기를 조정 -->
+		<tr>
+			<td>컬럼1</td>
+			<td>컬럼2</td>
+		</tr>
+	</table>
+	<table width="100" height="100" border>
+		<col width="50%">
+		<col height="50%">
+		<tr>
+			<td rowspan="2">셀1</td>
+			<td>셀2</td>
+		</tr>
+		<tr>
+			<td>셀4</td>
+		</tr>
+	</table>
+	<table width="100" height="100" border>
+		<col width="50%">
+		<col height="50%">
+		<tr>
+			<td colspan="2">셀1</td>
+		</tr>
+		<tr>
+			<td>셀3</td>
+			<td>셀4</td>
+		</tr>
+	</table>
 </body>
 </html>

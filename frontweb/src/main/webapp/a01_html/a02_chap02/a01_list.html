@@ -10,9 +10,12 @@
 1. 화면에 리스트가 나타나서 여러가지 메뉴를 만들거나
     계층적인 표현을 할 때 주로 사용되는 태그
 2. 리스트의 종류
-    1) 순서가 있는 리스트(ordered list) 'OL'
+    1) 순서가 있는 리스트(ordered list) 'OL' 
+        하위 구성요소: li
     2) 순서가 없는 리스트(unordered list) 'UL'
+        하위 구성요소: li
     3) 정의 리스트(definition list) 'DL'
+        하위  구성요소: dt, dd
 3. 리스트에 포함되는 아이템
     li
     '열기'는 반드시 있어야 하나 닫는 태그는 생략 가능
@@ -78,23 +81,47 @@ dl을 통해서는 자기소개서로 이름, 취미, 경력, 교육 등 타이�
 	<!--
 # 속성
 1. type: 마커 종류
+    # ol의 속성
     1) default type="1" 1,2,3
     2) type="A" A, B ,C, D
     3) type="I" I, II, III
+    # ul의 속성
+    1) default type="disc"
+    2) type="disc|circle|square|none"
 2. start: 시작값 지정 가능
     start="5" 5부터 리스트 처리
     
 	  -->
+	<ul>
+		<li>항목1 <!-- li는 닫는 태그 생략 가능 -->
+		<li>항목2
+		<li>항목3
+	</ul>
+	<h2>circle</h2>
+	<ul type="square">
+		<li>사과
+		<li>바나나
+		<li>청포도
+	</ul>
+	<h2>none</h2>
+	<ul type="none">
+		<li>사과
+		<li>바나나
+		<li>청포도
+	</ul>
+	<h2>ABC</h2>
 	<ol type="A">
 		<li>사과</li>
 		<li>바나나</li>
 		<li>파인애플</li>
 	</ol>
+	<h2>로마 123</h2>
 	<ol type="I">
 		<li>사과</li>
 		<li>바나나</li>
 		<li>파인애플</li>
 	</ol>
+	<h2>789</h2>
 	<ol start="7">
 		<li>사과</li>
 		<li>바나나</li>

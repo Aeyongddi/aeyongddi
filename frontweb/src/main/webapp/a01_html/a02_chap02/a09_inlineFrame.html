@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 
+# 인라인 프레임
+1. 하나의 화면에 여러 개의 화면을 호출하여 다양한 형태로 화면 구성을 하거나
+    외부프로그램(Google map, 외부 API)를 사용할 때 활용
+2. 기본 형식
+    <iframe src="포함할페이지" width="넓이" height="높이"></iframe>
+3. 주요 속성
+    1) src: 포함할 내부페이지나 외부페이지 주소
+    2) name: 프레임의 이름
+    3) width/height: 넓이와 높이
+    4) srcdoc: 직접 HTML 태그로 작성한 텍스트로 출력된 내용
+ -->
+	<h2>1. 코드로 iframe</h2>
+	<iframe srcdoc="<h1>hello!</h1>" width="300" height="200"></iframe>
+	<h2>2. 내용 페이지 호출</h2>
+	<iframe src="a01_list.html" width="300" height="200"></iframe>
+	<h2>3. 외부 페이지 호출</h2>
+	<iframe src="https://www.google.com" width="300" height="200"></iframe>
+	<!-- 
+    ex) 1. 내부페이지로 a07_login.html 페이지 호출
+        2. 외부페이지로 gmarket 페이지 호출
+        한 화면에 2개의 페이지 호출
+        => a10_inlineDual.html
+     -->
+</body>
+</html>

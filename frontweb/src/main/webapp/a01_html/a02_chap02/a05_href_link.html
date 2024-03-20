@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+1. 하이퍼링크
+1. HTML에서 웹페이지에서 다른 페이지로 이동하거나 
+   동일한 페이지 내의 다른 섹션으로 이동할때, 다른 웹 사이트로 이동할 수 있는 링크
+하이퍼링크는 a 태그를 사용하여 생성, Amchor의 약자
+2. 주요속성
+    1) href: 하이퍼링크가 가리키는 대상의 URL 지정 <필수 속성>
+        절대/상대주소로 이동 가능
+    2) target: 링크가 어디서 열릴지 지정
+        새 탭: _blank
+    3) REL: 현재 문서와 링크된 문서 사이의 관계 명시
+        nofollow값 사용하여 검색 엔진에서 링크를 따라가지 않도록 지정
+    4) Title: 링크에 대한 추가 정보를 제공하는 툴팁 생성 <선택 속성>
+3. 기본 형식
+    a href="이동할 페이지" 속성="속성값"           
+ -->
+    <h2>동일한 페이지 내의 다른 영역으로 이동하기</h2>
+    
+    <a href="#section1">영역 1로 이동</a>
+    <h2>다른 페이지로 이동 처리(같은폴더기준)</h2>
+    <a href="a01_list.html">list 페이지로 이동</a>
+    
+    <h2>ex1</h2>
+    <a href="#spring">목차1(스프링 개요)로 이동하기</a>
+    
+    <h2>ex2</h2>
+    <a href="a06_menu.html">menu 페이지로 이동</a>
+    
+    <!-- href="#ID": 해당 Id명으로 선언된 곳으로 이동 -->
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <h2 id="section1">영역 1로 이동함</h2>
+    <h2 id="spring">스프링 개요로 이동함</h2>
+    <p>
+    스프링 spring
+    </p>
+    <!-- id="속성으로 지정" -->
+    <!-- 
+    ex1) 목차1(스프링 개요) 이동 => 클릭시 같은 페이지내의 스프링 개요 부분으로 이동 처리
+    ex2) a06_menu.html 메뉴페이지 이동시 해당 페이지로 이동하고 
+            해당 페이지에서 로그인 처리 클릭시 a07_login.html로 이동처리
+         a07_login.html: 로그인 화면 표시, 기본 메뉴로 이동시 a06_menu.html로 이동처리
+     -->
+    
+</body>
+</html>

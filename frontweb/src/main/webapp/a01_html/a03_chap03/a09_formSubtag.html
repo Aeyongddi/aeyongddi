@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 
+# form 하위의 여러가지 요소
+1. 텍스트 입력
+    1) input type="text"
+        한 줄짜리 입력창
+    2) input type="password"
+        암호입력창: 사용자 입력 문자 대신 '*' 등 다른 글자로 출력
+    3) textarea
+        여러 줄 입력창
+2. 기본 형식
+    input type="text|password"
+        name="요소 이름"
+        maxlength="문자 개수(최대입력가능한)"
+        size="문자 개수(보이는 문자개수)"
+        value="초기입력되는 텍스트"
+        placeholder: 실제 입력되는 값이 아니라 설명을 위한 출력
+ -->
+	기본입력:
+	<input type="text" />
+	<br> 최대 문자개수 지정:
+	<input type="text" maxlength="2" />
+	<br> 보이는 문자개수 지정:
+	<input type="text" size="2" />
+	<br> 초기 입력 데이터 지정:
+	<input type="text" value="hello!" />
+	<br> 설명내용:
+	<input type="text" placeholder="여기에 입력(클릭해서 입력)" />
+	<br>
+	<!-- 
+	위 속성값을 활용하여
+	구매할 물건정보(물건명, 가격, 개수)를 선언하여 입력할 form 구성하기
+	 -->
+	<h2>구매할 물건 정보</h2>
+	<form>
+	<!-- 
+	form에 포함된 경우 required 옵션으로 기본적으로 전송하기 전에 필수 옵션 확인 가능
+	minlength를 지정하면 최소 글자수까지 제한하여 처리가능
+	 -->
+		물건명: <input type="text" name="pname" placeholder="물건명 입력(10자 이하)"
+			size="20" maxlength="10" required /><br> 가격: <input type="text"
+			name="price" placeholder="가격 입력(10자 이하)" size="20" minlength="3" maxlength="10" required/><br>
+		개수: <input type="text" name="pcnt" placeholder="개수 입력(5자 이하)"
+			size="20" maxlength="5" required/><br> <input type="submit" value="구매하기" />
+	</form>
+</body>
+</html>

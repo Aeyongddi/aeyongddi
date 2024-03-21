@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 
+a08_show.jsp?fruitname=바나나&frucount=111
+요청할페이지?key=value&key=value
+
+구매할 과일명: [      ]
+[전송]
+=>
+a08_show.jsp에서
+구매한 과일:@@@ 출력
+ -->
+	<h2>구매할 과일</h2>
+	<form action="a08_show.jsp">
+		구매할 과일: <input name="fruitname" /><br> 구매 개수: <input
+			name="frucount" /><br> <input type="submit" value="구매" />
+
+	</form>
+	<!-- 
+	a08_show.jsp?fruitname=바나나&frucount=111
+    요청할페이지?key=value&key=value
+=> 받는 페이지에서는 ${param.key} 확인 
+	 -->
+</body>
+</html>

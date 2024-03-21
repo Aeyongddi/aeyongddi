@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>formBasic</title>
+</head>
+<body>
+	<!-- 
+# 웹폼
+1. 웹 페이지에서 사용자 입력을 받는 폼
+2. 로그인, 등록, 검색 등에서 주로 사용
+# 폼 요소
+1. 폼을 만드는 다양한 태그
+2. input, textarea, select
+ -->
+	<h2>로그인 폼</h2>
+	<hr>
+	<form name="fo" method="get" action="a05_receive.jsp">
+		사용할 아이디: <input type="text" name="id" size="15" value=""><br>
+		비밀번호: <input type="password" name="pwd" size="15" value=""><br>
+		<input type="submit" value="완료">
+	</form>
+	<!--
+	위 화면에서 type="submit"을 눌렀을 때 아래와 같은 주소 생성 
+	a05_receive.jsp?id=hello&pwd=hello123
+	form의 속성과 form 하위 태그에 의해서 영향
+	form 속성 action
+	하위 태그 name="id", name="pwd"
+    화면에 입력한 값
+    데이터 요청시 server에 있는 jsp 코드는 위 내용을 
+    java로 해석해서 출력(Jsp)
+    ${param.@@}
+    ${param.@@}
+    
+    param.id: id=hello => hello
+    param:pwd: pwd=hello123 => hello123
+	 -->
+	<h2>요청값 전달 연습</h2>
+	<form action="a06_rev.jsp">
+		등록할 사원명: <input name="empname" /><br> <input type="submit" />
+	</form>
+	<!-- 
+	 a06_rev.jsp?empname=홍길동
+	 submit 클릭시 주소창 생성
+	 
+	 a06_rev.jsp 파일에서는
+	 ${param.empname}로 데이터 받음
+	  -->
+</body>
+</html>

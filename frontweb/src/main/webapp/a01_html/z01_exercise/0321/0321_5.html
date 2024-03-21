@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>설문조사 양식</title>
+<!-- 
+새로운 제품에 대한 고객의 선호도를 조사하는 설문조사 양식을 만드세요. 
+설문조사는 사용자의 연령대(20대, 30대, 40대 선택), 선호하는 제품 색상(단일 선택), 
+그리고 제품에 대한 추가 의견을 수집해야 합니다. 연령대와 선호하는 제품 색상은 라디오 버튼을 사용하여 선택하게 하고, 
+추가 의견은 다중행 텍스트 입력을 사용하여 수집하세요.
+ -->
+</head>
+<body>
+<H1>신제품 고객 선호도 설문조사</H1>
+<form>
+<h2>연령대선택하기</h2>
+ 20대:<input type="radio" name="age" value="20대"/><br>
+ 30대:<input type="radio" name="age" value="30대"/><br>
+ 40대:<input type="radio" name="age" value="40대"/><br>
+ <h2>선호하는 색상 고르기</h2>
+ 빨강:<input type="radio" name="color" value="빨강"/><br>
+ 노랑:<input type="radio" name="color" value="노랑"/><br>
+ 파랑:<input type="radio" name="color" value="파랑"/><br>
+ <h2>추가 의견</h2>
+ <textarea cols="30" rows="20" name="feedback"></textarea>
+<input type="submit" value="제출하기"/>
+</form>
+</body>
+</html>

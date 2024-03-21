@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>음식 주문 폼</title>
+<!-- 
+음식 주문 폼을 만드세요. 사용자는 피자, 파스타, 샐러드 중에서 하나 이상 선택할 수 있어야 합니다. 
+각 선택지는 체크박스를 사용하여 표현하세요. 또한, 사용자가 선호하는 음료를 텍스트 입력과 datalist를 사용하여 선택할 수 있도록 하세요. 
+음료 선택지로는 "콜라", "사이다", "물"이 있습니다.
+ -->
+</head>
+<body>
+<h1> 음식 주문 하기 </h1>
+<form>
+<h3>양식</h3>
+피자: <input type="checkbox" name="Foods" value="피자"><br>
+파스타: <input type="checkbox" name="Foods" value="파스타"><br>
+샐러드: <input type="checkbox" name="Foods" value="샐러드"><br>
+<hr>
+<h3>선호하는 음료</h3>
+가장 좋아하는 음료: <input type="text" name="drink" list="favdrink"><br>
+        <datalist id="favdrink">
+            <option value="콜라">
+            <option value="사이다">
+            <option value="탄산수">
+            <option value="물">
+        </datalist>
+        <br> <input type="submit" value="제출하기" />
+</form>
+</body>
+</html>

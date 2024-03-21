@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사용자 피드백 양식</title>
+<!-- 
+웹사이트 방문자로부터 피드백을 수집하는 다중행 입력 양식을 만드세요. 이 양식은 사용자의 이름, 이메일 주소, 
+그리고 피드백 메시지를 포함해야 합니다. 이름과 이메일은 단일 행 입력 필드를 사용하고, 피드백 메시지는 다중행 입력 필드를 사용하세요. 
+모든 필드는 필수로 입력해야 합니다.
+ -->
+</head>
+<body>
+<h1>피드백 입력</h1>
+<form action="0321_2_1.jsp">
+이름: <input type="text" name="name" placeholder="이름입력하기" size="20" required/><br>
+이메일: <input type="text" name="mail" placeholder="이메일입력하기" size="25" required/><br>
+피드백: <br> <textarea cols="30" rows="20" name="feedback" required></textarea>
+<input type="submit" value="제출하기"/>
+</form>
+</body>
+</html>

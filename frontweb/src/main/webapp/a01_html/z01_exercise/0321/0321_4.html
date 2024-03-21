@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 양식</title>
+<!-- 
+사용자로부터 회원 가입을 위한 정보를 수집하는 폼을 만드세요. 필요한 정보는 사용자의 이름, 이메일 주소, 
+비밀번호, 성별(남성, 여성 선택), 그리고 국가입니다. 국가 선택은 텍스트 입력과 datalist를 사용하여 제공되는 목록 중에서 
+선택하거나 직접 입력할 수 있도록 하세요. 국가 선택지로는 "한국", "미국", "일본"이 있습니다. 모든 필드는 필수로 입력해야 합니다.
+ -->
+</head>
+<body>
+<form>
+이름: <input type="text" name="name" placeholder="이름 입력" size="15" value="" required/><br>
+이메일 주소: <input type="text" name="email" Placeholder="이메일 입력" size="30" value="" required/><br>
+성별: <input type="text" name="gender" size="10" list="gender" required/><br>
+<datalist id="gender">
+<option value="남">
+<option value="여">
+</datalist>
+비밀번호: <input type="password" name="pwd" Placeholder="비밀번호 입력" size="15" value="" required/><br>
+<hr>
+국가선택하기: <input type="text" name="country" list="country" required/>
+<datalist id="country">
+            <option value="한국">
+            <option value="미국">
+            <option value="일본">
+            <option value="기타"> 
+       </datalist>
+        <br> <input type="submit" value="제출하기"/>
+</form>       
+</body>
+</html>

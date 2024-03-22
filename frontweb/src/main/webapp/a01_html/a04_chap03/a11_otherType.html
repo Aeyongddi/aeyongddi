@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+# 형식을 가진 텍스트 입력
+1. form은 여러가지 형식을 가진 텍스트 입력이 가능
+2. 이러한 type형식은 required 속성을 설정시 submit에서
+	기본적 유효성을 check해서 서버에 전송할 수 있도록 처리
+3. 기본형식
+	<input type="email|url|search.."
+ -->
+ <h2>회원 정보 입력</h2>
+ <hr>
+ <form>
+ 	email: <input type="email" placeholder="id@host" required><br>
+ 	홈페이지: <input type="url" placeholder="http://"><br>
+ 	전화번호: <input type="tel" placeholder="010-0000-0000"><br>
+ 	<input type="submit" value="확인"><br>
+ 	<hr>
+ 	검색어: <input type="search" placeholder="검색어">
+ 	<input type="button" value="검색">
+ </form>
+</body>
+</html>

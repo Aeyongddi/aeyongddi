@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>예약 시스템 폼 만들기</title>
+<!-- 
+호텔 방을 예약하는 폼을 만드세요. 여기서 방의 타입(싱글, 더블, 스위트)을 
+드롭다운 리스트로 선택하고, 체크인 날짜와 체크아웃 날짜는 날짜 선택기를 사용하세요. 
+또한, 특별 요청 사항을 작성할 수 있는 텍스트 에리아를 포함하고, 예약을 완료하기 전에
+ 사용자가 약관에 동의한다는 것을 확인할 수 있는 체크박스를 추가하세요.
+ -->
+</head>
+<body>
+<h2>예약하기</h2>
+<form>
+방의 타입
+<select name="room">
+<option value="single">싱글</option>
+<option value="double">더블</option>
+<option value="suite">스위트</option>
+</select> <br>
+체크인 <input type="date" name="In"><br>
+체크아웃 <input type="date" name="Out"><br>
+특별 요청 사항 입력하기 <br><textarea cols="30" rows="10" name="content"></textarea>
+<br>본인은 이 약관에 동의합니다. <input type="checkbox" name="raw">
+<br> <input type="submit" value="예약하기"/>
+</form>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- 
+# label로 폼 요소의 캡션 만들기
+1. label 요소의 캡션은 사용자 인터페이스의 일부로
+폼 컨트롤(예: 입력 필드, 라디오 버튼, 체크박스 등)에 대한 설명이나 이름을 제공하는 텍스트
+label 요소는 폼 컨트롤과 연결되어 해당 텍스트를 클릭함으로써 관련된 폼 컨트롤을 선택하거나 활성화
+라디오 버튼이나 체크박스 같은 작은 타켓 영역을 가진 컨트롤의 접근성과 사용성 향상
+2. label 요소를 폼 컨트롤에 연결하는 방법
+    1) for 속성사용: label의 for속성을 이용해 해당 label이 설명하는 폼 컨트롤의 id를 지정
+        label과 폼 컨트롤이 서로 다른 html 요소로 분리되어있을때 사용
+        
+        <label for="username"> 사용자 이름:</label>
+        <input type="text" id="username" name="username">
+        
+        label의 for속성값은 input의 id속성 값과 일치해야함
+        사용자가 사용자이름 텍스트를 클릭하면 연결된 input 필드가 활성화
+    2) 포함관계 사용: label 요소 내부에 폼 컨트롤을 직접 배치함으로써 자동으로 연결
+        label과 폼 컨트롤이 함께 그룹화되어 있을 때 사용
+        <label>
+            이메일 주소: <input type="email" name="email">
+        </label>
+            이 경우 이메일 주소 텍스트 클릭 시 input필드 활성화
+            
+    label 요소의 사용은 웹 접근성을 향상시키는 중요한 방법 중 하나로
+    스크린 리더와 같은 보조 기술을 사용하는 사람들이 웹 컨트롤을 더 쉽게 이해하고
+    사용할 수 있게 해줌
+ -->
+	<label for="username">사용자 이름:</label>
+	<input type="text" id="username" name="username">
+	<br>
+	<label> 이메일 주소: <input type="email" name="email"><br>
+	</label>
+	<!-- 
+    # 선택형 요소의 캡션을 label로 감싸기
+    1. 선택형 요소에 label 태그 사용
+        1) 캡션 텍스트나 이미지를 선택해도 폼 요소를 선택한 것을 처리
+     -->
+	<label>짜장면<input type="radio" name="china" value="짜장면" /></label>
+	<br>
+	<label for="china">짜장면</label>
+	<input type="radio" name="china" id="china" value="짜장면" />
+	<br>
+	<label> <input type="radio" name="china" value="짜장면" /> 짜장면<br>
+		<img src="media/jajang.png">
+	</label>
+	<!-- 
+	ex) 짜장면 짬뽕 탕수육 이미지를 이용하여 캡션으로 클릭시 단일음식 선택되게 하기
+	 -->
+	<form>
+		<br> <label><input type="radio" name="china" value="짜장면" />
+			짜장면 <br> <img src="media/jajang.png"></label> <br> <label><input
+			type="radio" name="china" value="짬뽕" /> 짬뽕 <br> <img
+			src="media/jjambbong.png"></label> <br> <label><input
+			type="radio" name="china" value="탕수육" /> 탕수육 <br> <img
+			src="media/tangsuyuk.png"></label> <input type="submit" />
+	</form>
+</body>
+</html>

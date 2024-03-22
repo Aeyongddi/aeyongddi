@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!-- 
+# 선택형 입력: 콤보 박스
+1. 콤보 박스 형태인 select 태그는 드롭다운 리스트 형식으로 목록 중 하나를 선택할 때 주로 사용
+2. 기본 형식
+    <select name="요소 이름" size="화면에 보일 개수(default 1개)"
+            multiple(다중선택가능)>
+        <option value="값" selected>레이블</option>
+        <option value="값">레이블</option>
+        <option value="값">레이블</option>
+    </select>
+3. 속성 의미
+    name: 요청값을 식별할 때 사용
+    size: 리스트 내용을 화면에 2개이상 보이게 할 때 사용 (보통 1개)
+    multiple: ctrl 키를 누른 후에 다중으로 선택할 때 사용하는 옵션
+    서버에 요청되는 데이터도 다중의 배열로 전송
+    selected: 초기에 선택되는 option
+    value: 화면에 보이는 레이블과 실제 전송되는 value값이 다를 때 사용하는 옵션
+        일반적으로 이 속성이 없으면 화면에 보이는 label이 요청값으로 전송
+        ex) 부서정보
+            <select name="dept">
+                <option value="10">인사</option>
+                <option value="20">재무</option>
+                <option value="30">기획</option>
+                서버에 요청값을 넘길 데이터 부서코드, 
+                화면에 보이는 선택 사항은 부서명을 처리할 때 사용
+            <select name="dept">
+                <option>인사</option>
+                <option>재무</option>
+                <option>기획</option>
+ -->
+    <h3>국적 선택</h3>
+   <form>
+    <select name="country">
+        <option value="us">미국</option>
+        <option value="ca">캐나다</option>
+        <option value="ko" selected>한국</option>
+        <option value="uk">영국</option>
+    </select><br>
+    <h3> 좋아하는 동물 선택</h3>
+    <select name="animals" size="2" multiple>
+        <option>고양이</option>
+        <option>사자</option>
+        <option>치타</option>
+        <option>호랑이</option>
+    </select><br>
+    <input type="submit" value="선택"/>
+    </form>
+    <!-- 
+    country=ko&animals=고양이&animals=사자
+    위와 같이 요청값을 처리했을 때 server에서 value값이 넘어가고
+    multiple시에는 다중의 값이 넘어감
+    ex) 사용자가 좋아하는 음식 카테고리를 여러 개 선택할 수 있게 하는 드롭다운 메뉴
+    사용자가 영화 장르 선택 가능한 드롭다운 메뉴, size 속성으로 한번에 보이는 옵션의 수 조정하기
+     --> 
+    <hr>
+    <form>
+    <h3>좋아하는 음식 카테고리 선택</h3>
+    <select name="foods" size="4" multiple>
+        <option>한식</option>
+        <option>양식</option>
+        <option>중식</option>
+        <option>일식</option>
+    </select><br>
+    <hr>
+    <h3>좋아하는 영화 장르 선택</h3>
+    <select name="movie" size="1">
+        <option>액션</option>
+        <option>공포/스릴러</option>
+        <option>드라마</option>
+        <option>멜로</option>
+    </select><br>
+    <input type="submit" value="선택하기">
+    
+    </form>
+</body>
+</html>

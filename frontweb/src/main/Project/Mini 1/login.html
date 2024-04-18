@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>생활공작소 홈페이지</title>
+<style type="text/css">
+.login-form {
+	width: 410px;
+	margin: 100px auto;
+	padding: 20px;
+	border: none;
+	border-radius: 5px;
+}
+.form-control {
+	width: 100%;
+	height: 50px;
+	padding: 10px;
+	margin-top: 5px;
+	border: #2e2e2e;
+	border-radius: none;
+	box-sizing: border-box; 
+	background:transparent;
+	color:#2e2e2e;
+}
+.login-btn {
+width: 45% ;
+height: 62px;
+margin: 30%;
+	text-align:center;
+	padding: 10px;
+	margin-top: 15px;
+	background: #231816;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+}
+.security{
+margin-left:30%;
+padding: 0;
+border: 0;
+background: transparent;
+text-decoration: none;
+display:flex;
+align-items: center;
+}
+ul{list-style: none;
+display:flex;
+font-size:1.0em;}
+.login-find {
+    margin-left: 2%; 
+    list-style: none;
+    display: flex;
+    font-size: 1.0em;
+}
+.login-find li {
+    margin-right: 10px; 
+}
+a:visited {color:black; text-decoration:none;}
+a:link {color: black; text-decoration:none;} 
+</style>
+</head>
+<body>
+	<div class="login-form">
+		<h1 align="center">로그인</h1><br>
+		<h2>
+			환영합니다.<br>
+			<strong>로그인</strong>을 해주세요
+		</h2>
+		<br>
+		<!-- 로그인 영역 -->
+			<input class="form-control" type="text" id="username" name="username"
+				placeholder="아이디" required><br>
+			<input class="form-control" type="password" id="password"
+				name="password" placeholder="비밀번호" required><br>
+	</div>	
+	<div class="security">
+    <input type="checkbox" id="rememb_id" name="check_save_id">
+    <label for="remem_id">아이디 저장</label>
+    &nbsp;
+    <img src="//img.echosting.cafe24.com/design/skin/default/member/ico_access.gif" alt="보안접속"> 보안접속
+    <ul class="login-find">
+        <li> <a href="#find_id">&nbsp;아이디 찾기&nbsp;</a>| </li>
+        <li> <a href="#find_id">&nbsp;비밀번호 찾기&nbsp;</a> | </li>
+        <li> <a href="#회원가입">&nbsp;회원가입</a></li>
+    </ul>
+</div>
+	<button class="login-btn" type="submit">로그인</button>
+</body>
+</html>

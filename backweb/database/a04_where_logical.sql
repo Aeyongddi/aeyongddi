@@ -29,6 +29,12 @@ FROM EMP;
 SELECT ename 사원명, sal 급여, nvl(comm,0) 보너스 , sal + nvl(comm,0) 합산
 FROM emp
 WHERE sal + nvl(comm,0) >= 2500;
+-- nvl (컬럼,0) : 컬럼에 null일때
+-- sal + comm : 둘 중에 하나라도 null값을 연산을 하지 못한다
+-- null일 때 default로 0으로 처리하려면 반드시 nvl()함수를 통하여 처리
+-- select sal + nvl(comm, 0) => null 일 경우 0으로 처리
+-- where 조건문에서는 0인 경우와 null일 경우 0으로 처리
+-- where nvl(comm,0)>0으로 처리하여야 한다.
 
 -- 급여에 300을 더한 값이 1000보다 크고, 커미션이 0보다 큰 직원
 SELECT sal+300, 1000, comm, 0

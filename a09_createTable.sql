@@ -1,0 +1,38 @@
+/*
+# 기본 테이블 만들기
+1. 테이블의 구성요소
+	1) 테이블 명
+	2) 컬럼: 테이블유형 컬럼명
+2. 컬럼의 유효
+	1) 숫자형 NUMBER
+	2) 문자열형
+		varchar2(byte) 가변형
+		varchar(byte) 고정형
+	3) 날짜형
+		DATE
+3. 테이블 생성 기본형식
+	CREATE TABLE 테이블명(
+		컬럼명1 데이터유형,
+		컬럼명2 데이터유형,
+		컬럼명3 데이터유형,
+		..
+	);
+*/
+CREATE TABLE person(
+	name varchar2(50),
+	age NUMBER,
+	loc varchar2(100)
+);
+SELECT * FROM PERSON;
+INSERT INTO person values('홍길동', 25, '경기 수원');
+-- insert into 테이블 values('문자열', 숫자, '문자열');
+-- ex) product 물건명 가격 개수 테이블 생성, 데이터 입력, 확인 처리
+CREATE TABLE product(
+	prodname varchar2(50),
+	price NUMBER,
+	count NUMBER
+);
+SELECT * FROM PRODUCT;
+INSERT INTO PRODUCT values('사과', 3000, 5);
+INSERT INTO PRODUCT values('바나나', 5000, 2);
+INSERT INTO PRODUCT values('딸기', 10000, 5);

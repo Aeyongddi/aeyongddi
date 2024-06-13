@@ -13,6 +13,6 @@ public class A02_Controller {
 	}
 
 }
-// A02_Controller.java
-// http://localhost:7080/springweb/second.do
-// webapp 하위에 a02_second.jsp 호출
+// A03_Controller.java
+// http://localhost:7080/springweb/third.do
+// webapp 하위에 a02_third.jsp 호출

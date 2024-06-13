@@ -31,16 +31,25 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd   
       ">
-      <context:annotation-config/>
-	<bean class="springweb.a01_start.A01_Controller"/>
-	<bean class="springweb.a01_start.A02_Controller"/>
-	<bean class="springweb.a01_start.A03_Controller"/>
-	<bean class="springweb.a02_mvc.A01_EmpController"/>
-	<bean class="springweb.a02_mvc.A04_EmpDao"/>
-	<bean class="springweb.a02_mvc.A02_EmpService"/>
-	<!-- 
-	//springweb.a02_mvc.A01_EmpController
-	//springweb.a02_mvc.A04_EmpDao
-	//springweb.a02_mvc.A02_EmpService
-	 -->
+     <bean id = "obj" class="java.lang.Object"/>
+     <!-- 
+     Person p01 = new Person();
+     p01.setName("홍길동");
+     p01.setAge(25);
+     p01.setLoc("서울");
+      -->
+      <bean id="p01" class="a01_diexp.z01_vo.Person">
+      <constructor-arg value="마길동"/>
+      <constructor-arg value="25"/>
+      <constructor-arg value="부산"/>
+	
+      </bean>
+      <bean id="m01" class="a01_diexp.z01_vo.Music">
+      <constructor-arg value="노래이름"/>
+      <constructor-arg value="노래부른사람"/>
+      <constructor-arg value="2024"/>
+      </bean>
+      <!--z01_vo 안에 Product 클래스 선언 물건명 가격 개수
+      객체 생성 외부에서 호출 처리  -->
+      
 </beans>

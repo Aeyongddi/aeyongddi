@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xmlns:sec="http://www.springframework.org/schema/security"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/task
+       http://www.springframework.org/schema/task/spring-task.xsd       
+        http://www.springframework.org/schema/aop
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/mvc
+      http://www.springframework.org/schema/mvc/spring-mvc.xsd     
+        http://www.springframework.org/schema/util
+       http://www.springframework.org/schema/util/spring-util.xsd
+         http://www.springframework.org/schema/websocket
+      http://www.springframework.org/schema/websocket/spring-websocket.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd   
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd   
+      ">
+      <context:component-scan base-package="a01_diexp.z05_vo"/>
+      <bean id="cpu01" class="a01_diexp.z05_vo.Cpu">
+      	<constructor-arg value="AMD"/>
+      	<constructor-arg value="3.5GHZ 12core"/>
+      </bean>
+      <bean id="cpu02" class="a01_diexp.z05_vo.Cpu">
+      	<constructor-arg value="INTEL"/>
+      	<constructor-arg value="I9 4.2GHZ 15core"/>
+      </bean>
+      <!-- ex) HandPhone 추가 선언해서 Qualifier 선언으로 특정 객체 autowiring 처리 -->
+      <bean id="hp01" class="a01_diexp.z05_vo.HandPhone" >
+      	<constructor-arg value="010-1111-2345"/>
+      	<constructor-arg value="삼성"/>
+      </bean>
+      <bean id="hp02" class="a01_diexp.z05_vo.HandPhone" >
+      	<constructor-arg value="010-6666-7777"/>
+      	<constructor-arg value="애플"/>
+      </bean>
+</beans>

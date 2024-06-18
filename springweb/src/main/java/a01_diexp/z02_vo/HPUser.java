@@ -1,5 +1,9 @@
-package a01_diexp.z01_vo;
+package a01_diexp.z02_vo;
 // a01_diexp.z01_vo.HPUser
+
+import org.springframework.stereotype.Component;
+
+@Component
 public class HPUser {
 	
 	private String name;

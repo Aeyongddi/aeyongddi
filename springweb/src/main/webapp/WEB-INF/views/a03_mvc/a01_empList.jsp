@@ -72,12 +72,17 @@
     </thead>	
     <tbody>
     	<c:forEach var="emp" items="${empList }">
-    	<tr><td>${emp.empno }</td><td>${emp.ename }</td><td>${emp.job }</td>
+    	<tr ondblclick = "detail(${emp.empno })"><td>${emp.empno }</td><td>${emp.ename }</td><td>${emp.job }</td>
     	<td>${emp.sal }</td><td>${emp.deptno }</td>
     	</tr>
     	</c:forEach>
     </tbody>
-	</table>    
+	</table> 
+	<script type="text/javascript">
+		function detail(empno){
+			location.href="emp.do?empno="+empno
+		}
+	</script>  
     
 </div>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

@@ -67,11 +67,15 @@
 			
 		})
 	});
-	var result = "${result}"
-	if(result!=""){
-		alert(result)  // 등록 성공 alert()로딩 : 모델 데이터를 받아서..
-	}
-	
+		var msg = "${msg}"
+		var proc = "${proc}"
+		if(msg!=""){	// 공백이 아닐 때 처리
+			alert(msg)
+			if(proc=="수정"){
+				alert("조회화면이동");
+				location.href="empList100.do"	
+			}
+		}
 	
 </script>
 </head>
@@ -112,7 +116,7 @@
 			<span class="input-group-text  justify-content-center">입사일</span>
 		</div>
 		<input type="date" name="hiredateStr" class="form-control" 
-		value='<fmt:formatDate value="${emp.hiredate }" pattern="yyyy-mm-dd"/>'/>	
+		value='<fmt:formatDate value="${emp.hiredate }" pattern="yyyy-MM-dd"/>'/>	
 		
 			</div>	
 	<div class="input-group mb-3">	

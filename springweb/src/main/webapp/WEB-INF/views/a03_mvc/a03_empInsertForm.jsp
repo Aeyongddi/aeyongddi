@@ -42,6 +42,16 @@
 				return false;
 			}
 		})
+		$("form").on(
+			{"submit":function(){
+					// 유효성 check 처리..(공백/데이터 형식 등..) 아래와 같이 check 되었을 때, submit되게 처리..
+					if($("#empCk").val()=="N"){
+						alert("사원번호 유효성을 check하여야 합니다.")
+						return false;
+					}
+				}
+			
+		})
 		
 		
 		// // empnoDupck.do  ckDupEmp
@@ -57,10 +67,12 @@
 							$("[name=empno]").val("").focus()
 						}else{
 							alert("해당번호로 등록가능합니다")
+							$("#empCk").val("Y"); // 사원번호 readonly로 처리..
+							$("[name=empno]").prop("readonly",true); // 사원번호 readonly로 처리..
 						}				
 					},
 					error:function(err){
-						console.log(err)
+						consol.log(err)
 					}
 				})
 			}
@@ -88,6 +100,7 @@
 			<span class="input-group-text  justify-content-center">사원번호</span>
 		</div>
 		<input type="number" name="empno" class="form-control" value="" />	
+		<input type="hidden" id="empCk" value="N"/>
 	</div>	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
@@ -133,10 +146,15 @@
 	</div>						
 	<div style="text-align:right;">
 			<input type="button" class="btn btn-success" value="등록" id="regBtn"/>
+			<input type="button" class="btn btn-secondary" value="입력초기화" id="initBtn" />
 			<input type="button" class="btn btn-primary" value="메인화면으로" id="mainBtn"/>
 	</div>	
 	</form>	
 	<script type="text/javascript">
+
+		$("#initBtn").click(function(){
+			 location.reload();
+		})	
 		$("#regBtn").click(function(){
 			if(confirm("등록하시겠습니까?")){
 				$("form").submit()

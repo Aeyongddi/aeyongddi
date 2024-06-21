@@ -73,7 +73,12 @@
     	</tr>
     	</c:forEach>
     </tbody>
-	</table>    
+	</table>
+	<script type="text/javascript">
+	function detail(deptno){
+		location.href="dept.do?deptno="+deptno
+	}
+	</script>    
     
 </div>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

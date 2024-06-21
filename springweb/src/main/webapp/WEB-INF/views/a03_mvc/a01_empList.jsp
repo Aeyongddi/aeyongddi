@@ -30,7 +30,16 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-	
+	$("#regBtn").click(function(){
+		location.href="empInsertForm100.do"
+	})
+	/* 
+	<button id="regBtn" class="btn btn-success" type="button"> 등록 </button>
+	$("#regBtn").이벤트명(function(){
+		//해당 이벤트가 일어날 때 처리할 내용
+		location.href="이동할 페이지(컨트롤러 호출)"
+	})
+	*/
 	});
 </script>
 </head>

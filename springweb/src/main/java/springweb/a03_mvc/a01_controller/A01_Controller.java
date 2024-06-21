@@ -36,6 +36,9 @@ public class A01_Controller {
 	public String empInsertForm100() {
 		return "WEB-INF\\views\\a03_mvc\\a03_empInsertForm.jsp";
 	}
+	
+	// <form action="empInsert100.do"
+	
 	// http://localhost:7080/springweb/empInsert100.do
 	@RequestMapping("empInsert100.do")
 	public String empInsert100(Emp ins, Model d) {
@@ -48,7 +51,20 @@ public class A01_Controller {
 		return "jsonView";
 	}
 	
-	
+	// http://localhost:7080/springweb/empUpdate100.do
+	@RequestMapping("empUpdate100.do")
+	public String empUpdate(Emp upt, Model d) {
+		d.addAttribute("msg", service.updateEmp(upt));
+		d.addAttribute("emp", service.getEmp(upt.getEmpno())); // 수정후 수정된 내용 확인
+		return "WEB-INF\\views\\a03_mvc\\a05_empDetail.jsp";
+	}
+	// http://localhost:7080/springweb/empDelete100.do
+	@RequestMapping("empDelete100.do")
+	public String empDelete(@RequestParam("empno") int empno, Model d) {
+		d.addAttribute("msg", service.deleteEmp(empno));
+		d.addAttribute("proc","삭제");
+		return "WEB-INF\\views\\a03_mvc\\a05_empDetail.jsp";
+	}
 	// http://localhost:7080/springweb/deptList101.do
 	@RequestMapping("deptList101.do")
 	public String deptList101(Dept sch, Model d) {
@@ -56,19 +72,44 @@ public class A01_Controller {
 		d.addAttribute("deptList", service.getDeptList(sch));
 		return "WEB-INF\\views\\a03_mvc\\a02_deptList.jsp";
 	}	
+	// url 호출 시, url이름, get/post 구분, 요청값 
 	// Get/Post방식이 다르면 같은 url이라도 호출이 가능 하다.
+	// url로 호출 방식 => get, <form method="post"> => post
 	// http://localhost:7080/springweb/deptInsert102.do
 	@GetMapping("deptInsert102.do")
 	public String deptInsertFrm() {
-		return "WEB-INF\\views\\a03_mvc\\a04_deptInsert.jsp";
+		return "WEB-INF\\views\\a03_mvc\\a04_deptInsertForm.jsp";
 	}
 	@PostMapping("deptInsert102.do")
 	public String deptInsert(Dept ins, Model d) {
 		d.addAttribute("result", service.insertDept(ins));
-		return "WEB-INF\\views\\a03_mvc\\a04_deptInsert.jsp";
+		return "WEB-INF\\views\\a03_mvc\\a04_deptInsertForm.jsp";
 	}	
-	
-	
-	
+	// <form method="post"> : form에 동일한 action으로 jsp 호출되었기 때문에 선언하지 않아도 가능
+	// http://localhost:7080/springweb/dept.do?deptno=11
+	@RequestMapping("dept.do")
+	public String dept(@RequestParam("deptno") int deptno, Model d) {
+		d.addAttribute("dept", service.getDept(deptno));
+		return "WEB-INF\\views\\a03_mvc\\a06_deptDeatil.jsp";
+	}
+	// http://localhost:7080/springweb/updateDept102.do
+		@RequestMapping("updateDept102.do")
+		public String updateDept(Dept upt, Model d) {
+			d.addAttribute("msg", service.updateDept(upt));	// 수정 메시지 처리
+			d.addAttribute("dept", service.getDept(upt.getDeptno())); // 수정후 수정된 내용 확인
+			return "WEB-INF\\views\\a03_mvc\\a06_deptDetail.jsp";
+		}
+		// http://localhost:7080/springweb/deptDelete102.do
+		@RequestMapping("deptDelete102.do")
+		public String deleteDept(@RequestParam("deptno") int deptno, Model d) {
+			d.addAttribute("msg", service.deleteDept(deptno));
+			d.addAttribute("proc","삭제");
+			return "WEB-INF\\views\\a03_mvc\\a06_deptDetail.jsp";
+		}
 	
 }
+	
+	
+	
+	
+

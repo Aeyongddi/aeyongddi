@@ -2,7 +2,6 @@ package springweb.a03_mvc.a02_service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,4 +51,22 @@ public class A01_Service {
 	public String insertDept(Dept ins) {
 		return dao.insertDept(ins)>0?"등록성공":"등록실패"; 
 	}
+	public Dept getDept(int deptno) {
+		return dao.getDept(deptno);
+	}
+	public String updateEmp(Emp upt) {
+		return dao.updateEmp(upt)>0?"등록성공":"등록실패";
+	}
+	public String deleteEmp(int empno) {
+		return dao.deleteEmp(empno)>0?"삭제성공":"삭제실패";
+	}
+	
+	public String updateDept(Dept upt) {
+		return dao.updateDept(upt)>0?"수정성공":"수정실패";
+	}
+	
+	public String deleteDept(int deptno) {
+		return dao.deleteDept(deptno)>0?"삭제성공":"삭제실패";
+	}
 }
+	

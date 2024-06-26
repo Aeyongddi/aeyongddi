@@ -10,14 +10,13 @@ import h.vo.Customer;
 
 @Controller
 public class CusCt {
-	@Autowired(required=false)
-	private CusService service;
-	
-	// http://localhost:7080/h/customerList.do
-	@RequestMapping("customerList.do")
-	public String cusList(Customer sch, Model d) {
-		d.addAttribute("cusList", service.getCusList(sch));
-		return "customer.jsp";
-	}
-	
+    @Autowired(required=false)
+    private CusService service;
+    
+    // http://localhost:7080/h/customerList.do
+    @RequestMapping("customerList.do")
+    public String cusList(Customer sch, Model d) {
+        d.addAttribute("cusList", service.getCusList(sch));
+        return "customer";
+    }
 }

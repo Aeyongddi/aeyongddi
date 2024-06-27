@@ -62,7 +62,8 @@
 	
 	 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="springweb.a03_mvc.a03_dao,springweb.a04_mvc.a03_dao" />
+		<property name="basePackage" value="springweb.a03_mvc.a03_dao,springweb.a04_mvc.a03_dao,
+		springweb.h.dao" />
 	</bean> 
 	
 	<!-- 파일업로드 뷰 등록 -->
@@ -81,8 +82,6 @@
     </bean> 
     <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
        <property name="order" value="1"></property>
-       <property name="prefix" value="WEB-INF/views/"/>
-       <property name="suffix" value=".jsp"/>
        <!-- 뷰단 호출 시 접두어와 접미어를 뺀 파일명만 삽입으로 호출 가능하게 처리.. -->
        
     </bean>

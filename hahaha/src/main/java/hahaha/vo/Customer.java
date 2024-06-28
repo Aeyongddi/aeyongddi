@@ -1,4 +1,4 @@
-package h.vo;
+package hahaha.vo;
 
 public class Customer {
 	private String customer_id;

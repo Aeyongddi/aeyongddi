@@ -30,7 +30,7 @@
        http://www.springframework.org/schema/tx
        http://www.springframework.org/schema/tx/spring-tx.xsd   
       ">
-	<context:component-scan base-package="h">
+	<context:component-scan base-package="hahaha">
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
 		<context:include-filter type="annotation" expression="org.springframework.stereotype.Repository"/>
@@ -62,7 +62,7 @@
 	
 	 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-		<property name="basePackage" value="h.h.dao" />
+		<property name="basePackage" value="hahaha.dao" />
 	</bean> 
 	
 	<!-- 파일업로드 뷰 등록 -->

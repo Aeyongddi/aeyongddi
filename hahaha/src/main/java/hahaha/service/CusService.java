@@ -1,12 +1,12 @@
-package h.service;
+package hahaha.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import h.dao.CusDao;
-import h.vo.Customer;
+import hahaha.dao.CusDao;
+import hahaha.vo.Customer;
 
 @Service
 public class CusService {

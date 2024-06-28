@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     import="java.util.*"
-    %>
+%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="path" value="${pageContext.request.contextPath }"/>
@@ -10,39 +10,33 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="${path}/a00_com/bootstrap.min.css" >
-<link rel="stylesheet" href="${path}/a00_com/jquery-ui.css" >
+<title>HAE - 재무제표 조회</title>
+<script src="${path}/a00_com/jquery.min.js"></script>
+<script src="${path}/a00_com/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="${path}/a00_com/bootstrap.min.css">
+<link rel="stylesheet" href="${path}/a00_com/jquery-ui.css">
+<jsp:include page="header.jsp"/>
 <style>
     td{text-align:center;}
 </style>
-<script src="${path}/a00_com/jquery.min.js"></script>
-<script src="${path}/a00_com/popper.min.js"></script>
-<script src="${path}/a00_com/bootstrap.min.js"></script>
-<script src="${path}/a00_com/jquery-ui.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
-<script type="text/javascript">
-    $(document).ready(function(){
-    
-    });
-</script>
 </head>
-
 <body>
 <div class="jumbotron text-center">
-  <h2>타이틀</h2>
+  <h2>재무제표 조회</h2>
 </div>
 <div class="container">
     <form id="frm01" class="form" method="post">
         <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <input placeholder="이름" name="name" class="form-control mr-sm-2" />
-            <input placeholder="전화번호" name="phone" class="form-control mr-sm-2"/>
-            <input placeholder="여권번호" name="passport_number" class="form-control mr-sm-2"/>
-            <button class="btn btn-info" type="submit">Search</button>
-            <button class="btn btn-success" 
-                data-toggle="modal" data-target="#exampleModalCenter"
-                type="button">등록</button>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" 
+                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" 
+                aria-expanded="false">년도 선택 </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">2023년</a>
+                    <a class="dropdown-item" href="#">2024년</a>
+                </div>
+            </div>
+            <p class="text-white" style="margin-left: 80%; margin-top: 20px;">단위: 억 원</p>
         </nav>
     </form>
     <table class="table table-hover table-striped">
@@ -53,18 +47,18 @@
         <col width="16%">
         <thead>
             <tr class="table-success text-center">
-                <th>이름</th>
-                <th>주민번호</th>
-                <th>이메일</th>
-                <th>여권번호</th>
-                <th>전화번호</th>
-                <th>주소</th>
+                <th>분기</th>
+                <th>기간</th>
+                <th>총 수익</th>
+                <th>총 지출</th>
+                <th>순수익</th>
+                <th>보유 자산</th>
             </tr>
         </thead>    
-        <tbody>
+        <%-- <tbody>
             <c:forEach var="cus" items="${cusList}">
                 <tr>
-                    <td>${cus.name }</td>
+                    <td>${cus.name }</td>                 
                     <td>${cus.ssn }</td>
                     <td>${cus.email }</td>
                     <td>${cus.passport_number }</td>
@@ -72,6 +66,16 @@
                     <td>${cus.address }</td>
                 </tr>
             </c:forEach>
+        </tbody> --%>
+        <tbody>
+        	<tr>
+        		<td>2023년 1분기</td>
+        		<td>2023년 1월~3월</td>
+        		<td>50,000</td>
+        		<td>1,000</td>
+        		<td>49,000</td>
+        		<td>99,000</td>
+        	</tr>
         </tbody>
     </table>    
 </div>

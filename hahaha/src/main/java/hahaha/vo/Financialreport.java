@@ -1,4 +1,4 @@
-package h.vo;
+package hahaha.vo;
 
 public class Financialreport {
 	private int report_id;

@@ -50,24 +50,45 @@ td {
             };
 
             $.ajax({
-                type: 'GET',
+                type: 'POST',
                 url: 'updateCustomer.do',
                 dataType: 'json',
                 data: customer,
                 success: function(response) {
                     alert(response.msg === 'success' ? '수정성공' : '수정실패');
-                    if (response === 'success') {
+                    if (response.msg === 'success') {
                         location.reload(); // 수정 후 페이지를 새로고침하여 변경 사항을 반영
                     }
                 },
-                error: function() {
-                    alert('수정 실패');
+                error: function(xhr, status, error) {
+                    alert('수정 실패: ' + xhr.responseText); // 에러 메시지 로깅
+                }
+            });
+        }
+    }
+
+    function deleteCustomer() {
+        if (confirm("삭제하시겠습니까?")) {
+            const ssn = document.getElementById('modal-ssn').value;
+
+            $.ajax({
+                type: 'POST',
+                url: 'deleteCustomer.do',
+                dataType: 'json',
+                data: { ssn: ssn },
+                success: function(response) {
+                    alert(response.msg === 'success' ? '삭제성공' : '삭제실패');
+                    if (response.msg === 'success') {
+                        location.reload(); // 삭제 후 페이지를 새로고침하여 변경 사항을 반영
+                    }
+                },
+                error: function(xhr, status, error) {
+                    alert('삭제 실패: ' + xhr.responseText); // 에러 메시지 로깅
                 }
             });
         }
     }
 </script>
-
 </head>
 
 <body>
@@ -170,7 +191,7 @@ td {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" onclick="updateCustomer()">수정하기</button>
-                    <button type="button" class="btn btn-danger">삭제하기</button>
+                    <button type="button" class="btn btn-danger" onclick="deleteCustomer()">삭제하기</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
                 </div>
             </div>

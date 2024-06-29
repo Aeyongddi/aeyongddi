@@ -29,4 +29,10 @@ public class CusCt {
     	d.addAttribute("customer", service.getCustomer(upt.getCustomer_id()));
     	return "jsonView";
     }
+    @RequestMapping("deleteCustomer.do")
+    public String deleteCustomer(String ssn, Model d) {
+        String result = service.deleteCustomer(ssn);
+        d.addAttribute("msg", result);
+        return "jsonView";
+    }
 }

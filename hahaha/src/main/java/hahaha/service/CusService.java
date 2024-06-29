@@ -24,4 +24,9 @@ public class CusService {
 	    public Customer getCustomer(String customer_id) {
 	        return dao.getCustomer(customer_id);
 	    }
+	   
+	    public String deleteCustomer(String ssn) {
+	        int result = dao.deleteCustomer(ssn);
+	        return result > 0 ? "success" : "failure";
+	    }
 }

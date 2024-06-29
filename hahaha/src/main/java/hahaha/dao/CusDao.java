@@ -2,6 +2,8 @@ package hahaha.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -23,4 +25,8 @@ WHERE name = #{name} "
 
 	    @Select("SELECT * FROM customer WHERE customer_id = #{customer_id}")
 	    Customer getCustomer(String customerId);
+	    
+	    @Delete("Delete from customer\r\n"
+	    		+ "where ssn = #{ssn}")
+	    int deleteCustomer(@Param("ssn") String ssn);
 	}

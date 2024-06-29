@@ -3,6 +3,7 @@ package hahaha.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import hahaha.vo.Customer;
 
@@ -14,4 +15,12 @@ WHERE name = #{name} "
 				+ "OR phone = #{phone} OR passport_number = #{passport_number}")
 		
 		 * */
+		@Update("UPDATE customer "
+	            + "SET ssn = #{ssn}, "
+	            + "passport_number = #{passport_number} "
+	            + "WHERE customer_id = #{customer_id}")
+	    int updateCustomer(Customer upt);
+
+	    @Select("SELECT * FROM customer WHERE customer_id = #{customer_id}")
+	    Customer getCustomer(String customerId);
 	}

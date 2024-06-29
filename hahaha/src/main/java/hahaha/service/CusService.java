@@ -16,4 +16,12 @@ public class CusService {
 	public List<Customer> getCusList(Customer sch){
 		return dao.getCusList(sch);
 	}
+	 public String updateCustomer(Customer upt) {
+	        int result = dao.updateCustomer(upt);
+	        return result > 0 ? "success" : "failure";
+	    }
+
+	    public Customer getCustomer(String customer_id) {
+	        return dao.getCustomer(customer_id);
+	    }
 }

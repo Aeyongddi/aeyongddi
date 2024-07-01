@@ -2,6 +2,8 @@ package springweb.a03_mvc.a02_service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,17 @@ public class A02_FileUploadService {
 	// 공통으로 저장된 경로를 가져온다.
 	@Value("${user.upload}")
 	private String path;
+	
+	public List<String> getFileList(){
+		// upload 폴더에 있는 파일이름 정보를 List<String>으로 만들어 리턴 처리
+		List<String> flist = new ArrayList<String>();
+		File fold = new File(path);
+		for(File file:fold.listFiles()) {
+			System.out.println(file.getName());
+			flist.add(file.getName());
+		}
+		return flist;
+	}
 	public String upload01(MultipartFile mf) {
 		// 자바객체 ==> 물리적으로 저장하는 File(물리적 파일 저장되는 객체)
 		// 1. 저장 객체 선언..

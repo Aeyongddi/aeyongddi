@@ -18,7 +18,7 @@ public class A03_FileUploadCtrl {
 	// http://localhost:7080/springweb/uploadexp02.do
 	@GetMapping("uploadexp02.do")
 	public String uploadexp02() {
-		return "WEB-INF\\views\\a04_fileUpload\\a02_upload.jsp";
+		return "WEB-INF\\views\\a04_fileUpload\\a03_upload.jsp";
 	}
 	@PostMapping("uploadexp02.do")
 	public String uploadexp022(@RequestParam("report") MultipartFile[] reports, Model d) {

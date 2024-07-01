@@ -2,8 +2,8 @@
     pageEncoding="UTF-8" import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<c:set var="path" value="${pageContext.request.contextPath }" />
-<fmt:requestEncoding value="utf-8" />
+<c:set var="path" value="${pageContext.request.contextPath }"/>
+<fmt:requestEncoding value="utf-8"/>  
 <!DOCTYPE html>
 <html>
 <head>
@@ -88,6 +88,10 @@ td {
             });
         }
     }
+
+    function goToCustomerList() {
+        window.location.href = 'http://localhost:7080/hahaha/customerList.do';
+    }
 </script>
 </head>
 
@@ -96,7 +100,7 @@ td {
         <h2>고객정보 조회</h2>
     </div>
     <div class="container">
-        <form id="frm01" class="form" method="post">
+        <form id="frm01" class="form" method="get" action="customerList.do">
             <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
                 <input placeholder="이름" name="name" class="form-control mr-sm-2" />
                 &nbsp; <input placeholder="전화번호" name="phone" class="form-control mr-sm-2" />
@@ -110,46 +114,56 @@ td {
                 </button>
             </nav>
         </form>
-        <table class="table table-hover table-striped">
-            <col width="16%">
-            <col width="16%">
-            <col width="16%">
-            <col width="17%">
-            <col width="16%">
-            <thead>
-                <tr class="table-success text-center">
-                    <th>이름</th>
-                    <th>주민번호</th>
-                    <th>이메일</th>
-                    <th>여권번호</th>
-                    <th>전화번호</th>
-                    <th>주소</th>
-                    <th>자세히 보기</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="cus" items="${cusList}">
-                    <tr>
-                        <td>${cus.name }</td>
-                        <td>${cus.ssn }</td>
-                        <td>${cus.email }</td>
-                        <td>${cus.passport_number }</td>
-                        <td>${cus.phone }</td>
-                        <td>${cus.address }</td>
-                        <td>
-                            <button type="button" class="btn btn-success"
-                                onclick="showDetails('${cus.customer_id}', '${cus.name}', '${cus.ssn}', '${cus.email}', '${cus.passport_number}', '${cus.phone}', '${cus.address}')">
-                                <i class="bi bi-archive-fill">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
-                                        <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
-                                    </svg>
-                                </i>
-                            </button>
-                        </td>
-                    </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+        <c:choose>
+            <c:when test="${empty cusList}">
+                <div class="alert alert-warning" role="alert">
+                    검색 결과가 없습니다.
+                </div>
+            </c:when>
+            <c:otherwise>
+                <table class="table table-hover table-striped">
+                    <col width="16%">
+                    <col width="16%">
+                    <col width="16%">
+                    <col width="17%">
+                    <col width="16%">
+                    <thead>
+                        <tr class="table-success text-center">
+                            <th>이름</th>
+                            <th>주민번호</th>
+                            <th>이메일</th>
+                            <th>여권번호</th>
+                            <th>전화번호</th>
+                            <th>주소</th>
+                            <th>자세히 보기</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="cus" items="${cusList}">
+                            <tr>
+                                <td>${cus.name }</td>
+                                <td>${cus.ssn }</td>
+                                <td>${cus.email }</td>
+                                <td>${cus.passport_number }</td>
+                                <td>${cus.phone }</td>
+                                <td>${cus.address }</td>
+                                <td>
+                                    <button type="button" class="btn btn-success"
+                                        onclick="showDetails('${cus.customer_id}', '${cus.name}', '${cus.ssn}', '${cus.email}', '${cus.passport_number}', '${cus.phone}', '${cus.address}')">
+                                        <i class="bi bi-archive-fill">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
+                                                <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
+                                            </svg>
+                                        </i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </c:otherwise>
+        </c:choose>
+        <button class="btn btn-secondary" onclick="goToCustomerList()">뒤로 가기</button>
     </div>
     <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">

@@ -20,6 +20,21 @@
 <style>
    td{text-align:center;}
    .welcome{position:absolute; right:20px;}
+   #logout:hover{cursor:pointer;}
+   #logout{
+   	background-color: #f44336; /* 빨간색 배경 */
+    color: white; /* 흰색 글자 */
+    border: none; /* 테두리 없음 */
+    padding: 5px 5px; /* 패딩 */
+    text-align: center; /* 텍스트 가운데 정렬 */
+    text-decoration: none; /* 텍스트 장식 없음 */
+    display: inline-block; /* 인라인 블록 */
+    font-size: 16px; /* 글자 크기 */
+    margin: 4px 2px; /* 마진 */
+    cursor: pointer; /* 커서 포인터 */
+    border-radius: 12px; /* 둥근 테두리 */
+    transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+   }
 </style>
 <script src="${path}/a00_com/jquery.min.js"></script>
 <script src="${path}/a00_com/popper.min.js"></script>
@@ -29,11 +44,18 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
    $(document).ready(function(){
-   
+   	$("#logout").click(function(){
+   		alert('로그아웃 되었습니다.')
+   	
+   		location.href='logout.do';
+   	})
    });
 </script>
 </head>
 <body>
+<%
+	String username = (String)session.getAttribute("username");
+%>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
@@ -43,11 +65,12 @@
     </a>
       <div class="navbar-nav">
         <a class="admin nav-link" href="" style="visibility: hidden;">계정관리</a>
-        <a class="human-src nav-link" href="">부서배치</a>
+        <a class="human-src nav-link" href="humanRsrc.do">부서배치</a>
         <a class="nav-link" href="">비행일정확인</a>
-        <a class="nav-link" href="">급여확인</a>
-        <a class="nav-link" href="">내정보</a>
-        <p class="welcome">환영합니다.&nbsp;&nbsp;<b>홍길동</b>님</p>
+        <a class="nav-link" href="salChk.do">급여확인</a>
+        <a class="nav-link" href="myInfo.do">내정보</a>
+        <div class="welcome">환영합니다.&nbsp;&nbsp;<b><%=username %></b>님
+  		<button id="logout">Log out</button></div>
       </div>
     </div>
   </div>

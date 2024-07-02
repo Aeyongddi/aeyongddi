@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import hahaha.service.CusService;
 import hahaha.vo.Customer;
+import hahaha.vo.Financialreport;
 
 @Controller
 public class CusCt {
@@ -32,5 +33,12 @@ public class CusCt {
         String result = service.deleteCustomer(ssn);
         d.addAttribute("msg", result);
         return "jsonView";
+    }
+
+    // http://localhost:7080/hahaha/financialreport.do
+    @RequestMapping("financialreport.do")
+    public String finList(Financialreport sch, Model d) {
+    	d.addAttribute("finList", service.getFiList());
+    	return "freport";
     }
 }

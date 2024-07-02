@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import hahaha.dao.CusDao;
 import hahaha.vo.Customer;
+import hahaha.vo.Financialreport;
 
 @Service
 public class CusService {
@@ -38,5 +39,9 @@ public class CusService {
     public String deleteCustomer(String ssn) {
         int result = dao.deleteCustomer(ssn);
         return result > 0 ? "success" : "failure";
+    }
+    
+    public List<Financialreport> getFiList(){
+        return dao.getFiList();
     }
 }

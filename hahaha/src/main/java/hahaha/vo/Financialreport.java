@@ -6,6 +6,7 @@ public class Financialreport {
 	private int total_revenue;
 	private int total_expense;
 	private int net_profit;
+	private int balance;
 	public Financialreport() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -18,6 +19,16 @@ public class Financialreport {
 		this.total_revenue = total_revenue;
 		this.total_expense = total_expense;
 		this.net_profit = net_profit;
+	}
+	public Financialreport(int report_id, String report_period,
+			int total_revenue, int total_expense, int net_profit, int balance) {
+		super();
+		this.report_id = report_id;
+		this.report_period = report_period;
+		this.total_revenue = total_revenue;
+		this.total_expense = total_expense;
+		this.net_profit = net_profit;
+		this.balance = balance;
 	}
 	public int getReport_id() {
 		return report_id;
@@ -48,5 +59,11 @@ public class Financialreport {
 	}
 	public void setNet_profit(int net_profit) {
 		this.net_profit = net_profit;
+	}
+	public int getBalance() {
+		return balance;
+	}
+	public void setBalance(int balance) {
+		this.balance = balance;
 	}
 }

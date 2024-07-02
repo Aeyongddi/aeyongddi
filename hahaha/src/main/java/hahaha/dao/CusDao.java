@@ -2,12 +2,13 @@ package hahaha.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Delete;
 
 import hahaha.vo.Customer;
+import hahaha.vo.Financialreport;
 
 public interface CusDao {
     @Select("SELECT * FROM customer WHERE name = #{name}")
@@ -27,4 +28,7 @@ public interface CusDao {
 
     @Delete("DELETE FROM customer WHERE ssn = #{ssn}")
     int deleteCustomer(@Param("ssn") String ssn);
+
+    @Select("SELECT * FROM FINANCIALREPORT")
+    List<Financialreport> getFiList();
 }

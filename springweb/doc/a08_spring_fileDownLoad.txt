@@ -1,11 +1,46 @@
 # 파일다운로드
 1. 처리 프로세스
-	1) 특정한 파일 클릭 시 다운로드 controller 호출
+	1) 특정한 파일 클릭시, 다운로드 controller 호출
 	2) controller에서 요청값(파일)과 함께 다운로드 view 호출
 	3) 다운로드 view에 모델데이터로 파일명 전달, 다운로드 처리
-
+	
 2. 개발 순서
-	1) 다운로드 view 생성(class선언 => 컨테이너 등록)
+	1) 다운로드 view 생성(class선언 ==> 컨테이너 등록)
 	2) 다운로드 controller 호출
-	3) view단(jsp)에서 다운로드 controller 호출
+	3) view단(jsp)에서 다운로드 controller 호출..
+	
+# 파일관리 처리
+1. 관련 파일 및 주요 기능
+    resource\config
+    	- 업로드파일경로 : # 2. 파일업로드 위치 경로 ${user.upload}
+		user.upload=C:/Users/human/git/04031866/springweb/src/main/webapp/z01_upload/
+
+
+	a04_upload.jsp
+    	<c:forEach var="fname" items="${flist}" varStatus="sts">
+    	<tr ondblclick="download('${fname}')"><td>${sts.count }</td><td>${fname }</td></tr>
+    	</c:forEach>
+    	function download(fname){
+    		if(confirm(fname+" 다운로드 하시겠습니까2?")){
+    			location.href="download.do?fname="+fname
+    		}
+    	}
+ 	DownLoadCtrl.java
+ 	@GetMapping("downLoad.do")
+	public String downLoad(@RequestParam("fname") String fname, 
+			                 Model d) {
+		d.addAttribute("downloadFile", fname);
+		return "downloadView";/
+		
+    			
+	@Component("downloadView") // downloadView 자동 등록 처리.
+		파일명을 모델로 받아서 client(브라우저)에 전달해주는 역할
+	public class DownloadView extends AbstractView{
+		// 다운로드할 특정한 폴드 공통 위치
+		@Value("${user.upload}")
+		private String upload;	
+		String fname = (String)model.get("downloadFile");
+		// 2) 경로명과 함께 파일 객체 생성
+		File file = new File(upload+fname);
+	
 	

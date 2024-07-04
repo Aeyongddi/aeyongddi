@@ -3,6 +3,7 @@ package hahaha.dao;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -31,4 +32,8 @@ public interface CusDao {
 
     @Select("SELECT * FROM FINANCIALREPORT")
     List<Financialreport> getFiList();
+    
+    @Insert("INSERT INTO FINANCIALREPORT values(#{report_period}, #{total_revenue}, \r\n"
+    		+ "#{total_expense}, #{net_profit}, #{balance}, #{report_id})")
+    int insertFina(Financialreport ins);
 }

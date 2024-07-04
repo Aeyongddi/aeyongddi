@@ -32,16 +32,8 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-	
-	});
-	var msg="${msg}"
-	var proc="${proc}"
-	if(msg!=""){
-		alert(msg)
-		if(proc=="삭제") {
-			location.href="deptList101.do";
-		}
-	}
+		
+	})
 </script>
 </head>
 
@@ -55,7 +47,7 @@
 		
 --%>
 <div class="container" >
-	<form method="post" action="deptUpdate102.do"> 
+	<form method="post" action="uptEmployee.do"> 
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">사원ID</span>
@@ -108,6 +100,12 @@
 	</div>	
 	</form>	
 	<script type="text/javascript">
+		var name = '${emp.name}'
+		var email = '${emp.email}'
+		var phone = '${emp.phone}'
+		var address = '${emp.address}'
+		var department = '${emp.department}'
+		var position = '${emp.position}'
 		$("#uptInsBtn").click(function(){
 			if(confirm("수정하시겠습니까?")){
 				$("form").submit()
@@ -115,11 +113,16 @@
 		})
 		$("#delBtn").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				location.href="deptDelete102.do?deptno="+$("[name=deptno]").val()
+				location.href="delEmployee.do?user_employee_id="+$("[name=user_employee_id]").val()
 			}
 		})
 		$("#initBtn").click(function(){
-			
+			$("[name=name]").val(name)
+			$("[name=email]").val(email)
+			$("[name=phone]").val(phone)
+			$("[name=address]").val(address)
+			$("[name=department]").val(department)
+			$("[name=position]").val(position)
 		})
 		$("#mainBtn").click(function(){
 			location.href="humanRsrc.do"

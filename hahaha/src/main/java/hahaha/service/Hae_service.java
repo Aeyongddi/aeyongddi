@@ -33,6 +33,19 @@ public class Hae_service {
 	public String getUserPassword(Employee emp) {
 		return dao.getUserPassword(emp);
 	}
+	public String getUserId(Employee emp) {
+		return dao.getUserId(emp);
+	}
+	// myinfo
+	public Employee getMyInfo(Employee emp) {
+		return dao.getMyInfo(emp);
+	}
+	public String delMyInfo(Employee emp) {
+		return dao.delMyInfo(emp)>0?"내정보삭제성공":"내정보삭제실패";
+	}
+	public String uptMyInfo(Employee emp) {
+		return dao.uptMyInfo(emp)>0?"내정보수정성공":"내정보수정실패";
+	}
 	// logout
 	public String logout() {
 		return "로그아웃";
@@ -58,17 +71,17 @@ public class Hae_service {
 	public Employee getEmp(Employee emp) {
 		return dao.getEmp(emp);
 	}
-	
+	public int uptEmployee(Employee upt) {
+		return dao.uptEmployee(upt);
+	}
+	public int delEmployee(Employee del) {
+		return dao.delEmployee(del);
+	}
 	//new Insert
 	public String insEmployee(Employee ins) {
 		return dao.insEmployee(ins)>0?"직원등록성공":"직원등록실패";
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+	public String insSalary(Employee ins) {
+		return dao.insSalary(ins)>0?"급여등록성공":"급여등록실패";
+	}
 }

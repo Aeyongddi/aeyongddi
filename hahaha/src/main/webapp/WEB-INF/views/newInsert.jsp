@@ -58,12 +58,6 @@
 	<form id="insForm" method="post" action="newInsert.do"> 
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
-			<span class="input-group-text  justify-content-center">사원ID</span>
-		</div>
-		<input type="number" name="user_employee_id" class="form-control" value=""/>	
-	</div>	
-	<div class="input-group mb-3">	
-		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">이름</span>
 		</div>
 		<input type="text" name="name" class="form-control" value=""/>	

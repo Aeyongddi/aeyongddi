@@ -44,4 +44,8 @@ public class CusService {
     public List<Financialreport> getFiList(){
         return dao.getFiList();
     }
+    
+    public String insertFina(Financialreport ins) {
+    	return dao.insertFina(ins)>0?"등록성공":"등록실패";
+    }
 }

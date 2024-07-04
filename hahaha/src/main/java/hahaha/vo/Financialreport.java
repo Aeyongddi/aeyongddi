@@ -1,7 +1,7 @@
 package hahaha.vo;
 
 public class Financialreport {
-	private int report_id;
+	private String report_id;
 	private String report_period;
 	private int total_revenue;
 	private int total_expense;
@@ -11,16 +11,7 @@ public class Financialreport {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Financialreport(int report_id, String report_period,
-			int total_revenue, int total_expense, int net_profit) {
-		super();
-		this.report_id = report_id;
-		this.report_period = report_period;
-		this.total_revenue = total_revenue;
-		this.total_expense = total_expense;
-		this.net_profit = net_profit;
-	}
-	public Financialreport(int report_id, String report_period,
+	public Financialreport(String report_id, String report_period,
 			int total_revenue, int total_expense, int net_profit, int balance) {
 		super();
 		this.report_id = report_id;
@@ -30,10 +21,10 @@ public class Financialreport {
 		this.net_profit = net_profit;
 		this.balance = balance;
 	}
-	public int getReport_id() {
+	public String getReport_id() {
 		return report_id;
 	}
-	public void setReport_id(int report_id) {
+	public void setReport_id(String report_id) {
 		this.report_id = report_id;
 	}
 	public String getReport_period() {
@@ -66,4 +57,5 @@ public class Financialreport {
 	public void setBalance(int balance) {
 		this.balance = balance;
 	}
+	
 }

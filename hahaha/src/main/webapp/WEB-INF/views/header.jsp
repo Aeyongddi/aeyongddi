@@ -43,6 +43,7 @@
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
+
    $(document).ready(function(){
    	$("#logout").click(function(){
    		alert('로그아웃 되었습니다.')
@@ -53,6 +54,7 @@
 </script>
 </head>
 <body>
+
 <%
 	String username = (String)session.getAttribute("username");
 %>

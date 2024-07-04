@@ -49,51 +49,51 @@
 		
 --%>
 <div class="container" >
-	<form method="post" action="deptUpdate102.do"> 
+	<form method="post" action="myInfoUpt.do"> 
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">이름</span>
 		</div>
-		<input type="text" name="no" class="form-control" value="" />	
+		<input type="text" name="name" class="form-control" value="${emp.name }" />	
 	</div>	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">주소</span>
 		</div>
-		<input type="text" name="writer" class="form-control" value="" />	
+		<input type="text" name="address" class="form-control" value="${emp.address }" />	
 	</div>	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">전화번호</span>
 		</div>
-		<input type="text" name="subject" class="form-control" value="" />	
+		<input type="text" name="phone" class="form-control" value="${emp.phone }" />	
 	</div>
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">이메일</span>
 		</div>
-		<input type="email" name="refno" class="form-control" value="${board.refno}" />	
+		<input type="email" name="email" class="form-control" value="${emp.email }" />	
 	</div>
 	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">부서</span>
 		</div>
-		<input type="text" class="form-control" value="${board.readcnt }" />	
+		<input type="text" class="form-control" value="${emp.department }" readonly/>	
 		
 	</div>	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">아이디</span>
 		</div>
-		<input type="text" class="form-control" value="${board.readcnt }" readonly/>	
+		<input type="text" name="user_employee_id" class="form-control" value="${emp.user_employee_id }" readonly/>	
 	</div>
 	<div class="input-group mb-3">	
 		
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">직책</span>
 		</div>
-		<input type="text" class="form-control" value="${board.readcnt }" readonly/>	
+		<input type="text" class="form-control" value="${emp.position }" readonly/>	
 	</div>	
 	
 	<div style="text-align:right;">
@@ -115,11 +115,11 @@
 		})
 		$("#delBtn").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				location.href="deptDelete102.do?deptno="+$("[name=deptno]").val()
+				location.href="myInfoDel.do?user_employee_id="+${emp.user_employee_id}
 			}
 		})
 		$("#mainBtn").click(function(){
-			location.href="boardList.do"
+			location.href="humanRsrc.do"
 		})
 	
 	</script>

@@ -149,7 +149,8 @@ td {
                                 <td>${cus.address }</td>
                                 <td>
                                     <button type="button" class="btn btn-success"
-                                        onclick="showDetails('${cus.customer_id}', '${cus.name}', '${cus.ssn}', '${cus.email}', '${cus.passport_number}', '${cus.phone}', '${cus.address}')">
+                                        onclick="showDetails('${cus.customer_id}', '${cus.name}', '${cus.ssn}', '${cus.email}', 
+                                        '${cus.passport_number}',  '${cus.phone}', '${cus.address}')">                                        
                                         <i class="bi bi-archive-fill">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-archive-fill" viewBox="0 0 16 16">
                                                 <path d="M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15zM5.5 7h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1M.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8z"/>
@@ -203,7 +204,7 @@ td {
                         </div>
                     </form>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer"> 
                     <button type="button" class="btn btn-warning" onclick="updateCustomer()">수정하기</button>
                     <button type="button" class="btn btn-danger" onclick="deleteCustomer()">삭제하기</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>

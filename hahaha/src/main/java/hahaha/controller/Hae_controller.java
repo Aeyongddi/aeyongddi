@@ -39,11 +39,13 @@ public class Hae_controller {
 		d.addAttribute("isUser", service.chkUser(emp));
 		String username = service.getUserName(emp);
 		String userPassword = service.getUserPassword(emp);
+		String userId = service.getUserId(emp);
 		int amount = service.getUserSalary(emp);
 		HttpSession session = request.getSession(true);
 		session.setAttribute("username", username);
 		session.setAttribute("amount", amount);
 		session.setAttribute("userPwd", userPassword);
+		session.setAttribute("userId", userId);
 		return "jsonView";
 	}
 	@RequestMapping("logout.do")
@@ -75,7 +77,7 @@ public class Hae_controller {
 		return "salChk";
 	}
 	
-	// http://localhost:7080/hahaha/humanRsrc.do
+	// http://localhost:7080/humanAirERP/humanRsrc.do
 	@RequestMapping("humanRsrc.do")
 	public String humanRsrc(Employee emp, Model d) {
 		d.addAttribute("empList", service.getEmpList(emp));
@@ -87,16 +89,16 @@ public class Hae_controller {
 		return "humanRsrc";
 	}
 	
-	// http://localhost:7080/humanAirERP/newInsert.do
+	// http://localhost:7080/humanAirERP/newInsertFrm.do
 	@RequestMapping("newInsertFrm.do")
 	public String newInsertFrm() {
-		
 		return "newInsert";
 	}
 	// http://localhost:7080/humanAirERP/newInsert.do
 	@RequestMapping("newInsert.do")
 	public String newInsert(Employee emp, Model d) {
 		service.insEmployee(emp);
+		service.insSalary(emp);
 		d.addAttribute("empList", service.getEmpList(emp));
 		return "humanRsrc";
 	}
@@ -108,13 +110,36 @@ public class Hae_controller {
 		d.addAttribute("emp", service.getEmp(emp));
 		return "humanRsrcDetail";
 	}
-	
+	@RequestMapping("uptEmployee.do")
+	public String uptEmployee(Employee emp, Model d) {
+		service.uptEmployee(emp);
+		d.addAttribute("empList", service.getEmpList(emp));
+		return "humanRsrc";
+	}
+	@RequestMapping("delEmployee.do")
+	public String delEmployee(Employee emp, Model d) {
+		service.delEmployee(emp);
+		d.addAttribute("empList", service.getEmpList(emp));
+		return "humanRsrc";
+	}
 	
 	// http://localhost:7080/humanAirERP/myInfo.do
 	@RequestMapping("myInfo.do")
-	public String myInfo() {
-		
-		
+	public String myInfo(Employee emp, Model d) {
+		HttpSession session = request.getSession(true);
+		emp.setUser_employee_id(Integer.parseInt((String)session.getAttribute("userId")));
+		d.addAttribute("emp", service.getMyInfo(emp));
 		return "myInfo";
+	}
+	@RequestMapping("myInfoUpt.do")
+	public String myInfoUpt(Employee emp, Model d) {
+		d.addAttribute("empList", service.getEmpList(emp));
+		service.uptMyInfo(emp);
+		return "humanRsrc";
+	}
+	@RequestMapping("myInfoDel.do")
+	public String myInfoDel(Employee emp) {
+		service.delMyInfo(emp);
+		return "login";
 	}
 }

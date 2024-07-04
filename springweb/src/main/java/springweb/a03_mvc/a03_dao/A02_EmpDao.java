@@ -1,0 +1,13 @@
+package springweb.a03_mvc.a03_dao;
+// springweb.z01_vo.Emp
+// springweb.a03_mvc.a03_dao.A02_EmpDao
+// List<Emp> getEmpList(Emp sch)
+
+import java.util.List;
+
+import springweb.z01_vo.Emp;
+
+public interface A02_EmpDao {
+
+	List<Emp> getEmpList(Emp sch);
+}

@@ -64,11 +64,10 @@ public class Hae_controller {
 		return "chgPwd";
 	}
 	@RequestMapping("chgPwdSuccess.do")
-	public String chgPwdSuccess(@RequestParam("chgPwd") String pwd) {
-		
-		service.chgPwd(pwd);
-		return "login";
-	}
+	   public String chgPwdSuccess(@RequestParam("chgPwd") String pwd, @RequestParam("userId") int id) {
+	      service.chgPwd(pwd, id);
+	      return "login";
+	   }
 	
 	
 	// http://localhost:7080/humanAirERP/salChk.do

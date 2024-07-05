@@ -33,6 +33,7 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <%
 	String userPwd = (String)session.getAttribute("userPwd");
+	int userId = Integer.parseInt((String)session.getAttribute("userId"));
 %>
 <script type="text/javascript">
    $(document).ready(function(){
@@ -59,9 +60,10 @@
 <img src="logo.png" width="35" height="35"/><b>Human Air ERP</b>
 <br><br>
 
-<form id="chgPwdForm" action="chgPwdSuccess.do">
+<form id="chgPwdForm" action="chgPwdSuccess.do" >
   <!-- Password input -->
   <div data-mdb-input-init class="form-outline mb-4">
+  <input name="userId" type="hidden" value="<%=userId%>"/>
     <input name="currPwd" type="password" id="form2Example2" class="form-control" required/>
     <label class="form-label" for="form2Example2"><b>현재 비밀번호</b></label>
   </div>

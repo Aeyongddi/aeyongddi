@@ -52,9 +52,9 @@ public class Hae_service {
 	}
 	
 	// chgPwd
-	public int chgPwd(String pwd) {
-		return dao.chgPwd(pwd);
-	}
+	public int chgPwd(String pwd, int id) {
+	      return dao.chgPwd(pwd, id);
+	   }
 	
 	// humanRsrc
 	public List<Employee> getEmpList(Employee emp) {

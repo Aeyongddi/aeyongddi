@@ -67,10 +67,12 @@
     </a>
       <div class="navbar-nav">
         <a class="admin nav-link" href="" style="visibility: hidden;">계정관리</a>
-        <a class="human-src nav-link" href="humanRsrc.do">부서배치</a>
-        <a class="nav-link" href="">비행일정확인</a>
+        <a class="human-src nav-link" href="humanRsrc.do">인사관리</a>
+       <!--  <a class="nav-link" href="">비행일정확인</a> -->
         <a class="nav-link" href="salChk.do">급여확인</a>
         <a class="nav-link" href="myInfo.do">내정보</a>
+        <a class="nav-link" href="customerList.do">고객정보 조회</a>
+        <a class="nav-link" href="financialreport.do">재무 제표 조회</a>
         <div class="welcome">환영합니다.&nbsp;&nbsp;<b><%=username %></b>님
   		<button id="logout">Log out</button></div>
       </div>

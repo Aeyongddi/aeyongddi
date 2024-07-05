@@ -93,7 +93,9 @@ public interface Hae_dao {
 			+ "where employee_id = #{user_employee_id}")
 	String getPwd();
 	@Update("update nw.employee "
-			+ "set password = #{chgPwd}")
-	int chgPwd(@Param("chgPwd") String pwd);
+	         + "set password = #{chgPwd} "
+	         + "where user_employee_id = #{userId} "
+	         )
+	   int chgPwd(@Param("chgPwd") String pwd, @Param("userId") int id);
 }
 

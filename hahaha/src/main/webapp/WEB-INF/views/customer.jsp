@@ -27,75 +27,74 @@ td {
 	type="text/javascript"></script>
 
 <script type="text/javascript">
-//주민번호 유효성 검사
-function validateSSN(ssnFront, ssnBack) {
-    const ssnRegexFront = /^\d{6}$/;
-    const ssnRegexBack = /^\d{7}$/;
-    return ssnRegexFront.test(ssnFront) && ssnRegexBack.test(ssnBack);
-}
+	//주민번호 유효성 검사
+	function validateSSN(ssnFront, ssnBack) {
+		const ssnRegexFront = /^\d{6}$/;
+		const ssnRegexBack = /^\d{7}$/;
+		return ssnRegexFront.test(ssnFront) && ssnRegexBack.test(ssnBack);
+	}
 
-// 여권번호 유효성 검사
-function validatePassport(passport) {
-    const passportRegex = /^[A-Z]{1}\d{8}$/;
-    return passportRegex.test(passport);
-}
+	// 여권번호 유효성 검사
+	function validatePassport(passport) {
+		const passportRegex = /^[A-Z]{1}\d{8}$/;
+		return passportRegex.test(passport);
+	}
 
-function showDetails(id, name, ssn, email, passport, phone, address) {
-    document.getElementById('modal-customer-id').value = id;
-    document.getElementById('modal-name').value = name;
-    document.getElementById('modal-ssn-front').value = ssn.split('-')[0];
-    document.getElementById('modal-ssn-back').value = ssn.split('-')[1];
-    document.getElementById('modal-email').value = email;
-    document.getElementById('modal-passport').value = passport;
-    document.getElementById('modal-phone').value = phone;
-    document.getElementById('modal-address').value = address;
-    $('#detailModal').modal('show');
-}
+	function showDetails(id, name, ssn, email, passport, phone, address) {
+		document.getElementById('modal-customer-id').value = id;
+		document.getElementById('modal-name').value = name;
+		document.getElementById('modal-ssn-front').value = ssn.split('-')[0];
+		document.getElementById('modal-ssn-back').value = ssn.split('-')[1];
+		document.getElementById('modal-email').value = email;
+		document.getElementById('modal-passport').value = passport;
+		document.getElementById('modal-phone').value = phone;
+		document.getElementById('modal-address').value = address;
+		$('#detailModal').modal('show');
+	}
 
-function updateCustomer() {
-    if (confirm("수정하시겠습니까?")) {
-        const ssnFront = document.getElementById('modal-ssn-front').value;
-        const ssnBack = document.getElementById('modal-ssn-back').value;
-        const passport = document.getElementById('modal-passport').value;
+	function updateCustomer() {
+		if (confirm("수정하시겠습니까?")) {
+			const ssnFront = document.getElementById('modal-ssn-front').value;
+			const ssnBack = document.getElementById('modal-ssn-back').value;
+			const passport = document.getElementById('modal-passport').value;
 
-        if (!validateSSN(ssnFront, ssnBack)) {
-            alert("유효하지 않은 주민등록번호 형식입니다. 올바른 형식: YYYYMMDD-XXXXXXX");
-            return;
-        }
+			if (!validateSSN(ssnFront, ssnBack)) {
+				alert("유효하지 않은 주민등록번호 형식입니다. 올바른 형식: YYYYMMDD-XXXXXXX");
+				return;
+			}
 
-        if (!validatePassport(passport)) {
-            alert("유효하지 않은 여권번호 형식입니다. 올바른 형식: A12345678");
-            return;
-        }
+			if (!validatePassport(passport)) {
+				alert("유효하지 않은 여권번호 형식입니다. 올바른 형식: A12345678");
+				return;
+			}
 
-        const customer = {
-            customer_id: document.getElementById('modal-customer-id').value,
-            name: document.getElementById('modal-name').value,
-            ssn: ssnFront + '-' + ssnBack,
-            email: document.getElementById('modal-email').value,
-            passport_number: document.getElementById('modal-passport').value,
-            phone: document.getElementById('modal-phone').value,
-            address: document.getElementById('modal-address').value
-        };
+			const customer = {
+				customer_id : document.getElementById('modal-customer-id').value,
+				name : document.getElementById('modal-name').value,
+				ssn : ssnFront + '-' + ssnBack,
+				email : document.getElementById('modal-email').value,
+				passport_number : document.getElementById('modal-passport').value,
+				phone : document.getElementById('modal-phone').value,
+				address : document.getElementById('modal-address').value
+			};
 
-        $.ajax({
-            type: 'POST',
-            url: 'updateCustomer.do',
-            dataType: 'json',
-            data: customer,
-            success: function(response) {
-                alert(response.msg === 'success' ? '수정성공' : '수정실패');
-                if (response.msg === 'success') {
-                    location.reload(); // 수정 후 페이지를 새로고침하여 변경 사항을 반영
-                }
-            },
-            error: function(xhr, status, error) {
-                alert('수정 실패: ' + xhr.responseText); // 에러 메시지 로깅
-            }
-        });
-    }
-}
-
+			$.ajax({
+				type : 'POST',
+				url : 'updateCustomer.do',
+				dataType : 'json',
+				data : customer,
+				success : function(response) {
+					alert(response.msg === 'success' ? '수정성공' : '수정실패');
+					if (response.msg === 'success') {
+						location.reload(); // 수정 후 페이지를 새로고침하여 변경 사항을 반영
+					}
+				},
+				error : function(xhr, status, error) {
+					alert('수정 실패: ' + xhr.responseText); // 에러 메시지 로깅
+				}
+			});
+		}
+	}
 
 	function deleteCustomer() {
 		if (confirm("삭제하시겠습니까?")) {
@@ -202,15 +201,21 @@ function updateCustomer() {
 							<label for="modal-name"><strong>이름:</strong></label> <input
 								type="text" class="form-control" id="modal-name" readonly>
 						</div>
-						<div class="form-group">
-							<label for="modal-ssn-front"><strong>주민번호 앞자리:</strong></label> <input
-								type="text" class="form-control" id="modal-ssn-front"
-								maxlength="6">
-						</div>
-						<div class="form-group">
-							<label for="modal-ssn-back"><strong>주민번호 뒷자리:</strong></label> <input
-								type="password" class="form-control" id="modal-ssn-back"
-								maxlength="7">
+						<div class="form-group row">
+							<div class="col-md-5">
+								<label for="modal-ssn-front"><strong>생년월일</strong></label> <input
+									type="text" class="form-control" id="modal-ssn-front"
+									maxlength="6">
+							</div>
+							<div class="col-md-1 text-center">
+								<label>&nbsp;</label>
+								<div>-</div>
+							</div>
+							<div class="col-md-6">
+								<label for="modal-ssn-back"><strong>주민번호 뒷자리:</strong></label> <input
+									type="password" class="form-control" id="modal-ssn-back"
+									maxlength="7">
+							</div>
 						</div>
 
 						<div class="form-group">

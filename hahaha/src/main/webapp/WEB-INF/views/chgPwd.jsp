@@ -37,17 +37,24 @@
 %>
 <script type="text/javascript">
    $(document).ready(function(){
-   		var userPwd = <%=userPwd%>
-   		$("#chgPwd").click(function(){
-   			if(userPwd!=$("[name=currPwd]").val()){
-   				alert("현재 비밀번호가 올바르지 않습니다.")
-   			}else if($("[name=chgPwd]").val()!=$("[name=chkChgPwd]").val()){
-   				alert("변경 비밀번호가 동일하지 않습니다")
-   			}else{
-   				alert("비밀번호가 변경되었습니다.")
-   				$("#chgPwdForm").submit();
-   			}
-   		})
+         var userPwd = "<%=userPwd%>";
+         $("#chgPwd").click(function(){
+            var currPwd = $("[name=currPwd]").val();
+            var chgPwd = $("[name=chgPwd]").val();
+            var chkChgPwd = $("[name=chkChgPwd]").val();
+            var pwdPattern = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*(),.?":{}|<>]).{10,}$/;
+
+            if(userPwd != currPwd){
+               alert("현재 비밀번호가 올바르지 않습니다.");
+            } else if(!pwdPattern.test(chgPwd)){
+               alert("변경 비밀번호는 영어 대소문자, 숫자, 특수문자를 포함하고 10자 이상이어야 합니다.");
+            } else if(chgPwd != chkChgPwd){
+               alert("변경 비밀번호가 동일하지 않습니다.");
+            } else {
+               alert("비밀번호가 변경되었습니다.");
+               $("#chgPwdForm").submit();
+            }
+         });
    });
 </script>
 </head>

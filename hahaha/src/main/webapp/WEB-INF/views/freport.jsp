@@ -171,7 +171,7 @@ th {
             while (switching) {
                 switching = false;
                 rows = table.rows;
-                for (i = 1; i < (rows.length - 2); i++) { // Exclude the last row (total row)
+                for (i = 1; i < (rows.length - 2); i++) { 
                     shouldSwitch = false;
                     x = rows[i].getElementsByTagName("TD")[n];
                     y = rows[i + 1].getElementsByTagName("TD")[n];

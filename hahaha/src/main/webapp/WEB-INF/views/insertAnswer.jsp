@@ -31,10 +31,10 @@
 
 <div class="container">
     <form id="frm01" class="form" method="post" action="boardInsert.do">
-        <input type="hidden" name="inquiry_id" value="${board.inquiry_id}"/>
+        <input type="hidden" name="inquiry_id" value="${board.inquiry_id != null ? board.inquiry_id : 0}"/>
         <div class="form-group">
             <label for="customer_id">작성자</label>
-            <input type="text" class="form-control" id="customer_id" name="customer_id" value="${board.customer_id}">
+            <input type="text" class="form-control" id="customer_id" name="customer_id" readonly value="${board.customer_id}">
         </div>
         <div class="form-group">
             <label for="title">제목</label>
@@ -42,7 +42,7 @@
         </div>
         <div class="form-group">
             <label for="content">내용</label>
-            <textarea class="form-control" id="content" name="content">${board.content}</textarea>
+            <textarea class="form-control" id="content" name="content" readonly>${board.content}</textarea>
         </div>
         <div class="form-group">
             <label for="response">답변 내용</label>
@@ -50,7 +50,10 @@
         </div>
         <div class="form-group">
             <label for="status">응답 상태</label>
-            <input type="text" class="form-control" id="status" name="status" value="${board.status}">
+            <select class="form-control" id="status" name="status">
+                <option value="미응답" ${board.status == '미응답' ? 'selected' : ''}>미응답</option>
+                <option value="응답완료" ${board.status == '응답완료' ? 'selected' : ''}>응답완료</option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">저장</button>
     </form>

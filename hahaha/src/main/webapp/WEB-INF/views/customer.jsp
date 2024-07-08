@@ -241,6 +241,7 @@ td {
 						onclick="updateCustomer()">수정하기</button>
 					<button type="button" class="btn btn-danger"
 						onclick="deleteCustomer()">삭제하기</button>
+						
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">닫기</button>
 				</div>

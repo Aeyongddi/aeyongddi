@@ -18,9 +18,7 @@ public interface BoardDao {
     @Insert("INSERT INTO CUSTOMERQNA (inquiry_id, customer_id, title, content, response, status) VALUES (customerqna_seq.nextval, #{customer_id}, #{title}, #{content}, #{response}, #{status})")
     int boardInsert(Board ins);
     
-    @Update("UPDATE CUSTOMERQNA\r\n"
-    		+ "SET response = #{response},\r\n"
-    		+ "	status = #{status}\r\n"
-    		+ "WHERE inquriy_id = #{inquiry_id} ")
+    @Update("UPDATE CUSTOMERQNA SET response = #{response}, status = #{status} WHERE inquiry_id = #{inquiry_id}")
     int updateBoard(Board upt);
+
 }

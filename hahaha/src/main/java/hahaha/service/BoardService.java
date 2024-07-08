@@ -26,6 +26,6 @@ public class BoardService {
     }
     
     public String updateBoard(Board upt) {
-    	return dao.updateBoard(upt)>0?"수정성공":"수정실패";
-	}
+        return dao.updateBoard(upt) > 0 ? "수정 성공" : "수정 실패";
+    }
 }

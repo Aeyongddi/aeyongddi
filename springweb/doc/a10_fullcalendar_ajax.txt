@@ -96,3 +96,65 @@
 			컨트롤러에 호출하는 ajax 처리
 		- 등록 성공 후 다시 전체 화면 refresh 처리
 		 	
+		 	
+		 	
+		 	
+		 	
+		 	
+# 날짜 처리
+실제 DB에 저장하고, 요청값으로 전달할 형식(ISO 형식-날짜. toISOString()) 
+: 2024-07-03T15:00:00+09:00 : GMT
+화면에 보일 형식(날짜.toLocaleString()): 2024. 7. 11. 오전 12:00:00
+
+# boolean 처리 저장
+1. javascript/java에서 boolean 형식, 즉 true/false값이 있다.
+2. database에서 boolean 타입 자체가 없으며
+3. DB에서 char(1)/varchar2(1)로 설정하여 1/0을 입력하면 자동 형변환이 되어 boolean 속성값 true/false값을 가져올 수 있다.
+4. json 형식에서는 이런 vo의 속성을 자동으로 로딩하여 boolean형식으로 처리해준다.
+
+# 상세화면 로딩처리
+1. 특정한 일정을 클릭 시 모달창으로 상세 데이터를 로딩하는 것
+2. 기본적으로 모든 속성을 lib내부에서 database에 데이터를 할당한 상태이기에 
+3. 상세화면의 데이터를 위한 ajax처리는 필요하지 않다
+4. 다만 상세 화면을 클릭 시 매개변수로 가져오는 캘린더 정보를 모델 form에 할당하는 작업을 하여야 한다
+5. 개발 순서
+	1) 상세 화면을 위한 모달 화면 구성 추가
+		수정/삭제 버튼 
+	2) 일정 내용 클릭 시 처리되는 이벤트 확인 및 이벤트 처리(eventClick)
+		타이틀 변경
+		등록과 수정 삭제 버튼에 대한 show()/hide()처리 - 등록 버튼 시에도 구분 처리
+		매개변수로 받아오는 속성값(fullcalendar자체 DB에서 할당된 데이터)을 통해서 모달 form데이터 할당 처리
+		모달창 로딩처리(모달창 로딩 이벤트 처리)
+		
+	 
+# 수정/삭제 처리
+1. 요구사항 내용
+	1) 상세화면에서 데이터를 변경 후 수정 삭제 처리 시 해당 내용을 수정/삭제 처리된다
+	2) 일정의 경우 일정을 늘리거나 클릭 후 드래그하여 다른 일정으로 드랍 시 일정 변경
+2. 처리 순서
+	1) sql 작성(수정/삭제)
+	UPDATE calendar
+SET title = #{title},
+	start1 = #{start},
+	end1 = #{end},
+	writer = #{writer},
+	content = #{content},
+	backgroundColor = #{backgroundColor},
+	textColor = #{textColor},
+	allDay = #{allDay},
+	url =#{url}
+WHERE id = #{id}
+
+DELETE FROM calendar
+WHERE id = #{id}
+	
+	2) dao 처리
+	3) service/controller 호출
+		updateCalendar.do
+		deleteCalendar.do
+	4) 화면단 처리
+		- 상세화면에서 변경 후 수정버튼 클릭 시 수정 ajax 호출
+		- 상세화면에서 변경 후 수정버튼 클릭 시 삭제 ajax 호출
+		- 일정 늘리기/일정 드래그 앤 드랍 시 수정 ajax 호출
+		
+		

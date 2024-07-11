@@ -35,19 +35,22 @@ public class Hae_controller {
 		return "login";
 	}
 	@RequestMapping("loginChk.do")
-	public String loginChk(Employee emp, Model d) {
-		d.addAttribute("isUser", service.chkUser(emp));
-		String username = service.getUserName(emp);
-		String userPassword = service.getUserPassword(emp);
-		String userId = service.getUserId(emp);
-		int amount = service.getUserSalary(emp);
-		HttpSession session = request.getSession(true);
-		session.setAttribute("username", username);
-		session.setAttribute("amount", amount);
-		session.setAttribute("userPwd", userPassword);
-		session.setAttribute("userId", userId);
-		return "jsonView";
-	}
+	   public String loginChk(Employee emp, Model d) {
+	      d.addAttribute("isUser", service.chkUser(emp));
+	      String username = service.getUserName(emp);
+	      String userPassword = service.getUserPassword(emp);
+	      String userId = service.getUserId(emp);
+	      String userDept = service.getUserDept(emp);
+	      int amount = service.getUserSalary(emp);
+	      HttpSession session = request.getSession(true);
+	      session.setAttribute("username", username);
+	      session.setAttribute("amount", amount);
+	      session.setAttribute("userPwd", userPassword);
+	      session.setAttribute("userId", userId);
+	      session.setAttribute("userDept", userDept);
+	      return "jsonView";
+	   }
+
 	@RequestMapping("logout.do")
 	public String logout() {
 		HttpSession session = request.getSession(false);

@@ -36,6 +36,9 @@ public class Hae_service {
 	public String getUserId(Employee emp) {
 		return dao.getUserId(emp);
 	}
+	public String getUserDept(Employee sch) {
+	      return dao.getUserDept(sch);
+	   }
 	// myinfo
 	public Employee getMyInfo(Employee emp) {
 		return dao.getMyInfo(emp);

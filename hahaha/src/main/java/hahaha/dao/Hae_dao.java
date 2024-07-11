@@ -30,6 +30,10 @@ public interface Hae_dao {
 			+ "from nw.employee "
 			+ "where user_employee_id = #{user_employee_id} ")
 	String getUserPassword(Employee emp);
+	@Select("SELECT department "
+	         + "      from nw.employee "
+	         + "      where user_employee_id = #{user_employee_id}")
+	   String getUserDept(Employee sch);
 	// human Resource dao
 	@Select("select * from nw.employee order by position")
 	List<Employee> getEmpList(Employee emp);

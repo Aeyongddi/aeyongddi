@@ -111,11 +111,12 @@ body {
 				addForm(arg.event)
 				$("#showModel").click() 
 				// 상세화면 - 수정/삭제
-				/*
-				if (confirm('Are you sure you want to delete this event?')) {
+				
+			
+			/* if (confirm('Are you sure you want to delete this event?')) {
 					arg.event.remove()
-				}
-				*/
+				} 	 */
+			
 			},
 			eventDrop:function(arg){
 				addForm(arg.event)

@@ -71,7 +71,25 @@
 	
 	<!-- 파일업로드 뷰 등록 -->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
-	
+	<task:annotation-driven executor="executor" scheduler="scheduler" proxy-target-class="false"/>
+	<bean id="logProcessor" class="springweb.z01_util.task.LogProcessor" />
+	<bean id="messageSender" class="springweb.z01_util.task.MessageSender" />
+
+	<task:executor id="executor" keep-alive="10" pool-size="10-20"
+		queue-capacity="10" rejection-policy="ABORT" />
+
+	<bean id="processor" class="springweb.z01_util.task.Processor">
+		<property name="taskExecutor" ref="executor" />
+	</bean>
+ 	
+	<task:scheduler id="scheduler" pool-size="4" />
+
+	<task:scheduled-tasks scheduler="scheduler">
+		<task:scheduled ref="logCollector" method="collect"
+			cron="*/5 * * * * *" />
+	</task:scheduled-tasks>
+
+	<bean id="logCollector" class="springweb.z01_util.task.LogCollector" />
 	  
 	<!-- 라이브러리 추가 -->
     <bean id="btnViewResolver"

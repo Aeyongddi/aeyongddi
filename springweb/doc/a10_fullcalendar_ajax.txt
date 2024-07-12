@@ -12,6 +12,15 @@
 		일정 등록 
 		일정 수정
 		일정 삭제
+# jquery lib 형태의 내용 spring 환경에서 처리하기
+1. 기본 모듈 다운로드
+2. css 설정/js 설정 부분 확인 => 공통폴더(webapp/a00_com/)에 복사 설정
+3. jsp(view단 만들기) controller => view 호출
+	위 css/js 부분 설정 처리
+	기본 화면 구성(javascript, css, html단 설정 완료)
+	추가 화면 구성 필요 내용 확인 처리(모달창 등)
+	
+	
 		
 # spring에서 jquery ajax 처리
 1. 요청값과 모델 데이터 처리 연습

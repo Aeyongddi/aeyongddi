@@ -67,7 +67,7 @@
 <img src="logo.png" width="35" height="35"/><b>Human Air ERP</b>
 <br><br>
 
-<form id="chgPwdForm" action="chgPwdSuccess.do" >
+<form id="chgPwdForm" action="chgPwdSuccess.do" method="post" >
   <!-- Password input -->
   <div data-mdb-input-init class="form-outline mb-4">
   <input name="userId" type="hidden" value="<%=userId%>"/>

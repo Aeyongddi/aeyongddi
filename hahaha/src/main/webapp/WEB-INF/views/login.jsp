@@ -41,20 +41,27 @@
         var password = $("[name=password]").val()
 	   	 $.ajax({
 	         url: '${path}/loginChk.do', 
-	         method: 'get',
+	         method: 'post',
 	         dataType:'json',
 	         data: {
 	        	 user_employee_id: user_employee_id,
 	        	 password: password
 	         },
 	         success: function(response) {
-	        	 alert(response.isUser)
-	             if (response.isUser === '로그인성공') {
-	                 location.href = '${path}/humanRsrc.do';
-	             } else {
-	                 alert('유효한 아이디와 비밀번호가 아닙니다.')
-	             }
-	         },
+	               alert(response.isUser)
+	                if (response.isUser === '로그인성공') {
+	                   if(response.dname === '운항및운항관리부서')
+	                          location.href = '${path}/ReservationList.do';
+	                   if(response.dname === '고객관리부서')
+	                          location.href = '${path}/customerList.do';
+	                   if(response.dname === '재무부서')
+	                          location.href = '${path}/financialreport.do';
+	                   if(response.dname === '인사부서')
+	                          location.href = '${path}/humanRsrc.do';
+	                } else {
+	                    alert('유효한 아이디와 비밀번호가 아닙니다.')
+	                }
+	            },
 	         error: function() {
 	             alert('유효한 아이디와 비밀번호가 아닙니다!');
 	         }
@@ -70,7 +77,7 @@
 <hr>
 <img src="logo.png" width="35" height="35"/><b>Human Air ERP</b>
 <br><br>
-<form id="loginForm">
+<form id="loginForm" method="post">
   <!-- Email input -->
   <div data-mdb-input-init class="form-outline mb-4">
     <input type="number" name="user_employee_id" id="form2Example1" class="form-control inputId" />

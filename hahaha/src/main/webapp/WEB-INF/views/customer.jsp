@@ -160,7 +160,7 @@ td {
 				<c:forEach var="cus" items="${cusList}">
 					<tr>
 						<td>${cus.name }</td>
-						<td>${cus.ssn }</td>
+						<td>${cus.ssn.substring(0, 8)}******</td>
 						<td>${cus.email }</td>
 						<td>${cus.passport_number }</td>
 						<td>${cus.phone }</td>

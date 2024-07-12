@@ -48,6 +48,7 @@ public class Hae_controller {
 	      session.setAttribute("userPwd", userPassword);
 	      session.setAttribute("userId", userId);
 	      session.setAttribute("userDept", userDept);
+	      d.addAttribute("dname", service.getUserDept(emp));
 	      return "jsonView";
 	   }
 

@@ -1,0 +1,16 @@
+# 에러 처리
+1. back end
+	1) controller 클래스 중복 에러
+		: 클래스명 변경, 이름 지정
+	2) controller url mapping 에러
+		: 동일한 url 주소 호출 처리 시 발생
+	3) 요청값 처리
+		- type이 맞지 않을 때
+		- get/post 방식
+	4) sql 처리 에러
+		sql문에 ; 등 문자열 처리  => sql 구문에 다른 문자 삽입확인
+		요청 vo객체 property 에러 => get메서드 이름 확인
+		요청 데이터를 null로 넘겼을 때 발생 => 요청값이 화면단에서부터 정상적으로 설정되어 있는지 확인
+		name = "요청키" => Emp sch 	sch.getXXX() 데이터 확인
+		1111: 데이터 예외에 대한 처리
+2. front end

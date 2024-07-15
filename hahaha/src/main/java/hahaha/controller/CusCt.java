@@ -41,6 +41,11 @@ public class CusCt {
     	d.addAttribute("finList", service.getFiList());
     	return "freport";
     }
+    @RequestMapping("fr.do")
+    public String fr(Financialreport sch, Model d) {
+    	d.addAttribute("finList", service.schFiList(sch));
+    	return "freport";
+    }
     
     @RequestMapping("insertFinanc.do")
     public String insertFinanc(Financialreport ins, Model d) {

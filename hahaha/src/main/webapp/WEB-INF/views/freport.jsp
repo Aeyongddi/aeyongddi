@@ -28,9 +28,12 @@ th {
         <h2>재무 제표 조회</h2>
     </div>
     <div class="container">
-        <form id="frm01" class="form" method="post">
+        <form id="frm01" class="form" method="post" action="fr.do">
             <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
                 <button type="button" class="btn btn-success" id="registerButton">등록하기</button>
+                <input type="text" name="report_id" placeholder="분기"/>
+                <input type="text" name="report_period" placeholder="기간"/>
+                <input type="submit" value="검색"/>
                 <p class="text-white" style="margin-left: 75%; margin-top: 20px;">단위:
                     억 원</p>
             </nav>

@@ -33,7 +33,14 @@ public interface CusDao {
     @Select("SELECT * FROM FINANCIALREPORT")
     List<Financialreport> getFiList();
     
+    @Select("SELECT * FROM FINANCIALREPORT "
+    		+ "where report_id like '%'||#{report_id}||'%' "
+    		+ "and report_period like '%'||#{report_period}||'%'")
+    List<Financialreport> schFiList(Financialreport sch);
+    
     @Insert("INSERT INTO FINANCIALREPORT values(#{report_period}, #{total_revenue}, \r\n"
     		+ "#{total_expense}, #{net_profit}, #{balance}, #{report_id})")
     int insertFina(Financialreport ins);
+    
+    
 }

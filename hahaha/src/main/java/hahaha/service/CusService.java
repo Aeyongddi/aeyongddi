@@ -44,6 +44,11 @@ public class CusService {
     public List<Financialreport> getFiList(){
         return dao.getFiList();
     }
+    public List<Financialreport> schFiList(Financialreport sch){
+    	if(sch.getReport_id()==null) sch.setReport_id("");
+    	if(sch.getReport_period()==null) sch.setReport_period("");
+    	return dao.schFiList(sch);
+    }
     
     public String insertFina(Financialreport ins) {
     	return dao.insertFina(ins)>0?"등록성공":"등록실패";

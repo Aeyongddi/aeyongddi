@@ -28,3 +28,6 @@ create table calendar2(
     #{title},#{writer},#{start},#{end},#{content},#{backgroundColor}, #{textColor},#{allDay},
      #{urlLink})
      * */
+    
+    SELECT * FROM MEMBER01;
+    INSERT INTO MEMBER01 values('higirl', '8888', '홍현지', '일반사용자',1000);

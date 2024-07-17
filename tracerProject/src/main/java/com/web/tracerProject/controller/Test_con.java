@@ -11,3 +11,4 @@ public class Test_con {
 		return "a00_show";
 	}
 }
+// 컨트롤러를 만들때 패키지명 앞에 꼭 com.web.을 붙여주세요 제발~

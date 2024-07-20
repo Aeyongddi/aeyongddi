@@ -1,0 +1,7 @@
+CREATE TABLE TRACER_Test(
+	TestVarchar VARCHAR2(50),
+	TestNumber NUMBER,
+	TestDate DATE
+);
+
+SELECT * FROM TRACER_TEST;

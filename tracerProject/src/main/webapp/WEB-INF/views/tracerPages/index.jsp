@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en"> 
 <head>
@@ -19,7 +23,17 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
 
 </head> 
+<script src="${path}/a00_com/jquery.min.js"></script>
+<script src="${path}/a00_com/popper.min.js"></script>
+<script src="${path}/a00_com/bootstrap.min.js"></script>
+<script src="${path}/a00_com/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
 
+})
+</script>
 <body class="app">   	
     <header class="app-header fixed-top">	   	            
         <div class="app-header-inner">  
@@ -249,7 +263,7 @@
 					        <div id="submenu-2" class="collapse submenu submenu-2" data-bs-parent="#menu-accordion">
 						        <ul class="submenu-list list-unstyled">
 							        <li class="submenu-item"><a class="submenu-link" href="login.jsp">Login</a></li>
-							        <li class="submenu-item"><a class="submenu-link" href="signup.jsp">Signup</a></li>
+							        <li class="submenu-item"><a class="submenu-link" href="signup">회원가입</a></li>
 							        <li class="submenu-item"><a class="submenu-link" href="reset-password.jsp">Reset password</a></li>
 							        <li class="submenu-item"><a class="submenu-link" href="404.jsp">404 page</a></li>
 						        </ul>
@@ -340,7 +354,7 @@
 			    <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
 				    <div class="inner">
 					    <div class="app-card-body p-3 p-lg-4">
-						    <h3 class="mb-3">Welcome, developer!</h3>
+						    <h3 class="mb-3">환영합니다. ${user_info.name }님.</h3>
 						    <div class="row gx-5 gy-3">
 						        <div class="col-12 col-lg-9">
 							        

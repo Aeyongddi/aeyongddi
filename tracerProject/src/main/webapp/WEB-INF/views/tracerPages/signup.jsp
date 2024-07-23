@@ -1,5 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="path" value="${pageContext.request.contextPath }" />
+<fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="ko"> 
 <head>
     <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
     
@@ -26,37 +32,38 @@
 		    <div class="d-flex flex-column align-content-end">
 			    <div class="app-auth-body mx-auto">	
 				    <div class="app-auth-branding mb-4"><a class="app-logo" href="index.jsp"><img class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo"></a></div>
-					<h2 class="auth-heading text-center mb-4">Sign up to Portal</h2>					
+					<h2 class="auth-heading text-center mb-4">TRACER 회원가입</h2>					
 	
 					<div class="auth-form-container text-start mx-auto">
 						<form class="auth-form auth-signup-form">         
 							<div class="email mb-3">
-								<label class="sr-only" for="signup-email">Your Name</label>
-								<input id="signup-name" name="signup-name" type="text" class="form-control signup-name" placeholder="Full name" required="required">
+							이름	
+								<input id="signup-name" name="name" type="text" class="form-control signup-name" placeholder="이름 입력" required="required">
+							닉네임	
+								<input id="signup-name" name="nickname" type="text" class="form-control signup-name" placeholder="닉네임 입력" required="required">
+							전화번호	
+								<input id="signup-name" name="phone" type="text" class="form-control signup-name" placeholder="전화번호 입력" required="required">
+							생일	
+								<input id="signup-name" name="birth" type="text" class="form-control signup-name" placeholder="생일 입력" required="required">
+							이메일
+								<input id="signup-email" name="email" type="email" class="form-control signup-email" placeholder="이메일 입력" required="required">
+							인증번호	
+								<input id="signup-name" type="text" class="form-control signup-name" placeholder="이름 입력" required="required">
+							비밀번호
+								<input id="signup-password" name="password" type="password" class="form-control signup-password" placeholder="비밀번호 입력" required="required">
+							비밀번호 확인
+								<input id="signup-passwordChk" type="password" class="form-control signup-password" placeholder="비밀번호 확인" required="required">
 							</div>
-							<div class="email mb-3">
-								<label class="sr-only" for="signup-email">Your Email</label>
-								<input id="signup-email" name="signup-email" type="email" class="form-control signup-email" placeholder="Email" required="required">
-							</div>
-							<div class="password mb-3">
-								<label class="sr-only" for="signup-password">Password</label>
-								<input id="signup-password" name="signup-password" type="password" class="form-control signup-password" placeholder="Create a password" required="required">
-							</div>
-							<div class="extra mb-3">
-								<div class="form-check">
-									<input class="form-check-input" type="checkbox" value="" id="RememberPassword">
-									<label class="form-check-label" for="RememberPassword"N
-									I agree to Portal's <a href="#" class="app-link">Terms of Service</a> and <a href="#" class="app-link">Privacy Policy</a>.
-									</label>
-								</div>
-							</div><!--//extra-->
+							
+							
+							
 							
 							<div class="text-center">
-								<button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">Sign Up</button>
+								<button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">회원가입</button>
 							</div>
 						</form><!--//auth-form-->
 						
-						<div class="auth-option text-center pt-5">Already have an account? <a class="text-link" href="login.jsp" >Log in</a></div>
+						<div class="auth-option text-center pt-5">이미 계정이 있으신가요? <a class="text-link" href="login" >로그인 페이지로</a></div>
 					</div><!--//auth-form-container-->	
 					
 					
@@ -66,7 +73,7 @@
 			    <footer class="app-auth-footer">
 				    <div class="container text-center py-3">
 				         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-			        <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
+			        <small class="copyright">Designed with by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
 				       
 				    </div>
 			    </footer><!--//app-auth-footer-->	
@@ -79,10 +86,6 @@
 		    <div class="auth-background-overlay p-3 p-lg-5">
 			    <div class="d-flex flex-column align-content-end h-100">
 				    <div class="h-100"></div>
-				    <div class="overlay-content p-3 p-lg-4 rounded">
-					    <h5 class="mb-3 overlay-title">Explore Portal Admin Template</h5>
-					    <div>Portal is a free Bootstrap 5 admin dashboard template. You can download and view the template license <a href="https://themes.3rdwavemedia.com/bootstrap-templates/admin-dashboard/portal-free-bootstrap-admin-dashboard-template-for-developers/">here</a>.</div>
-				    </div>
 				</div>
 		    </div><!--//auth-background-overlay-->
 	    </div><!--//auth-background-col-->

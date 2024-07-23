@@ -33,13 +33,11 @@
 				    <div class="app-auth-branding mb-4"><a class="app-logo" href="index.jsp"><img class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo"></a></div>
 					<h2 class="auth-heading text-center mb-5">TRACER 로그인</h2>
 			        <div class="auth-form-container text-start">
-						<form action="main" class="auth-form login-form" method="post">         
+						<form action="login" class="auth-form login-form" method="post">         
 							<div class="email mb-3">
-								<label class="sr-only" for="signin-email">Email</label>
 								<input id="signin-email" name="email" type="email" class="form-control signin-email" placeholder="이메일 입력" required="required">
 							</div><!--//form-group-->
 							<div class="password mb-3">
-								<label class="sr-only" for="signin-password">Password</label>
 								<input id="signin-password" name="password" type="password" class="form-control signin-password" placeholder="비밀번호 입력" required="required">
 								<div class="extra mt-3 row justify-content-between">
 									<div class="col-6">
@@ -47,7 +45,7 @@
 									</div><!--//col-6-->
 									<div class="col-6">
 										<div class="forgot-password text-end">
-											<a href="reset-password.jsp">비밀번호를 잊으셨나요?</a>
+											<a href="reset-password">비밀번호를 잊으셨나요?</a>
 										</div>
 									</div><!--//col-6-->
 								</div><!--//extra-->
@@ -57,7 +55,7 @@
 							</div>
 						</form>
 						
-						<div class="auth-option text-center pt-5">계정이 없으신가요? 회원가입은 <a class="text-link" href="signup.jsp" >여기에서</a>.</div>
+						<div class="auth-option text-center pt-5">계정이 없으신가요? 회원가입은 <a class="text-link" href="signup" >여기에서</a>.</div>
 					</div><!--//auth-form-container-->	
 
 			    </div><!--//auth-body-->

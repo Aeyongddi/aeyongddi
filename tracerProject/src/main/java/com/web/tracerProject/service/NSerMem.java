@@ -11,8 +11,19 @@ public class NSerMem {
 	@Autowired(required=false)
 	private NDaoMem dao;
 	
-	public String schMember(User_info user_info) {
-		return dao.schMember(user_info)>0?"로그인성공":"로그인실패";
+	// mem 로그인
+	public String isMember(User_info user_info) {
+		if(user_info.getEmail()==null)
+			user_info.setEmail("");
+		if(user_info.getPassword()==null)
+			user_info.setPassword("");
+		return dao.isMember(user_info)>0?"로그인성공":"로그인실패";
 	}
-	
+	public User_info getMember(User_info user_info) {
+		return dao.getMember(user_info);
+	}
+	// mem 회원가입
+	public String insMember(User_info user_info) {
+		return dao.insMember(user_info)>0?"회원가입성공":"회원가입실패";
+	}
 }

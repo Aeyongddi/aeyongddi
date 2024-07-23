@@ -1,5 +1,11 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<c:set var="path" value="${pageContext.request.contextPath }" />
+<fmt:requestEncoding value="utf-8" />
 <!DOCTYPE html>
-<html lang="en"> 
+<html lang="ko"> 
 <head>
     <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
     
@@ -523,7 +529,7 @@
 								    <div class="row justify-content-between align-items-center">
 									    <div class="col-auto">
 										    <div class="item-label"><strong>Password</strong></div>
-									        <div class="item-data">••••••••</div>
+									        <div class="item-data">â¢â¢â¢â¢â¢â¢â¢â¢</div>
 									    </div><!--//col-->
 									    <div class="col text-end">
 										    <a class="btn-sm app-btn-secondary" href="#">Change</a>

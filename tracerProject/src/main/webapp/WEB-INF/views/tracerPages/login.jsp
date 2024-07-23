@@ -45,7 +45,7 @@
 									</div><!--//col-6-->
 									<div class="col-6">
 										<div class="forgot-password text-end">
-											<a href="reset-password">비밀번호를 잊으셨나요?</a>
+											<a href="reset_password">비밀번호를 잊으셨나요?</a>
 										</div>
 									</div><!--//col-6-->
 								</div><!--//extra-->

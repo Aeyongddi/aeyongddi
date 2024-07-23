@@ -42,9 +42,20 @@ public class NContMem {
 	// mem - 회원가입
 	// http://localhost:5656/signup
 	@GetMapping("signup")
-	public String signup(User_info user_info) {
+	public String signupFrm(User_info user_info) {
 		return "tracerPages/signup";
 	}
+	@PostMapping("signup")
+	public String signup(User_info user_info) {
+		service.insMember(user_info);
+		return "tracerPages/signupSuccess";
+	}
+	// http://localhost:5656/signupSuccess
+	@GetMapping("signupSuccess")
+	public String signupSuccess() {
+		return "tracerPages/signupSuccess";
+	}
+	
 	
 	// mem - 비밀번호 초기화
 	// http://localhost:5656/reset_password

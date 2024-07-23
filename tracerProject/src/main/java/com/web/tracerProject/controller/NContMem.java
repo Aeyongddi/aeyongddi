@@ -5,16 +5,19 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.web.tracerProject.service.N_Ser_mem;
+import com.web.tracerProject.service.NSerMem;
+import com.web.tracerProject.vo.User_info;
 
 @Controller
-public class N_Cont_mem {
+public class NContMem {
 	@Autowired(required=false)
-	private N_Ser_mem service;
+	private NSerMem service;
 	
 	// http://localhost:5656/login
 	@GetMapping("login")
-	public String login() {
+	public String login(User_info user_info) {
+		if(service.schMember(user_info)=="로그인 성공")
+			System.out.println("로그인 성공");
 		return "tracerPages/login";
 	}
 	

@@ -2,6 +2,8 @@ package com.web.tracerProject.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,7 +15,9 @@ import lombok.Setter;
 @Setter
 public class Project {
 	private String pid;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date start_date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date end_date;
 	private String title;
 	private String description;

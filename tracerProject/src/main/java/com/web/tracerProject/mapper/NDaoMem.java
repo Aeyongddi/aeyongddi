@@ -21,6 +21,6 @@ public interface NDaoMem {
 	// mem - 회원가입
 	@Insert("INSERT INTO USER_INFO \r\n"
 			+ "VALUES(#{email}, #{password}, "
-			+ "#{nickname}, #{name}, TO_DATE(#{birth}), #{phone})")
+			+ "#{nickname}, #{name}, #{birth}, #{phone})")
 	int insMember(User_info user_info);
 }

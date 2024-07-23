@@ -10,4 +10,6 @@ public class N_Ser_mem {
 	@Autowired(required=false)
 	private N_Dao_mem dao;
 	
+	
+	
 }

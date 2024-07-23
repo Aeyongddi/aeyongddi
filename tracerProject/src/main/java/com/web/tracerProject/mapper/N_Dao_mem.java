@@ -3,6 +3,8 @@ package com.web.tracerProject.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import com.web.tracerProject.vo.User_info;
+
 @Mapper
 public interface N_Dao_mem {
 	
@@ -10,6 +12,5 @@ public interface N_Dao_mem {
 			+ "FROM USER_INFO\r\n"
 			+ "WHERE email=#{email}\r\n"
 			+ "AND password=#{password}") 
-	String schMember();
-	
+	int schMember(User_info user_info);
 }

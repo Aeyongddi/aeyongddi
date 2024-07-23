@@ -19,7 +19,12 @@ public class N_Cont_mem {
 	}
 	
 	@PostMapping("main")
-	public String Main() {
+	public String main() {
 		return "tracerPages/index";
+	}
+	
+	@GetMapping("fullcalendar")
+	public String fullcalendar() {
+		return "a06_fullcalendarList";
 	}
 }

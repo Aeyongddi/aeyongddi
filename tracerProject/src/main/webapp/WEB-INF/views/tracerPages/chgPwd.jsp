@@ -7,7 +7,6 @@
 <!DOCTYPE html>
 <html lang="ko"> 
 <head>
-    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
@@ -26,46 +25,40 @@
 
 </head> 
 
-<body class="app app-signup p-0">    	
+<body class="app app-login p-0">    	
     <div class="row g-0 app-auth-wrapper">
 	    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
 		    <div class="d-flex flex-column align-content-end">
 			    <div class="app-auth-body mx-auto">	
 				    <div class="app-auth-branding mb-4"><a class="app-logo" href="index.jsp"><img class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo"></a></div>
-					<h2 class="auth-heading text-center mb-4">TRACER 회원가입</h2>					
-	
-					<div class="auth-form-container text-start mx-auto">
-						<form method="post" action="signup" class="auth-form auth-signup-form">         
+					<h2 class="auth-heading text-center mb-5">TRACER 로그인</h2>
+			        <div class="auth-form-container text-start">
+						<form action="login" class="auth-form login-form" method="post">         
 							<div class="email mb-3">
-							이름	
-								<input id="signup-name" name="name" type="text" class="form-control signup-name" placeholder="이름 입력" required="required">
-							닉네임	
-								<input id="signup-name" name="nickname" type="text" class="form-control signup-name" placeholder="닉네임 입력" required="required">
-							전화번호	
-								<input id="signup-name" name="phone" type="text" class="form-control signup-name" placeholder="전화번호 입력 ( - 빼고 입력 )" required="required">
-							생일	
-								<input id="signup-name" name="birthStr" type="date" class="form-control signup-name" placeholder="생일 입력" required="required">
-							이메일
-								<input id="signup-email" name="email" type="email" class="form-control signup-email" placeholder="이메일 입력" required="required">
-							인증번호	
-								<input id="signup-name" type="text" class="form-control signup-name" placeholder="이름 입력" required="required">
-							비밀번호
-								<input id="signup-password" name="password" type="password" class="form-control signup-password" placeholder="비밀번호 입력" required="required">
-							비밀번호 확인
-								<input id="signup-passwordChk" type="password" class="form-control signup-password" placeholder="비밀번호 확인" required="required">
-							</div>
-						
+								<input id="signin-email" name="email" type="email" class="form-control signin-email" placeholder="이메일 입력" required="required">
+							</div><!--//form-group-->
+							<div class="password mb-3">
+								<input id="signin-password" name="password" type="password" class="form-control signin-password" placeholder="비밀번호 입력" required="required">
+								<div class="extra mt-3 row justify-content-between">
+									<div class="col-6">
+										
+									</div><!--//col-6-->
+									<div class="col-6">
+										<div class="forgot-password text-end">
+											<a href="reset_password">비밀번호를 잊으셨나요?</a>
+										</div>
+									</div><!--//col-6-->
+								</div><!--//extra-->
+							</div><!--//form-group-->
 							<div class="text-center">
-								<button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">회원가입</button>
+								<button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">로그인</button>
 							</div>
 						</form>
 						
-						<div class="auth-option text-center pt-5">이미 계정이 있으신가요? <a class="text-link" href="login" >로그인 페이지로</a></div>
-					</div>
-					
-					
-				    
-			    </div>
+						<div class="auth-option text-center pt-5">계정이 없으신가요? 회원가입은 <a class="text-link" href="signup" >여기에서</a>.</div>
+					</div><!--//auth-form-container-->	
+
+			    </div><!--//auth-body-->
 		    
 			    <footer class="app-auth-footer">
 				    <div class="container text-center py-3">
@@ -77,7 +70,7 @@
 		    </div><!--//flex-column-->   
 	    </div><!--//auth-main-col-->
 	    <div class="col-12 col-md-5 col-lg-6 h-100 auth-background-col">
-		    <div class="auth-background-holder">			    
+		    <div class="auth-background-holder">
 		    </div>
 		    <div class="auth-background-mask"></div>
 		    <div class="auth-background-overlay p-3 p-lg-5">

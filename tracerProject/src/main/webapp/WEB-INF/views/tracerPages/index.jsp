@@ -161,7 +161,7 @@ $(document).ready(function(){
 								<li><a class="dropdown-item" href="account.jsp">Account</a></li>
 								<li><a class="dropdown-item" href="settings.jsp">Settings</a></li>
 								<li><hr class="dropdown-divider"></li>
-								<li><a class="dropdown-item" href="login.jsp">Log Out</a></li>
+								<li><a class="dropdown-item" href="logout">로그아웃</a></li>
 							</ul>
 			            </div><!--//app-user-dropdown--> 
 		            </div><!--//app-utilities-->

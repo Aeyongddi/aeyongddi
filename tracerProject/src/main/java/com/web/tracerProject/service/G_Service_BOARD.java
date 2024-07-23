@@ -16,27 +16,26 @@ public class G_Service_BOARD {
 	   //   @Select("SELECT * FROM BOARD") List<Board> getBoardList(); null처리
 	   
 	   public List<Board> getBoardList(Board sch) {
-		  // processNullFields(sch);
+		    processNullFields(sch);
 		   
-		   return dao.getBoardList(sch);
+		   return dao.getBoardSearch(sch);
 	   }
 	   
-	   // List<Board> getBoardSearch(@Param("sch") Board sch);
-//	   public List<Board> getBoardSearch(Board sch) {
-//		   
-//		   return dao.getBoardSearch(sch);
-//	   }
-//	   
-//	   private void processNullFields(Board sch) {
-//	        // name 필드 처리
-//	        if (sch.getTitle() == null) {
-//	            sch.setTitle("");
-//	        }  
-//	        // reservation 필드 처리
-//	        if (sch.getBid() == null) {
-//	            sch.setBid("");
-//	        }
-//       }
+	    public List<Board> getBoardSearch(Board sch) {
+	   
+     	   return dao.getBoardSearch(sch);
+       }
+	   
+	   private void processNullFields(Board sch) {
+	        // name 필드 처리
+	        if (sch.getTitle() == null) {
+	            sch.setTitle("");
+	            }  
+	        // reservation 필드 처리
+	        if (sch.getBid() == null) {
+	            sch.setBid("");
+	        }
+       }
 	   
 	   
 	   

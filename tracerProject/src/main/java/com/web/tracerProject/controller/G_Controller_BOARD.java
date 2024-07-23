@@ -1,5 +1,7 @@
 package com.web.tracerProject.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,9 +17,14 @@ public class G_Controller_BOARD {
     private G_Service_BOARD service;
 
 	// http://localhost:5656/boardList
+	// http://localhost:5656/boardList?title=first&bid=B001
 	@GetMapping("/boardList")
 	public String boardList(Board sch, Model d) {
-		d.addAttribute("board", service.getBoardList(sch));
+		List<Board> boardList = service.getBoardList(sch);
+		d.addAttribute("boardList", boardList);
 		return "board";
 	}
+	
+	
+	
 }

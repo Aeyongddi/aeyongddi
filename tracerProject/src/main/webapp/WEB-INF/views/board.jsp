@@ -341,7 +341,10 @@
 					     <div class="page-utilities">
 						    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center">
+								    <form class="table-search-form row gx-1 align-items-center">					    
+					                    <div class="col-auto">
+					                         <input type="date" placeholder="게시일 검색" name="upt_date" value="" class="form-control search-orders"/>
+					                    </div>
 					                    <div class="col-auto">
 					                        <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search">
 					                    </div>
@@ -405,9 +408,12 @@
 										  <c:forEach var="boa" items="${boardList}"> 
 											<tr>
 												<td class="cell">${boa.bid}</td>
-												<td class="cell">$${boa.title}</td>
+												<td class="cell">${boa.title}</td>
 												<td class="cell">${boa.content}</td>
-												<td class="cell">${boa.upt_date}</td>
+												<td class="cell">
+							
+												<fmt:formatDate value="${boa.upt_date}" pattern="yyyy-MM-dd"/>
+												</td>
 												<td class="cell">${boa.views}</td>
 												<td class="cell">${boa.btype}</td>
 												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>

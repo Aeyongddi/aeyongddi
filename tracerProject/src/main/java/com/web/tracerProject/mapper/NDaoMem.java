@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Select;
 import com.web.tracerProject.vo.User_info;
 
 @Mapper
-public interface N_Dao_mem {
+public interface NDaoMem {
 	
 	@Select("SELECT COUNT(*)\r\n"
 			+ "FROM USER_INFO\r\n"

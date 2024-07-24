@@ -26,11 +26,11 @@ public class G_Controller_BOARD {
 		return "board";
 	}
 	
-	@PostMapping("/boardListInsert.do")
-	public String boardInsert100(Board ins, Model d) {
-		d.addAttribute("result", service.insertBoard(ins));
-		return "board1";
-	}
-	
+//	@PostMapping("/boardListInsert.do")
+//	public String boardInsert100(Board ins, Model d) {
+//		d.addAttribute("result", service.insertBoard(ins));
+//		return "board";
+//	}
+//	
 	
 }

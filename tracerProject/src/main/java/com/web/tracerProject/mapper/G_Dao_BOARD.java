@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.web.tracerProject.vo.Board;
 
@@ -20,8 +21,10 @@ public interface G_Dao_BOARD {
 			    + "AND BID LIKE '%' || #{sch.bid} || '%'")
      List<Board> getBoardSearch(@Param("sch") Board sch);
      
-	 @Insert("INSERT INTO BOARD values(#{bid},#{title},#{content},"
-	 		+ "#{upt_date},#{views},#{btype},#{cid},#{email},#{sid})")
-	 int insertBoard(Board ins);
+	// @Update("")
+	 
+//	 @Insert("INSERT INTO BOARD values(#{'BID'||LPAD(BID_SEQ.NEXTVAL, 5, '0') },#{title},#{content},"
+//	 		+ "#{upt_date},#{views},#{btype},#{'CID'||LPAD(CID_SEQ.NEXTVAL, 5, '0')},#{email},#{sid})")
+//	 int insertBoard(Board ins);
      
 }

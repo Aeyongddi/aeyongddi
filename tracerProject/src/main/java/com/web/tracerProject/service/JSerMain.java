@@ -30,6 +30,9 @@ public class JSerMain {
 	public int getCountPro(Task task) {
 		return dao.getCountPro(task);
 	}
+	public int getTaskProgress(Task task) {
+		return dao.getTaskProgress(task);
+	}
 	// mem 로그인
 		public String isMember(User_info user_info) {
 			if(user_info.getEmail()==null)

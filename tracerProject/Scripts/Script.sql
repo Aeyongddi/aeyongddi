@@ -29,3 +29,11 @@ WHERE ROWNUM = 1;
 
 SELECT count(*)
 FROM PROJECT;
+
+SELECT * FROM task;
+
+SELECT (completed.count_y * 100 / total.count_all) AS progress
+FROM
+  (SELECT COUNT(*) AS count_y FROM task WHERE isend = 'Y') completed,
+  (SELECT COUNT(*) AS count_all FROM task) total;
+

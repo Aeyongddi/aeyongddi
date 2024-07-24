@@ -36,6 +36,8 @@ public class JContMain {
 		d.addAttribute("dDay", dDay);
 		int countPro = service.getCountPro(task);
 		d.addAttribute("countPro", countPro);
+		int taskPro = service.getTaskProgress(task);
+        d.addAttribute("taskPro", taskPro);
 		
 		if(service.isMember(user_info).equals("로그인성공")) {
 			session.setAttribute("info", service.getMember(user_info));
@@ -59,6 +61,8 @@ public class JContMain {
 		int countPro = service.getCountPro(task);
 		d.addAttribute("countPro", countPro);
 		d.addAttribute("user_info", (User_info)session.getAttribute("info"));
+		int taskPro = service.getTaskProgress(task);
+		d.addAttribute("taskPro", taskPro);
 		return "tracerPages/index";
 	}
 }

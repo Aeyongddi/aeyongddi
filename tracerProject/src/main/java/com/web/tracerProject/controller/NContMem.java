@@ -1,10 +1,12 @@
 package com.web.tracerProject.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.tracerProject.service.NSerMem;
 import com.web.tracerProject.vo.User_info;
@@ -47,7 +49,10 @@ public class NContMem {
 			session.setAttribute("info", service.getMember(user_info));
 			d.addAttribute("user_info", (User_info)session.getAttribute("info"));
 			return "tracerPages/index";
-		} else return "tracerPages/login";
+		} else {
+			d.addAttribute("loginFailed", 1);
+			return "tracerPages/login";
+		}
 	}
 	// mem - 로그아웃
 	@GetMapping("logout")
@@ -62,6 +67,7 @@ public class NContMem {
 	public String reset_password(){
 		return "tracerPages/reset-password";
 	}
+	// mem - 비밀번호 변경
 	// http://localhost:5656/account
 	@GetMapping("account")
 	public String account(User_info user_info, Model d) {
@@ -70,7 +76,14 @@ public class NContMem {
 	}
 	// http://localhost:5656/chgPwd
 	@GetMapping("chgPwd")
-	public String chgPwd() {
+	public String chgPwdFrm() {
 		return "tracerPages/chgPwd";
+	}
+	@PostMapping("chgPwd")
+	public ResponseEntity<String> chgPwd(@RequestParam("password") String password,
+											@RequestParam("email") String email, HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		session.invalidate();
+		return ResponseEntity.ok(service.chgPwd(password, email));
 	}
 }

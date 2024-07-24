@@ -2,6 +2,7 @@ package com.web.tracerProject.mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -26,13 +27,9 @@ public interface NDaoMem {
 	int insMember(User_info user_info);
 	
 	// mem - 비밀번호변경
-	@Select("SELECT count(*)\r\n"
-			+ "FROM USER_INFO\r\n"
-			+ "WHERE PASSWORD = #{password}\r\n"
-			+ "AND EMAIL = #{email}")
-	int chkPwd(User_info user_info);
 	@Update("UPDATE USER_INFO\r\n"
 			+ "SET PASSWORD = #{password}\r\n"
 			+ "WHERE EMAIL = #{email}")
-	int chgPwd(User_info user_info);
+	int chgPwd(@Param("password") String password, 
+			@Param("email") String email);
 }

@@ -50,33 +50,25 @@ $(document).ready(function(){
 			alert("현재 비밀번호가 일치하지 않습니다.")
 		else if($("[name=password]").val() != $("[name=pwdChk]").val())
 			alert("변경 비밀번호와 비밀번호 확인이 일치하지 않습니다.")
-		else
-			alert("3")
+		else{
+			if(confirm('정말로 변경하시겠습니까?'))
+				chgPwd()
+		}
 	})
 })
 
-function memChk(){
-	$.ajax({
-		url: '',
-		type: 'POST',
-		success: function(data){
-
-		},
-		error: function(err){
-			
-		}
-	})
-}
-
 function chgPwd(){
 	$.ajax({
-		url: '',
+		data: $("form").serialize(),
+		url: 'chgPwd',
 		type: 'POST',
 		success: function(data){
-
+			alert(data)
+			location.href = 'login'
 		},
 		error: function(err){
-			
+			console.log(err)
+			alert('오류 발생')
 		}
 	})
 }
@@ -91,7 +83,7 @@ function chgPwd(){
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
 			    
-			    <h1 class="app-page-title">My Account</h1>
+			    <h1 class="app-page-title">내 정보</h1>
                 <div class="row gy-4">
 	                <div class="col-12 col-lg-6">
 		                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
@@ -116,9 +108,6 @@ function chgPwd(){
 									    <div class="col-auto">
 										    <div class="item-label mb-2"><strong>프로필 사진</strong></div>
 										    <div class="item-data"><img class="profile-image" src="assets/images/user.png" alt=""></div>
-									    </div><!--//col-->
-									    <div class="col text-end">
-										    <a class="btn-sm app-btn-secondary" href="#">Change</a>
 									    </div><!--//col-->
 								    </div><!--//row-->
 							    </div><!--//item-->

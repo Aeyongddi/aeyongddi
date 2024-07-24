@@ -24,7 +24,18 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
 
 </head> 
-
+<script src="${path}/a00_com/jquery.min.js"></script>
+<script src="${path}/a00_com/popper.min.js"></script>
+<script src="${path}/a00_com/bootstrap.min.js"></script>
+<script src="${path}/a00_com/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	if(${loginFailed}>0)
+		alert("아이디와 비밀번호가 유효하지 않습니다.")
+})
+</script>
 <body class="app app-login p-0">    	
     <div class="row g-0 app-auth-wrapper">
 	    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">

@@ -26,4 +26,8 @@ public class NSerMem {
 	public String insMember(User_info user_info) {
 		return dao.insMember(user_info)>0?"회원가입성공":"회원가입실패";
 	}
+	// mem 비밀번호변경
+	public String chgPwd(String password, String email) {
+		return dao.chgPwd(password, email)>0?"비밀번호변경성공":"비밀번호변경실패";
+	}
 }

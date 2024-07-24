@@ -30,4 +30,7 @@ public class NSerMem {
 	public String chgPwd(String password, String email) {
 		return dao.chgPwd(password, email)>0?"비밀번호변경성공":"비밀번호변경실패";
 	}
+	// mem 비밀번호 유효성검사
+	
+	
 }

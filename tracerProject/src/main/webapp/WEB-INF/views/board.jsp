@@ -339,8 +339,7 @@
 								    <select class="form-select w-auto" >
 										  <option selected value="option-1" disabled >전체</option>
 										  <option value="option-2">이슈</option>
-										  <option value="option-3">결재</option>
-										  
+		  
 									</select>
 							    </div>
 							   
@@ -351,10 +350,7 @@
 			   
 			    
 			    <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-				    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">이슈게시판</a>
-				   
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">결재게시판</a>
-				   
+				    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" role="tab" aria-controls="orders-all" aria-selected="true">이슈게시판</a>	   
 				</nav>
 				
 				

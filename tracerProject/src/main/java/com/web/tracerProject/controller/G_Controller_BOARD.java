@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.web.tracerProject.service.G_Service_BOARD;
 import com.web.tracerProject.vo.Board;
@@ -26,11 +26,15 @@ public class G_Controller_BOARD {
 		return "board";
 	}
 	
-//	@PostMapping("/boardListInsert.do")
-//	public String boardInsert100(Board ins, Model d) {
-//		d.addAttribute("result", service.insertBoard(ins));
-//		return "board";
-//	}
-//	
+	@RequestMapping("/boardListInsert.do")
+	public String boardInsert(Board ins, Model d) {
+		d.addAttribute("result", service.insertBoard(ins));
+		return "board";
+	}	
 	
+	@RequestMapping("/boardUpdate")
+    public String insertBoard(Board upt, Model d) {
+        d.addAttribute("msg", service.insertBoard(upt));
+		return "board"; 
+	}
 }

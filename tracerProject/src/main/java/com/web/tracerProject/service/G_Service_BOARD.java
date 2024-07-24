@@ -37,8 +37,12 @@ public class G_Service_BOARD {
 	        }
        }
 	   
-//	   public 	String insertBoard(Board ins) {
-//			return dao.insertBoard(ins)>0?"등록성공":"등록실패";
-//		}
+	   public String insertBoard(Board ins) {
+			return dao.insertBoard(ins)>0?"등록성공":"등록실패";
+		}
+	   
+	   public String updateBoard(Board upt) {
+			return dao.updateBoard(upt)>0?"수정성공":"수정실패";
+		}	
 	   
 }

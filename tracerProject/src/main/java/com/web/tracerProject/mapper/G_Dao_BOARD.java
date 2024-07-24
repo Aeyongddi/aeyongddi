@@ -21,10 +21,19 @@ public interface G_Dao_BOARD {
 			    + "AND BID LIKE '%' || #{sch.bid} || '%'")
      List<Board> getBoardSearch(@Param("sch") Board sch);
      
-	// @Update("")
+	 @Update("UPDATE BOARD \r\n"
+				+ "	SET bid = #{bid},\r\n"
+				+ "		title=#{title},\r\n"
+				+ "		content = #{content},\r\n"
+				+ "		upt_date = to_date(#{upt_date},'YYYY-MM-DD'),\r\n"
+				+ "		views = #{views},\r\n"
+				+ "		btype = #{btype},\r\n"
+				+ "		email = #{email}\r\n"
+				+ "	WHERE sid = #{sid}")
+	 int updateBoard(Board upt);
 	 
-//	 @Insert("INSERT INTO BOARD values(#{'BID'||LPAD(BID_SEQ.NEXTVAL, 5, '0') },#{title},#{content},"
-//	 		+ "#{upt_date},#{views},#{btype},#{'CID'||LPAD(CID_SEQ.NEXTVAL, 5, '0')},#{email},#{sid})")
-//	 int insertBoard(Board ins);
+	 @Insert("INSERT INTO BOARD values(#{bid},#{title},#{content},"
+	 		+ "#{upt_date},#{views},#{btype},#{CID},#{email},#{sid})")
+	 int insertBoard(Board ins);
      
 }

@@ -23,18 +23,18 @@ public class G_Controller_BOARD {
 	public String boardList(Board sch, Model d) {
 		List<Board> boardList = service.getBoardList(sch);
 		d.addAttribute("boardList", boardList);
-		return "board";
+		return "tracerPages/board";
 	}
 	
 	@RequestMapping("/boardListInsert.do")
 	public String boardInsert(Board ins, Model d) {
 		d.addAttribute("result", service.insertBoard(ins));
-		return "board";
+		return "tracerPages/board";
 	}	
 	
 	@RequestMapping("/boardUpdate")
     public String insertBoard(Board upt, Model d) {
         d.addAttribute("msg", service.insertBoard(upt));
-		return "board"; 
+		return "tracerPages/board"; 
 	}
 }

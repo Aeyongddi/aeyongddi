@@ -25,7 +25,7 @@ public interface G_Dao_BOARD {
 				+ "	SET bid = #{bid},\r\n"
 				+ "		title=#{title},\r\n"
 				+ "		content = #{content},\r\n"
-				+ "		upt_date = to_date(#{upt_date},'YYYY-MM-DD'),\r\n"
+				+ "		upt_date = #{UPT_DATE},\r\n"
 				+ "		views = #{views},\r\n"
 				+ "		btype = #{btype},\r\n"
 				+ "		email = #{email}\r\n"

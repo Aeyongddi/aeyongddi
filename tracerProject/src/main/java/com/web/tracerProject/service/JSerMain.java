@@ -15,4 +15,8 @@ public class JSerMain {
 		return dao.getTodayDo(task);
 	}
 	
+	public int getWeekDo(Task task) {
+		return dao.getWeekDo(task);
+	}
+	
 }

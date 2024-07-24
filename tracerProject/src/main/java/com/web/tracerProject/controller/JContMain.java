@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.web.tracerProject.mapper.JDaoMain;
 import com.web.tracerProject.vo.Task;
@@ -15,15 +14,13 @@ public class JContMain {
 	private JDaoMain service;
 	
 	// http://localhost:5656/main
+
 	@GetMapping("/main")
-	public String main() {
-		return "tracerPages/index";
-	}
-	
-	@GetMapping("/main/todayDo")
 	public String main(Model d, Task task) {
 		int todayDoCount = service.getTodayDo(task);
 		d.addAttribute("todayDoCount", todayDoCount);
+		int thisWeekDo = service.getWeekDo(task);
+		d.addAttribute("thisWeekDo", thisWeekDo);
 		return "tracerPages/index";
 	}
 }

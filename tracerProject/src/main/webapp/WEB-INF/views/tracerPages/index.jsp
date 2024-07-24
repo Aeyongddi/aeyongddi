@@ -41,8 +41,7 @@ $(document).ready(function(){
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
 			    
-			    <h1 class="app-page-title">대시보드</h1>
-			    
+			    <h1 class="app-page-title">대시보드</h1> 
 			    <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
 				    <div class="inner">
 					    <div class="app-card-body p-3 p-lg-4">
@@ -86,9 +85,10 @@ $(document).ready(function(){
 					    <div class="app-card app-card-stat shadow-sm h-100">
 						    <div class="app-card-body p-3 p-lg-4">
 							    <h4 class="stats-type mb-1">마감 기한</h4>
-							    <div class="stats-figure">23</div>
+							    <div class="stats-figure"> ${dDay }
+							    </div>
 							    <div class="stats-meta">
-								    Open</div>
+								    <fmt:formatDate value="${dueto}" pattern="yyyy-MM-dd"/></div>
 						    </div><!--//app-card-body-->
 						    <a class="app-card-link-mask" href="#"></a>
 					    </div><!--//app-card-->
@@ -97,8 +97,7 @@ $(document).ready(function(){
 					    <div class="app-card app-card-stat shadow-sm h-100">
 						    <div class="app-card-body p-3 p-lg-4">
 							    <h4 class="stats-type mb-1">프로젝트 진행 중</h4>
-							    <div class="stats-figure">6</div>
-							    <div class="stats-meta">New</div>
+							    <div class="stats-figure">${countPro }</div>
 						    </div><!--//app-card-body-->
 						    <a class="app-card-link-mask" href="#"></a>
 					    </div><!--//app-card-->

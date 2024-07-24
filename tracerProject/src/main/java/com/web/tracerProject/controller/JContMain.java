@@ -1,5 +1,7 @@
 package com.web.tracerProject.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,13 @@ public class JContMain {
 		d.addAttribute("todayDoCount", todayDoCount);
 		int thisWeekDo = service.getWeekDo(task);
 		d.addAttribute("thisWeekDo", thisWeekDo);
+		Date dueto = service.getDueto(task);
+		d.addAttribute("dueto", dueto);
+		String dDay = service.getDday(task);
+		d.addAttribute("dDay", dDay);
+		int countPro = service.getCountPro(task);
+		d.addAttribute("countPro", countPro);
 		return "tracerPages/index";
+		
 	}
 }

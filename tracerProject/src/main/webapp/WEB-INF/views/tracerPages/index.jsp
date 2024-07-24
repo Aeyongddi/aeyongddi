@@ -41,6 +41,7 @@ $(document).ready(function(){
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
 			    
+			    <br><br>
 			    <h1 class="app-page-title">대시보드</h1> 
 			    <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
 				    <div class="inner">

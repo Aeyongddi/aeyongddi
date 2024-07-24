@@ -64,7 +64,8 @@ public class NContMem {
 	}
 	// http://localhost:5656/account
 	@GetMapping("account")
-	public String account() {
+	public String account(User_info user_info, Model d) {
+		d.addAttribute("user_info", session.getAttribute("info"));
 		return "tracerPages/account";
 	}
 	// http://localhost:5656/chgPwd

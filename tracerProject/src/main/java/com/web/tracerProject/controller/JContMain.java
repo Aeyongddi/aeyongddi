@@ -5,6 +5,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.web.tracerProject.service.JSerMain;
@@ -44,5 +45,20 @@ public class JContMain {
 			d.addAttribute("loginFailed", 1);
 			return "tracerPages/login";
 		}
+	}
+	@GetMapping("/index")
+	public String index(Model d, Task task, User_info user_info) {
+		int todayDoCount = service.getTodayDo(task);
+		d.addAttribute("todayDoCount", todayDoCount);
+		int thisWeekDo = service.getWeekDo(task);
+		d.addAttribute("thisWeekDo", thisWeekDo);
+		Date dueto = service.getDueto(task);
+		d.addAttribute("dueto", dueto);
+		String dDay = service.getDday(task);
+		d.addAttribute("dDay", dDay);
+		int countPro = service.getCountPro(task);
+		d.addAttribute("countPro", countPro);
+		d.addAttribute("user_info", (User_info)session.getAttribute("info"));
+		return "tracerPages/index";
 	}
 }

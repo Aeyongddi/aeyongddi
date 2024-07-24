@@ -32,7 +32,7 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	if(${loginFailed}>0)
+	if(${loginFailed==null?0:1}>0)
 		alert("아이디와 비밀번호가 유효하지 않습니다.")
 })
 </script>

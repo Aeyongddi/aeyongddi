@@ -25,7 +25,7 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
 
 </head> 
-
+<jsp:include page="/headerSidebar.jsp"/>
 <body class="app">   	
     <header class="app-header fixed-top">	   	            
         <div class="app-header-inner">  

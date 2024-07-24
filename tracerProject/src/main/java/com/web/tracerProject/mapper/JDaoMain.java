@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.web.tracerProject.vo.Task;
+import com.web.tracerProject.vo.User_info;
 
 
 
@@ -50,4 +51,15 @@ public interface JDaoMain {
 	@Select("SELECT count(*)\r\n"
 			+ "FROM PROJECT")
 	int getCountPro(Task task);
+	
+	// mem - 로그인
+		@Select("SELECT COUNT(*)\r\n"
+				+ "FROM USER_INFO\r\n"
+				+ "WHERE email=#{email}\r\n"
+				+ "AND password=#{password}") 
+		int isMember(User_info user_info);
+		@Select("SELECT *\r\n"
+				+ "FROM USER_INFO\r\n"
+				+ "WHERE EMAIL=#{email}")
+		User_info getMember(User_info user_info);
 }

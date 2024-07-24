@@ -43,17 +43,7 @@ public class NContMem {
 	public String loginFrm(User_info user_info) {
 		return "tracerPages/login";
 	}
-	@PostMapping("login")
-	public String login(User_info user_info, Model d) {
-		if(service.isMember(user_info).equals("로그인성공")) {
-			session.setAttribute("info", service.getMember(user_info));
-			d.addAttribute("user_info", (User_info)session.getAttribute("info"));
-			return "tracerPages/index";
-		} else {
-			d.addAttribute("loginFailed", 1);
-			return "tracerPages/login";
-		}
-	}
+	
 	// mem - 로그아웃
 	@GetMapping("logout")
 	public String logout(HttpServletRequest request) {

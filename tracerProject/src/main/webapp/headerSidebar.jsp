@@ -1,6 +1,16 @@
   <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  
+  <script src="${path}/a00_com/jquery.min.js"></script>
+<script src="${path}/a00_com/popper.min.js"></script>
+<script src="${path}/a00_com/bootstrap.min.js"></script>
+<script src="${path}/a00_com/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+})
+</script>
     <header class="app-header fixed-top">	   	            
         <div class="app-header-inner">  
 	        <div class="container-fluid py-2">

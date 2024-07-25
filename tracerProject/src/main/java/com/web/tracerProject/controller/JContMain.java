@@ -41,6 +41,11 @@ public class JContMain {
         d.addAttribute("countPro", countPro);
         int taskPro = service.getTaskProgress(task);
         d.addAttribute("taskPro", taskPro);
+     // 프로젝트 목록 추가
+        List<Project> projectList = service.getProjectList();
+        d.addAttribute("projectList", projectList);
+        
+        System.out.println("Controller - Project List: " + projectList);
         
         if (service.isMember(user_info).equals("로그인성공")) {
             session.setAttribute("info", service.getMember(user_info));
@@ -68,11 +73,7 @@ public class JContMain {
         int taskPro = service.getTaskProgress(task);
         d.addAttribute("taskPro", taskPro);
         
-        // 프로젝트 목록 추가
-        List<Project> projectList = service.getProjectList();
-        d.addAttribute("projectList", projectList);
         
-        System.out.println("Controller - Project List: " + projectList);
         
         return "tracerPages/index";
     }

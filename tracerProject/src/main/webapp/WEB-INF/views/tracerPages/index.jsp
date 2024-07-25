@@ -5,9 +5,10 @@
 <html lang="ko">
 <head>
     <title> TRACER - 대시보드 </title>
+    <!-- Meta -->
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" contents="width=device-width, initial-scale=1.0">
     <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
     <link rel="shortcut icon" href="favicon.ico">
@@ -17,7 +18,22 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
     <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .app-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .app-card-header .left-section {
+            display: flex;
+            align-items: center;
+        }
+        .app-card-header .left-section select {
+            margin-left: 10px;
+        }
+    </style>
 </head>
+<body>
 <script src="${path}/a00_com/jquery.min.js"></script>
 <script src="${path}/a00_com/popper.min.js"></script>
 <script src="${path}/a00_com/bootstrap.min.js"></script>
@@ -118,16 +134,21 @@
                 <div class="col-12 col-lg-6">
                     <div class="app-card app-card-chart h-100 shadow-sm">
                         <div class="app-card-header p-3 border-0">
-                            <h4 class="app-card-title">자산 현황</h4>
-                            <select class="form-select form-select-sm ms-auto d-inline-flex w-auto" id="projectSelect">
-                                <c:forEach var="project" items="${projectList}">
-                                    <option value="${project.pid}">${project.title}</option>
-                                </c:forEach>
-                            </select>
+                            <div class="left-section">
+                                <h4 class="app-card-title">자산 현황</h4>
+                                <select class="form-select form-select-sm ms-3 d-inline-flex w-auto" id="projectSelect">
+                                    <c:forEach var="project" items="${projectList}">
+                                        <option value="${project.pid}">${project.title}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="card-header-action">
+                                <a href="charts.html">자세히 보기</a>
+                            </div><!--//card-header-actions-->
                         </div><!--//app-card-header-->
-                        <div class="app-card-body p-4">					   
+                        <div class="app-card-body p-3 p-lg-4">
                             <div class="chart-container">
-                                <canvas id="chart-doughnut" width="968" height="484" style="display: block; height: 242px; width: 484px;" class="chartjs-render-monitor"></canvas>
+                                <canvas id="budgetDonutChart"></canvas>
                             </div>
                         </div><!--//app-card-body-->
                     </div><!--//app-card-->
@@ -156,19 +177,19 @@
                 url: '/getBudget',
                 type: 'GET',
                 data: { pid: pid },
-                dataType: 'json', // 응답 데이터를 JSON 형식으로 처리
                 success: function(data) {
-                    console.log(data); // 성공 응답 로그
+                    console.log(data);
                     budgetDonutChart.data.datasets[0].data = [data.assigned_budget, data.used_budget];
                     budgetDonutChart.update();
                 },
                 error: function(xhr, status, error) {
-                    console.log('Error:', error); // 에러 응답 로그
-                }
+                    console.error('Error: ' + error);
+                },
+                dataType: 'json'
             });
         }
 
-        var ctx = document.getElementById('chart-doughnut').getContext('2d');
+        var ctx = document.getElementById('budgetDonutChart').getContext('2d');
         var budgetDonutChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
@@ -187,6 +208,15 @@
                 animation: {
                     animateScale: true,
                     animateRotate: true
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function(tooltipItem, data) {
+                            var dataset = data.datasets[tooltipItem.datasetIndex];
+                            var value = dataset.data[tooltipItem.index];
+                            return dataset.label + ': ' + value.toLocaleString();
+                        }
+                    }
                 }
             }
         });

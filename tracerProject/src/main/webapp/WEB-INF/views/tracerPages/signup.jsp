@@ -44,6 +44,9 @@ $(document).ready(function(){
 	$('.signupBtn').click(function(){
 		if($('#signup-password').val()!=$('#signup-passwordChk').val())
 			alert('비밀번호와 비밀번호 확인 입력이 일치하지 않습니다.')
+		else if($("input[type=hidden]").val()!=$('.chkNum').val()){	
+			alert('인증번호가 일치하지 않습니다.')
+		}
 		else{
 			$.ajax({
 				data: $("form").serialize(),
@@ -59,6 +62,36 @@ $(document).ready(function(){
 			$('form').submit()		
 		}
 	})
+	$('#emailChkBtn').click(function(){
+		$.ajax({
+			data: $("form").serialize(),
+			url: 'emailDupChk',
+			type: 'POST',
+			success: function(data){
+				alert(data)
+				if(data!="이미 가입된 이메일입니다"){
+					if($("#signup-email").val()!=null && $("#signup-email").val()!=""){
+						$.ajax({
+							data: $("form").serialize(),
+							url: 'mail/sendEmailChk',
+							type: 'POST',
+							success: function(data){
+								alert('인증번호가 전송되었습니다.')
+								$("input[type=hidden]").val(data)
+							},
+							error: function(err){
+								console.log(err)
+							}
+						})
+					}
+				}
+			},
+			error: function(err){
+				console.log(err)
+			}
+		})
+		
+	})
 })
 </script>
 <body class="app app-signup p-0">    	
@@ -68,7 +101,7 @@ $(document).ready(function(){
 			    <div class="app-auth-body mx-auto">	
 				    <div class="app-auth-branding mb-4"><a class="app-logo" href="signup"><img class="logo-icon me-2" src="/logo.png" alt="logo"></a></div>
 					<h2 class="auth-heading text-center mb-4">TRACER 회원가입</h2>					
-	
+					<input type="hidden"/>
 					<div class="auth-form-container text-start mx-auto">
 						<form method="post" action="signup" class="auth-form auth-signup-form">         
 							<div class="email mb-3">
@@ -82,8 +115,9 @@ $(document).ready(function(){
 								<input id="signup-name" name="birth" type="date" class="form-control signup-name" placeholder="생일 입력" required="required">
 							이메일
 								<input id="signup-email" name="email" type="email" class="form-control signup-email" placeholder="이메일 입력" required="required">
+								<button id="emailChkBtn" type="button" class="form-control">인증번호 전송</button>
 							인증번호	
-								<input id="signup-name" type="text" class="form-control signup-name" placeholder="이름 입력" required="required">
+								<input id="signup-name" type="text" class="chkNum form-control signup-name" placeholder="인증번호 입력" required="required">
 							비밀번호
 								<input id="signup-password" name="password" type="password" class="form-control signup-password" placeholder="비밀번호 입력" required="required">
 							비밀번호 확인

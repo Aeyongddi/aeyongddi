@@ -23,4 +23,10 @@ public interface NDaoMem {
 			+ "WHERE EMAIL = #{email}")
 	int chgPwd(@Param("password") String password, 
 			@Param("email") String email);
+	
+	// mem - 이메일 중복여부
+	@Select("SELECT count(*)\r\n"
+			+ "FROM USER_INFO\r\n"
+			+ "WHERE EMAIL = #{email}")
+	int emailDupChk(@Param("email") String email);
 }

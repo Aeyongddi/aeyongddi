@@ -23,6 +23,12 @@ public class NSerMem {
 			return "비밀번호는 8~20글자, 영어 대소문자, 숫자, 특수문자가 필수로 포함되어야 합니다.";
 		return dao.insMember(user_info)>0?"회원가입성공":"회원가입실패";
 	}
+	
+	// mem 이메일 중복 검사
+	public String emailDupChk(String email) {
+		return dao.emailDupChk(email)>0?"이미 가입된 이메일입니다":"인증번호 전송됨";
+	}
+		
 	// mem 비밀번호변경
 	public String chgPwd(String password, String email) {
 		if(!isRightPwd(password))

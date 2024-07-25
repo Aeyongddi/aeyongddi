@@ -39,6 +39,10 @@ public class NContMem {
 	public String signupSuccess() {
 		return "tracerPages/signupSuccess";
 	}
+	@PostMapping("emailDupChk")
+	public ResponseEntity<String> emailDupChk(@RequestParam("email") String email) {
+		return ResponseEntity.ok(service.emailDupChk(email));
+	}
 		
 	// mem - 로그인
 	// http://localhost:5656/login

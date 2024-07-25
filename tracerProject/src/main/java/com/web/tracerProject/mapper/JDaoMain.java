@@ -49,10 +49,11 @@ public interface JDaoMain {
 
     // 자산 현황(예산)
     @Select("SELECT assigned_budget, used_budget FROM ResourceManage WHERE rtype = 'BUDGET' AND pid = #{pid}")
-    ResourceManage getBudget(ResourceManage resourceManage);
+    ResourceManage getBudget(String pid);
+
     
     // 프로젝트 목록
-    @Select("SELECT pid, name FROM PROJECT")
+    @Select("SELECT pid, start_date, end_date, title, description FROM project")
     List<Project> getProjectList();
 }
 

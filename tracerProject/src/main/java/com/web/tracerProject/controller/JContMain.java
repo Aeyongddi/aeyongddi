@@ -72,14 +72,15 @@ public class JContMain {
         List<Project> projectList = service.getProjectList();
         d.addAttribute("projectList", projectList);
         
+        System.out.println("Controller - Project List: " + projectList);
+        
         return "tracerPages/index";
     }
 
     @GetMapping("/getBudget")
     @ResponseBody
     public ResourceManage getBudget(@RequestParam("pid") String pid) {
-        ResourceManage resourceManage = new ResourceManage();
-        resourceManage.setPid(pid);
-        return service.getBudget(resourceManage);
+        return service.getBudget(pid);
     }
+
 }

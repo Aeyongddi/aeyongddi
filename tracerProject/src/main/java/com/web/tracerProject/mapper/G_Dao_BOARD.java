@@ -29,7 +29,8 @@ public interface G_Dao_BOARD {
 				+ "		views = #{views},\r\n"
 				+ "		btype = #{btype},\r\n"
 				+ "		email = #{email}\r\n"
-				+ "	WHERE sid = #{sid}")
+				+ "	    sid = #{sid}\r\n"
+				+ "     WHERE is_end = #{is_end}")
 	 int updateBoard(Board upt);
 	 
 	 @Insert("INSERT INTO BOARD values(#{bid},#{title},#{content},"

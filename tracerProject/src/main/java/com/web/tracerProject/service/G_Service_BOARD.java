@@ -35,6 +35,22 @@ public class G_Service_BOARD {
 	        if (sch.getBid() == null) {
 	            sch.setBid("");
 	        }
+	        // 
+	        if (sch.getContent() == null) {
+	            sch.setContent("");
+	        }
+	        if (sch.getUpt_dateStr() == null) {
+	            sch.setUpt_dateStr("");
+	        }
+	        if (sch.getBid() == null) {
+	            sch.setBid("");
+	        }
+	        if (sch.getBid() == null) {
+	            sch.setBid("");
+	        }
+	        if (sch.getBid() == null) {
+	            sch.setBid("");
+	        }
        }
 	   
 	   public String insertBoard(Board ins) {

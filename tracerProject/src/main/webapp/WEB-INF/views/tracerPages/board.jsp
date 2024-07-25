@@ -4,12 +4,12 @@
 <!DOCTYPE html>
 <html lang="ko"> 
 <head>
-    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
-    <!-- Meta -->
+    <title>할 일 목록</title>
+    <!-- 메타 태그 -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+    <meta name="description" content="할 일 목록">
     <meta name="author" content="Xiaoying Riley at 3rd Wave Media">
     <link rel="shortcut icon" href="favicon.ico">
     <!-- FontAwesome JS-->
@@ -19,13 +19,12 @@
 </head> 
 <jsp:include page="/headerSidebar.jsp"/>
 <body class="app">
-    <!-- 모달 창 코드 추가 -->
     <!-- 등록 모달 -->
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">게시글 등록</h5>
+                    <h5 class="modal-title" id="registerModalLabel">할 일 등록</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -38,7 +37,18 @@
                             <label for="registerContent" class="form-label">내용</label>
                             <textarea class="form-control" id="registerContent" name="content"></textarea>
                         </div>
-                        <!-- 추가 필드들 -->
+                        <div class="mb-3">
+                            <label for="registerDueDate" class="form-label">마감일</label>
+                            <input type="date" class="form-control" id="registerDueDate" name="upt_date">
+                        </div>
+                        <div class="mb-3">
+                            <label for="registerStatus" class="form-label">상태</label>
+                            <select class="form-select" id="registerStatus" name="btype">
+                                <option value="해야 할 일">해야 할 일</option>
+                                <option value="진행 중">진행 중</option>
+                                <option value="완료">완료</option>
+                            </select>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -54,7 +64,7 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="updateModalLabel">게시글 수정</h5>
+                    <h5 class="modal-title" id="updateModalLabel">할 일 수정</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -67,7 +77,19 @@
                             <label for="updateContent" class="form-label">내용</label>
                             <textarea class="form-control" id="updateContent" name="content"></textarea>
                         </div>
-                        <!-- 추가 필드들 -->
+                        <div class="mb-3">
+                            <label for="updateDueDate" class="form-label">마감일</label>
+                            <input type="date" class="form-control" id="updateDueDate" name="upt_date">
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateStatus" class="form-label">상태</label>
+                            <select class="form-select" id="updateStatus" name="btype">
+                                <option value="해야 할 일">해야 할 일</option>
+                                <option value="진행 중">진행 중</option>
+                                <option value="완료">완료</option>
+                            </select>
+                        </div>
+                        <input type="hidden" id="updateTaskId" name="bid">
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -87,7 +109,7 @@
             <div class="container-xl">
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
-                        <h1 class="app-page-title mb-0">TRACER</h1>
+                        <h1 class="app-page-title mb-0">할 일 목록</h1>
                     </div>
                     <div class="col-auto">
                         <div class="page-utilities">
@@ -95,10 +117,7 @@
                                 <div class="col-auto">
                                     <form class="table-search-form row gx-1 align-items-center">
                                         <div class="col-auto">
-                                            <input type="date" placeholder="게시일 검색" name="upt_date" value="" class="form-control search-orders"/>
-                                        </div>
-                                        <div class="col-auto">
-                                            <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="검색">
+                                            <input type="text" id="search-tasks" name="searchtasks" class="form-control search-tasks" placeholder="검색">
                                         </div>
                                         <div class="col-auto">
                                             <button type="submit" class="btn app-btn-secondary">검색</button>
@@ -108,7 +127,9 @@
                                 <div class="col-auto">
                                     <select class="form-select w-auto">
                                         <option selected value="option-1" disabled>전체</option>
-                                        <option value="option-2">이슈</option>
+                                        <option value="option-2">해야 할 일</option>
+                                        <option value="option-3">진행 중</option>
+                                        <option value="option-4">완료</option>
                                     </select>
                                 </div>
                             </div>
@@ -116,45 +137,37 @@
                     </div>
                 </div>
 
-                <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-                    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" role="tab" aria-controls="orders-all" aria-selected="true">이슈게시판</a>
+                <nav id="tasks-table-tab" class="tasks-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+                    <a class="flex-sm-fill text-sm-center nav-link active" id="tasks-all-tab" data-bs-toggle="tab" role="tab" aria-controls="tasks-all" aria-selected="true">할 일 목록</a>
                 </nav>
 
-                <div class="tab-content" id="orders-table-tab-content">
-                    <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-                        <div class="app-card app-card-orders-table shadow-sm mb-5">
+                <div class="tab-content" id="tasks-table-tab-content">
+                    <div class="tab-pane fade show active" id="tasks-all" role="tabpanel" aria-labelledby="tasks-all-tab">
+                        <div class="app-card app-card-tasks-table shadow-sm mb-5">
                             <div class="app-card-body">
                                 <div class="table-responsive">
                                     <table class="table app-table-hover mb-0 text-left">
                                         <thead>
                                             <tr>
-                                                <th class="cell">게시판id</th>
+                                                <th class="cell">ID</th>
                                                 <th class="cell">제목</th>
                                                 <th class="cell">내용</th>
-                                                <th class="cell">게시일</th>
-                                                <th class="cell">조회수</th>
-                                                <th class="cell">진행</th>
+                                                <th class="cell">마감일</th>
+                                                <th class="cell">상태</th>
                                                 <th class="cell"><button class="btn-sm app-btn-secondary" data-bs-toggle="modal" data-bs-target="#registerModal">등록</button></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <c:forEach var="boa" items="${boardList}">
+                                            <c:forEach var="task" items="${boardList}">
                                                 <tr>
-                                                    <td class="cell">${boa.bid}</td>
-                                                    <td class="cell">${boa.title}</td>
-                                                    <td class="cell">${boa.content}</td>
+                                                    <td class="cell">${task.bid}</td>
+                                                    <td class="cell">${task.title}</td>
+                                                    <td class="cell">${task.content}</td>
                                                     <td class="cell">
-                                                        <fmt:formatDate value="${boa.upt_date}" pattern="yyyy-MM-dd"/>
+                                                        <fmt:formatDate value="${task.upt_date}" pattern="yyyy-MM-dd"/>
                                                     </td>
-                                                    <td class="cell">${boa.views}</td>
-                                                    <td class="cell">
-                                                        <%-- <select>
-                                                            <option value="해야 할 일" <c:if test="${boa.seat_class == '해야 할 일'}">selected</c:if>>해야 할 일</option>
-                                                            <option value="진행 중" <c:if test="${boa.seat_class == '진행 중'}">selected</c:if>>진행 중</option>
-                                                            <option value="완 료" <c:if test="${boa.seat_class == '완 료'}">selected</c:if>>완 료</option>
-                                                        </select> --%>
-                                                    </td>
-                                                    <td class="cell"><button class="btn-sm app-btn-secondary" data-bs-toggle="modal" data-bs-target="#updateModal" onclick="populateUpdateModal(${boa.bid}, '${boa.title}', '${boa.content}')">수정</button></td>
+                                                    <td class="cell">${task.btype}</td>
+                                                    <td class="cell"><button class="btn-sm app-btn-secondary" data-bs-toggle="modal" data-bs-target="#updateModal" onclick="populateUpdateModal(${task.bid}, '${task.title}', '${task.content}', '${task.upt_date}', '${task.btype}')">수정</button></td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -178,10 +191,12 @@
     <!-- Page Specific JS -->
     <script src="${path}/assets/js/app.js"></script>
     <script>
-        function populateUpdateModal(bid, title, content) {
+        function populateUpdateModal(bid, title, content, upt_date, btype) {
+            $('#updateForm #updateTaskId').val(bid);
             $('#updateForm #updateTitle').val(title);
             $('#updateForm #updateContent').val(content);
-            // 추가 필드들 설정
+            $('#updateForm #updateDueDate').val(upt_date);
+            $('#updateForm #updateStatus').val(btype);
         }
 
         $(document).ready(function() {

@@ -27,9 +27,12 @@ public class NContMem {
 		return "tracerPages/signup";
 	}
 	@PostMapping("signup")
-	public String signup(User_info user_info) {
-		service.insMember(user_info);
-		return "tracerPages/signupSuccess";
+	public String signup(User_info user_info, Model d) {
+		String msg = service.insMember(user_info);
+		d.addAttribute("msg", msg);
+		if(msg=="회원가입성공")
+			return "tracerPages/signupSuccess";
+		else	return "tracerPages/signup";
 	}
 	// http://localhost:5656/signupSuccess
 	@GetMapping("signupSuccess")

@@ -25,7 +25,29 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
 
 </head> 
-
+<script src="${path}/a00_com/jquery.min.js"></script>
+<script src="${path}/a00_com/popper.min.js"></script>
+<script src="${path}/a00_com/bootstrap.min.js"></script>
+<script src="${path}/a00_com/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	if(${msg!=null})
+		alert("${msg}")
+	$('form').on('keydown', 'input', function(event) {
+         if (event.keyCode === 13) { 
+               event.preventDefault();
+               return false;
+         }
+    });
+	$('.signupBtn').click(function(){
+		if($('#signup-password').val()!=$('#signup-passwordChk').val())
+			alert('비밀번호와 비밀번호 확인 입력이 일치하지 않습니다.')
+		else	$('form').submit()
+	})
+})
+</script>
 <body class="app app-signup p-0">    	
     <div class="row g-0 app-auth-wrapper">
 	    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
@@ -44,7 +66,7 @@
 							전화번호	
 								<input id="signup-name" name="phone" type="text" class="form-control signup-name" placeholder="전화번호 입력 ( - 빼고 입력 )" required="required">
 							생일	
-								<input id="signup-name" name="birthStr" type="date" class="form-control signup-name" placeholder="생일 입력" required="required">
+								<input id="signup-name" name="birth" type="date" class="form-control signup-name" placeholder="생일 입력" required="required">
 							이메일
 								<input id="signup-email" name="email" type="email" class="form-control signup-email" placeholder="이메일 입력" required="required">
 							인증번호	
@@ -56,7 +78,7 @@
 							</div>
 						
 							<div class="text-center">
-								<button type="submit" class="btn app-btn-primary w-100 theme-btn mx-auto">회원가입</button>
+								<button type="button" class="signupBtn btn app-btn-primary w-100 theme-btn mx-auto">회원가입</button>
 							</div>
 						</form>
 						

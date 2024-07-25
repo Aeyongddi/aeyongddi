@@ -17,7 +17,7 @@ public interface NDaoMem {
 			+ "#{nickname}, #{name}, #{birth}, #{phone})")
 	int insMember(User_info user_info);
 	
-	// mem - 비밀번호변경
+	// mem - 비밀번호변경 + 비밀번호초기화
 	@Update("UPDATE USER_INFO\r\n"
 			+ "SET PASSWORD = #{password}\r\n"
 			+ "WHERE EMAIL = #{email}")

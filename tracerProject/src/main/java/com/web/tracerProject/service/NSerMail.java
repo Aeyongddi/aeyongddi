@@ -34,6 +34,7 @@ public class NSerMail {
 	
 	// 비밀번호 초기화 시 메일로 랜덤 비밀번호 전송
 	public String sendResetPwd(@Param("email") String email) {
+		String newPwd = random();
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setFrom("gimnamwon3131@gamil.com");
 		message.setTo(email);
@@ -41,7 +42,7 @@ public class NSerMail {
 		message.setText(
 				" -------------------------------- \n"
 				+ "임시 비밀번호\n\n"
-				+ random()+"\n"
+				+ newPwd+"\n"
 				+ "빠른 시일 내에 비밀번호 변경을 권장드립니다."
 				+ "\n\n------------------------------- \n"
 				+ "바로가기 : http://localhost:5656/login"
@@ -49,7 +50,7 @@ public class NSerMail {
 			mailSender.send(message);
 			System.out.println(email);
 			
-	return "메일전송완료";
+	return newPwd;
 	}
 	// 회원가입 완료 환영메일
 	public String sendSingupSuccess(@Param("email") String email

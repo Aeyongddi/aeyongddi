@@ -92,3 +92,5 @@ SELECT * FROM task;
 ALTER TABLE board
 MODIFY is_end number(1);
 COMMIT;
+
+GRANT ALTER ON board TO GE;

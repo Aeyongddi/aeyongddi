@@ -57,6 +57,7 @@ nocache;
 
 SELECT * FROM ResourceManage;
 SELECT * FROM board;
+SELECT * FROM project;
 ALTER TABLE board add(
 	IS_END char(1)
 );
@@ -83,3 +84,11 @@ SELECT * FROM project;
 SELECT assigned_budget, used_budget
 				FROM ResourceManage
 				WHERE rtype = 'BUDGET' AND pid = 'P001';
+			
+SELECT pid, title FROM PROJECT;
+
+SELECT * FROM task;
+
+ALTER TABLE board
+MODIFY is_end number(1);
+COMMIT;

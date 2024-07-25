@@ -1,5 +1,6 @@
 package com.web.tracerProject.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,32 +27,27 @@ public class G_Service_BOARD {
      	   return dao.getBoardSearch(sch);
        }
 	   
-	   private void processNullFields(Board sch) {
-	        // name 필드 처리
+	    private void processNullFields(Board sch) {
 	        if (sch.getTitle() == null) {
 	            sch.setTitle("");
-	            }  
-	        // reservation 필드 처리
+	        }
 	        if (sch.getBid() == null) {
 	            sch.setBid("");
 	        }
-	        // 
 	        if (sch.getContent() == null) {
 	            sch.setContent("");
 	        }
-	        if (sch.getUpt_dateStr() == null) {
-	            sch.setUpt_dateStr("");
+	        if (sch.getEmail() == null) {
+	            sch.setEmail("");
 	        }
-	        if (sch.getBid() == null) {
-	            sch.setBid("");
+	        if (sch.getSid() == null) {
+	            sch.setSid("");
 	        }
-	        if (sch.getBid() == null) {
-	            sch.setBid("");
+	        if (sch.getUpt_date() == null) {
+	            sch.setUpt_date(new Date()); // 현재 날짜로 설정
 	        }
-	        if (sch.getBid() == null) {
-	            sch.setBid("");
-	        }
-       }
+	    }
+       
 	   
 	   public String insertBoard(Board ins) {
 			return dao.insertBoard(ins)>0?"등록성공":"등록실패";

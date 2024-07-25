@@ -19,7 +19,6 @@ public class Board {
 	private String content;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date upt_date;
-	private String upt_dateStr;
 	private int views;
 	private String btype;
 	private String cid;
@@ -27,3 +26,5 @@ public class Board {
 	private String sid;
 	private boolean is_end;
 }
+
+

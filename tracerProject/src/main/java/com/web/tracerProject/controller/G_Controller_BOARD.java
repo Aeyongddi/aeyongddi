@@ -19,22 +19,22 @@ public class G_Controller_BOARD {
 
 	// http://localhost:5656/boardList
 	// http://localhost:5656/boardList?title=first&bid=B001
-	@GetMapping("/boardList")
-	public String boardList(Board sch, Model d) {
-		List<Board> boardList = service.getBoardList(sch);
-		d.addAttribute("boardList", boardList);
-		return "tracerPages/board";
+	 @GetMapping("/boardList")
+	    public String boardList(Board sch, Model d) {
+	        List<Board> boardList = service.getBoardList(sch);
+	        d.addAttribute("boardList", boardList);
+	        return "tracerPages/board";
+	    }
+
+	    @RequestMapping("/boardListInsert.do")
+	    public String boardInsert(Board ins, Model d) {
+	        d.addAttribute("result", service.insertBoard(ins));
+	        return "redirect:/boardList"; // 등록 후 리다이렉트
+	    }    
+
+	    @RequestMapping("/boardUpdate")
+	    public String boardUpdate(Board upt, Model d) {
+	        d.addAttribute("msg", service.updateBoard(upt));
+	        return "redirect:/boardList"; // 수정 후 리다이렉트
+	    }
 	}
-	
-	@RequestMapping("/boardListInsert.do")
-	public String boardInsert(Board ins, Model d) {
-		d.addAttribute("result", service.insertBoard(ins));
-		return "tracerPages/board";
-	}	
-	
-	@RequestMapping("/boardUpdate")
-    public String insertBoard(Board upt, Model d) {
-        d.addAttribute("msg", service.insertBoard(upt));
-		return "tracerPages/board"; 
-	}
-}

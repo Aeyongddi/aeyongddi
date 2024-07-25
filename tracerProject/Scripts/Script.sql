@@ -36,4 +36,40 @@ SELECT (completed.count_y * 100 / total.count_all) AS progress
 FROM
   (SELECT COUNT(*) AS count_y FROM task WHERE isend = 'Y') completed,
   (SELECT COUNT(*) AS count_all FROM task) total;
+DROP TABLE asset;
+CREATE TABLE ResourceManage(
+	rid varchar2(8) PRIMARY KEY,
+	rtype varchar2(8) NOT NULL,
+	assigned_budget number(15,2),	
+	used_budget NUMBER(15,2),
+	software_name varchar2(255),
+	license_purchase_date DATE,
+	license_expiry_date DATE,
+	software_price number(15,2),
+	pid varchar2(8),
+	CONSTRAINT fk_project FOREIGN KEY (pid) REFERENCES project(pid),
+	CONSTRAINT chk_rtype CHECK (rtype IN ('BUDGET','SOFTWARE'))
+);
+CREATE SEQUENCE resource_seq
+START WITH 1
+INCREMENT BY 1
+nocache;
 
+SELECT * FROM ResourceManage;
+SELECT * FROM board;
+ALTER TABLE board add(
+	IS_END char(1)
+);
+COMMIT;
+
+-- 테스트 데이터 삽입
+INSERT INTO ResourceManagement (rid, rtype, assigned_budget, used_budget, software_name, license_purchase_date, license_expiry_date, software_price, pid)
+VALUES (resource_seq.nextval, 'BUDGET', 1000000, 250000, NULL, NULL, NULL, NULL, 'P001');
+INSERT INTO ResourceManage (rid, rtype, assigned_budget, used_budget, software_name, license_purchase_date, license_expiry_date, software_price, pid)
+VALUES (resource_seq.nextval, 'BUDGET', 3000000, 300000, NULL, NULL, NULL, NULL, 'P002');
+INSERT INTO ResourceManage (rid, rtype, assigned_budget, used_budget, software_name, license_purchase_date, license_expiry_date, software_price, pid)
+VALUES (resource_seq.nextval, 'BUDGET', 500000, 100000, NULL, NULL, NULL, NULL, 'P003');
+INSERT INTO ResourceManagement (rid, rtype, assigned_budget, used_budget, software_name, license_purchase_date, license_expiry_date, software_price, pid)
+VALUES (resource_seq.nextval, 'SOFTWARE', NULL, NULL, 'Software A', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2025-01-01', 'YYYY-MM-DD'), 15000, 'P002');
+INSERT INTO ResourceManagement (rid, rtype, assigned_budget, used_budget, software_name, license_purchase_date, license_expiry_date, software_price, pid)
+VALUES (resource_seq.nextval, 'SOFTWARE', NULL, NULL, 'Software B', TO_DATE('2022-05-15', 'YYYY-MM-DD'), TO_DATE('2024-05-15', 'YYYY-MM-DD'), 30000, 'P003');

@@ -32,7 +32,7 @@
             <div class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration" role="alert">
                 <div class="inner">
                     <div class="app-card-body p-3 p-lg-4">
-                        <h3 class="mb-3">환영합니다. ${user_info.name }님.</h3>
+                        <h3 class="mb-3">환영합니다. ${user_info.nickname }님.</h3>
                         <div class="row gx-5 gy-3">
                             <div class="col-12 col-lg-9">
                                 <div>오늘도 즐거운 하루 되세요.</div>
@@ -119,6 +119,35 @@
                         </div><!--//app-card-body-->
                     </div><!--//app-card-->
                 </div><!--//col-->
+                <div class="col-12 col-lg-6">
+				        <div class="app-card app-card-chart h-100 shadow-sm">
+					        <div class="app-card-header p-3">
+						        <div class="row justify-content-between align-items-center">
+							        <div class="col-auto">
+						                <h4 class="app-card-title">Bar Chart Example</h4>
+							        </div><!--//col-->
+							        <div class="col-auto">
+								        <div class="card-header-action">
+									        <a href="charts.html">More charts</a>
+								        </div><!--//card-header-actions-->
+							        </div><!--//col-->
+						        </div><!--//row-->
+					        </div><!--//app-card-header-->
+					        <div class="app-card-body p-3 p-lg-4">
+							    <div class="mb-3 d-flex">   
+							        <select class="form-select form-select-sm ms-auto d-inline-flex w-auto">
+									    <option value="1" selected="">This week</option>
+									    <option value="2">Today</option>
+									    <option value="3">This Month</option>
+									    <option value="3">This Year</option>
+									</select>
+							    </div>
+						        <div class="chart-container"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+				                    <canvas id="canvas-barchart" width="968" height="644" style="display: block; width: 484px; height: 322px;" class="chartjs-render-monitor"></canvas>
+						        </div>
+					        </div><!--//app-card-body-->
+				        </div><!--//app-card-->
+			        </div>
             </div><!--//row-->
         </div><!--//container-fluid-->
     </div><!--//app-content-->

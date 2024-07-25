@@ -73,3 +73,9 @@ INSERT INTO ResourceManagement (rid, rtype, assigned_budget, used_budget, softwa
 VALUES (resource_seq.nextval, 'SOFTWARE', NULL, NULL, 'Software A', TO_DATE('2023-01-01', 'YYYY-MM-DD'), TO_DATE('2025-01-01', 'YYYY-MM-DD'), 15000, 'P002');
 INSERT INTO ResourceManagement (rid, rtype, assigned_budget, used_budget, software_name, license_purchase_date, license_expiry_date, software_price, pid)
 VALUES (resource_seq.nextval, 'SOFTWARE', NULL, NULL, 'Software B', TO_DATE('2022-05-15', 'YYYY-MM-DD'), TO_DATE('2024-05-15', 'YYYY-MM-DD'), 30000, 'P003');
+
+/*SELECT assigned_budget, used_budget
+FROM ResourceManagement
+WHERE rtype = 'BUDGET' AND pid = #{pid}*/
+
+SELECT * FROM project;

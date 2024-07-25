@@ -1,11 +1,14 @@
 package com.web.tracerProject.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.web.tracerProject.mapper.JDaoMain;
+import com.web.tracerProject.vo.Project;
+import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 //getDueto getDday getCountPro
@@ -33,6 +36,9 @@ public class JSerMain {
 	public int getTaskProgress(Task task) {
 		return dao.getTaskProgress(task);
 	}
+	public List<Project> getProjectList(){
+		return dao.getprojectList();
+	}
 	// mem 로그인
 		public String isMember(User_info user_info) {
 			if(user_info.getEmail()==null)
@@ -44,4 +50,7 @@ public class JSerMain {
 		public User_info getMember(User_info user_info) {
 			return dao.getMember(user_info);
 		}
+		public ResourceManage getBudget(ResourceManage resourceManage) {
+	        return dao.getBudget(resourceManage);
+	}
 }

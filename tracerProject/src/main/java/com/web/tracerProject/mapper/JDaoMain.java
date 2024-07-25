@@ -1,10 +1,13 @@
 package com.web.tracerProject.mapper;
 
 import java.util.Date;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import com.web.tracerProject.vo.Project;
+import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 
@@ -47,6 +50,10 @@ public interface JDaoMain {
 			+ "WHERE ROWNUM = 1")
 	String getDday(Task task);
 	
+	// 프로젝트 목록
+	@Select("SELECT * FROM project")
+	List<Project> getprojectList();
+	
 	// select - 프로젝트 개수
 	@Select("SELECT count(*)\r\n"
 			+ "FROM PROJECT")
@@ -69,4 +76,13 @@ public interface JDaoMain {
 				+ "  (SELECT COUNT(*) AS count_y FROM task WHERE isend = 'Y') completed,\r\n"
 				+ "  (SELECT COUNT(*) AS count_all FROM task) total")
 		int getTaskProgress(Task task);
+		
+		// 자산 현황(예산)
+		@Select("SELECT assigned_budget, used_budget\r\n"
+				+ "FROM ResourceManagement\r\n"
+				+ "WHERE rtype = 'BUDGET' AND pid = #{pid}")
+		ResourceManage getBudget(ResourceManage resourceManage);
+		
+
+		
 }

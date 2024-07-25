@@ -79,3 +79,7 @@ FROM ResourceManagement
 WHERE rtype = 'BUDGET' AND pid = #{pid}*/
 
 SELECT * FROM project;
+
+SELECT assigned_budget, used_budget
+				FROM ResourceManage
+				WHERE rtype = 'BUDGET' AND pid = 'P001';

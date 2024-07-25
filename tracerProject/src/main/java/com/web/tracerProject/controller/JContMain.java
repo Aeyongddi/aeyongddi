@@ -26,73 +26,53 @@ public class JContMain {
     @Autowired(required = false)
     private HttpSession session;
 
+    // http://localhost:5656/login
     @PostMapping("/login")
-    public String main(Model d, Task task, User_info user_info, ResourceManage resourceManage) {
-        try {
-            int todayDoCount = service.getTodayDo(task);
-            d.addAttribute("todayDoCount", todayDoCount);
-            int thisWeekDo = service.getWeekDo(task);
-            d.addAttribute("thisWeekDo", thisWeekDo);
-            Date dueto = service.getDueto(task);
-            d.addAttribute("dueto", dueto);
-            String dDay = service.getDday(task);
-            d.addAttribute("dDay", dDay);
-            int countPro = service.getCountPro(task);
-            d.addAttribute("countPro", countPro);
-            int taskPro = service.getTaskProgress(task);
-            d.addAttribute("taskPro", taskPro);
-            ResourceManage nowBudget = service.getBudget(resourceManage);
-            d.addAttribute("nowBudget", nowBudget);
-
-            if (service.isMember(user_info).equals("로그인성공")) {
-                session.setAttribute("info", service.getMember(user_info));
-                d.addAttribute("user_info", (User_info) session.getAttribute("info"));
-
-                // 프로젝트 목록 추가
-                List<Project> projectList = service.getProjectList();
-                d.addAttribute("projectList", projectList);
-
-                return "tracerPages/index";
-            } else {
-                d.addAttribute("loginFailed", 1);
-                return "tracerPages/login";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            d.addAttribute("errorMessage", "An error occurred during login.");
-            return "tracerPages/404";
+    public String main(Model d, Task task, User_info user_info) {
+        int todayDoCount = service.getTodayDo(task);
+        d.addAttribute("todayDoCount", todayDoCount);
+        int thisWeekDo = service.getWeekDo(task);
+        d.addAttribute("thisWeekDo", thisWeekDo);
+        Date dueto = service.getDueto(task);
+        d.addAttribute("dueto", dueto);
+        String dDay = service.getDday(task);
+        d.addAttribute("dDay", dDay);
+        int countPro = service.getCountPro(task);
+        d.addAttribute("countPro", countPro);
+        int taskPro = service.getTaskProgress(task);
+        d.addAttribute("taskPro", taskPro);
+        
+        if (service.isMember(user_info).equals("로그인성공")) {
+            session.setAttribute("info", service.getMember(user_info));
+            d.addAttribute("user_info", (User_info) session.getAttribute("info"));
+            return "tracerPages/index";
+        } else {
+            d.addAttribute("loginFailed", 1);
+            return "tracerPages/login";
         }
     }
 
     @GetMapping("/index")
-    public String index(Model d, Task task, User_info user_info, ResourceManage resourceManage) {
-        try {
-            int todayDoCount = service.getTodayDo(task);
-            d.addAttribute("todayDoCount", todayDoCount);
-            int thisWeekDo = service.getWeekDo(task);
-            d.addAttribute("thisWeekDo", thisWeekDo);
-            Date dueto = service.getDueto(task);
-            d.addAttribute("dueto", dueto);
-            String dDay = service.getDday(task);
-            d.addAttribute("dDay", dDay);
-            int countPro = service.getCountPro(task);
-            d.addAttribute("countPro", countPro);
-            d.addAttribute("user_info", (User_info) session.getAttribute("info"));
-            int taskPro = service.getTaskProgress(task);
-            d.addAttribute("taskPro", taskPro);
-            ResourceManage nowBudget = service.getBudget(resourceManage);
-            d.addAttribute("nowBudget", nowBudget);
-
-            // 프로젝트 목록 추가
-            List<Project> projectList = service.getProjectList();
-            d.addAttribute("projectList", projectList);
-
-            return "tracerPages/index";
-        } catch (Exception e) {
-            e.printStackTrace();
-            d.addAttribute("errorMessage", "An error occurred while loading the dashboard.");
-            return "tracerPages/error";
-        }
+    public String index(Model d, Task task, User_info user_info) {
+        int todayDoCount = service.getTodayDo(task);
+        d.addAttribute("todayDoCount", todayDoCount);
+        int thisWeekDo = service.getWeekDo(task);
+        d.addAttribute("thisWeekDo", thisWeekDo);
+        Date dueto = service.getDueto(task);
+        d.addAttribute("dueto", dueto);
+        String dDay = service.getDday(task);
+        d.addAttribute("dDay", dDay);
+        int countPro = service.getCountPro(task);
+        d.addAttribute("countPro", countPro);
+        d.addAttribute("user_info", (User_info) session.getAttribute("info"));
+        int taskPro = service.getTaskProgress(task);
+        d.addAttribute("taskPro", taskPro);
+        
+        // 프로젝트 목록 추가
+        List<Project> projectList = service.getProjectList();
+        d.addAttribute("projectList", projectList);
+        
+        return "tracerPages/index";
     }
 
     @GetMapping("/getBudget")
@@ -103,4 +83,3 @@ public class JContMain {
         return service.getBudget(resourceManage);
     }
 }
-

@@ -74,9 +74,7 @@ public class NContMem {
 	}
 	@PostMapping("chgPwd")
 	public ResponseEntity<String> chgPwd(@RequestParam("password") String password,
-											@RequestParam("email") String email, HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		session.invalidate();
+											@RequestParam("email") String email) {
 		return ResponseEntity.ok(service.chgPwd(password, email));
 	}
 }

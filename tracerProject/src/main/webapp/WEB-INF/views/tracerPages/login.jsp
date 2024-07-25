@@ -41,7 +41,7 @@ $(document).ready(function(){
 	    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
 		    <div class="d-flex flex-column align-content-end">
 			    <div class="app-auth-body mx-auto">	
-				    <div class="app-auth-branding mb-4"><a class="app-logo" href="index.jsp"><img class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo"></a></div>
+				    <div class="app-auth-branding mb-4"><a class="app-logo" href="logout"><img class="logo-icon me-2" src="/logo.png" alt="logo"></a></div>
 					<h2 class="auth-heading text-center mb-5">TRACER 로그인</h2>
 			        <div class="auth-form-container text-start">
 						<form action="login" class="auth-form login-form" method="post">         

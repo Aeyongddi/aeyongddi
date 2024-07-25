@@ -29,7 +29,7 @@
 	    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
 		    <div class="d-flex flex-column align-content-end">
 			    <div class="app-auth-body mx-auto">	
-				    <div class="app-auth-branding mb-4"><a class="app-logo" href="index.jsp"><img class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo"></a></div>
+				    <div class="app-auth-branding mb-4"><a class="app-logo" href="reset_password"><img class="logo-icon me-2" src="/logo.png" alt="logo"></a></div>
 					<h2 class="auth-heading text-center mb-4">비밀번호 초기화</h2>
 
 					<div class="auth-intro mb-4 text-center">이메일 주소를 입력하세요. <br>입력한 이메일으로 새 비밀번호를 보내드립니다.</div>

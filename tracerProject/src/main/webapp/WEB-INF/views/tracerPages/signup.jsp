@@ -44,7 +44,20 @@ $(document).ready(function(){
 	$('.signupBtn').click(function(){
 		if($('#signup-password').val()!=$('#signup-passwordChk').val())
 			alert('비밀번호와 비밀번호 확인 입력이 일치하지 않습니다.')
-		else	$('form').submit()
+		else{
+			$.ajax({
+				data: $("form").serialize(),
+				url: 'mail/sendSingupSuccess',
+				type: 'POST',
+				success: function(data){
+					console.log(data)
+				},
+				error: function(err){
+					console.log(err)
+				}
+			})
+			$('form').submit()		
+		}
 	})
 })
 </script>
@@ -53,7 +66,7 @@ $(document).ready(function(){
 	    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
 		    <div class="d-flex flex-column align-content-end">
 			    <div class="app-auth-body mx-auto">	
-				    <div class="app-auth-branding mb-4"><a class="app-logo" href="index.jsp"><img class="logo-icon me-2" src="assets/images/app-logo.svg" alt="logo"></a></div>
+				    <div class="app-auth-branding mb-4"><a class="app-logo" href="signup"><img class="logo-icon me-2" src="/logo.png" alt="logo"></a></div>
 					<h2 class="auth-heading text-center mb-4">TRACER 회원가입</h2>					
 	
 					<div class="auth-form-container text-start mx-auto">

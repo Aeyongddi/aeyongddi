@@ -63,12 +63,13 @@ function chgPwd(){
 		url: 'chgPwd',
 		type: 'POST',
 		success: function(data){
-			alert(data)
-			location.href = 'login'
+			alert(data + ", 로그인 페이지로 이동합니다.")
+			if(data=="비밀번호변경성공")
+				location.href='logout'
 		},
 		error: function(err){
 			console.log(err)
-			alert('오류 발생')
+			alert('비밀번호는 영어 대소문자, 숫자, 특수문자로 이루어진 8~20글자만 허용합니다')
 		}
 	})
 }

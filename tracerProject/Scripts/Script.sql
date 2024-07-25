@@ -93,4 +93,6 @@ ALTER TABLE board
 MODIFY is_end number(1);
 COMMIT;
 
-GRANT ALTER ON board TO GE;
+SELECT * FROM board;
+ALTER TABLE board
+RENAME COLUMN IS_end TO endYN;

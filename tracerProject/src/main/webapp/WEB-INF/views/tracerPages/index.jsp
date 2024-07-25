@@ -171,67 +171,68 @@
 <!-- Page Specific JS -->
 <script src="assets/js/app.js"></script>
 <script>
-    $(document).ready(function() {
-        function updateChart(pid) {
-            $.ajax({
-                url: '/getBudget',
-                type: 'GET',
-                data: { pid: pid },
-                success: function(data) {
-                    console.log(data);
-                    budgetDonutChart.data.datasets[0].data = [data.assigned_budget, data.used_budget];
-                    budgetDonutChart.update();
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error: ' + error);
-                },
-                dataType: 'json'
-            });
-        }
-
-        var ctx = document.getElementById('budgetDonutChart').getContext('2d');
-        var budgetDonutChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['할당 예산', '사용 예산'],
-                datasets: [{
-                    data: [],
-                    backgroundColor: ['#36a2eb', '#ff6384']
-                }]
+$(document).ready(function() {
+    function updateChart(pid) {
+        $.ajax({
+            url: '/getBudget',
+            type: 'GET',
+            data: { pid: pid },
+            success: function(data) {
+                console.log(data);
+                budgetDonutChart.data.datasets[0].data = [data.assigned_budget, data.used_budget];
+                budgetDonutChart.update();
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    position: 'top',
-                },
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var dataset = data.datasets[tooltipItem.datasetIndex];
-                            var value = dataset.data[tooltipItem.index];
-                            return dataset.label + ': ' + value.toLocaleString();
-                        }
+            error: function(xhr, status, error) {
+                console.error('Error: ' + error);
+            },
+            dataType: 'json'
+        });
+    }
+
+    var ctx = document.getElementById('budgetDonutChart').getContext('2d');
+    var budgetDonutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['할당 예산', '사용 예산'],
+            datasets: [{
+                label: '예산', // 레이블 추가
+                data: [],
+                backgroundColor: ['#36a2eb', '#ff6384']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'top',
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index]; // 레이블을 데이터 레이블에서 가져옴
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return label + ': ' + value.toLocaleString();
                     }
                 }
             }
-        });
-
-        $('#projectSelect').change(function() {
-            var selectedPid = $(this).val();
-            updateChart(selectedPid);
-        });
-
-        // 초기 선택된 프로젝트에 대한 차트 업데이트
-        var initialPid = $('#projectSelect').val();
-        if (initialPid) {
-            updateChart(initialPid);
         }
     });
+
+    $('#projectSelect').change(function() {
+        var selectedPid = $(this).val();
+        updateChart(selectedPid);
+    });
+
+    // 초기 선택된 프로젝트에 대한 차트 업데이트
+    var initialPid = $('#projectSelect').val();
+    if (initialPid) {
+        updateChart(initialPid);
+    }
+});
 </script>
 </body>
 </html>

@@ -29,7 +29,12 @@ public interface JDaoMain {
     Date getDueto(Task task);
 
     // select - d-day
-    @Select("SELECT CASE WHEN TRUNC(end_date) = TRUNC(SYSDATE) THEN 'D-Day' WHEN TRUNC(end_date) > TRUNC(SYSDATE) THEN 'D-' || TO_CHAR(TRUNC(end_date) - TRUNC(SYSDATE)) ELSE 'D+' || TO_CHAR(TRUNC(SYSDATE) - TRUNC(end_date)) END AS d_day FROM (SELECT * FROM task ORDER BY ABS(TRUNC(start_date) - TRUNC(SYSDATE))) WHERE ROWNUM = 1")
+    
+    @Select("SELECT CASE WHEN TRUNC(end_date) = TRUNC(SYSDATE) THEN 'D-Day' "
+    		+ "WHEN TRUNC(end_date) > TRUNC(SYSDATE) THEN 'D-' || TO_CHAR(TRUNC(end_date) - TRUNC(SYSDATE)) "
+    		+ "ELSE 'D+' || TO_CHAR(TRUNC(SYSDATE) - TRUNC(end_date)) "
+    		+ "END AS d_day FROM (SELECT * FROM task ORDER BY ABS(TRUNC(start_date) - TRUNC(SYSDATE))) "
+    		+ "WHERE ROWNUM = 1")
     String getDday(Task task);
 
     // select - 프로젝트 개수

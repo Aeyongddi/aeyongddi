@@ -13,4 +13,6 @@ public class ProjectProgress {
 	private String pid;
 	private String title;
 	private int progress;
+	private int completedTasks;
+    private int totalTasks;
 }

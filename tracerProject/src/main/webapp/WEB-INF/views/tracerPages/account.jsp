@@ -260,7 +260,7 @@
 										</div>
 										<!--//col-->
 										<div class="col text-end">
-											<a class="btn-sm app-btn-secondary" href="#">변경하기</a>
+											<a class="btn-sm app-btn-secondary" href="WEB-INF\views\tracerPages\userManagement.jsp">변경하기</a>
 										</div>
 										<!--//col-->
 									</div>

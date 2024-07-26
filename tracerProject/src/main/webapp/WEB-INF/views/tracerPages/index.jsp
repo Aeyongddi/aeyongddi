@@ -192,7 +192,7 @@
 									</select>
 								</div>
 								<div class="card-header-action">
-									<a href="charts.html">자세히 보기</a>
+									<a href="">자세히 보기</a>
 								</div>
 								<!--//card-header-actions-->
 							</div>
@@ -294,7 +294,7 @@
 														return label
 																+ ': '
 																+ value
-																		.toLocaleString();
+																		.toLocaleString() + ' 원';
 													}
 												}
 											}

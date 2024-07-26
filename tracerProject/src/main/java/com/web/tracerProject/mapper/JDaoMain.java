@@ -49,7 +49,7 @@ public interface JDaoMain {
     @Select("SELECT * FROM USER_INFO WHERE EMAIL=#{email}")
     User_info getMember(User_info user_info);
 
-    // 프로젝트 진행률
+    // 작업 진행률
     @Select("SELECT (completed.count_y * 100 / total.count_all) AS progress FROM (SELECT COUNT(*) AS count_y FROM task WHERE isend = 'Y') completed, (SELECT COUNT(*) AS count_all FROM task) total")
     int getTaskProgress(Task task);
 

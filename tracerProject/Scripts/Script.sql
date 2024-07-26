@@ -107,6 +107,7 @@ JOIN task t ON s.sid = t.sid
 WHERE p.end_date >= TRUNC(SYSDATE)
 GROUP BY p.pid, p.title;
 
-
+UPDATE USER_INFO SET nickname='갓갓김' WHERE email='kge0817@naver.com';
+SELECT * FROM USER_INFO;
 
 

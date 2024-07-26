@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
 import com.web.tracerProject.vo.Project;
+import com.web.tracerProject.vo.ProjectProgress;
 import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
@@ -60,5 +61,15 @@ public interface JDaoMain {
     // 프로젝트 목록
     @Select("SELECT pid, start_date, end_date, title, description FROM project")
     List<Project> getProjectList();
+    
+    // 프로젝트 진행률
+    @Select("SELECT p.pid, p.title, " +
+            "       (SUM(CASE WHEN t.isend = 'Y' THEN 1 ELSE 0 END) * 100 / COUNT(*)) AS progress " +
+            "FROM project p " +
+            "JOIN schedule s ON p.pid = s.pid " +
+            "JOIN task t ON s.sid = t.sid " +
+            "WHERE p.end_date >= TRUNC(SYSDATE) " +
+            "GROUP BY p.pid, p.title")
+    List<ProjectProgress> getProjectProgress();
 }
 

@@ -22,11 +22,16 @@ public interface G_Dao_BOARD {
     @Update("UPDATE BOARD SET title=#{title}, content=#{content}, upt_date=#{upt_date}, views=#{views}, btype=#{btype}, email=#{email}, sid=#{sid}, is_end=#{is_end} WHERE bid=#{bid}")
     int updateBoard(Board upt);
 
-    @Insert("INSERT INTO BOARD (bid, title, content, upt_date, views, btype, cid, email, sid, is_end) VALUES (#{bid}, #{title}, #{content}, #{upt_date}, #{views}, #{btype}, #{cid}, #{email}, #{sid}, #{is_end})")
+    @Insert("INSERT INTO BOARD (bid, title, content, upt_date, views, btype, cid, email, sid, is_end) " +
+            "VALUES (#{bid}, #{title}, #{content}, #{upt_date}, #{views}, #{btype}, #{cid}, #{email}, #{sid}, #{endYN})")
     int insertBoard(Board ins);
-    
-    @Delete("DELETE\r\n"
-			+ "FROM BOARD\r\n"
-			+ "WHERE bid = #{bid} ")
-	int deleteBoard(@Param("bid") int bid );
+
+    @Delete("DELETE FROM BOARD WHERE bid = #{bid}")
+    int deleteBoard(@Param("bid") int bid);
+
+    @Select("SELECT SEQ_BOARD_BID.NEXTVAL FROM DUAL")
+    int getNextBid();
+
+    @Select("SELECT SEQ_BOARD_CID.NEXTVAL FROM DUAL")
+    int getNextCid();
 }

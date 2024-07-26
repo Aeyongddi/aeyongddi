@@ -29,7 +29,6 @@
             width: 700px;
             margin: 80px auto;
             padding: 20px;
-            
         }
 
         .sprint-header {
@@ -105,6 +104,16 @@
             margin-top: 10px;
         }
 
+        .textarea-container {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .textarea-container textarea {
+            width: 100%;
+            height: 100px;
+        }
+
         .modal {
             display: none;
             position: fixed;
@@ -140,9 +149,9 @@
             text-decoration: none;
             cursor: pointer;
         }
-        
+
         .title {
-          margin-left: 500px;
+            margin-left: 500px;
         }
     </style>
 </head>
@@ -175,10 +184,14 @@
                             <option value="1" ${boa.endYN ? 'selected' : ''}>완료</option>
                         </select>
                     </span>
+                    
                 </li>
             </c:forEach>
         </ul>
-        <button class="add-issue">+ 이슈 만들기</button>
+        <button class="add-issue" onclick="openTextarea()">+ 이슈 만들기</button>
+        <div class="textarea-container" id="textarea-container">
+            <textarea id="issue-title" placeholder="이슈 제목을 입력하세요..."></textarea>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -245,6 +258,46 @@
                 });
             }
         }
+
+        function openTextarea() {
+            document.getElementById("textarea-container").style.display = "block";
+            document.getElementById("issue-title").focus();
+        }
+
+        function closeTextarea() {
+            document.getElementById("textarea-container").style.display = "none";
+        }
+
+        function saveIssue() {
+            var issueTitle = document.getElementById("issue-title").value;
+            if (issueTitle.trim() === "") {
+                alert("제목을 입력해 주세요.");
+                return;
+            }
+
+            // 새로운 이슈를 저장하는 로직 추가
+            console.log("New issue title: " + issueTitle);
+
+            // 예를 들어, Ajax 호출을 통해 서버에 저장 요청을 보낼 수 있습니다.
+            closeTextarea();
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                saveIssue();
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            var textareaContainer = document.getElementById("textarea-container");
+            var addIssueButton = document.querySelector('.add-issue');
+            var textarea = document.getElementById("issue-title");
+
+            if (!textareaContainer.contains(event.target) && event.target !== addIssueButton) {
+                closeTextarea();
+            }
+        });
     </script>
 </body>
 </html>

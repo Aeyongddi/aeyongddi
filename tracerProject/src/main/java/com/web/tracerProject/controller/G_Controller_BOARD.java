@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.tracerProject.service.G_Service_BOARD;
 import com.web.tracerProject.vo.Board;
@@ -26,15 +27,23 @@ public class G_Controller_BOARD {
 	        return "tracerPages/board";
 	    }
 
-	    @RequestMapping("/boardListInsert.do")
+	    @RequestMapping("/boardListInsert")
 	    public String boardInsert(Board ins, Model d) {
 	        d.addAttribute("result", service.insertBoard(ins));
-	        return "redirect:/boardList"; // 등록 후 리다이렉트
+	        return "tracerPages/board"; // 등록 후 리다이렉트
 	    }    
 
 	    @RequestMapping("/boardUpdate")
 	    public String boardUpdate(Board upt, Model d) {
 	        d.addAttribute("msg", service.updateBoard(upt));
-	        return "redirect:/boardList"; // 수정 후 리다이렉트
+	        return "tracerPages/board"; // 수정 후 리다이렉트
 	    }
+	    
+	    @RequestMapping("/boardDelete")
+	    public String boardDelete(@RequestParam("bid") int bid, Model d) {
+	    	d.addAttribute("msg", service.deleteBoard(bid));
+	        d.addAttribute("proc", "삭제");
+			return "tracerPages/board";
+	    }
+	
 	}

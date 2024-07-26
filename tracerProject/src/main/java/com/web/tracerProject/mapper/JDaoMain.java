@@ -26,7 +26,7 @@ public interface JDaoMain {
     int getWeekDo(Task task);
 
     // select - 마감 기한 임박
-    @Select("SELECT trunc(end_date) AS end_date FROM (SELECT * FROM task ORDER BY abs(trunc(start_date) - trunc(sysdate))) WHERE rownum = 1")
+    @Select("SELECT trunc(end_date) AS end_date FROM (SELECT * FROM project ORDER BY abs(trunc(start_date) - trunc(sysdate))) WHERE rownum = 1")
     Date getDueto(Task task);
 
     // select - d-day
@@ -34,7 +34,7 @@ public interface JDaoMain {
     @Select("SELECT CASE WHEN TRUNC(end_date) = TRUNC(SYSDATE) THEN 'D-Day' "
     		+ "WHEN TRUNC(end_date) > TRUNC(SYSDATE) THEN 'D-' || TO_CHAR(TRUNC(end_date) - TRUNC(SYSDATE)) "
     		+ "ELSE 'D+' || TO_CHAR(TRUNC(SYSDATE) - TRUNC(end_date)) "
-    		+ "END AS d_day FROM (SELECT * FROM task ORDER BY ABS(TRUNC(start_date) - TRUNC(SYSDATE))) "
+    		+ "END AS d_day FROM (SELECT * FROM project ORDER BY ABS(TRUNC(start_date) - TRUNC(SYSDATE))) "
     		+ "WHERE ROWNUM = 1")
     String getDday(Task task);
 
@@ -64,7 +64,9 @@ public interface JDaoMain {
     
     // 프로젝트 진행률
     @Select("SELECT p.pid, p.title, " +
-            "       (SUM(CASE WHEN t.isend = 'Y' THEN 1 ELSE 0 END) * 100 / COUNT(*)) AS progress " +
+            "       (SUM(CASE WHEN t.isend = 'Y' THEN 1 ELSE 0 END) * 100 / COUNT(*)) AS progress, " +
+            "       SUM(CASE WHEN t.isend = 'Y' THEN 1 ELSE 0 END) AS completedTasks, " +
+            "       COUNT(*) AS totalTasks " +
             "FROM project p " +
             "JOIN schedule s ON p.pid = s.pid " +
             "JOIN task t ON s.sid = t.sid " +

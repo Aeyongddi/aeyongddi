@@ -50,8 +50,7 @@
 	<div class="app-wrapper">
 		<div class="app-content pt-3 p-md-3 p-lg-4">
 			<div class="container-xl">
-				<br>
-				<br>
+				<br> <br>
 				<h1 class="app-page-title">대시보드</h1>
 				<div
 					class="app-card alert alert-dismissible shadow-sm mb-4 border-left-decoration"
@@ -160,7 +159,9 @@
 													<div class="progress-bar bg-success" role="progressbar"
 														style="width: ${project.progress}%;"
 														aria-valuenow="${project.progress}" aria-valuemin="0"
-														aria-valuemax="100"></div>
+														aria-valuemax="100" data-toggle="tooltip"
+														title="${project.progress}% (${project.completedTasks}/${project.totalTasks})">
+													</div>
 												</div>
 											</div>
 											<!--//col-->
@@ -175,6 +176,7 @@
 						<!--//app-card-->
 					</div>
 					<!--//col-->
+
 
 					<div class="col-12 col-lg-6">
 						<div class="app-card app-card-chart h-100 shadow-sm">
@@ -310,6 +312,11 @@
 								updateChart(initialPid);
 							}
 						});
+		$(document).ready(function() {
+		    // Tooltip 초기화
+		    $('[data-toggle="tooltip"]').tooltip();
+		});
+
 	</script>
 </body>
 </html>

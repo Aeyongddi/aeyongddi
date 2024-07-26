@@ -29,7 +29,7 @@ public class JContMain {
 
     // http://localhost:5656/login
     
-    @PostMapping("/login")
+    @PostMapping("/index")
     public String main(Model d, Task task, User_info user_info) {
         int todayDoCount = service.getTodayDo(task);
         d.addAttribute("todayDoCount", todayDoCount);
@@ -77,6 +77,11 @@ public class JContMain {
         d.addAttribute("taskPro", taskPro);
         List<ProjectProgress> projectProgressList = service.getProjectProgress();
         d.addAttribute("projectProgressList", projectProgressList);
+        List<Project> projectList = service.getProjectList();
+        d.addAttribute("projectList", projectList);
+        
+        d.addAttribute("user_info", (User_info) session.getAttribute("info"));
+        
         return "tracerPages/index";
     }
 

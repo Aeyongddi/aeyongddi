@@ -12,7 +12,54 @@ $(document).ready(function(){
 		alert('세션이 만료되었습니다. 로그인 페이지로 이동합니다.')
 		location.href='login'
 	} */
+	$(".newProject").click(function(){
+		$(".newPrjFrm").show(400)
+	})
+	
+	$(".clsBtn").click(function(){
+		$(".newPrjFrm").hide(400)
+	})
+	$(".innerCls").click(function(){
+		$(".newPrjFrm2").hide(400)
+	})
+	$("#schBtn").click(function(){
+		$(".newPrjFrm2").show(400)
+		alert('')
+	})
+	$(".insNewPrjBtn").click(function(){
 		
+		/*
+		$.ajax({
+			data: $("form").serialize(),
+			url: 'emailDupChk',
+			type: 'POST',
+			success: function(data){
+				if(data=="이미 가입된 이메일입니다"){
+					$.ajax({
+						data: 
+						url: 
+						type: 'POST',
+						success: function(data){
+
+								},
+								error: function(err){
+									console.log(err)
+								}
+							})
+						},
+						error: function(err){
+							console.log(err)
+						}
+						})
+				}else	alert('해당하는 이메일이 존재하지 않습니다.')
+			},
+			error: function(err){
+				console.log(err)
+			}
+		})
+			*/
+	})
+	$(".newPrjFrm").hide(400)
 })
 </script>
     <header class="app-header fixed-top">	   	            
@@ -172,9 +219,19 @@ $(document).ready(function(){
 		                         <span class="nav-link-text">메인화면으로</span>
 					        </a><!--//nav-link-->
 					    </li><!--//nav-item-->
+					        <a class="nav-link newProject">
+						        <span class="nav-icon">
+						        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-house-door" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		  <path fill-rule="evenodd" d="M7.646 1.146a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 .146.354v7a.5.5 0 0 1-.5.5H9.5a.5.5 0 0 1-.5-.5v-4H7v4a.5.5 0 0 1-.5.5H2a.5.5 0 0 1-.5-.5v-7a.5.5 0 0 1 .146-.354l6-6zM2.5 7.707V14H6v-4a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5v4h3.5V7.707L8 2.207l-5.5 5.5z"/>
+		  <path fill-rule="evenodd" d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z"/>
+		</svg>
+						         </span>
+		                         <span class="nav-link-text">새 프로젝트 생성하기</span>
+					        </a><!--//nav-link-->
+					    </li><!--//nav-item-->
 					    <li class="nav-item has-submenu">
 					        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
-					        <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#submenu-3" aria-expanded="false" aria-controls="submenu-3">
+					        <a class="nav-link submenu-toggle" data-bs-toggle="collapse" data-bs-target="#submenu-3" aria-expanded="false" aria-controls="submenu-3">
 						        <span class="nav-icon">
 						        <!--//Bootstrap Icons: https://icons.getbootstrap.com/ -->
 						        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-columns-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -306,3 +363,67 @@ $(document).ready(function(){
 	        </div><!--//sidepanel-inner-->
 	    </div><!--//app-sidepanel-->
     </header><!--//app-header-->
+ <div class="modal newPrjFrm" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">새로운 프로젝트 생성하기</h5>
+        <button type="button" class="btn-close clsBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form>
+      <div class="prjInput modal-body">
+       	프로젝트명
+       	<input name="title" class="form-control mr-sm-2" placeholder="프로젝트 이름 입력" max="50" required/><br>
+       	프로젝트 설명
+        <textarea style="width: 100%; height: 300px;" 
+        name="description" class="form-control mr-sm-2" placeholder="프로젝트 설명 입력" required>
+        </textarea><br>
+        참여 인원
+        <input type="email" class="form-control" placeholder="이메일 검색" required/>
+        <button type="button" class="btn btn-info" style="width: 15%;">검색</button>
+        <br>
+        
+       	
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary clsBtn" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary insNewPrjBtn">프로젝트 생성하기</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+ <div class="modal newPrjFrm2" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">새로운 프로젝트 생성하기</h5>
+        <button type="button" class="btn-close innerCls" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form>
+      <div class="prjInput modal-body">
+       	프로젝트명
+       	<input name="title" class="form-control mr-sm-2" placeholder="프로젝트 이름 입력" max="50" required/><br>
+       	프로젝트 설명
+        <textarea style="width: 100%; height: 300px;" 
+        name="description" class="form-control mr-sm-2" placeholder="프로젝트 설명 입력" required>
+        </textarea><br>
+        참여 인원
+        <input class="form-control" placeholder="이메일 검색" required/>
+        <button type="button" id="schBtn" class="btn btn-secondary" style="width: 15%;">검색</button>
+        <br>
+        
+       	
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary innerCls" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary insNewPrjBtn">프로젝트 생성하기</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

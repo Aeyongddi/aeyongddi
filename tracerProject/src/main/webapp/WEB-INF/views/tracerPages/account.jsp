@@ -48,8 +48,9 @@ $(document).ready(function(){
 	$(".chgPwdBtn").click(function(){
 		if($("[name=curPwd]").val() != '${user_info.password}')
 			alert("현재 비밀번호가 일치하지 않습니다.")
-		else if($("[name=password]").val() != $("[name=pwdChk]").val())
+		else if($("[name=password]").val() != $("[name=pwdChk]").val()){
 			alert("변경 비밀번호와 비밀번호 확인이 일치하지 않습니다.")
+		}
 		else{
 			if(confirm('정말로 변경하시겠습니까?'))
 				chgPwd()
@@ -63,9 +64,13 @@ function chgPwd(){
 		url: 'chgPwd',
 		type: 'POST',
 		success: function(data){
-			alert(data + ", 로그인 페이지로 이동합니다.")
-			if(data=="비밀번호변경성공")
+			
+			if(data=="비밀번호변경성공"){
 				location.href='logout'
+				alert(data + ", 로그인 페이지로 이동합니다.")
+			}else{
+				alert(data)
+			}
 		},
 		error: function(err){
 			console.log(err)

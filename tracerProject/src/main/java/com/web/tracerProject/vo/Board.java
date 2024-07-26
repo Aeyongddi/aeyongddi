@@ -24,7 +24,7 @@ public class Board {
 	private String cid;
 	private String email;
 	private String sid;
-	private boolean is_end;
+	private boolean endYN;
 }
 
 

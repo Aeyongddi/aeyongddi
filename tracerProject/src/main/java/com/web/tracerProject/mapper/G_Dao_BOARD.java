@@ -2,6 +2,7 @@ package com.web.tracerProject.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -24,5 +25,8 @@ public interface G_Dao_BOARD {
     @Insert("INSERT INTO BOARD (bid, title, content, upt_date, views, btype, cid, email, sid, is_end) VALUES (#{bid}, #{title}, #{content}, #{upt_date}, #{views}, #{btype}, #{cid}, #{email}, #{sid}, #{is_end})")
     int insertBoard(Board ins);
     
-    
+    @Delete("DELETE\r\n"
+			+ "FROM BOARD\r\n"
+			+ "WHERE bid = #{bid} ")
+	int deleteBoard(@Param("bid") int bid );
 }

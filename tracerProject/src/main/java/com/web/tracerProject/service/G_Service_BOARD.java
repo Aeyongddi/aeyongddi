@@ -18,8 +18,9 @@ public class G_Service_BOARD {
 	   
 	   public List<Board> getBoardList(Board sch) {
 		    processNullFields(sch);
-		   
-		   return dao.getBoardSearch(sch);
+		    List<Board> list = dao.getBoardSearch(sch);
+		    
+		   return list;
 	   }
 	   
 	    public List<Board> getBoardSearch(Board sch) {
@@ -55,6 +56,10 @@ public class G_Service_BOARD {
 	   
 	   public String updateBoard(Board upt) {
 			return dao.updateBoard(upt)>0?"수정성공":"수정실패";
+		}	
+	   
+	   public String deleteBoard(int bid ) {
+			return dao.deleteBoard(bid)>0?"삭제성공":"삭제실패";
 		}	
 	   
 }

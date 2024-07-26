@@ -100,6 +100,11 @@
 											<div class="item-data">${user_info.name }</div>
 										</div>
 										<!--//col-->
+										<div class="col text-end">
+											<button class="btn-sm app-btn-secondary"
+												data-bs-toggle="tooltip" data-bs-placement="left"
+												title="이름은 변경할 수 없습니다." disabled>변경불가</button>
+										</div>
 									</div>
 									<!--//row-->
 								</div>
@@ -113,6 +118,11 @@
 											<div class="item-data">${user_info.email }</div>
 										</div>
 										<!--//col-->
+										<div class="col text-end">
+											<button class="btn-sm app-btn-secondary"
+												data-bs-toggle="tooltip" data-bs-placement="left"
+												title="이메일은 변경할 수 없습니다." disabled>변경불가</button>
+										</div>
 									</div>
 									<!--//row-->
 								</div>
@@ -392,12 +402,13 @@
 					<div class="modal-body">
 						이메일 <input type="email" value="${user_info.email }" name="email"
 							class="form-control mr-sm-2" placeholder="이메일 입력" required
-							readonly /><br> 현재 비밀번호 <input type="password" name="curPwd"
-							class="form-control mr-sm-2" placeholder="현재 비밀번호 입력" required /><br>
-						변경할 비밀번호 <input type="password" name="password"
-							class="form-control mr-sm-2" placeholder="변경할 비밀번호 입력" required /><br>
-						비밀번호 확인 <input type="password" name="pwdChk"
-							class="form-control mr-sm-2" placeholder="비밀번호 확인 입력" required /><br>
+							readonly /><br> 현재 비밀번호 <input type="password"
+							name="curPwd" class="form-control mr-sm-2"
+							placeholder="현재 비밀번호 입력" required /><br> 변경할 비밀번호 <input
+							type="password" name="password" class="form-control mr-sm-2"
+							placeholder="변경할 비밀번호 입력" required /><br> 비밀번호 확인 <input
+							type="password" name="pwdChk" class="form-control mr-sm-2"
+							placeholder="비밀번호 확인 입력" required /><br>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary clsBtn"
@@ -418,120 +429,147 @@
 	<script src="assets/js/app.js"></script>
 
 	<script type="text/javascript">
-$(document).ready(function() {
-    // 회원 탈퇴 모달 초기화
-    $('#deleteAccountBtn').click(function() {
-        $('#deleteAccountModal').modal('show');
-    });
+		$(document)
+				.ready(
+						function() {
+							// 회원 탈퇴 모달 초기화
+							$('#deleteAccountBtn').click(function() {
+								$('#deleteAccountModal').modal('show');
+							});
 
-    $('#confirmDeleteBtn').click(function() {
-        $.ajax({
-            url: '/deleteAccount',
-            type: 'POST',
-            success: function(response) {
-                alert(response);
-                if (response === '회원 탈퇴 성공') {
-                    location.href = '/login'; // 회원 탈퇴 후 로그인 페이지로 이동
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error: ' + error);
-                alert('회원 탈퇴 중 오류가 발생했습니다. 다시 시도해 주세요.');
-            }
-        });
-    });
+							$('#confirmDeleteBtn')
+									.click(
+											function() {
+												$
+														.ajax({
+															url : '/deleteAccount',
+															type : 'POST',
+															success : function(
+																	response) {
+																alert(response);
+																if (response === '회원 탈퇴 성공') {
+																	location.href = '/login'; // 회원 탈퇴 후 로그인 페이지로 이동
+																}
+															},
+															error : function(
+																	xhr,
+																	status,
+																	error) {
+																console
+																		.error('Error: '
+																				+ error);
+																alert('회원 탈퇴 중 오류가 발생했습니다. 다시 시도해 주세요.');
+															}
+														});
+											});
 
-    // Enter 키로 인한 폼 제출 방지
-    $('form').on('keydown', function(event) {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-        }
-    });
+							// Enter 키로 인한 폼 제출 방지
+							$('form').on('keydown', function(event) {
+								if (event.key === 'Enter') {
+									event.preventDefault();
+								}
+							});
 
-    // 비밀번호 변경 모달 초기화
-    $(".chgPwd").hide(400)
-    $(".showChgPwd").click(function(){
-        $(".chgPwd").show(400)
-    })
-    $(".clsBtn").click(function(){
-        $(".chgPwd").hide(400)
-    })
-    $(".chgPwdBtn").click(function(){
-        if($("[name=curPwd]").val() != '${user_info.password}')
-            alert("현재 비밀번호가 일치하지 않습니다.")
-        else if($("[name=password]").val() != $("[name=pwdChk]").val())
-            alert("변경 비밀번호와 비밀번호 확인이 일치하지 않습니다.")
-        else{
-            if(confirm('정말로 변경하시겠습니까?'))
-                chgPwd()
-        }
-    });
+							// 비밀번호 변경 모달 초기화
+							$(".chgPwd").hide(400)
+							$(".showChgPwd").click(function() {
+								$(".chgPwd").show(400)
+							})
+							$(".clsBtn").click(function() {
+								$(".chgPwd").hide(400)
+							})
+							$(".chgPwdBtn")
+									.click(
+											function() {
+												if ($("[name=curPwd]").val() != '${user_info.password}')
+													alert("현재 비밀번호가 일치하지 않습니다.")
+												else if ($("[name=password]")
+														.val() != $(
+														"[name=pwdChk]").val())
+													alert("변경 비밀번호와 비밀번호 확인이 일치하지 않습니다.")
+												else {
+													if (confirm('정말로 변경하시겠습니까?'))
+														chgPwd()
+												}
+											});
 
-    // 닉네임 변경 모달 초기화
-    $('#changeNicknameBtn').click(function() {
-        $('#changeNicknameModal').modal('show');
-    });
+							// 닉네임 변경 모달 초기화
+							$('#changeNicknameBtn').click(function() {
+								$('#changeNicknameModal').modal('show');
+							});
 
-    $('#saveNicknameBtn').click(function() {
-        var newNickname = $('#newNickname').val();
-        $.ajax({
-            url: '/updateNickname',
-            type: 'POST',
-            data: { nickname: newNickname },
-            success: function(response) {
-                alert(response);
-                if (response === '닉네임 변경 성공') {
-                    location.reload();
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error: ' + error);
-            }
-        });
-    });
+							$('#saveNicknameBtn').click(function() {
+								var newNickname = $('#newNickname').val();
+								$.ajax({
+									url : '/updateNickname',
+									type : 'POST',
+									data : {
+										nickname : newNickname
+									},
+									success : function(response) {
+										alert(response);
+										if (response === '닉네임 변경 성공') {
+											location.reload();
+										}
+									},
+									error : function(xhr, status, error) {
+										console.error('Error: ' + error);
+									}
+								});
+							});
 
-    // 전화번호 변경 모달 초기화
-    $('#changePhoneBtn').click(function() {
-        $('#changePhoneModal').modal('show');
-    });
+							// 전화번호 변경 모달 초기화
+							$('#changePhoneBtn').click(function() {
+								$('#changePhoneModal').modal('show');
+							});
 
-    $('#savePhoneBtn').click(function() {
-        var newPhone = $('#newPhone').val();
-        $.ajax({
-            url: '/updatePhone',
-            type: 'POST',
-            data: { phone: newPhone },
-            success: function(response) {
-                alert(response);
-                if (response === '전화번호 변경 성공') {
-                    location.reload();
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error: ' + error);
-            }
-        });
+							$('#savePhoneBtn').click(function() {
+								var newPhone = $('#newPhone').val();
+								$.ajax({
+									url : '/updatePhone',
+									type : 'POST',
+									data : {
+										phone : newPhone
+									},
+									success : function(response) {
+										alert(response);
+										if (response === '전화번호 변경 성공') {
+											location.reload();
+										}
+									},
+									error : function(xhr, status, error) {
+										console.error('Error: ' + error);
+									}
+								});
+							});
+						});
+
+		function chgPwd() {
+			$.ajax({
+				data : $("form").serialize(),
+				url : 'chgPwd',
+				type : 'POST',
+				success : function(data) {
+					alert(data + ", 로그인 페이지로 이동합니다.")
+					if (data == "비밀번호변경성공")
+						location.href = 'logout'
+				},
+				error : function(err) {
+					console.log(err)
+					alert('비밀번호는 영어 대소문자, 숫자, 특수문자로 이루어진 8~20글자만 허용합니다')
+				}
+			})
+		}
+	</script>
+<script>
+$(document).ready(function(){
+    // Initialize Bootstrap tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
     });
 });
-
-function chgPwd(){
-    $.ajax({
-        data: $("form").serialize(),
-        url: 'chgPwd',
-        type: 'POST',
-        success: function(data){
-            alert(data + ", 로그인 페이지로 이동합니다.")
-            if(data=="비밀번호변경성공")
-                location.href='logout'
-        },
-        error: function(err){
-            console.log(err)
-            alert('비밀번호는 영어 대소문자, 숫자, 특수문자로 이루어진 8~20글자만 허용합니다')
-        }
-    })
-}
 </script>
-
 
 </body>
 </html>

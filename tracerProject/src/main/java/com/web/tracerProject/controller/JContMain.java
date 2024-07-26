@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.tracerProject.service.JSerMain;
 import com.web.tracerProject.vo.Project;
+import com.web.tracerProject.vo.ProjectProgress;
 import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
@@ -42,12 +43,12 @@ public class JContMain {
         d.addAttribute("countPro", countPro);
         int taskPro = service.getTaskProgress(task);
         d.addAttribute("taskPro", taskPro);
+        List<ProjectProgress> projectProgressList = service.getProjectProgress();
+        d.addAttribute("projectProgressList", projectProgressList);
         
      // 프로젝트 목록 추가
         List<Project> projectList = service.getProjectList();
         d.addAttribute("projectList", projectList);
-        
-        System.out.println("Controller - Project List: " + projectList);
         
         if (service.isMember(user_info).equals("로그인성공")) {
             session.setAttribute("info", service.getMember(user_info));
@@ -74,6 +75,8 @@ public class JContMain {
         d.addAttribute("user_info", (User_info) session.getAttribute("info"));
         int taskPro = service.getTaskProgress(task);
         d.addAttribute("taskPro", taskPro);
+        List<ProjectProgress> projectProgressList = service.getProjectProgress();
+        d.addAttribute("projectProgressList", projectProgressList);
         return "tracerPages/index";
     }
 

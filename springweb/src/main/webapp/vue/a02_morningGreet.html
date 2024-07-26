@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://unpkg.com/vue" type="text/javascript"></script>
+<script type="text/javascript">
+
+</script>
+
+</head>
+<body>
+	<div id ="greet">
+	<h2>{{hihi}}</h2>
+	</div>
+<script type="text/javascript">
+	var morning = {hihi: "좋지 않은 아침..."}
+	var mo = Vue.createApp({
+		name: "greet",
+		data(){
+			return morning;
+		}
+	}).mount("#greet")
+</script>
+</body>
+
+</html>

@@ -28,42 +28,35 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// $("선택자").css("속성","속성값"): CSS 속성
-		$("h2").text("클릭 ㄱ").css("color", "red")
-		$("h2").css({"color:yellow", "background":"navy", "border":"1px solid blue" })
-		var colors = ['red', 'orange', 'yellow','green','blue','navy','purple' ]
-		$("h2").click(function(){
-			$("h2").text("변경 파랑둥이").css("color","blue")
+		// filter() 기능메서드: 특정한 요소 객체를 가상클래스 또는 함수를 통해서 선택처리하는 것
+		// chaining 메서드 처리에서 end()기능: chaining 설정을 중단하고 다시 처음 객체에 대한 내용으로
+		
+		$("#regBtn").click(function(){
+			// li중에 짝수번째만 선택
+			$("li").filter(":even").css("background-color","pink")
+				.end().filter(".orange, #apple").css("font-size","30px")
+				// 짝수번째 .filter()를 끝내고 다시 전체 li를 선택한 상황으로 회귀
+				// 다시 클래스가 orange이고, 아이디가 apple인 것을 찾아서 글자 크기를 30px로 설정
 		})
-		var idx=0;
-		$("h3").click(function(){
-			// $(this) click 대상 객체
-			// idx++%7 1... 6, 7, 8, .... 10 ....
-			// 				   0, 1 ....	
-			$(this).css("color",colors[idx++%7])
-		})
-		var aligns = ["left", "center", "right"]
-		var aIdx = 0;
-		$("h4").click(function(){
-			var align = aligns[ aIdx++%3]
-			$(this).attr("align", align).text(align)
-		})
-		var fruits = ["사과", "바나나", "딸기", "복숭아", "용과"]
-		$("#chBtn").click(function(){
-			$("h5").text(fruits[idx++%5])
-			$("h5").css("color", colors[idx++%7])
-		})
+		// ex) a16_filterExp
+		//		h4를 무지개 색상 이름으로 리스트
+		// 		하단에 적용 클릭 시 홀수(:odd)의 내용 출력
 	});
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>타이틀</h2>
-  <h3>touch</h3>
-  <h4>left</h4>
-  <button id="chBtn" class="btn btn-info" type="button">변신 무죄</button>
-  <h5> 과일 </h5>
+  <h2>filter 처리와 chaining</h2>
+  <ul>
+  	<li>아이템1</li>
+  	<li>아이템2</li>
+  	<li class="orange">아이템3</li>
+  	<li class="orange">아이템4</li>
+  	<li id="apple">아이템5</li>
+  	<li>아이템6</li>
+  </ul>
+ <button id="regBtn" class="btn btn-danger" type="button">적용</button>
 </div>
 <%-- 
 		

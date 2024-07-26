@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/springweb/a00_com/bootstrap.min.css" >
+<style>
+   td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/springweb/a00_com/bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue" type="text/javascript"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+      var model = {msg:"좋은 하루입니다!!",
+    		  name:"rlarldjr",
+    		  price:1111111,
+    		  count:"<h1>"+30+"</h1>",
+    		  img01:"/springweb/a00_com/images/ui-bg_glass_100_f6f6f6_1x400.png",
+/*     		  img02:"/springweb/a00_com/images/ui-bg_glass_100_fdf5ce_1x400.png",		  
+      		  img03:"/springweb/a00_com/images/ui-icons_ef8c08_256x240.png",	
+      		  img04:"/springweb/a00_com/images/ui-bg_highlight-soft_100_eeeeee_1x100.png" */	
+      }
+      var vm = Vue.createApp({
+         name:"App",
+         data(){
+            return model;
+         }
+      }).mount(".container")
+   });
+</script>
+</head>
+<body>
+
+<div class="container">
+   <div class="jumbotron text-center">
+     <h2 >{{msg}}</h2>
+     물건명: {{name}} <br>
+     가격: <div v-text="price"></div>
+     개수: <div v-html="count"></div>
+     <img v-bind:src="img01"/>
+     <!-- <img v-bind:src="img02"/>
+     <img v-bind:src="img03"/>
+     <img v-bind:src="img04"/> -->
+   </div>
+   <form id="frm01" class="form-inline"  method="post">
+     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+       <input class="form-control mr-sm-2" placeholder="제목" />
+       <input class="form-control mr-sm-2" placeholder="내용" />
+       <button class="btn btn-info" type="submit">Search</button>
+    </nav>
+   </form>
+   <table class="table table-hover table-striped">
+      <col width="10%">
+      <col width="50%">
+      <col width="15%">
+      <col width="15%">
+      <col width="10%">
+    <thead>
+    
+      <tr class="table-success text-center">
+        <th>번호</th>
+        <th>제목</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>조회</th>
+      </tr>
+    </thead>   
+    <tbody>
+       <tr><td></td><td></td><td></td><td></td><td></td></tr>
+       <tr><td></td><td></td><td></td><td></td><td></td></tr>
+       <tr><td></td><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+   </table>       
+</div>
+</body>
+</html>

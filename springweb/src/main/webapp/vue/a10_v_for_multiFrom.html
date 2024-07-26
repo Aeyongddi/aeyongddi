@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/springweb/a00_com/bootstrap.min.css" >
+<style>
+   td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/springweb/a00_com/bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue" type="text/javascript"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+      var model = {msg:"아이스 아메리카노!!"
+                ,members:['홍길동','김길동','신길동']
+                  ,ckmembers:[]
+                  ,hobbies:['공부하기','운동하기','코딩하기']
+      			,ckhobbies:[]
+      /* hobbies와 ckhobbies를 선언하여 데이터 할당하고 체크가 된 내용을 출력 */
+                  }
+      var vm = Vue.createApp({
+         name:"App",
+         data(){
+            return model;
+         }
+      }).mount(".container")
+   });
+</script>
+</head>
+<body>
+
+<div class="container">
+   <div class="jumbotron text-center">
+     <h2 >{{msg}}</h2>
+     <label v-for="mem in members">
+     <!-- 
+     # checkbox를 v-model로 모델과 연동하면 value에 데이터를 설정하면 checked 되는 순간
+     모델(배열형)에 데이터가 추가 할당됨
+     type="checkbox" v-model="ckmembers" value="사과" checked
+     type="checkbox" v-model="ckmembers" value="바나나" 
+     type="checkbox" v-model="ckmembers" value="딸기" checked
+     
+     chmembers=[] 배열은 위와 같이 설정되었을 때 사과, 딸기 value가 있는 것을 check하면
+     chmembers=['홍길동','신길동']
+      -->
+        <input type="checkbox" v-model="ckmembers" :value="mem" />
+        {{mem}}&nbsp;&nbsp;&nbsp;
+     </label>
+     <label v-for="hob in hobbies">
+        <input type="checkbox" v-model="ckhobbies" :value="hob" />
+        {{hob}}&nbsp;&nbsp;&nbsp;
+     </label>
+     <!-- 체크가 되었을때 value값을 v-model의 배열에 추가 할당 처리 -->
+   </div>
+   <form id="frm01" class="form"  method="post">
+     <nav class="navbar navbar-expand-sm bg-white navbar-white">
+       
+       <input class="form-control mr-sm-2" placeholder="내용" />
+       <button class="btn btn-info" type="submit">Search</button>
+    </nav>
+   </form>
+   <table class="table table-hover table-striped">
+      <col width="30%">
+      <col width="70%">
+    <thead>
+    
+      <tr class="table-success text-center">
+        <th>번호</th>
+        <th>취미</th>
+      </tr>
+    </thead>   
+    <tbody>
+       <tr v-for="(mem,idx) in ckmembers">
+             <td>{{idx+1}}</td><td>{{mem}}</td>
+       </tr>
+       <tr v-for="(hob,idx) in ckhobbies">
+       		<td>{{idx+1}}</td><td>{{hob}}</td>
+    </tbody>
+   </table>       
+</div>
+</body>
+</html>

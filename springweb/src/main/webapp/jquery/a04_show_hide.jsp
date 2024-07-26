@@ -43,7 +43,25 @@
 			$("h2").eq(0).show()
 			$("#regBtn").hide()
 		})
+		$("h3").click(function(){
+			$(".container").toggle(1000,function(){
+				console.log("이벤트 처리 완료")
+			})
+		})
+		$("#info").hide()
+		$("#regregBtn").click(function(){
+			$("#info").toggle(1000,function(){
+				if($("#regregBtn").text()=="부서정보확인"){
+					$("#regregBtn").text("닫기")				
+				}else{
+					$("#regregBtn").text("확인")
+				}
+			})
+		})
+		
 	});
+	// ex) form 아이디 입력과 부서정보 확인 클릭 시 토글로 부서정보를 보였다가
+	//		확인 후 닫기로 부서정보내용이 닫히는 것 처리
 </script>
 </head>
 
@@ -51,6 +69,7 @@
 <div class="jumbotron text-center">
   <h2>보여라</h2>
   <h2>사라져라</h2>
+  <h3>toggle</h3>
   <button id="regBtn" class="btn btn-success" 
 	    	data-toggle="modal" data-target="#exampleModalCenter"
 	        type="button">등록</button>
@@ -62,34 +81,29 @@
 <div class="container">
 	<form id="frm01" class="form"  method="post">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input placeholder="제목" name=""  class="form-control mr-sm-2" />
-	    <input placeholder="내용" name=""  class="form-control mr-sm-2"/>
-	    <button class="btn btn-info" type="submit">Search</button>
+	    <input placeholder="아이디" name="id"  class="form-control mr-sm-2" />
+	    <input placeholder="부서정보" name="deftInfo"  class="form-control mr-sm-2"/>
+	    <button class="btn btn-info" type="button" id= "regregBtn">부서확인</button>
 	    <button class="btn btn-success" 
-	    	data-toggle="modal" data-target="#exampleModalCenter"
+	    	data-toggle="modal" data-target="#exampleModalCenter" 
 	        type="button">등록</button>
  	</nav>
 	</form>
-   <table class="table table-hover table-striped">
-   	<col width="10%">
-   	<col width="50%">
-   	<col width="15%">
-   	<col width="15%">
-   	<col width="10%">
+   <table id="info"class="table table-hover table-striped">
+   	<col width="30%">
+   	<col width="40%">
+   	<col width="30%">
     <thead>
     
       <tr class="table-success text-center">
         <th>번호</th>
         <th>제목</th>
         <th>작성자</th>
-        <th>작성일</th>
-        <th>조회</th>
       </tr>
     </thead>	
     <tbody>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
-    	<tr><td></td><td></td><td></td><td></td><td></td></tr>
+    	<tr><td>d</td><td>d</td><td>d</td></tr>
+
     </tbody>
 	</table>    
     

@@ -28,42 +28,52 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// $("선택자").css("속성","속성값"): CSS 속성
-		$("h2").text("클릭 ㄱ").css("color", "red")
-		$("h2").css({"color:yellow", "background":"navy", "border":"1px solid blue" })
-		var colors = ['red', 'orange', 'yellow','green','blue','navy','purple' ]
-		$("h2").click(function(){
-			$("h2").text("변경 파랑둥이").css("color","blue")
+		$("select").change(function(){
+			// 선택되어진 번호 
+			var ph01 = $(":selected").text()
+			ph01 += " - "+$(":text").eq(0).val()
+			ph01 += " - "+$(":text").eq(1).val()
+			$("p").text(ph01)
 		})
-		var idx=0;
-		$("h3").click(function(){
-			// $(this) click 대상 객체
-			// idx++%7 1... 6, 7, 8, .... 10 ....
-			// 				   0, 1 ....	
-			$(this).css("color",colors[idx++%7])
-		})
-		var aligns = ["left", "center", "right"]
-		var aIdx = 0;
-		$("h4").click(function(){
-			var align = aligns[ aIdx++%3]
-			$(this).attr("align", align).text(align)
-		})
-		var fruits = ["사과", "바나나", "딸기", "복숭아", "용과"]
-		$("#chBtn").click(function(){
-			$("h5").text(fruits[idx++%5])
-			$("h5").css("color", colors[idx++%7])
+		$(":text").keyup(function(){
+			var ph01 = $(":selected").text()
+			ph01 += " - "+$(":text").eq(0).val()
+			ph01 += " - "+$(":text").eq(1).val()
+			$("p").text(ph01)	
 		})
 	});
+	// ex) 색상 선택 / 크기 선택 / 입력 글자
+	//	색상: select 빨/파/노
+	//	크기: select 10/20/30pt
+	//	색상: [	]	
+	//	위와 같이 선택과 입력 시 아래에 해당 내용이 적용된 글자 출력
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>타이틀</h2>
-  <h3>touch</h3>
-  <h4>left</h4>
-  <button id="chBtn" class="btn btn-info" type="button">변신 무죄</button>
-  <h5> 과일 </h5>
+  <h2>select 처리</h2>
+  <select name = "phone01">
+  	<option value="" selected> 선택하세요 </option>
+  	<option>010</option>
+  	<option>011</option>
+  	<option>02</option>
+  </select>
+	<input size="4" type = "text" name="phone02" /> - <input size="4" type = "text" name="phone3" /> <br>
+	<p></p>
+	색상 <select name = "color">
+		<option value = "" selected> 색상 선택 </option>
+		<option value = "red">빨</option>
+		<option value = "blue">파</option>
+		<option value = "yellow">노</option>
+	</select>
+	크기 <select name = "size">
+		<option value = "" selected>크기 선택 </option>
+		<option value = "10pt">10</option>
+		<option value = "20pt">20</option>
+		<option value = "30pt">30</option>
+	</select>
+	<input type = "text"/>
 </div>
 <%-- 
 		

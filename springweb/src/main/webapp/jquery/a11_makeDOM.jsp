@@ -28,42 +28,39 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// $("선택자").css("속성","속성값"): CSS 속성
-		$("h2").text("클릭 ㄱ").css("color", "red")
-		$("h2").css({"color:yellow", "background":"navy", "border":"1px solid blue" })
-		var colors = ['red', 'orange', 'yellow','green','blue','navy','purple' ]
-		$("h2").click(function(){
-			$("h2").text("변경 파랑둥이").css("color","blue")
-		})
-		var idx=0;
-		$("h3").click(function(){
-			// $(this) click 대상 객체
-			// idx++%7 1... 6, 7, 8, .... 10 ....
-			// 				   0, 1 ....	
-			$(this).css("color",colors[idx++%7])
-		})
-		var aligns = ["left", "center", "right"]
-		var aIdx = 0;
-		$("h4").click(function(){
-			var align = aligns[ aIdx++%3]
-			$(this).attr("align", align).text(align)
-		})
-		var fruits = ["사과", "바나나", "딸기", "복숭아", "용과"]
-		$("#chBtn").click(function(){
-			$("h5").text(fruits[idx++%5])
-			$("h5").css("color", colors[idx++%7])
+		$("#funBtn").click(function(){
+			// .wrap() 해당 checkbox에 span 태그로 감싸서 처리 : 
+			// <span><input type="checkbox" value="배"></span>
+			// parent(): 계층구조 바로 상위 부모객체를 지칭: 현재는 감싸고 있는 span 태그를 지칭
+			$("input:checkbox").wrap("<span></span>").parent().css("border","3px dotted red")
+			// checked가 된 값을 할당 처리
+			
+			// checked가 된 값을 할당하기 위한 변수
+			var vals = ""
+			$("input:checked").each(function(idx,ob){
+				// 배열형.each(function(index번호, 단위){})
+				console.log(idx)
+				// 해당 객체의 값을 누적 처리
+				vals += $(ob).val()+","
+			})
+			
+			$(":text").val(vals)
 		})
 	});
+	// ex) 주문 메뉴 선택	a12_checkExp.jsp
+	// 		[] 짜장면	[]짬뽕	[]탕수육
+	//		주문 내용: @@@@
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>타이틀</h2>
-  <h3>touch</h3>
-  <h4>left</h4>
-  <button id="chBtn" class="btn btn-info" type="button">변신 무죄</button>
-  <h5> 과일 </h5>
+  <h2>dom 객체 만들기와 여러가지 기능 메서드</h2>
+  	사과 <input type="checkbox" checked = "checked" value="사과"><br>
+  	배 <input type="checkbox" value="배"><br>
+  	바나나 <input type="checkbox" value="바나나"><br>
+	<input type = "button" value="기능 처리" id="funBtn"/>
+	<input type = "text"/>
 </div>
 <%-- 
 		

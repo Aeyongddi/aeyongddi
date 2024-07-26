@@ -16,7 +16,8 @@ public interface A01_Dao {
 	@Select("SELECT * FROM EMP05 "
 			+ "WHERE ename like '%'||#{ename}||'%' " // sch.getEname()
 			+ "and job like '%'||#{job}||'%' "
-			+ "order by empno ")      //  sch.getJob()
+			+ "order by empno ")      
+	//  sch.getJob()	<if test='deptn != 0'>and deptno=#{deptno}</if>
 	List<Emp> getEmpList(Emp sch);
 	
 	@Insert("INSERT INTO emp05 values(#{empno}, #{ename},#{job},#{mgr}, \r\n"

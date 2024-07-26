@@ -28,30 +28,19 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// $("선택자").css("속성","속성값"): CSS 속성
-		$("h2").text("클릭 ㄱ").css("color", "red")
-		$("h2").css({"color:yellow", "background":"navy", "border":"1px solid blue" })
-		var colors = ['red', 'orange', 'yellow','green','blue','navy','purple' ]
-		$("h2").click(function(){
-			$("h2").text("변경 파랑둥이").css("color","blue")
-		})
-		var idx=0;
-		$("h3").click(function(){
-			// $(this) click 대상 객체
-			// idx++%7 1... 6, 7, 8, .... 10 ....
-			// 				   0, 1 ....	
-			$(this).css("color",colors[idx++%7])
-		})
-		var aligns = ["left", "center", "right"]
-		var aIdx = 0;
-		$("h4").click(function(){
-			var align = aligns[ aIdx++%3]
-			$(this).attr("align", align).text(align)
-		})
-		var fruits = ["사과", "바나나", "딸기", "복숭아", "용과"]
-		$("#chBtn").click(function(){
-			$("h5").text(fruits[idx++%5])
-			$("h5").css("color", colors[idx++%7])
+		// select 선택 객체에서 변경을 했을 때 
+		$("[name=chMember]").change(function(){
+			var val = $(this).val()
+			if(val == '회원'){
+				// $("선택자").메서드(1).메서드(2).메서드(3)	: chaining으로 메서드 연속으로 설정 가능
+				$("[name=member]").removeAttr("disabled").attr("enabled","enabled")
+				$("[name=november]").removeAttr("enabled").attr("disabled","disabled")
+				// 회원:   [	] ==> disabled(비활성화)속성 삭제, enabled(활성화) 속성 설정
+				// 비회원: [	] ==> enabled(활성화)속성 삭제, disabled(비활성화) 속성 설정
+			}else{
+				$("[name=member]").removeAttr("enabled").attr("disabled","disabled")
+				$("[name=november]").removeAttr("disabled").attr("enabled","enabled")
+			}
 		})
 	});
 </script>
@@ -60,10 +49,14 @@
 <body>
 <div class="jumbotron text-center">
   <h2>타이틀</h2>
-  <h3>touch</h3>
-  <h4>left</h4>
-  <button id="chBtn" class="btn btn-info" type="button">변신 무죄</button>
-  <h5> 과일 </h5>
+	<form>
+		<select name="chMember">
+			<option>회원</option>
+			<option>비회원</option>
+		</select>
+		<input placeholder="회" name = "member"  type="text"/>
+		<input placeholder="비회" name = "november"   type="text" disabled="disabled"/>
+	</form>
 </div>
 <%-- 
 		

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="/springweb/a00_com/bootstrap.min.css" >
+<style>
+   td{text-align:center;}
+</style>
+<script src="/springweb/a00_com/jquery.min.js"></script>
+<script src="/springweb/a00_com/bootstrap.min.js"></script>
+<script src="https://unpkg.com/vue" type="text/javascript"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script type="text/javascript">
+   $(document).ready(function(){
+	   // ex) 물건명/가격/갯수 객체선언/v-model속성 선언/테이블에 출력
+      var model = {msg:"object v-for", person:{name:'홍길동', age:25, loc:'수원'},
+		   product:{pname:'사과', price:30000, count:30},
+		   dept:{10:'인사', 20:'재무', 30:'회계', 40:'경영' }}
+      var vm = Vue.createApp({
+         name:"App",
+         data(){
+            return model;
+         }
+      }).mount(".container")
+   });
+</script>
+</head>
+<body>
+
+<div class="container">
+   <div class="jumbotron text-center">
+     <h2 >{{msg}}</h2>
+   </div>
+   <form id="frm01" class="form"  method="post">
+     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+       <input class="form-control mr-sm-2" placeholder="이름" v-model="person.name" />
+       <input class="form-control mr-sm-2" placeholder="나이" v-model="person.age" />
+       <input class="form-control mr-sm-2" placeholder="사는곳" v-model="person.loc" />
+       <button class="btn btn-info" type="submit">Search</button>
+    </nav>
+     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+       <input class="form-control mr-sm-2" placeholder="이름" v-model="product.pname" />
+       <input class="form-control mr-sm-2" placeholder="가격" v-model="product.price" />
+       <input class="form-control mr-sm-2" placeholder="개수" v-model="product.count" />
+       <!--  dept:{10:'인사', 20:'재무', 30:'회계', 40:'경영' }} -->
+       <select class="form-control mr-sm-2" onchange="alert(this.value)">
+       	<option value=""> 부서선택</option>
+       	<option v-for="(val,key) in dept"
+       			v-bind:value="key">{{val}}</option>
+       </select>
+       <button class="btn btn-info" type="submit">Search</button>
+    </nav>
+   </form>
+   <table class="table table-hover table-striped">
+      <col width="33%">
+      <col width="34%">
+      <col width="33%">
+    <thead>
+    
+      <tr class="table-success text-center">
+        <th>이름</th>
+        <th>나이</th>
+        <th>사는곳</th>
+      </tr>
+    </thead>   
+    <tbody>
+       <tr><td>{{person.name}}</td>
+       <td v-text="person.age"></td>
+       <td>{{person.loc}}</td></tr>
+    </tbody>
+   </table>   
+   <table class="table table-hover table-striped">
+      <col width="33%">
+      <col width="34%">
+      <col width="33%">
+    <thead>
+    
+      <tr class="table-success text-center">
+        <th>이름</th>
+        <th>가격</th>
+        <th>개수</th>
+      </tr>
+    </thead>   
+    <tbody>
+       <tr>
+       <td>{{product.pname}}</td>
+       <td v-text="product.price"></td>
+       <td v-text="product.count"></td>
+       </tr>
+    </tbody>
+   </table>   
+   <table class="table table-hover table-striped">
+      <col width="50%">
+      <col width="50%">
+    <thead>
+    
+      <tr class="table-success text-center">
+        <th>속성</th>
+        <th>속성값</th>
+      </tr>
+    </thead>
+    <!-- v-for 1단계 객체처리
+    1. v-for는 객체의 속성과 속성값을 반복문에 의해서 가져와 처리할 수 있다.
+    2. 기본 형식
+    	요소 태그 v-for='(속성값, 속성) in 객체'
+    	객체의 속성과 속성값을 매개변수로 반복해서 화면에 출력 가능
+    ex) 1단계: person
+    	2단계: 부서번호, 부서명 / select.option
+     -->   
+    <tbody>
+       <tr v-for="(val,prop) in product">
+       <td>{{prop}}</td>
+       <td>{{val}}</td>
+       </tr>
+    </tbody>
+    <tbody>
+       <tr v-for="(val,prop) in person">
+       <td>{{prop}}</td>
+       <td>{{val}}</td>
+       </tr>
+    </tbody>
+   </table>      
+</div>
+</body>
+</html>

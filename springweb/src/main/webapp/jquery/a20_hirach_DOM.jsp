@@ -28,55 +28,73 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// $("선택자").css("속성","속성값"): CSS 속성
-		$("h2").text("클릭 ㄱ").css("color", "red")
-		$("h2").css({"color:yellow", "background":"navy", "border":"1px solid blue" })
-		var colors = ['red', 'orange', 'yellow','green','blue','navy','purple' ]
-		$("h2").click(function(){
-			$("h2").text("변경 파랑둥이").css("color","blue")
-		})
-		var idx=0;
 		$("h3").click(function(){
-			// $(this) click 대상 객체
-			// idx++%7 1... 6, 7, 8, .... 10 ....
-			// 				   0, 1 ....	
-			$(this).css("color",colors[idx++%7])
+			$("div").find("span").css("font-size","30px")
 		})
-		var aligns = ["left", "center", "right"]
-		var aIdx = 0;
 		$("h4").click(function(){
-			var align = aligns[ aIdx++%3]
-			$(this).attr("align", align).text(align)
+			$("div").children("span").css("background","red")
 		})
-		var fruits = ["사과", "바나나", "딸기", "복숭아", "용과"]
-		$("#chBtn").click(function(){
-			$("h5").text(fruits[idx++%5])
-			$("h5").css("color", colors[idx++%7])
+		$("h1").click(function(){
+			$("div").append("<span>안녕하세요</span>")
 		})
 	});
+	// ex) 구매할 과일: [	] [장바구니 담기]
+	//		구매할 육류: [	] [장바구니 담기]
+	//		위 내용에서 장바구니 담기를 클릭 시, 아래 항목에 담아지게 처리
+	//		단, 과일은 span으로 입력, 육류는 b 로 입력 처리
+	//		[과일확인] [육류확인] ==> 각각 클릭 시, 구분하여 색상표현 핑크/노랑색
+	//		사과, 바나나, 소고기, 딸기, 돼지고기
+	
 </script>
 </head>
 
 <body>
 <div class="jumbotron text-center">
-  <h2>타이틀</h2>
-  <h3>touch</h3>
-  <h4>left</h4>
-  <button id="chBtn" class="btn btn-info" type="button">변신 무죄</button>
-  <h5> 과일 </h5>
+  <h1>안녕하세요</h1>
+  <h2>계층 구조 찾아가기</h2>
+	<h3>Find로 span 찾기</h3>
+	<h4>children로 span 찾기</h4>
+	<div>
+		<span>홍길동</span>이순신
+	</div>
+	<div>
+		유관순<p><span>강감찬</span></p>
+	</div>
 </div>
 <%-- 
-		
+# jquery DOM 계층 구조
+1. html 태그는 기본적으로 계층 구조로 되어 있고, 이것에 대한 접근을 계층 구조 메서드에
+	의해서 호출하여 처리를 하고 있다.
+2. 계층 구조 기능 메서드
+	1) children() : 하위에 있는 요소 객체들 접근
+		<div>
+			<p>
+			<a>
+			<h1>
+		div 입장에서 p, a, h1 태그는 하위에 요소 객체이다.
+	2) parents() : 상위에 있는 요소 객체들 접근
+		<body>
+			<div>
+				<p>
+					<h1>
+		h1 입장에서는 p, div, body는 상위의 요소 객체들이다.
+	3) parent() : 바로 상위에 있는 요소 객체
+		<div>
+			<p>
+			<h1>
+		p, h1은 div가 바로 상위에 있는 요소 객체이다.
+	4) find("찾는 요소") : 하위에 있는 요소 객체를 찾는 처리
+	5) next()/prev() : 같은 레벨의 요소에서 이전 요소, 이후 요소 객체에 대한 선택을 할 때, 주로 사용된다.
 --%>
 <div class="container">
 	<form id="frm01" class="form"  method="post">
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-	    <input placeholder="제목" name=""  class="form-control mr-sm-2" />
-	    <input placeholder="내용" name=""  class="form-control mr-sm-2"/>
-	    <button class="btn btn-info" type="submit">Search</button>
-	    <button class="btn btn-success" 
-	    	data-toggle="modal" data-target="#exampleModalCenter"
-	        type="button">등록</button>
+	    과일: <input type="text">
+	    	<button type = "button" id="fruit">장바구니 담기</button>
+	    육류: <input type="text">
+	    	<button type = "button" id="protain">장바구니 담기</button>
+	   <button type = "button" id="ckft">과일 확인</button>
+	   <button type = "button" id="ckpt">육류 확인</button>
  	</nav>
 	</form>
    <table class="table table-hover table-striped">

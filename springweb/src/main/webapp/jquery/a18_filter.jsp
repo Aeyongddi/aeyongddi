@@ -28,30 +28,16 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		// $("선택자").css("속성","속성값"): CSS 속성
-		$("h2").text("클릭 ㄱ").css("color", "red")
-		$("h2").css({"color:yellow", "background":"navy", "border":"1px solid blue" })
-		var colors = ['red', 'orange', 'yellow','green','blue','navy','purple' ]
-		$("h2").click(function(){
-			$("h2").text("변경 파랑둥이").css("color","blue")
-		})
-		var idx=0;
-		$("h3").click(function(){
-			// $(this) click 대상 객체
-			// idx++%7 1... 6, 7, 8, .... 10 ....
-			// 				   0, 1 ....	
-			$(this).css("color",colors[idx++%7])
-		})
-		var aligns = ["left", "center", "right"]
-		var aIdx = 0;
-		$("h4").click(function(){
-			var align = aligns[ aIdx++%3]
-			$(this).attr("align", align).text(align)
-		})
-		var fruits = ["사과", "바나나", "딸기", "복숭아", "용과"]
-		$("#chBtn").click(function(){
-			$("h5").text(fruits[idx++%5])
-			$("h5").css("color", colors[idx++%7])
+		$("h1").click(function(){
+			$("h4").filter(function(idx,obj){
+				var rIdx = Math.floor(Math.random()*$("h4").length)
+				if(idx==rIdx){
+				$(obj).css("background-color","pink")
+				$(obj).text("왕")
+				return idx%2==1
+			}
+				
+			})
 		})
 	});
 </script>
@@ -60,10 +46,12 @@
 <body>
 <div class="jumbotron text-center">
   <h2>타이틀</h2>
-  <h3>touch</h3>
-  <h4>left</h4>
-  <button id="chBtn" class="btn btn-info" type="button">변신 무죄</button>
-  <h5> 과일 </h5>
+	<h4>김</h4>
+	<h4>김</h4>
+	<h4>박</h4>
+	<h4>김</h4>
+	<h4>김</h4>
+	<h1> click </h1>
 </div>
 <%-- 
 		

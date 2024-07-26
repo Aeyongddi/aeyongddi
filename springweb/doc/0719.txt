@@ -1,0 +1,14 @@
+처리 순서
+1. backend 구현
+	1) sql : emp
+		SELECT count(*) FROM EMP
+ 		WHERE empno = #{empno}
+	2) vo
+	3) dao
+		checkEmpno()
+	4) service
+	5) controller
+	
+2. frontend 구현
+	1) 화면 form
+	2) js 이벤트 ajax

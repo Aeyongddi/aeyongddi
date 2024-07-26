@@ -57,6 +57,15 @@
   	<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
 	    <input placeholder="사원명" name="ename" value="${param.ename }" class="form-control mr-sm-2" />
 	    <input placeholder="직책" name="job" value="${param.job }" class="form-control mr-sm-2"/>
+	    <select name="deptno" class="form-control mr-sm-2">
+	    		<option value = "0">부서선택</optino>
+	    	<c:forEach var = "dpt" items="${depts }">
+	    		<option value = "${dpt.deptno }">${dpt.dname }[${dpt.deptno }]</option>
+	    	</c:forEach>
+	    </select>
+	    <script type = "text/javascript">
+	    	$("[name=deptno]").val("${empty param.deptno?'0':param.deptno}")
+	    </script> 
 	    <button class="btn btn-info" type="submit">Search</button>
 	    <button class="btn btn-success" 
 	    	data-toggle="modal" data-target="#exampleModalCenter"

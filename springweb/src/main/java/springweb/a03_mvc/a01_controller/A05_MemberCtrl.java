@@ -16,7 +16,7 @@ public class A05_MemberCtrl {
 	
 	@Autowired(required=false)
 	private A05_MemberService service;
-	// http://localhost:7080/springweb/login.do
+	// http://localhost:7080/springweb/main.do
 	@GetMapping("login.do")
 	public String loginFrm(HttpSession session) {
 		session.removeAttribute("mem");

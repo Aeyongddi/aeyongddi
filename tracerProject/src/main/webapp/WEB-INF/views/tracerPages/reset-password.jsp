@@ -23,7 +23,61 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
 
 </head> 
-
+<script src="${path}/a00_com/jquery.min.js"></script>
+<script src="${path}/a00_com/popper.min.js"></script>
+<script src="${path}/a00_com/bootstrap.min.js"></script>
+<script src="${path}/a00_com/jquery-ui.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	if(${msg!=null})
+		alert("${msg}")
+	$('form').on('keydown', 'input', function(event) {
+         if (event.keyCode === 13) { 
+               event.preventDefault();
+               return false;
+         }
+    });
+	$('.resetBtn').click(function(){
+		$.ajax({
+			data: $("form").serialize(),
+			url: 'emailDupChk',
+			type: 'POST',
+			success: function(data){
+				if(data=="이미 가입된 이메일입니다"){
+					$.ajax({
+						data: $("form").serialize(),
+						url: 'mail/sendResetPwd',
+						type: 'POST',
+						success: function(data){
+							$("input[type=hidden]").val(data)
+							$.ajax({
+								data: $("form").serialize(),
+								url: 'chgPwd',
+								type: 'POST',
+								success: function(){
+									alert('임시비밀번호가 전송되었습니다.')
+									location.href = 'login'
+								},
+								error: function(err){
+									console.log(err)
+								}
+							})
+						},
+						error: function(err){
+							console.log(err)
+						}
+					})
+				}else	alert('해당하는 이메일이 존재하지 않습니다.')
+			},
+			error: function(err){
+				console.log(err)
+			}
+		})
+	})
+})
+</script>
 <body class="app app-reset-password p-0">    	
     <div class="row g-0 app-auth-wrapper">
 	    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
@@ -36,12 +90,13 @@
 	
 					<div class="auth-form-container text-left">
 						
-						<form class="auth-form resetpass-form">                
+						<form class="auth-form resetpass-form">
+							<input type="hidden" name="password"/>                
 							<div class="email mb-3">
 								<input id="reg-email" name="email" type="email" class="form-control login-email" placeholder="이메일 입력" required="required">
 							</div><!--//form-group-->
 							<div class="text-center">
-								<button type="submit" class="btn app-btn-primary btn-block theme-btn mx-auto">초기화하기</button>
+								<button type="button" class="resetBtn btn app-btn-primary btn-block theme-btn mx-auto">초기화하기</button>
 							</div>
 						</form>
 						

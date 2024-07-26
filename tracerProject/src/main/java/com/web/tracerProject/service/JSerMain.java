@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.web.tracerProject.mapper.JDaoMain;
 import com.web.tracerProject.vo.Project;
+import com.web.tracerProject.vo.ProjectProgress;
 import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
@@ -59,7 +60,10 @@ public class JSerMain {
     
     public List<Project> getProjectList() {
         List<Project> projectList = dao.getProjectList();
-        System.out.println("Service - Project List: " + projectList);
         return projectList;
+    }
+    
+    public List<ProjectProgress> getProjectProgress() {
+        return dao.getProjectProgress();
     }
 }

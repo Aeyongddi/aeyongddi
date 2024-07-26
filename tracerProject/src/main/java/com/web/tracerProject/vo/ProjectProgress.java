@@ -9,8 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Mail {
-	private String address;
+public class ProjectProgress {
+	private String pid;
 	private String title;
-	private String content;
+	private int progress;
+	private int completedTasks;
+    private int totalTasks;
 }

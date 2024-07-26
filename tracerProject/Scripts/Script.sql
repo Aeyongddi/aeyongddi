@@ -88,7 +88,25 @@ SELECT assigned_budget, used_budget
 SELECT pid, title FROM PROJECT;
 
 SELECT * FROM task;
+SELECT * FROM PROJECT;
+SELECT * FROM SCHEDULE;
 
 ALTER TABLE board
 MODIFY is_end number(1);
 COMMIT;
+
+SELECT * FROM board;
+ALTER TABLE board
+RENAME COLUMN IS_end TO endYN;
+
+SELECT p.pid, p.title, 
+       (SUM(CASE WHEN t.isend = 'Y' THEN 1 ELSE 0 END) * 100 / COUNT(*)) AS progress
+FROM project p
+JOIN schedule s ON p.pid = s.pid
+JOIN task t ON s.sid = t.sid
+WHERE p.end_date >= TRUNC(SYSDATE)
+GROUP BY p.pid, p.title;
+
+
+
+

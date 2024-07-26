@@ -20,46 +20,42 @@ $(document).ready(function(){
 		$(".newPrjFrm").hide(400)
 	})
 	$(".innerCls").click(function(){
-		$(".newPrjFrm2").hide(400)
+		$(".emailSch").hide(400)
 	})
-	$("#schBtn").click(function(){
-		$(".newPrjFrm2").show(400)
-		alert('')
-	})
-	$(".insNewPrjBtn").click(function(){
-		
-		/*
+	$("#schEmailBtn").click(function(){
 		$.ajax({
 			data: $("form").serialize(),
-			url: 'emailDupChk',
+			url: 'schByEmail',
 			type: 'POST',
 			success: function(data){
-				if(data=="이미 가입된 이메일입니다"){
-					$.ajax({
-						data: 
-						url: 
-						type: 'POST',
-						success: function(data){
-
-								},
-								error: function(err){
-									console.log(err)
-								}
-							})
-						},
-						error: function(err){
-							console.log(err)
-						}
-						})
-				}else	alert('해당하는 이메일이 존재하지 않습니다.')
+				if(data.nickname==null)
+					alert('해당 사용자를 초대할 수 없습니다.')
+				else{
+					$(".invNickname").html(data.nickname+"님<br> 초대")
+					$(".emailSch").show(400)
+				}
 			},
 			error: function(err){
 				console.log(err)
 			}
-		})
-			*/
+		}) 
+	})
+	/* 
+		본인 출력
+		view단에 참가인원 출력
+		>> 역할 부여
+		>> db에 prj추가
+		>> 시작날짜 끝날짜
+		>> db에 팀추가 
+		>> db 해당 팀 아이디에 참가 인원들 연결
+	*/
+	$(".insNewPrjBtn").click(function(){
+		
 	})
 	$(".newPrjFrm").hide(400)
+	function schByEmail(){
+
+	}
 })
 </script>
     <header class="app-header fixed-top">	   	            
@@ -373,14 +369,25 @@ $(document).ready(function(){
       <form>
       <div class="prjInput modal-body">
        	프로젝트명
-       	<input name="title" class="form-control mr-sm-2" placeholder="프로젝트 이름 입력" max="50" required/><br>
+       	<input name="title" class="form-control mr-sm-2" placeholder="프로젝트 이름 입력" required/><br>
        	프로젝트 설명
         <textarea style="width: 100%; height: 300px;" 
         name="description" class="form-control mr-sm-2" placeholder="프로젝트 설명 입력" required>
         </textarea><br>
-        참여 인원
-        <input type="email" class="form-control" placeholder="이메일 검색" required/>
-        <button type="button" class="btn btn-info" style="width: 15%;">검색</button>
+       	<div id="inTeamList">
+	        참여 인원<br>
+	        <p>닉네임 : ${user_info.nickname} / 권한 : 관리자 <button type="button"
+	         class="">x</button><br></p>
+	         <input type="hidden" name="" value=""/>
+	        <p>닉네임 :  / 권한 : <button type="button"
+	         class="">x</button><br> </p>
+	        <p>닉네임 :  / 권한 : <button type="button"
+	         class="">x</button><br> </p>
+	        <p>닉네임 :  / 권한 : <button type="button"
+	         class="">x</button><br> </p>
+       	</div>
+        <input type="email" name="invEmail" class="form-control" placeholder="이메일 검색" required/>
+        <button type="button" id="schEmailBtn" class="btn btn-info" style="width: 15%;">검색</button>
         <br>
         
        	
@@ -396,34 +403,23 @@ $(document).ready(function(){
 </div>
 
 
- <div class="modal newPrjFrm2" tabindex="-1">
+ <div class="modal emailSch" tabindex="-1">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">새로운 프로젝트 생성하기</h5>
+        <h5 class="invNickname modal-title"></h5><br>
+        <div class="modal-body">
+	        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+			  <option selected>권한</option>
+			  <option value="admin">관리자</option>
+			  <option value="contributor">참여자</option>
+			  <option value="viewer">조회자</option>
+			</select>
+			<button type="button" class="btn btn-info insNewPrjBtn" data-bs-dismiss="modal">확인</button>
+			<button type="button" class="btn btn-secondary innerCls" data-bs-dismiss="modal">닫기</button>
+        </div>
         <button type="button" class="btn-close innerCls" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form>
-      <div class="prjInput modal-body">
-       	프로젝트명
-       	<input name="title" class="form-control mr-sm-2" placeholder="프로젝트 이름 입력" max="50" required/><br>
-       	프로젝트 설명
-        <textarea style="width: 100%; height: 300px;" 
-        name="description" class="form-control mr-sm-2" placeholder="프로젝트 설명 입력" required>
-        </textarea><br>
-        참여 인원
-        <input class="form-control" placeholder="이메일 검색" required/>
-        <button type="button" id="schBtn" class="btn btn-secondary" style="width: 15%;">검색</button>
-        <br>
-        
-       	
-    
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary innerCls" data-bs-dismiss="modal">닫기</button>
-        <button type="button" class="btn btn-primary insNewPrjBtn">프로젝트 생성하기</button>
-      </div>
-      </form>
     </div>
   </div>
-</div>

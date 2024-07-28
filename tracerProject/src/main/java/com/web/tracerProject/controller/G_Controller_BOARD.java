@@ -20,6 +20,7 @@ public class G_Controller_BOARD {
     @Autowired(required=false)
     private G_Service_BOARD service;
 
+    // http://localhost:5656/boardList
     @GetMapping("/boardList")
     public String boardList(Board sch, Model d) {
         List<Board> boardList = service.getBoardList(sch);

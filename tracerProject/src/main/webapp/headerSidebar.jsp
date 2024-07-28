@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+  <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setBundle basename="messages"/>
-<script src="${path}/a00_com/jquery.min.js"></script>
+  <script src="${path}/a00_com/jquery.min.js"></script>
 <script src="${path}/a00_com/popper.min.js"></script>
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
@@ -17,14 +17,14 @@ $(document).ready(function(){
 	} */
 	$(".newProject").click(function(){
 		$(".newPrjFrm").show(400)
-	});
+	})
 	
 	$(".clsBtn").click(function(){
 		$(".newPrjFrm").hide(400)
-	});
+	})
 	$(".innerCls").click(function(){
 		$(".emailSch").hide(400)
-	});
+	})
 	$("#schEmailBtn").click(function(){
 		$.ajax({
 			data: $("form").serialize(),
@@ -34,15 +34,15 @@ $(document).ready(function(){
 				if(data.nickname==null)
 					alert('해당 사용자를 초대할 수 없습니다.')
 				else{
-					$(".invNickname").html(data.nickname + "님<br> 초대");
-					$(".emailSch").show(400);
+					$(".invNickname").html(data.nickname+"님<br> 초대")
+					$(".emailSch").show(400)
 				}
 			},
 			error: function(err){
 				console.log(err)
 			}
 		}) 
-	});
+	})
 	/* 
 		본인 출력
 		view단에 참가인원 출력
@@ -53,15 +53,15 @@ $(document).ready(function(){
 		>> db 해당 팀 아이디에 참가 인원들 연결
 	*/
 	$(".insNewPrjBtn").click(function(){
-		// 새 프로젝트 생성 로직 추가
-	});
-	$(".newPrjFrm").hide(400);
+		
+	})
+	$(".newPrjFrm").hide(400)
 	function schByEmail(){
-		// 이메일로 검색 로직 추가
+
 	}
-});
+})
 </script>
-<header class="app-header fixed-top">	   	            
+    <header class="app-header fixed-top">	   	            
     <div class="app-header-inner">  
         <div class="container-fluid py-2">
             <div class="app-header-content"> 
@@ -340,3 +340,67 @@ $(document).ready(function(){
         </div><!--//sidepanel-inner-->
     </div><!--//app-sidepanel-->
 </header><!--//app-header-->
+ <div class="modal newPrjFrm" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">새로운 프로젝트 생성하기</h5>
+        <button type="button" class="btn-close clsBtn" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form>
+      <div class="prjInput modal-body">
+       	프로젝트명
+       	<input name="title" class="form-control mr-sm-2" placeholder="프로젝트 이름 입력" required/><br>
+       	프로젝트 설명
+        <textarea style="width: 100%; height: 300px;" 
+        name="description" class="form-control mr-sm-2" placeholder="프로젝트 설명 입력" required>
+        </textarea><br>
+       	<div id="inTeamList">
+	        참여 인원<br>
+	        <p>닉네임 : ${user_info.nickname} / 권한 : 관리자 <button type="button"
+	         class="">x</button><br></p>
+	         <input type="hidden" name="" value=""/>
+	        <p>닉네임 :  / 권한 : <button type="button"
+	         class="">x</button><br> </p>
+	        <p>닉네임 :  / 권한 : <button type="button"
+	         class="">x</button><br> </p>
+	        <p>닉네임 :  / 권한 : <button type="button"
+	         class="">x</button><br> </p>
+       	</div>
+        <input type="email" name="invEmail" class="form-control" placeholder="이메일 검색" required/>
+        <button type="button" id="schEmailBtn" class="btn btn-info" style="width: 15%;">검색</button>
+        <br>
+        
+       	
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary clsBtn" data-bs-dismiss="modal">닫기</button>
+        <button type="button" class="btn btn-primary insNewPrjBtn">프로젝트 생성하기</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+ <div class="modal emailSch" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="invNickname modal-title"></h5><br>
+        <div class="modal-body">
+	        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+			  <option selected>권한</option>
+			  <option value="admin">관리자</option>
+			  <option value="contributor">참여자</option>
+			  <option value="viewer">조회자</option>
+			</select>
+			<button type="button" class="btn btn-info insNewPrjBtn" data-bs-dismiss="modal">확인</button>
+			<button type="button" class="btn btn-secondary innerCls" data-bs-dismiss="modal">닫기</button>
+        </div>
+        <button type="button" class="btn-close innerCls" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      </div>
+    </div>
+  </div>

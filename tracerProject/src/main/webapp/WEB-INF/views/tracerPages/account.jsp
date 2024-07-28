@@ -202,6 +202,22 @@
 									</div>
 									<!--//row-->
 								</div>
+								<div class="item border-bottom py-3">
+									<div class="row justify-content-between align-items-center">
+										<div class="col-auto">
+											<div class="item-label">
+												<strong><fmt:message key="change.password" /></strong>
+											</div>
+										</div>
+										<!--//col-->
+										<div class="col text-end">
+											<a class="btn-sm app-btn-secondary showChgPwd" href="#"
+												id="changePhoneBtn"><fmt:message key="change.password" /></a>
+										</div>
+										<!--//col-->
+									</div>
+									<!--//row-->
+								</div>
 								<!--//item-->
 
 								<!-- 전화번호 변경 모달 -->
@@ -615,9 +631,10 @@
 				url : 'chgPwd',
 				type : 'POST',
 				success : function(data) {
-					alert(data + ", 로그인 페이지로 이동합니다.")
-					if (data == "비밀번호변경성공")
+					if (data == "비밀번호변경성공"){
+						alert(data + ", 로그인 페이지로 이동합니다.")
 						location.href = 'logout'
+					}else alert(data)
 				},
 				error : function(err) {
 					console.log(err)

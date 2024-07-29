@@ -184,7 +184,6 @@
                             <option value="1" ${boa.endYN ? 'selected' : ''}>완료</option>
                         </select>
                     </span>
-                    
                 </li>
             </c:forEach>
         </ul>

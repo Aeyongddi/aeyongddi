@@ -6,6 +6,7 @@
 			"driver": "oracle_thin",
 			"name": "192.168.0.54",
 			"save-password": true,
+			"show-system-objects": true,
 			"configuration": {
 				"host": "192.168.0.54",
 				"port": "1521",

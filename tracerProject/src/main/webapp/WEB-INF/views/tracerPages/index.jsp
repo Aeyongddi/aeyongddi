@@ -184,7 +184,8 @@
                 data: { pid: pid },
                 success: function(data) {
                     console.log(data);
-                    budgetDonutChart.data.datasets[0].data = [data.assigned_budget, data.used_budget];
+                    budgetDonutChart.data.datasets[0].data = 
+                    	[data.assigned_budget, data.used_budget];
                     budgetDonutChart.update();
                 },
                 error: function(xhr, status, error) {

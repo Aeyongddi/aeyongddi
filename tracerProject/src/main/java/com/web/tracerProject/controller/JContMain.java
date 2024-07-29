@@ -32,6 +32,8 @@ public class JContMain {
     private HttpSession session;
     @Autowired
     private LocaleResolver localeResolver;
+    
+    // http://localhost:5656/login
 
     @PostMapping("/index")
     public String main(Model d, Task task, User_info user_info, HttpServletRequest request, HttpServletResponse response) {

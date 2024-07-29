@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class JContChat {
 
-	@Value("${socketServer")
+	@Value("${socketServer}")
 	private String socketServer;
 	
 	// http://localhost:5656/chatting

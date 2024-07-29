@@ -15,16 +15,30 @@ $(document).ready(function(){
 		alert('세션이 만료되었습니다. 로그인 페이지로 이동합니다.')
 		location.href='login'
 	} */
+	
+	
 	$(".newProject").click(function(){
 		$(".newPrjFrm").show(400)
 	})
 	
 	$(".clsBtn").click(function(){
+		$("#inTeanList").html(
+		"참여 인원<br>"
+        +"<p>닉네임 : ${user_info.nickname} / 권한 : admin <button type='button'"
+         +"class='delPrj'>x</button><br></p>"
+   		)
 		$(".newPrjFrm").hide(400)
 	})
 	$(".innerCls").click(function(){
 		$(".emailSch").hide(400)
+		addEmail.pop()
 	})
+	
+	let addEmail = []
+	let nickname
+	let auth = []
+	let count = 0
+	addEmail.push('${user_info.email}')
 	$("#schEmailBtn").click(function(){
 		$.ajax({
 			data: $("form").serialize(),
@@ -33,9 +47,15 @@ $(document).ready(function(){
 			success: function(data){
 				if(data.nickname==null)
 					alert('해당 사용자를 초대할 수 없습니다.')
+				else if('${user_info.email}'==$("[name=invEmail]").val()||
+						dupEmailChk($("[name=invEmail]").val())){
+					alert('이미 참가가 되어있는 사용자입니다.')
+				}
 				else{
 					$(".invNickname").html(data.nickname+"님<br> 초대")
+					nickname = data.nickname
 					$(".emailSch").show(400)
+					addEmail.push(data.email)
 				}
 			},
 			error: function(err){
@@ -43,21 +63,29 @@ $(document).ready(function(){
 			}
 		}) 
 	})
-	/* 
-		본인 출력
-		view단에 참가인원 출력
-		>> 역할 부여
-		>> db에 prj추가
-		>> 시작날짜 끝날짜
-		>> db에 팀추가 
-		>> db 해당 팀 아이디에 참가 인원들 연결
-	*/
+	
 	$(".insNewPrjBtn").click(function(){
-		
+
+		if($("[name=auth]").val()=="")
+			alert('권한을 선택해주세요')
+		else{
+			auth.push($("[name=auth]").val())
+			$("#inTeamList").append("<p class='"+(count++)+
+					"'>닉네임 : "+nickname+" / 권한 : "+auth[auth.length-1]
+			+" <button type='button'"
+	         +" class='delPrj'>x</button><br> </p>")
+	        $(".emailSch").hide(400)
+		}
 	})
 	$(".newPrjFrm").hide(400)
-	function schByEmail(){
-
+	function dupEmailChk(val){
+		let isDup = false
+		addEmail.forEach(function(el){
+			if(el==val){
+				isDup = true;
+			}
+		})
+		return isDup;
 	}
 })
 </script>
@@ -357,21 +385,13 @@ $(document).ready(function(){
         </textarea><br>
        	<div id="inTeamList">
 	        참여 인원<br>
-	        <p>닉네임 : ${user_info.nickname} / 권한 : 관리자 <button type="button"
-	         class="">x</button><br></p>
-	         <input type="hidden" name="" value=""/>
-	        <p>닉네임 :  / 권한 : <button type="button"
-	         class="">x</button><br> </p>
-	        <p>닉네임 :  / 권한 : <button type="button"
-	         class="">x</button><br> </p>
-	        <p>닉네임 :  / 권한 : <button type="button"
-	         class="">x</button><br> </p>
+	        <p>닉네임 : ${user_info.nickname} / 권한 : admin <button type="button"
+	         class="delPrj">x</button><br></p>
        	</div>
         <input type="email" name="invEmail" class="form-control" placeholder="이메일 검색" required/>
         <button type="button" id="schEmailBtn" class="btn btn-info" style="width: 15%;">검색</button>
         <br>
-        
-       	
+  
     
       </div>
       <div class="modal-footer">
@@ -390,8 +410,8 @@ $(document).ready(function(){
       <div class="modal-header">
         <h5 class="invNickname modal-title"></h5><br>
         <div class="modal-body">
-	        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
-			  <option selected>권한</option>
+	        <select name="auth" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+			  <option selected value="">권한</option>
 			  <option value="admin">관리자</option>
 			  <option value="contributor">참여자</option>
 			  <option value="viewer">조회자</option>

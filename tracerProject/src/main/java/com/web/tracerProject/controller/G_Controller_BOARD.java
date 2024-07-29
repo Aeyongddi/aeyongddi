@@ -19,7 +19,6 @@ public class G_Controller_BOARD {
      
     @Autowired(required=false)
     private G_Service_BOARD service;
-
     // http://localhost:5656/boardList
     @GetMapping("/boardList")
     public String boardList(Board sch, Model d) {
@@ -30,10 +29,10 @@ public class G_Controller_BOARD {
 
     @PostMapping("/boardListInsert")
     public String boardInsert(@RequestBody Board ins, Model d) {
-        // 세션에서 이메일 가져오기 예시
-        String email = "fixed_email@example.com"; // 실제로는 세션에서 가져와야 함
-        ins.setEmail(email);
-        d.addAttribute("result", service.insertBoard(ins));
+//        // 세션에서 이메일 가져오기 예시
+//        String email = "fixed_email@example.com"; // 실제로는 세션에서 가져와야 함
+//        ins.setEmail(email);
+        d.addAttribute("result", service.updateBoard(ins));
         return "redirect:/board"; // 등록 후 리다이렉트
     }
 

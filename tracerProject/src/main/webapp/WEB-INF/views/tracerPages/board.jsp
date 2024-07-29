@@ -183,15 +183,15 @@
                             <option value="0" ${boa.endYN ? '' : 'selected'}>진행중</option>
                             <option value="1" ${boa.endYN ? 'selected' : ''}>완료</option>
                         </select>
-                    </span>
-                    
+                    </span>                  
                 </li>
-            </c:forEach>
-        </ul>
-        <button class="add-issue" onclick="openTextarea()">+ 이슈 만들기</button>
+                
         <div class="textarea-container" id="textarea-container">
             <textarea id="issue-title" placeholder="이슈 제목을 입력하세요..."></textarea>
         </div>
+            </c:forEach>
+        </ul>
+        <button class="add-issue" onclick="openTextarea()">+ 이슈 만들기</button>
     </div>
 
     <!-- Modal -->
@@ -209,95 +209,10 @@
     <script src="${path}/assets/plugins/popper.min.js"></script>
     <script src="${path}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="${path}/assets/js/app.js"></script>
-    <script>
-        function toggleAll(source) {
-            var checkboxes = document.querySelectorAll('.issue-checkbox');
-            checkboxes.forEach(function(checkbox) {
-                checkbox.checked = source.checked;
-            });
-        }
-
-        function handleSelectChange(action) {
-            var checkboxes = document.querySelectorAll('.issue-checkbox');
-            var selectedIssues = [];
-            checkboxes.forEach(function(checkbox) {
-                if (checkbox.checked) {
-                    selectedIssues.push(checkbox.id.replace('issue-', ''));
-                }
-            });
-
-            if (action === "edit") {
-                openModal();
-            } else if (action === "delete") {
-                deleteSelected(selectedIssues);
-            }
-        }
-
-        function openModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "block";
-        }
-
-        function closeModal() {
-            var modal = document.getElementById("myModal");
-            modal.style.display = "none";
-        }
-
-        function saveName() {
-            var newName = document.getElementById("sprint-name").value;
-            document.querySelector('.title').innerText = newName;
-            closeModal();
-        }
-
-        function deleteSelected(issueIds) {
-            if (confirm("선택한 항목을 삭제하시겠습니까?")) {
-                // 서버에 삭제 요청 보내기 (예: Ajax 호출)
-                issueIds.forEach(function(id) {
-                    console.log("Deleting issue with ID: " + id);
-                    // 여기서 서버에 삭제 요청을 보냄
-                });
-            }
-        }
-
-        function openTextarea() {
-            document.getElementById("textarea-container").style.display = "block";
-            document.getElementById("issue-title").focus();
-        }
-
-        function closeTextarea() {
-            document.getElementById("textarea-container").style.display = "none";
-        }
-
-        function saveIssue() {
-            var issueTitle = document.getElementById("issue-title").value;
-            if (issueTitle.trim() === "") {
-                alert("제목을 입력해 주세요.");
-                return;
-            }
-
-            // 새로운 이슈를 저장하는 로직 추가
-            console.log("New issue title: " + issueTitle);
-
-            // 예를 들어, Ajax 호출을 통해 서버에 저장 요청을 보낼 수 있습니다.
-            closeTextarea();
-        }
-
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                saveIssue();
-            }
-        });
-
-        document.addEventListener('click', function(event) {
-            var textareaContainer = document.getElementById("textarea-container");
-            var addIssueButton = document.querySelector('.add-issue');
-            var textarea = document.getElementById("issue-title");
-
-            if (!textareaContainer.contains(event.target) && event.target !== addIssueButton) {
-                closeTextarea();
-            }
-        });
+    <script type="text/javascript">
+    $(document).ready(function(){
+			
+    });
     </script>
 </body>
 </html>

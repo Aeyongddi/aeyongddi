@@ -74,7 +74,8 @@ public class JConProfile {
 	        return result;
 	    }
 	 @GetMapping("/changeLanguage")
-	    public String changeLanguage(HttpServletRequest request, HttpServletResponse response) {
+	    public String changeLanguage(HttpServletRequest request, 
+	    		HttpServletResponse response) {
 	        String lang = request.getParameter("lang");
 	        Locale locale = Locale.forLanguageTag(lang);
 	        localeResolver.setLocale(request, response, locale);

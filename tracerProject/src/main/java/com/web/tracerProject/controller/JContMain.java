@@ -108,11 +108,4 @@ public class JContMain {
 
         return "tracerPages/index";
     }
-
-    @GetMapping("/getBudget")
-    @ResponseBody
-    public ResourceManage getBudget(@RequestParam("pid") String pid) {
-        return service.getBudget(pid);
-    }
-
 }

@@ -53,11 +53,7 @@ public class JSerMain {
     public User_info getMember(User_info user_info) {
         return dao.getMember(user_info);
     }
-
-    public ResourceManage getBudget(String pid) {
-        return dao.getBudget(pid);
-    }
-    
+   
     public List<Project> getProjectList() {
         List<Project> projectList = dao.getProjectList();
         return projectList;

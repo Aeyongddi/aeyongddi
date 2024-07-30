@@ -110,4 +110,25 @@ GROUP BY p.pid, p.title;
 UPDATE USER_INFO SET nickname='갓갓김' WHERE email='kge0817@naver.com';
 SELECT * FROM USER_INFO;
 
-
+SELECT 
+	u.name AS 이름,
+	u.nickname AS 닉네임,
+	u.email AS 이메일,
+	u.birth AS 생일,
+	u.phone AS 전화번호,
+	t.tid AS 팀_ID,
+	p.pid AS 프로젝트_ID,
+	p.title AS 프로젝트_제목
+FROM 
+	USER_INFO u
+LEFT JOIN 
+	TEAM t ON u.EMAIL = t.EMAIL 
+LEFT JOIN 
+	PROJECT p ON t.pid = p.PID 
+WHERE 
+	u.email = 'zsn1527@gmail.com';
+	SELECT * FROM team;
+	SELECT * FROM project;
+	SELECT * FROM USER_INFO;
+SELECT * FROM RESOURCEMANAGE;
+	COMMIT;

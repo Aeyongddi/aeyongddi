@@ -1,6 +1,7 @@
 package com.web.tracerProject.vo;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,4 +22,6 @@ public class User_info {
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date birth;
 	private String phone;
+	private List<Team> teams;
+	private List<Project> projects;
 }

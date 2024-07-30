@@ -53,11 +53,6 @@ public interface JDaoMain {
     @Select("SELECT (completed.count_y * 100 / total.count_all) AS progress FROM (SELECT COUNT(*) AS count_y FROM task WHERE isend = 'Y') completed, (SELECT COUNT(*) AS count_all FROM task) total")
     int getTaskProgress(Task task);
 
-    // 자산 현황(예산)
-    @Select("SELECT assigned_budget, used_budget FROM ResourceManage WHERE rtype = 'BUDGET' AND pid = #{pid}")
-    ResourceManage getBudget(String pid);
-
-    
     // 프로젝트 목록
     @Select("SELECT pid, start_date, end_date, title, description FROM project")
     List<Project> getProjectList();

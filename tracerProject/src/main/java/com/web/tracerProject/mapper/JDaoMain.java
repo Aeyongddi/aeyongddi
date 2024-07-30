@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Select;
 
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ProjectProgress;
-import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.web.tracerProject.mapper.JDaoMain;
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ProjectProgress;
-import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 

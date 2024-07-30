@@ -185,13 +185,12 @@
                         </select>
                     </span>                  
                 </li>
-                
-        <div class="textarea-container" id="textarea-container">
-            <textarea id="issue-title" placeholder="이슈 제목을 입력하세요..."></textarea>
-        </div>
             </c:forEach>
         </ul>
         <button class="add-issue" onclick="openTextarea()">+ 이슈 만들기</button>
+        <div class="textarea-container" id="textarea-container">
+            <textarea id="issue-title" placeholder="이슈 제목을 입력하세요..."></textarea>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -209,10 +208,117 @@
     <script src="${path}/assets/plugins/popper.min.js"></script>
     <script src="${path}/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <script src="${path}/assets/js/app.js"></script>
-    <script type="text/javascript">
-    $(document).ready(function(){
-			
-    });
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- jQuery 추가 -->
+
+    <script>
+        function toggleAll(source) {
+            var checkboxes = document.querySelectorAll('.issue-checkbox');
+            checkboxes.forEach(function(checkbox) {
+                checkbox.checked = source.checked;
+            });
+        }
+
+        function handleSelectChange(action) {
+            var checkboxes = document.querySelectorAll('.issue-checkbox');
+            var selectedIssues = [];
+            checkboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    selectedIssues.push(checkbox.id.replace('issue-', ''));
+                }
+            });
+
+            if (action === "edit") {
+                openModal();
+            } else if (action === "delete") {
+                deleteSelected(selectedIssues);
+            }
+        }
+
+        function openModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        function saveName() {
+            var newName = document.getElementById("sprint-name").value;
+            document.querySelector('.title').innerText = newName;
+            closeModal();
+        }
+
+        function deleteSelected(issueIds) {
+            if (confirm("선택한 항목을 삭제하시겠습니까?")) {
+                issueIds.forEach(function(id) {
+                    console.log("Deleting issue with ID: " + id);
+                    // 서버에 삭제 요청을 보내는 코드를 여기에 추가
+                });
+            }
+        }
+
+        function openTextarea() {
+            document.getElementById("textarea-container").style.display = "block";
+            document.getElementById("issue-title").focus();
+        }
+
+        function closeTextarea() {
+            document.getElementById("textarea-container").style.display = "none";
+        }
+
+        function saveIssue() {
+            var issueTitle = document.getElementById("issue-title").value;
+            if (issueTitle.trim() === "") {
+                alert("제목을 입력해 주세요.");
+                return;
+            }
+
+            $.ajax({
+                url: '/boardListInsert',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify({  
+                    bid: "", // TODO: back에서 bid select 선행
+                    content: "", // 추후 이슈게시판에 작성할 내용
+                    upt_date: "", // TODO: JAVA 처리
+                    views: 0,
+                    btype: "General", // TODO: btGeneral, Announcemt, Discussion
+                    cid: null, // 댓글 id. boardList 가져올때 필요함. 지금 필요없음
+                    email: "", // 다른 조 세션작업 끝나면 가져오기(back)
+                    sid: "", // TODO: 캘린더 작업시 필요
+                    title: issueTitle,
+                    endYN: 0 // TODO: 진행중 체크하는거 같은데 true || false로 가져와야함
+                }),
+                success: function(response) {
+                    console.log('Response:', response);
+                    // 성공적인 저장 후 처리
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+
+            closeTextarea();
+        }
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                saveIssue();
+            }
+        });
+
+        document.addEventListener('click', function(event) {
+            var textareaContainer = document.getElementById("textarea-container");
+            var addIssueButton = document.querySelector('.add-issue');
+            var textarea = document.getElementById("issue-title");
+
+            if (!textareaContainer.contains(event.target) && event.target !== addIssueButton) {
+                closeTextarea();
+            }
+        });
     </script>
 </body>
 </html>

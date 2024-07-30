@@ -33,7 +33,7 @@ public class ChatHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
         System.out.println(session.getId() + "에서 온 메시지: " + payload);
-
+        
         // 메시지 저장 로직
         String[] messageParts = payload.split(":", 2);
         if (messageParts.length == 2) {

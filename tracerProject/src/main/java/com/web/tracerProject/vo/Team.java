@@ -10,9 +10,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Team {
-	private String nid;
-	private boolean isread;
-	private String title;
-	private String content;
+	private String tid;
+	private String pid;
 	private String email;
+	private String auth;
 }

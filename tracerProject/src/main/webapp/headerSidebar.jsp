@@ -15,48 +15,76 @@ $(document).ready(function(){
 		alert('세션이 만료되었습니다. 로그인 페이지로 이동합니다.')
 		location.href='login'
 	} */
-	
-	
+	$("form").on('keydown', function(event) {
+	      if (event.key === 'Enter') {
+	        event.preventDefault();
+	      }
+	    })
+	let isWorking = isAlready('${user_info.email}')
+	let addEmail = ['${user_info.email}']
+	let nickname
+	let auth = ['admin']
+	let count = 0
 	$(".newProject").click(function(){
-		$(".newPrjFrm").show(400)
+		if(!isAlready){
+			$(".newPrjFrm").show(400)
+		}else{
+			alert('이미 작업중입니다.')
+		}
 	})
 	
 	$(".clsBtn").click(function(){
-		$("#inTeanList").html(
+
+		$("#inTeamList").html(
 		"참여 인원<br>"
-        +"<p>닉네임 : ${user_info.nickname} / 권한 : admin <button type='button'"
-         +"class='delPrj'>x</button><br></p>"
+        +"<p>닉네임 : ${user_info.nickname} / 권한 : admin</p>"
    		)
+   		addEmail = ['${user_info.email}']
+		count = 0
+		auth = ['admin']
 		$(".newPrjFrm").hide(400)
+		$(".newPrjFrm input").val("")
+		$(".newPrjFrm textarea").val("")
 	})
 	$(".innerCls").click(function(){
+		$('.authSel').prop('selectedIndex', 0);
 		$(".emailSch").hide(400)
 		addEmail.pop()
+		$("input[name=invEmail]").val("")
 	})
 	
-	let addEmail = []
-	let nickname
-	let auth = []
-	let count = 0
-	addEmail.push('${user_info.email}')
 	$("#schEmailBtn").click(function(){
+		let email = $("[name=invEmail]").val()
 		$.ajax({
-			data: $("form").serialize(),
-			url: 'schByEmail',
+			data: {email:email},
+			url: 'alreadyWorking',
 			type: 'POST',
 			success: function(data){
-				if(data.nickname==null)
-					alert('해당 사용자를 초대할 수 없습니다.')
-				else if('${user_info.email}'==$("[name=invEmail]").val()||
-						dupEmailChk($("[name=invEmail]").val())){
-					alert('이미 참가가 되어있는 사용자입니다.')
-				}
-				else{
-					$(".invNickname").html(data.nickname+"님<br> 초대")
-					nickname = data.nickname
-					$(".emailSch").show(400)
-					addEmail.push(data.email)
-				}
+				if(!data){
+					$.ajax({
+						data: $("form").serialize(),
+						url: 'schByEmail',
+						type: 'POST',
+						success: function(data){
+							if(data.nickname==null)
+								alert('해당 사용자를 초대할 수 없습니다.')
+							else if('${user_info.email}'==$("[name=invEmail]").val()||
+									dupEmailChk($("[name=invEmail]").val())){
+								alert('이미 참가가 되어있는 사용자입니다.')
+							}
+							else{
+								$(".invNickname").html(data.nickname+"님<br> 초대")
+								nickname = data.nickname
+								$(".emailSch").show(400)
+								addEmail.push(data.email)
+								console.log(data.email)
+							}
+						},
+						error: function(err){
+							console.log(err)
+						}
+					}) 
+				}else	alert('이미 작업 중입니다.')
 			},
 			error: function(err){
 				console.log(err)
@@ -64,18 +92,23 @@ $(document).ready(function(){
 		}) 
 	})
 	
-	$(".insNewPrjBtn").click(function(){
+	$(".inviteBtn").click(function(){
 
 		if($("[name=auth]").val()=="")
 			alert('권한을 선택해주세요')
 		else{
 			auth.push($("[name=auth]").val())
-			$("#inTeamList").append("<p class='"+(count++)+
-					"'>닉네임 : "+nickname+" / 권한 : "+auth[auth.length-1]
-			+" <button type='button'"
-	         +" class='delPrj'>x</button><br> </p>")
+			console.log(auth)
+			console.log(addEmail)
+			$("#inTeamList").append("<p class='team"+(count++)+
+					"'>닉네임 : "+nickname+" / 권한 : "+auth[auth.length-1]+"</p>")
+			$("input[name=invEmail]").val("")
 	        $(".emailSch").hide(400)
 		}
+	})
+	$(".insNewPrjBtn").click(function(){
+		createPrj(auth, addEmail)
+		$(".clsBtn").click()
 	})
 	$(".newPrjFrm").hide(400)
 	function dupEmailChk(val){
@@ -86,6 +119,69 @@ $(document).ready(function(){
 			}
 		})
 		return isDup;
+	}
+	function createPrj(auth, email){
+		$.ajax({
+			data: $("form").serialize(),
+			url: 'createPrj',
+			type: 'POST',
+			success: function(data){
+				console.log(data)
+				alert(data)
+				getCurrPid(auth, email)
+			},
+			error: function(err){
+				console.log(err)
+			}
+		}) 
+	}		
+	function createPrjTeam(auth, email, pid){
+		insData = email
+		auth.forEach(function(el, idx){
+			$.ajax({
+				data: {email:insData[idx], auth:el, pid:pid},
+				url: 'createPrjTeam',
+				type: 'POST',
+				success: function(data){
+					console.log(data)
+				},
+				error: function(err){
+					console.log(err)
+				}
+			}) 
+		})
+		
+	}
+	function getCurrPid(auth, email){
+		$.ajax({
+			url: 'getCurrPid',
+			type: 'POST',
+			success: function(data){
+				console.log(data)
+				createPrjTeam(auth, email, data)
+			},
+			error: function(err){
+				console.log(err)
+			}
+		}) 
+	}
+	function isAlready(email){
+		let result = false
+		$.ajax({
+			data: {email:email},
+			url: 'alreadyWorking',
+			type: 'POST',
+			success: function(data){
+				if(data){
+					console.log
+					result = data
+				}
+			},
+			error: function(err){
+				console.log(err)
+			}
+		}) 
+		return result
 	}
 })
 </script>
@@ -248,28 +344,6 @@ $(document).ready(function(){
                             <span class="nav-link-text"><fmt:message key='new.project'/></span>
                         </a><!--//nav-link-->
                     </li><!--//nav-item-->
-                    <li class="nav-item has-submenu">
-                        <a class="nav-link submenu-toggle" data-bs-toggle="collapse" data-bs-target="#submenu-3" aria-expanded="false" aria-controls="submenu-3">
-                            <span class="nav-icon">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-columns-gap" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z"/>
-                                </svg>
-                            </span>
-                            <span class="nav-link-text"><fmt:message key='ongoing.projects'/></span>
-                            <span class="submenu-arrow">
-                                <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
-                                </svg>
-                            </span><!--//submenu-arrow-->
-                        </a><!--//nav-link-->
-                        <div id="submenu-3" class="collapse submenu submenu-3" data-bs-parent="#menu-accordion">
-                            <ul class="submenu-list list-unstyled">
-                                <li class="submenu-item"><a class="submenu-link" href="reset-password.jsp"></a></li>
-                                <li class="submenu-item"><a class="submenu-link" href="account">프로젝트 1</a></li>
-                                <li class="submenu-item"><a class="submenu-link" href="account">프로젝트 2</a></li>
-                            </ul>
-                        </div>
-                    </li><!--//nav-item-->
                     <li class="nav-item">
                         <a class="nav-link" href="docs.html">
                             <span class="nav-icon">
@@ -379,14 +453,16 @@ $(document).ready(function(){
       <div class="prjInput modal-body">
        	프로젝트명
        	<input name="title" class="form-control mr-sm-2" placeholder="프로젝트 이름 입력" required/><br>
+       	시작날짜
+       	<input type="date" name="start_date" class="form-control mr-sm-2" placeholder="프로젝트 이름 입력" required/><br>
+       	종료날짜
+       	<input type="date" name="end_date" class="form-control mr-sm-2" placeholder="프로젝트 이름 입력" required/><br>
        	프로젝트 설명
         <textarea style="width: 100%; height: 300px;" 
-        name="description" class="form-control mr-sm-2" placeholder="프로젝트 설명 입력" required>
-        </textarea><br>
+        name="description" class="form-control mr-sm-2" placeholder="프로젝트 설명 입력" required></textarea><br>
        	<div id="inTeamList">
 	        참여 인원<br>
-	        <p>닉네임 : ${user_info.nickname} / 권한 : admin <button type="button"
-	         class="delPrj">x</button><br></p>
+	        <p>닉네임 : ${user_info.nickname} / 권한 : admin</p>
        	</div>
         <input type="email" name="invEmail" class="form-control" placeholder="이메일 검색" required/>
         <button type="button" id="schEmailBtn" class="btn btn-info" style="width: 15%;">검색</button>
@@ -410,13 +486,14 @@ $(document).ready(function(){
       <div class="modal-header">
         <h5 class="invNickname modal-title"></h5><br>
         <div class="modal-body">
-	        <select name="auth" class="form-select form-select-lg mb-3" aria-label=".form-select-lg example">
+	        <select name="auth" class="authSel form-select form-select-lg mb-3" aria-label=".form-select-lg example">
 			  <option selected value="">권한</option>
-			  <option value="admin">관리자</option>
-			  <option value="contributor">참여자</option>
+			  <option value="admin">대표/임원</option>
+			  <option value="manager">관리자</option>
+			  <option value="user">참여자</option>
 			  <option value="viewer">조회자</option>
 			</select>
-			<button type="button" class="btn btn-info insNewPrjBtn" data-bs-dismiss="modal">확인</button>
+			<button type="button" class="btn btn-info inviteBtn" data-bs-dismiss="modal">확인</button>
 			<button type="button" class="btn btn-secondary innerCls" data-bs-dismiss="modal">닫기</button>
         </div>
         <button type="button" class="btn-close innerCls" data-bs-dismiss="modal" aria-label="Close"></button>

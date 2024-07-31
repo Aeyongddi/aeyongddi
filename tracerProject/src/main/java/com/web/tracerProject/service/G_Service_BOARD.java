@@ -1,10 +1,11 @@
 package com.web.tracerProject.service;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import com.web.tracerProject.mapper.G_Dao_BOARD;
 import com.web.tracerProject.vo.Board;
 
@@ -23,9 +24,21 @@ public class G_Service_BOARD {
     public int updateBoard(Board upt) {
         return dao.updateBoard(upt);
     }
+    
+    public int updateBoardStatus(String bid, boolean endYN) {
+        return dao.updateBoardStatus(bid, endYN);
+    }
 
-    public int deleteBoard(int bid) {
-        return dao.deleteBoard(bid);
+    public int deleteBoard(String title) {
+        return dao.deleteBoard(title);
+    }
+
+    public int deleteBoards(List<String> titles) {
+        int totalDeleted = 0;
+        for (String title : titles) {
+            totalDeleted += dao.deleteBoard(title);
+        }
+        return totalDeleted;
     }
     
     private void processNullFields(Board sch) {
@@ -48,7 +61,7 @@ public class G_Service_BOARD {
         	sch.setBtype("");
         }
         if (sch.getCid() == null) {
-        	sch.setBtype("");
+        	sch.setCid("");
         }
         if (sch.getEmail() == null) {
         	sch.setEmail("");

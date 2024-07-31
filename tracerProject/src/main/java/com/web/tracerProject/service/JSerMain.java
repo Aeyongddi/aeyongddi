@@ -37,8 +37,8 @@ public class JSerMain {
         return dao.getCountPro(task);
     }
 
-    public int getTaskProgress(Task task) {
-        return dao.getTaskProgress(task);
+    public int getTaskProgress() {
+        return dao.getTaskProgress();
     }
 
     public String isMember(User_info user_info) {

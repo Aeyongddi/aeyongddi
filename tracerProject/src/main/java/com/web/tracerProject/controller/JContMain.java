@@ -44,7 +44,7 @@ public class JContMain {
         d.addAttribute("dDay", dDay);
         int countPro = service.getCountPro(task);
         d.addAttribute("countPro", countPro);
-        int taskPro = service.getTaskProgress(task);
+        int taskPro = service.getTaskProgress();
         d.addAttribute("taskPro", taskPro);
         List<ProjectProgress> projectProgressList = service.getProjectProgress();
         d.addAttribute("projectProgressList", projectProgressList);
@@ -80,7 +80,7 @@ public class JContMain {
         int countPro = service.getCountPro(task);
         d.addAttribute("countPro", countPro);
         d.addAttribute("user_info", (User_info) session.getAttribute("info"));
-        int taskPro = service.getTaskProgress(task);
+        int taskPro = service.getTaskProgress();
         d.addAttribute("taskPro", taskPro);
         List<ProjectProgress> projectProgressList = service.getProjectProgress();
         d.addAttribute("projectProgressList", projectProgressList);

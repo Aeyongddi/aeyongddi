@@ -49,8 +49,10 @@ public interface JDaoMain {
     User_info getMember(User_info user_info);
 
     // 작업 진행률
-    @Select("SELECT (completed.count_y * 100 / total.count_all) AS progress FROM (SELECT COUNT(*) AS count_y FROM task WHERE isend = 'Y') completed, (SELECT COUNT(*) AS count_all FROM task) total")
-    int getTaskProgress(Task task);
+    @Select("SELECT CASE WHEN total.count_all = 0 THEN 0 ELSE (completed.count_y * 100 / total.count_all) END AS progress " +
+            "FROM (SELECT COUNT(*) AS count_y FROM task WHERE isend = 'Y') completed, " +
+            "     (SELECT COUNT(*) AS count_all FROM task) total")
+    int getTaskProgress();
 
     // 프로젝트 목록
     @Select("SELECT pid, start_date, end_date, title, description FROM project")

@@ -8,8 +8,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/a00_com/bootstrap.min.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/a00_com/jquery-ui.css">
+    <link rel="stylesheet" href="${path}/a00_com/bootstrap.min.css">
+    <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css">
     <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
     <style>
         body {
@@ -103,45 +103,43 @@
     </div>
 </div>
 
-<script src="${pageContext.request.contextPath}/a00_com/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/a00_com/popper.min.js"></script>
-<script src="${pageContext.request.contextPath}/a00_com/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath}/a00_com/jquery-ui.js"></script>
+<script src="${path}/a00_com/jquery.min.js"></script>
+<script src="${path}/a00_com/popper.min.js"></script>
+<script src="${path}/a00_com/bootstrap.min.js"></script>
+<script src="${path}/a00_com/jquery-ui.js"></script>
 <script>
     var wsocket = null;
     $(document).ready(function () {
+        function ws_conn() {
+            var socketServer = 'ws://localhost:5656/chat';
+            wsocket = new WebSocket(socketServer);
+            wsocket.onopen = function (evt) {
+                wsocket.send("${user_info.email}:${user_info.nickname}:접속하셨습니다!");
+            };
+            wsocket.onmessage = function (evt) {
+                revMsg(evt.data);
+            };
+            wsocket.onclose = function () {
+                console.log("Connection closed");
+            };
+        }
+
         ws_conn();
+
         $("#sndBtn").click(function () {
             sendMsg();
         });
-        $("#msg").keyup(function () {
+
+        $("#msg").keyup(function (event) {
             if (event.keyCode === 13) {
                 sendMsg();
             }
         });
     });
 
-    function ws_conn() {
-        var socketServer = '${socketServer}'.replace(/^"|"$/g, '');
-        wsocket = new WebSocket(socketServer);
-        wsocket.onopen = function (evt) {
-            wsocket.send('${user_info.email}' + ":접속하셨습니다!");
-        };
-        wsocket.onmessage = function (evt) {
-            revMsg(evt.data);
-        };
-        wsocket.onclose = function () {
-            console.log('Connection closed');
-        };
-    }
-
     function sendMsg() {
-        if (wsocket.readyState === WebSocket.OPEN) {
-            wsocket.send('${user_info.email}' + ":" + $("#msg").val());
-            $("#msg").val("");
-        } else {
-            alert('WebSocket connection is closed.');
-        }
+        wsocket.send("${user_info.email}:${user_info.nickname}:" + $("#msg").val());
+        $("#msg").val("");
     }
 
     var mx = 0;
@@ -149,14 +147,12 @@
     function revMsg(msg) {
         var alignOpt = "left";
         var msgArr = msg.split(":");
-        var sndId = msgArr[0];
-        if ('${user_info.email}' === sndId) {
-            alignOpt = "right";
-            msg = msgArr[1];
-        }
+        var nickname = msgArr[0];
+        var content = msgArr[1];
+
         var msgObj = $("<div></div>").addClass("message").addClass(alignOpt === "right" ? "sent" : "received");
-        var content = $("<div></div>").addClass("content").text(msg);
-        msgObj.append(content);
+        var contentDiv = $("<div></div>").addClass("content").text(nickname + ": " + content);
+        msgObj.append(contentDiv);
         $("#chatMessageArea").append(msgObj);
 
         var height = parseInt($("#chatMessageArea").height());

@@ -33,22 +33,23 @@ public class ChatHandler extends TextWebSocketHandler {
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
         System.out.println(session.getId() + "에서 온 메시지: " + payload);
-        
-        // 메시지 저장 로직
-        String[] messageParts = payload.split(":", 2);
-        if (messageParts.length == 2) {
+
+        String[] messageParts = payload.split(":", 3);
+        if (messageParts.length == 3) {
             String sender = messageParts[0];
-            String content = messageParts[1];
+            String nickname = messageParts[1];
+            String content = messageParts[2];
+
             Chatting chatMessage = new Chatting();
-            chatMessage.setChid(UUID.randomUUID().toString());
+            chatMessage.setChid(UUID.randomUUID().toString().substring(0, 8)); // 8글자로 자르기
             chatMessage.setEmail(sender);
             chatMessage.setContent(content);
             chatMessage.setSent_date(new Date());
             chatService.saveChatMessage(chatMessage);
-        }
 
-        for (WebSocketSession userSession : users.values()) {
-            userSession.sendMessage(message);
+            for (WebSocketSession userSession : users.values()) {
+                userSession.sendMessage(new TextMessage(nickname + ":" + content));
+            }
         }
     }
 

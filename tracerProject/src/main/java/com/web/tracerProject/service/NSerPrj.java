@@ -1,5 +1,7 @@
 package com.web.tracerProject.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +29,15 @@ public class NSerPrj {
 	}
 	public boolean alreadyWorking(User_info user_info) {
 		return dao.alreadyWorking(user_info)>0?true:false;
+	}
+	
+	public List<Project> getProject(){
+		return dao.getProject();
+	}
+	public List<Project> schProject(String prjTitle){
+		return dao.schProject(prjTitle);
+	}
+	public String delPrj(String pid) {
+		return dao.delPrj(pid)>0?"프로젝트삭제성공":"프로젝트삭제실패";
 	}
 }

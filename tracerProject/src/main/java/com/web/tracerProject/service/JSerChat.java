@@ -10,13 +10,13 @@ import com.web.tracerProject.vo.Chatting;
 public class JSerChat {
 
     @Autowired
-    private JDaoChat jDaoChat;
+    private JDaoChat dao;
 
     public void saveChatMessage(Chatting chatMessage) {
-        jDaoChat.saveChatMessage(chatMessage);
+    	dao.saveChatMessage(chatMessage);
     }
 
     public String getNicknameByEmail(String email) {
-        return jDaoChat.getNicknameByEmail(email);
+        return dao.getNicknameByEmail(email);
     }
 }

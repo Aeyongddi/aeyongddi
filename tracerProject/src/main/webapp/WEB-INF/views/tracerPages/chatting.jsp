@@ -68,6 +68,11 @@
         .message.received .content {
             background: #f1f0f0;
         }
+        .message .timestamp {
+            display: block;
+            font-size: 0.75em;
+            color: #888;
+        }
     </style>
 </head>
 <body>
@@ -108,61 +113,78 @@
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
 <script>
-    var socket;
-    var userNickname = '${userNickname}';
-    $(document).ready(function () {
-        function ws_conn() {
-            var socketServer = '${socketServer}'.replace(/^"|"$/g, '');
-            socket = new WebSocket(socketServer);
-            socket.onopen = function (evt) {
-                socket.send("${user_info.email}:" + userNickname + ":접속하셨습니다!");
-            };
-            socket.onmessage = function (evt) {
-                revMsg(evt.data);
-            };
-            socket.onclose = function () {
-                socket.close();
-            };
-        }
+var socket = new WebSocket('ws://192.168.0.10:5656/chat');
+var userNickname = '${userNickname}';
 
-        $("#sndBtn").click(function () {
+$(document).ready(function () {
+    function ws_conn() {
+        socket.onopen = function (evt) {
+            socket.send("${user_info.email}:" + userNickname + "님이 접속하셨습니다!");
+        };
+        socket.onmessage = function (evt) {
+            revMsg(evt.data);
+        };
+        socket.onclose = function () {
+            socket.close();
+        };
+    }
+
+    $("#sndBtn").click(function () {
+        sendMsg();
+    });
+    $("#msg").keyup(function (event) {
+        if (event.keyCode === 13) {
             sendMsg();
-        });
-        $("#msg").keyup(function (event) {
-            if (event.keyCode === 13) {
-                sendMsg();
-            }
-        });
-
-        ws_conn();
+        }
     });
 
-    function sendMsg() {
-        socket.send("${user_info.email}:" + $("#msg").val());
-        $("#msg").val("");
+    ws_conn();
+});
+
+function sendMsg() {
+    var content = $("#msg").val();
+    socket.send("${user_info.email}:" + userNickname + ":" + content);
+    $("#msg").val("");
+
+    // 화면에 내가 보낸 메시지 추가
+    var msgObj = $("<div></div>").addClass("message sent");
+    var contentDiv = $("<div></div>").addClass("content").text(content);
+    var timestampDiv = $("<div></div>").addClass("timestamp").text(new Date().toLocaleTimeString());
+    msgObj.append(contentDiv).append(timestampDiv);
+    $("#chatMessageArea").append(msgObj);
+
+    // 스크롤을 맨 아래로
+    var height = parseInt($("#chatMessageArea").height());
+    $("#chatArea").scrollTop(height + 20);
+}
+
+var mx = 0;
+
+function revMsg(msg) {
+    var alignOpt = "left";
+    var msgArr = msg.split(":");
+    var email = msgArr[0];
+    var nickname = msgArr[1];
+    var content = msgArr.slice(2).join(":");
+    var timestamp = new Date().toLocaleTimeString();
+
+    if (email === "${user_info.email}") {
+        alignOpt = "right";
+        content = content; // 닉네임 표시하지 않음
+    } else {
+        content = nickname + ": " + content;
     }
 
-    var mx = 0;
+    var msgObj = $("<div></div>").addClass("message").addClass(alignOpt === "right" ? "sent" : "received");
+    var contentDiv = $("<div></div>").addClass("content").text(content);
+    var timestampDiv = $("<div></div>").addClass("timestamp").text(timestamp);
+    msgObj.append(contentDiv).append(timestampDiv);
+    $("#chatMessageArea").append(msgObj);
 
-    function revMsg(msg) {
-        var alignOpt = "left";
-        var msgArr = msg.split(":");
-        var nickname = msgArr[0];
-        var content = msgArr.slice(1).join(":");
-        if (nickname === "나") {
-            alignOpt = "right";
-        } else {
-            content = nickname + ": " + content;
-        }
-        var msgObj = $("<div></div>").addClass("message").addClass(alignOpt === "right" ? "sent" : "received");
-        var contentDiv = $("<div></div>").addClass("content").text(content);
-        msgObj.append(contentDiv);
-        $("#chatMessageArea").append(msgObj);
-
-        var height = parseInt($("#chatMessageArea").height());
-        mx += height + 20;
-        $("#chatArea").scrollTop(mx);
-    }
+    var height = parseInt($("#chatMessageArea").height());
+    mx += height + 20;
+    $("#chatArea").scrollTop(mx);
+}
 </script>
 </body>
 </html>

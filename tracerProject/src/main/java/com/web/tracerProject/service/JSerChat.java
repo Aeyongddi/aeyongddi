@@ -6,18 +6,17 @@ import org.springframework.stereotype.Service;
 import com.web.tracerProject.mapper.JDaoChat;
 import com.web.tracerProject.vo.Chatting;
 
-import java.util.List;
-
 @Service
 public class JSerChat {
+
     @Autowired
-    private JDaoChat chatDao;
+    private JDaoChat jDaoChat;
 
     public void saveChatMessage(Chatting chatMessage) {
-        chatDao.saveChatMessage(chatMessage);
+        jDaoChat.saveChatMessage(chatMessage);
     }
 
-    public List<Chatting> getAllChatMessages() {
-        return chatDao.getAllChatMessages();
+    public String getNicknameByEmail(String email) {
+        return jDaoChat.getNicknameByEmail(email);
     }
 }

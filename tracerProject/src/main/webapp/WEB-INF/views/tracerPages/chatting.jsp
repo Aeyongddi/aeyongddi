@@ -72,7 +72,7 @@
 </head>
 <body>
 <div class="sidebar">
-    <h4>${user_info.nickname} 님</h4>
+    <h4>${userNickname} 님</h4>
     <div>
         <h5>단체</h5>
         <button class="btn btn-secondary btn-block">단체 채팅1</button>
@@ -87,7 +87,7 @@
     <div class="chat-header">
         <h5>단체 채팅3</h5>
         <div class="icons">
-            <span class="badge bg-primary">2024년 07월 19일</span>
+            <span class="badge bg-primary">${currentDate}</span>
             <i class="fas fa-search"></i>
             <i class="fas fa-ellipsis-v"></i>
         </div>
@@ -108,37 +108,37 @@
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
 <script>
-    var wsocket = null;
+    var socket;
+    var userNickname = '${userNickname}';
     $(document).ready(function () {
         function ws_conn() {
-            var socketServer = 'ws://localhost:5656/chat';
-            wsocket = new WebSocket(socketServer);
-            wsocket.onopen = function (evt) {
-                wsocket.send("${user_info.email}:${user_info.nickname}:접속하셨습니다!");
+            var socketServer = '${socketServer}'.replace(/^"|"$/g, '');
+            socket = new WebSocket(socketServer);
+            socket.onopen = function (evt) {
+                socket.send("${user_info.email}:" + userNickname + ":접속하셨습니다!");
             };
-            wsocket.onmessage = function (evt) {
+            socket.onmessage = function (evt) {
                 revMsg(evt.data);
             };
-            wsocket.onclose = function () {
-                console.log("Connection closed");
+            socket.onclose = function () {
+                socket.close();
             };
         }
-
-        ws_conn();
 
         $("#sndBtn").click(function () {
             sendMsg();
         });
-
         $("#msg").keyup(function (event) {
             if (event.keyCode === 13) {
                 sendMsg();
             }
         });
+
+        ws_conn();
     });
 
     function sendMsg() {
-        wsocket.send("${user_info.email}:${user_info.nickname}:" + $("#msg").val());
+        socket.send("${user_info.email}:" + $("#msg").val());
         $("#msg").val("");
     }
 
@@ -148,10 +148,14 @@
         var alignOpt = "left";
         var msgArr = msg.split(":");
         var nickname = msgArr[0];
-        var content = msgArr[1];
-
+        var content = msgArr.slice(1).join(":");
+        if (nickname === "나") {
+            alignOpt = "right";
+        } else {
+            content = nickname + ": " + content;
+        }
         var msgObj = $("<div></div>").addClass("message").addClass(alignOpt === "right" ? "sent" : "received");
-        var contentDiv = $("<div></div>").addClass("content").text(nickname + ": " + content);
+        var contentDiv = $("<div></div>").addClass("content").text(content);
         msgObj.append(contentDiv);
         $("#chatMessageArea").append(msgObj);
 

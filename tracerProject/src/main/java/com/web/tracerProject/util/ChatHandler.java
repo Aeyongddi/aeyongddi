@@ -34,21 +34,27 @@ public class ChatHandler extends TextWebSocketHandler {
         String payload = message.getPayload();
         System.out.println(session.getId() + "에서 온 메시지: " + payload);
 
-        String[] messageParts = payload.split(":", 3);
-        if (messageParts.length == 3) {
-            String sender = messageParts[0];
-            String nickname = messageParts[1];
-            String content = messageParts[2];
+        String[] messageParts = payload.split(":", 2);
+        if (messageParts.length == 2) {
+            String email = messageParts[0];
+            String content = messageParts[1];
+            String nickname = chatService.getNicknameByEmail(email);
 
+            // 메시지 데이터베이스에 저장
             Chatting chatMessage = new Chatting();
-            chatMessage.setChid(UUID.randomUUID().toString().substring(0, 8)); // 8글자로 자르기
-            chatMessage.setEmail(sender);
-            chatMessage.setContent(content);
+            chatMessage.setChid(UUID.randomUUID().toString().substring(0, 8));
+            chatMessage.setEmail(email);
             chatMessage.setSent_date(new Date());
+            chatMessage.setContent(content);
             chatService.saveChatMessage(chatMessage);
 
+            // 모든 사용자에게 메시지 전송
             for (WebSocketSession userSession : users.values()) {
-                userSession.sendMessage(new TextMessage(nickname + ":" + content));
+                if (!userSession.getId().equals(session.getId())) {
+                    userSession.sendMessage(new TextMessage(nickname + ": " + content));
+                } else {
+                    userSession.sendMessage(new TextMessage("나:" + content));
+                }
             }
         }
     }
@@ -56,7 +62,6 @@ public class ChatHandler extends TextWebSocketHandler {
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
         System.out.println(session.getId() + " 에러 발생: " + exception.getMessage());
-        session.close(CloseStatus.SERVER_ERROR);
     }
 
     @Override

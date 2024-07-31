@@ -54,8 +54,10 @@ public class JContMain {
         d.addAttribute("projectList", projectList);
 
         if (service.isMember(user_info).equals("로그인성공")) {
-            session.setAttribute("info", service.getMember(user_info));
-            d.addAttribute("user_info", (User_info) session.getAttribute("info"));
+            User_info loggedInUser = service.getMember(user_info);
+            session.setAttribute("info", loggedInUser);
+            session.setAttribute("userNickname", loggedInUser.getNickname()); // 닉네임 세션에 저장
+            d.addAttribute("user_info", loggedInUser);
 
             // 로그인 시 로케일 설정
             localeResolver.setLocale(request, response, Locale.KOREAN);
@@ -65,6 +67,7 @@ public class JContMain {
             d.addAttribute("loginFailed", 1);
             return "tracerPages/login";
         }
+
     }
 
     @GetMapping("/index")

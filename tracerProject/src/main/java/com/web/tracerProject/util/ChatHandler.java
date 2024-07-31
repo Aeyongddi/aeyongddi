@@ -12,6 +12,7 @@ import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.tracerProject.service.JSerChat;
 import com.web.tracerProject.vo.Chatting;
 
@@ -22,6 +23,8 @@ public class ChatHandler extends TextWebSocketHandler {
 
     @Autowired
     private JSerChat chatService;
+
+    private ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
@@ -34,26 +37,24 @@ public class ChatHandler extends TextWebSocketHandler {
         String payload = message.getPayload();
         System.out.println(session.getId() + "에서 온 메시지: " + payload);
 
-        String[] messageParts = payload.split(":", 3);
-        if (messageParts.length == 3) {
-            String sender = messageParts[0];
-            String nickname = messageParts[1];
-            String content = messageParts[2];
+        // JSON 형식으로 메시지를 파싱
+        Map<String, String> messageMap = objectMapper.readValue(payload, Map.class);
+        String sender = messageMap.get("email");
+        String nickname = messageMap.get("nickname");
+        String content = messageMap.get("content");
 
-            // 메시지 데이터베이스에 저장
-            Chatting chatMessage = new Chatting();
-            chatMessage.setChid(UUID.randomUUID().toString());
-            chatMessage.setEmail(sender);
-            chatMessage.setSent_date(new Date());
-            chatMessage.setContent(content);
-            chatService.saveChatMessage(chatMessage);
+        // 메시지 데이터베이스에 저장
+        Chatting chatMessage = new Chatting();
+        chatMessage.setChid(UUID.randomUUID().toString());
+        chatMessage.setEmail(sender);
+        chatMessage.setSent_date(new Date());
+        chatMessage.setContent(content);
 
-            // 모든 사용자에게 메시지 전송 (발신자 제외)
-            for (WebSocketSession userSession : users.values()) {
-                if (!userSession.getId().equals(session.getId())) {
-                    userSession.sendMessage(new TextMessage(sender + ":" + nickname + ":" + content));
-                }
-            }
+        chatService.saveChatMessage(chatMessage);
+
+        // 모든 사용자에게 메시지 전송 (발신자 포함)
+        for (WebSocketSession userSession : users.values()) {
+            userSession.sendMessage(new TextMessage(payload));
         }
     }
 

@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="${path}/a00_com/bootstrap.min.css">
     <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css">
-    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+    <script defer src="${path}/assets/plugins/fontawesome/js/all.min.js"></script>
     <style>
         body {
             display: flex;
@@ -73,11 +73,16 @@
             font-size: 0.75em;
             color: #888;
         }
+        .message .nickname {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #444;
+        }
     </style>
 </head>
 <body>
 <div class="sidebar">
-    <h4>${userNickname} 님</h4>
+    <h4>${user_info.nickname} 님</h4>
     <div>
         <h5>단체</h5>
         <button class="btn btn-secondary btn-block">단체 채팅1</button>
@@ -113,19 +118,27 @@
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
 <script>
+var userNickname = '${user_info.nickname}';
+var userEmail = '${user_info.email}';
 var socket = new WebSocket('ws://192.168.0.10:5656/chat');
-var userNickname = '${userNickname}';
 
 $(document).ready(function () {
     function ws_conn() {
         socket.onopen = function (evt) {
-            socket.send("${user_info.email}:" + userNickname + "님이 접속하셨습니다!");
+            console.log("Connection opened");
+            const joinMessage = {
+                email: userEmail,
+                nickname: userNickname,
+                content: userNickname + "님이 접속하셨습니다!"
+            };
+            socket.send(JSON.stringify(joinMessage));
         };
         socket.onmessage = function (evt) {
+            console.log("Message received: ", evt.data);
             revMsg(evt.data);
         };
         socket.onclose = function () {
-            socket.close();
+            console.log("Connection closed");
         };
     }
 
@@ -143,47 +156,49 @@ $(document).ready(function () {
 
 function sendMsg() {
     var content = $("#msg").val();
-    socket.send("${user_info.email}:" + userNickname + ":" + content);
+    if(content.trim() === "") {
+        return;
+    }
+    console.log("Sending message: ", content);
+    const message = {
+        email: userEmail,
+        nickname: userNickname,
+        content: content
+    };
+    socket.send(JSON.stringify(message));
     $("#msg").val("");
 
-    // 화면에 내가 보낸 메시지 추가
-    var msgObj = $("<div></div>").addClass("message sent");
-    var contentDiv = $("<div></div>").addClass("content").text(content);
-    var timestampDiv = $("<div></div>").addClass("timestamp").text(new Date().toLocaleTimeString());
-    msgObj.append(contentDiv).append(timestampDiv);
-    $("#chatMessageArea").append(msgObj);
-
-    // 스크롤을 맨 아래로
-    var height = parseInt($("#chatMessageArea").height());
-    $("#chatArea").scrollTop(height + 20);
+    // 내가 보낸 메시지 화면에 추가
+    addMessageToChat(userNickname, content, true);
 }
 
-var mx = 0;
+function revMsg(data) {
+    const message = JSON.parse(data);
+    const email = message.email.trim();
+    const nickname = message.nickname.trim();
+    const content = message.content.trim();
+    const isSender = (email === userEmail.trim());
 
-function revMsg(msg) {
-    var alignOpt = "left";
-    var msgArr = msg.split(":");
-    var email = msgArr[0];
-    var nickname = msgArr[1];
-    var content = msgArr.slice(2).join(":");
+    console.log("Received message from:", email, " Content: ", content);
+
+    // 메시지를 화면에 추가
+    addMessageToChat(nickname, content, isSender);
+}
+
+function addMessageToChat(nickname, content, isSender) {
     var timestamp = new Date().toLocaleTimeString();
-
-    if (email === "${user_info.email}") {
-        alignOpt = "right";
-        content = content; // 닉네임 표시하지 않음
-    } else {
-        content = nickname + ": " + content;
-    }
-
-    var msgObj = $("<div></div>").addClass("message").addClass(alignOpt === "right" ? "sent" : "received");
+    var msgObj = $("<div></div>").addClass("message").addClass(isSender ? "sent" : "received");
     var contentDiv = $("<div></div>").addClass("content").text(content);
     var timestampDiv = $("<div></div>").addClass("timestamp").text(timestamp);
     msgObj.append(contentDiv).append(timestampDiv);
-    $("#chatMessageArea").append(msgObj);
 
-    var height = parseInt($("#chatMessageArea").height());
-    mx += height + 20;
-    $("#chatArea").scrollTop(mx);
+    if (!isSender) {
+        var nicknameDiv = $("<div></div>").addClass("nickname").text(nickname);
+        msgObj.prepend(nicknameDiv);
+    }
+
+    $("#chatMessageArea").append(msgObj);
+    $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight); // 스크롤을 맨 아래로 이동
 }
 </script>
 </body>

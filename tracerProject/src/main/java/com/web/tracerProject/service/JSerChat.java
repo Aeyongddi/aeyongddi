@@ -13,7 +13,7 @@ public class JSerChat {
     private JDaoChat dao;
 
     public void saveChatMessage(Chatting chatMessage) {
-    	dao.saveChatMessage(chatMessage);
+        dao.saveChatMessage(chatMessage);
     }
 
     public String getNicknameByEmail(String email) {

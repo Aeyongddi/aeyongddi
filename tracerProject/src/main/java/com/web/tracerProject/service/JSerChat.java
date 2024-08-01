@@ -1,5 +1,7 @@
 package com.web.tracerProject.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,5 +20,9 @@ public class JSerChat {
 
     public String getNicknameByEmail(String email) {
         return dao.getNicknameByEmail(email);
+    }
+    
+    public List<Chatting> getAllChatMessages() {
+        return dao.getAllChatMessages();
     }
 }

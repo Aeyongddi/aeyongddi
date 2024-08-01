@@ -35,9 +35,9 @@
             justify-content: space-between;
             align-items: center;
         }
-        .chat-header .icons {
-            display: flex;
-            gap: 10px;
+        .chat-header .title {
+            flex: 1;
+            text-align: center;
         }
         .chat-body {
             flex: 1;
@@ -78,6 +78,10 @@
             margin-bottom: 5px;
             color: #444;
         }
+        .active-chat {
+            background-color: #007bff !important;
+            color: #fff !important;
+        }
     </style>
 </head>
 <body>
@@ -85,21 +89,20 @@
     <h4>${userNickname} 님</h4>
     <div>
         <h5>단체</h5>
-        <button class="btn btn-secondary btn-block">단체 채팅1</button>
-        <button class="btn btn-secondary btn-block">단체 채팅2</button>
-        <button class="btn btn-primary btn-block">단체 채팅3</button>
+        <button id="group-1" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅1')">단체 채팅1</button>
+        <button id="group-2" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅2')">단체 채팅2</button>
+        <button id="group-3" class="btn btn-primary btn-block" onclick="changeChat('group', '단체 채팅3')">단체 채팅3</button>
         <h5>개인</h5>
-        <button class="btn btn-secondary btn-block">개인1</button>
-        <button class="btn btn-secondary btn-block">개인2</button>
+        <div id="privateChatList"></div>
     </div>
 </div>
 <div class="chat-container">
     <div class="chat-header">
-        <h5>단체 채팅3</h5>
-        <div class="icons">
-            <span class="badge bg-primary">${currentDate}</span>
-            <i class="fas fa-search"></i>
-            <i class="fas fa-ellipsis-v"></i>
+        <div class="title">
+            <h5 id="chatTitle">단체 채팅3</h5>
+            <span class="badge bg-primary">
+                <fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd" />
+            </span>
         </div>
     </div>
     <div class="chat-body" id="chatArea">
@@ -120,6 +123,8 @@
 <script>
 var userNickname = '${userNickname}';
 var userEmail = '${userEmail}';
+var currentChatType = 'group';
+var currentChatName = '단체 채팅3';
 var socket = new WebSocket('ws://192.168.0.10:5656/chat');
 
 $(document).ready(function () {
@@ -129,17 +134,31 @@ $(document).ready(function () {
             const joinMessage = {
                 email: userEmail,
                 nickname: userNickname,
-                content: userNickname + "님이 입장하셨습니다!"
+                content: userNickname + "님이 입장하셨습니다!",
+                chatType: currentChatType,
+                chatName: currentChatName
             };
             socket.send(JSON.stringify(joinMessage));
+            requestUserList();
         };
         socket.onmessage = function (evt) {
             console.log("Message received: ", evt.data);
-            revMsg(evt.data);
+            if(evt.data.startsWith("USER_LIST")) {
+                updatePrivateChatList(JSON.parse(evt.data.substring(9)));
+            } else {
+                revMsg(evt.data);
+            }
         };
         socket.onclose = function () {
             console.log("Connection closed");
-            alert(userNickname + "님이 퇴장하셨습니다!");
+            const leaveMessage = {
+                email: userEmail,
+                nickname: userNickname,
+                content: userNickname + "님이 퇴장하셨습니다!",
+                chatType: currentChatType,
+                chatName: currentChatName
+            };
+            revMsg(JSON.stringify(leaveMessage));
         };
     }
 
@@ -155,6 +174,24 @@ $(document).ready(function () {
     ws_conn();
 });
 
+function changeChat(type, name) {
+    currentChatType = type;
+    currentChatName = name;
+    $("#chatTitle").text(name);
+    $("#chatMessageArea").empty();
+    updateActiveChatButton(type, name);
+    // 여기에서 이전 채팅 기록을 가져오는 코드 추가 가능
+}
+
+function updateActiveChatButton(type, name) {
+    // 모든 버튼에서 active-chat 클래스 제거
+    $(".btn").removeClass("active-chat");
+
+    // 현재 채팅 방 버튼에 active-chat 클래스 추가
+    var chatId = type + '-' + name;
+    $("#" + chatId).addClass("active-chat");
+}
+
 function sendMsg() {
     var content = $("#msg").val();
     if(content.trim() === "") {
@@ -164,7 +201,9 @@ function sendMsg() {
     const message = {
         email: userEmail,
         nickname: userNickname,
-        content: content
+        content: content,
+        chatType: currentChatType,
+        chatName: currentChatName
     };
     socket.send(JSON.stringify(message));
     $("#msg").val("");
@@ -177,12 +216,15 @@ function revMsg(data) {
     const message = JSON.parse(data);
     const nickname = message.nickname.trim();
     const content = message.content.trim();
+    const chatType = message.chatType;
+    const chatName = message.chatName;
     const isSender = (nickname === userNickname.trim());
 
-    console.log("Received message from:", nickname, " Content: ", content);
-
-    // 메시지를 화면에 추가
-    addMessageToChat(nickname, content, isSender);
+    if(chatType === currentChatType && chatName === currentChatName) {
+        console.log("Received message from:", nickname, " Content: ", content);
+        // 메시지를 화면에 추가
+        addMessageToChat(nickname, content, isSender);
+    }
 }
 
 function addMessageToChat(nickname, content, isSender) {
@@ -200,6 +242,28 @@ function addMessageToChat(nickname, content, isSender) {
     $("#chatMessageArea").append(msgObj);
     $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight); // 스크롤을 맨 아래로 이동
 }
+
+function requestUserList() {
+    const request = {
+        type: "USER_LIST_REQUEST"
+    };
+    socket.send(JSON.stringify(request));
+}
+
+function updatePrivateChatList(users) {
+    $("#privateChatList").empty();
+    users.forEach(function(user) {
+        if(user !== userNickname) {
+            var userButton = $("<button></button>")
+                .addClass("btn btn-secondary btn-block")
+                .attr("id", "private-" + user)
+                .attr("onclick", "changeChat('private', '" + user + "')")
+                .text(user);
+            $("#privateChatList").append(userButton);
+        }
+    });
+}
 </script>
 </body>
 </html>
+

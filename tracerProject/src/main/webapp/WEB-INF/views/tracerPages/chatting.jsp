@@ -86,7 +86,7 @@
 </head>
 <body>
 <div class="sidebar">
-    <h4>${userNickname} 님</h4>
+    <h4 id="nicknameDisplay"></h4>
     <div>
         <h5>단체</h5>
         <button id="group-1" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅1')">단체 채팅1</button>
@@ -121,7 +121,7 @@
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
 <script>
-var userNickname = '${userNickname}';
+var userNickname;
 var userEmail = '${userEmail}';
 var currentChatType = 'group';
 var currentChatName = '단체 채팅3';
@@ -131,21 +131,17 @@ $(document).ready(function () {
     function ws_conn() {
         socket.onopen = function (evt) {
             console.log("Connection opened");
-            const joinMessage = {
-                email: userEmail,
-                nickname: userNickname,
-                content: userNickname + "님이 입장하셨습니다!",
-                chatType: currentChatType,
-                chatName: currentChatName
-            };
-            socket.send(JSON.stringify(joinMessage));
-            requestUserList();
         };
         socket.onmessage = function (evt) {
             console.log("Message received: ", evt.data);
             if(evt.data.startsWith("USER_LIST")) {
                 updatePrivateChatList(JSON.parse(evt.data.substring(9)));
             } else {
+                var message = JSON.parse(evt.data);
+                if (message.nickname) {
+                    userNickname = message.nickname;
+                    $("#nicknameDisplay").text(userNickname + " 님");
+                }
                 revMsg(evt.data);
             }
         };
@@ -266,4 +262,3 @@ function updatePrivateChatList(users) {
 </script>
 </body>
 </html>
-

@@ -2,6 +2,7 @@ package com.web.tracerProject.util;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class ChatHandler extends TextWebSocketHandler {
 
     private final Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
     private final Map<WebSocketSession, String> userNicknames = new ConcurrentHashMap<>();
+    private final AtomicInteger guestCounter = new AtomicInteger(1);  // 게스트 카운터
 
     @Autowired
     private JSerChat chatService;
@@ -26,9 +28,18 @@ public class ChatHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        String nickname = getNicknameFromSession(session); // 세션에서 닉네임을 가져오는 함수 (구현)
+
+        if (nickname == null || nickname.isEmpty()) {
+            // 로그인하지 않은 사용자라면 게스트 닉네임 할당
+            nickname = "guest" + guestCounter.getAndIncrement();
+        }
+
+        userNicknames.put(session, nickname);
         users.put(session.getId(), session);
-        System.out.println(session.getId() + "님 접속하셨습니다. 현재 접속자 수: " + users.size());
+        System.out.println(nickname + "님 접속하셨습니다. 현재 접속자 수: " + users.size());
         sendUserList();
+        sendJoinMessage(session, nickname);
     }
 
     @Override
@@ -47,8 +58,6 @@ public class ChatHandler extends TextWebSocketHandler {
             String content = messageMap.get("content");
             String chatType = messageMap.get("chatType");
             String chatName = messageMap.get("chatName");
-
-            userNicknames.put(session, nickname);
 
             Chatting chatMessage = new Chatting();
             chatMessage.setChid(UUID.randomUUID().toString());
@@ -86,7 +95,7 @@ public class ChatHandler extends TextWebSocketHandler {
         String nickname = userNicknames.get(session);
         users.remove(session.getId());
         userNicknames.remove(session);
-        System.out.println(session.getId() + " 접속 종료");
+        System.out.println(nickname + "님 접속 종료");
 
         String leaveMessage = String.format("{\"nickname\":\"%s\", \"content\":\"%s님이 나가셨습니다\", \"chatType\":\"system\", \"chatName\":\"all\"}", nickname, nickname);
         for (WebSocketSession userSession : users.values()) {
@@ -108,6 +117,19 @@ public class ChatHandler extends TextWebSocketHandler {
         String userListMessage = "USER_LIST" + objectMapper.writeValueAsString(userList);
         session.sendMessage(new TextMessage(userListMessage));
     }
+
+    private void sendJoinMessage(WebSocketSession session, String nickname) throws Exception {
+        String joinMessage = String.format("{\"nickname\":\"%s\", \"content\":\"%s님이 입장하셨습니다\", \"chatType\":\"system\", \"chatName\":\"all\"}", nickname, nickname);
+        for (WebSocketSession userSession : users.values()) {
+            if (!userSession.getId().equals(session.getId())) {
+                userSession.sendMessage(new TextMessage(joinMessage));
+            }
+        }
+    }
+
+    // 세션에서 사용자 닉네임을 가져오는 메서드
+    private String getNicknameFromSession(WebSocketSession session) {
+        // 예시로 세션 어트리뷰트에서 닉네임을 가져오는 로직
+        return (String) session.getAttributes().get("nickname");
+    }
 }
-
-

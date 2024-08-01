@@ -146,3 +146,34 @@ CREATE TABLE BOARD2 (
    ENDYN NUMBER(1,0)
 );
 
+ALTER TABLE task MODIFY (sid null);
+SELECT constraint_name, constraint_type
+FROM user_constraints
+WHERE table_name = 'TASK' AND constraint_type = 'C';
+ALTER TABLE task DROP CONSTRAINT SYS_C007487;
+-- 임시 테이블 생성
+CREATE TABLE task_temp AS SELECT * FROM task;
+
+-- 기존 테이블의 데이터 백업
+INSERT INTO task_temp SELECT * FROM task;
+-- 기존 테이블 삭제
+DROP TABLE task;
+SELECT * FROM task_temp;
+
+
+CREATE TABLE task (
+    tkid varchar2(8),
+    startdate DATE,
+    enddate DATE,
+    isend number(1,0),
+    name varchar2(255),
+    description clob,
+ 	sid varchar2(8)
+);
+
+-- 데이터 복사
+INSERT INTO task SELECT * FROM task_temp;
+
+-- 임시 테이블 삭제
+DROP TABLE task_temp;
+

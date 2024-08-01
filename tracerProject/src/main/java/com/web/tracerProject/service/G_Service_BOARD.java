@@ -71,16 +71,22 @@ public class G_Service_BOARD {
         } 
         
     }
-
-	public int insertBoard(Board ins) {
-		// back에서 bid select 선행
-		ins.setBid(dao.getBid());
-		// 현재 날짜와 시간을 나타내는 Date 객체 생성
-//        Date currentDate = new Date();
-//        // 날짜 형식을 지정
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//        // 형식에 맞춘 현재 날짜 문자열 출력
-//        String formattedDate = dateFormat.format(currentDate);
-		return dao.insertBoard(ins);
-	}
+   
+    public int insertBoard(Board ins) {
+    	// VALUES (#{bid}, #{title}, #{content}, SYSDATE, #{views}, #{btype}, #{cid}, #{email}, #{sid}, #{endYN})")
+        // bid 생성
+        ins.setBid(dao.getBid());
+        // 기본값 설정
+        if (ins.getUpt_date() == null) {
+            ins.setUpt_date(new Date()); // 현재 날짜로 기본값 설정
+        }
+        if (ins.getEmail() == null) {
+            ins.setEmail(""); // 기본값 설정
+        }
+        // endYN 기본값 설정
+        if (!ins.isEndYN()) {
+            ins.setEndYN(false); // 기본값 설정
+        }
+        return dao.insertBoard(ins);
+    }
 }

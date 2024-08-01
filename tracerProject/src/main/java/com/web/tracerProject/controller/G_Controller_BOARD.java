@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.tracerProject.service.G_Service_BOARD;
 import com.web.tracerProject.vo.Board;
@@ -30,12 +31,13 @@ public class G_Controller_BOARD {
     }
 
     @PostMapping("/boardListInsert")
+    @ResponseBody
     public String boardInsert(@RequestBody Board ins, Model d) {
-//        // 세션에서 이메일 가져오기 예시
-//        String email = "fixed_email@example.com"; // 실제로는 세션에서 가져와야 함
-//        ins.setEmail(email);
+        // 세션에서 이메일 가져오기 예시
+        String email = "fixed_email@example.com"; // 실제로는 세션에서 가져와야 함
+        ins.setEmail(email);
         d.addAttribute("result", service.insertBoard(ins));
-        return "redirect:/board"; // 등록 후 리다이렉트
+        return service.insertBoard(ins)>0?"등록성공":"등록실패"; // 등록 후 리다이렉트
     }
 
     @RequestMapping("/boardUpdate")
@@ -72,6 +74,7 @@ public class G_Controller_BOARD {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update status");
         }
     }
+    
     
 }
     

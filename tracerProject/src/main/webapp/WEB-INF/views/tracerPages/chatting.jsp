@@ -82,7 +82,7 @@
 </head>
 <body>
 <div class="sidebar">
-    <h4>${user_info.nickname} 님</h4>
+    <h4>${userNickname} 님</h4>
     <div>
         <h5>단체</h5>
         <button class="btn btn-secondary btn-block">단체 채팅1</button>
@@ -118,8 +118,8 @@
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
 <script>
-var userNickname = '${user_info.nickname}';
-var userEmail = '${user_info.email}';
+var userNickname = '${userNickname}';
+var userEmail = '${userEmail}';
 var socket = new WebSocket('ws://192.168.0.10:5656/chat');
 
 $(document).ready(function () {
@@ -129,7 +129,7 @@ $(document).ready(function () {
             const joinMessage = {
                 email: userEmail,
                 nickname: userNickname,
-                content: userNickname + "님이 접속하셨습니다!"
+                content: userNickname + "님이 입장하셨습니다!"
             };
             socket.send(JSON.stringify(joinMessage));
         };
@@ -139,6 +139,7 @@ $(document).ready(function () {
         };
         socket.onclose = function () {
             console.log("Connection closed");
+            alert(userNickname + "님이 퇴장하셨습니다!");
         };
     }
 
@@ -174,12 +175,11 @@ function sendMsg() {
 
 function revMsg(data) {
     const message = JSON.parse(data);
-    const email = message.email.trim();
     const nickname = message.nickname.trim();
     const content = message.content.trim();
-    const isSender = (email === userEmail.trim());
+    const isSender = (nickname === userNickname.trim());
 
-    console.log("Received message from:", email, " Content: ", content);
+    console.log("Received message from:", nickname, " Content: ", content);
 
     // 메시지를 화면에 추가
     addMessageToChat(nickname, content, isSender);

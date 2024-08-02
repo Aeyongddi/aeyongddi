@@ -8,7 +8,6 @@ import org.apache.ibatis.annotations.Select;
 
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ProjectProgress;
-import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 
@@ -50,22 +49,19 @@ public interface JDaoMain {
     User_info getMember(User_info user_info);
 
     // 작업 진행률
-    @Select("SELECT (completed.count_y * 100 / total.count_all) AS progress FROM (SELECT COUNT(*) AS count_y FROM task WHERE isend = 'Y') completed, (SELECT COUNT(*) AS count_all FROM task) total")
-    int getTaskProgress(Task task);
+    @Select("SELECT CASE WHEN total.count_all = 0 THEN 0 ELSE (completed.count_y * 100 / total.count_all) END AS progress " +
+            "FROM (SELECT COUNT(*) AS count_y FROM task WHERE isend = 1) completed, " +
+            "     (SELECT COUNT(*) AS count_all FROM task) total")
+    int getTaskProgress();
 
-    // 자산 현황(예산)
-    @Select("SELECT assigned_budget, used_budget FROM ResourceManage WHERE rtype = 'BUDGET' AND pid = #{pid}")
-    ResourceManage getBudget(String pid);
-
-    
     // 프로젝트 목록
     @Select("SELECT pid, start_date, end_date, title, description FROM project")
     List<Project> getProjectList();
     
     // 프로젝트 진행률
     @Select("SELECT p.pid, p.title, " +
-            "       (SUM(CASE WHEN t.isend = 'Y' THEN 1 ELSE 0 END) * 100 / COUNT(*)) AS progress, " +
-            "       SUM(CASE WHEN t.isend = 'Y' THEN 1 ELSE 0 END) AS completedTasks, " +
+            "       (SUM(CASE WHEN t.isend = 1 THEN 1 ELSE 0 END) * 100 / COUNT(*)) AS progress, " +
+            "       SUM(CASE WHEN t.isend = 1 THEN 1 ELSE 0 END) AS completedTasks, " +
             "       COUNT(*) AS totalTasks " +
             "FROM project p " +
             "JOIN schedule s ON p.pid = s.pid " +

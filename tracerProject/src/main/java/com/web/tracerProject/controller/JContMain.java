@@ -9,14 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.LocaleResolver;
 
 import com.web.tracerProject.service.JSerMain;
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ProjectProgress;
-import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 
@@ -32,6 +29,8 @@ public class JContMain {
     private HttpSession session;
     @Autowired
     private LocaleResolver localeResolver;
+    
+    // http://localhost:5656/login
 
     @PostMapping("/index")
     public String main(Model d, Task task, User_info user_info, HttpServletRequest request, HttpServletResponse response) {
@@ -45,7 +44,7 @@ public class JContMain {
         d.addAttribute("dDay", dDay);
         int countPro = service.getCountPro(task);
         d.addAttribute("countPro", countPro);
-        int taskPro = service.getTaskProgress(task);
+        int taskPro = service.getTaskProgress();
         d.addAttribute("taskPro", taskPro);
         List<ProjectProgress> projectProgressList = service.getProjectProgress();
         d.addAttribute("projectProgressList", projectProgressList);
@@ -55,8 +54,10 @@ public class JContMain {
         d.addAttribute("projectList", projectList);
 
         if (service.isMember(user_info).equals("로그인성공")) {
-            session.setAttribute("info", service.getMember(user_info));
-            d.addAttribute("user_info", (User_info) session.getAttribute("info"));
+            User_info loggedInUser = service.getMember(user_info);
+            session.setAttribute("info", loggedInUser);
+            session.setAttribute("userNickname", loggedInUser.getNickname()); // 닉네임 세션에 저장
+            d.addAttribute("user_info", loggedInUser);
 
             // 로그인 시 로케일 설정
             localeResolver.setLocale(request, response, Locale.KOREAN);
@@ -66,6 +67,7 @@ public class JContMain {
             d.addAttribute("loginFailed", 1);
             return "tracerPages/login";
         }
+
     }
 
     @GetMapping("/index")
@@ -81,7 +83,7 @@ public class JContMain {
         int countPro = service.getCountPro(task);
         d.addAttribute("countPro", countPro);
         d.addAttribute("user_info", (User_info) session.getAttribute("info"));
-        int taskPro = service.getTaskProgress(task);
+        int taskPro = service.getTaskProgress();
         d.addAttribute("taskPro", taskPro);
         List<ProjectProgress> projectProgressList = service.getProjectProgress();
         d.addAttribute("projectProgressList", projectProgressList);
@@ -106,11 +108,4 @@ public class JContMain {
 
         return "tracerPages/index";
     }
-
-    @GetMapping("/getBudget")
-    @ResponseBody
-    public ResourceManage getBudget(@RequestParam("pid") String pid) {
-        return service.getBudget(pid);
-    }
-
 }

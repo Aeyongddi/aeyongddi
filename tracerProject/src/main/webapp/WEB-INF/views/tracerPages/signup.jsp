@@ -155,10 +155,7 @@ $(document).ready(function(){
 				</div>
 		    </div><!--//auth-background-overlay-->
 	    </div><!--//auth-background-col-->
-    
     </div><!--//row-->
-
-
 </body>
 </html> 
 

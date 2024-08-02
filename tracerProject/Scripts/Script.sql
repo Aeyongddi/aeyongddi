@@ -110,4 +110,70 @@ GROUP BY p.pid, p.title;
 UPDATE USER_INFO SET nickname='갓갓김' WHERE email='kge0817@naver.com';
 SELECT * FROM USER_INFO;
 
+SELECT 
+	u.name AS 이름,
+	u.nickname AS 닉네임,
+	u.email AS 이메일,
+	u.birth AS 생일,
+	u.phone AS 전화번호,
+	t.tid AS 팀_ID,
+	p.pid AS 프로젝트_ID,
+	p.title AS 프로젝트_제목
+FROM 
+	USER_INFO u
+LEFT JOIN 
+	TEAM t ON u.EMAIL = t.EMAIL 
+LEFT JOIN 
+	PROJECT p ON t.pid = p.PID 
+WHERE 
+	u.email = 'zsn1527@gmail.com';
+	SELECT * FROM team;
+	SELECT * FROM project;
+	SELECT * FROM USER_INFO;
+SELECT * FROM RESOURCEMANAGE;
+	COMMIT;
+	
+CREATE TABLE BOARD2 (
+   BID VARCHAR2(8),
+   TITLE VARCHAR2(50),
+   CONTENT CLOB,
+   UPT_DATE DATE,
+   VIEWS NUMBER,
+   BTYPE VARCHAR2(10),
+   CID VARCHAR2(8),
+   EMAIL VARCHAR2(255),
+   SID VARCHAR2(8),
+   ENDYN NUMBER(1,0)
+);
+
+ALTER TABLE task MODIFY (sid null);
+SELECT constraint_name, constraint_type
+FROM user_constraints
+WHERE table_name = 'TASK' AND constraint_type = 'C';
+ALTER TABLE task DROP CONSTRAINT SYS_C007487;
+-- 임시 테이블 생성
+CREATE TABLE task_temp AS SELECT * FROM task;
+
+-- 기존 테이블의 데이터 백업
+INSERT INTO task_temp SELECT * FROM task;
+-- 기존 테이블 삭제
+DROP TABLE task;
+SELECT * FROM task_temp;
+
+
+CREATE TABLE task (
+    tkid varchar2(8),
+    startdate DATE,
+    enddate DATE,
+    isend number(1,0),
+    name varchar2(255),
+    description clob,
+ 	sid varchar2(8)
+);
+
+-- 데이터 복사
+INSERT INTO task SELECT * FROM task_temp;
+
+-- 임시 테이블 삭제
+DROP TABLE task_temp;
 

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.web.tracerProject.mapper.JDaoMain;
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ProjectProgress;
-import com.web.tracerProject.vo.ResourceManage;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 
@@ -38,8 +37,8 @@ public class JSerMain {
         return dao.getCountPro(task);
     }
 
-    public int getTaskProgress(Task task) {
-        return dao.getTaskProgress(task);
+    public int getTaskProgress() {
+        return dao.getTaskProgress();
     }
 
     public String isMember(User_info user_info) {
@@ -53,11 +52,7 @@ public class JSerMain {
     public User_info getMember(User_info user_info) {
         return dao.getMember(user_info);
     }
-
-    public ResourceManage getBudget(String pid) {
-        return dao.getBudget(pid);
-    }
-    
+   
     public List<Project> getProjectList() {
         List<Project> projectList = dao.getProjectList();
         return projectList;

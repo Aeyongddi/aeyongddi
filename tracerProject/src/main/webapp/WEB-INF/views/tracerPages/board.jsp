@@ -117,10 +117,7 @@
                   id="edit-email" class="form-control">
             </div>
 
-            <button type="button" class="btn btn-primary" onclick="saveIssue()">저장</button>
-         </form>
-      </div>
-   </div>
+
 
    <jsp:include page="/headerSidebar.jsp" />
 

@@ -286,7 +286,7 @@ function clearChatHistory() {
 
 function setCurrentDate() {
     var date = new Date();
-    var formattedDate = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+    var formattedDate = date.getFullYear() + '년 ' + String(date.getMonth() + 1).padStart(2, '0') + '월 ' + String(date.getDate()).padStart(2, '0') + '일';
     $("#currentDate").text(formattedDate);
 }
 </script>

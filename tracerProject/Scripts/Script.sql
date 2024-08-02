@@ -177,3 +177,4 @@ INSERT INTO task SELECT * FROM task_temp;
 -- 임시 테이블 삭제
 DROP TABLE task_temp;
 
+SELECT * FROM v$version;

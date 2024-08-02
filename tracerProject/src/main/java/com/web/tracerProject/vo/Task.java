@@ -21,7 +21,7 @@ public class Task {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date end_date;
     private String end_dateStr;
-    private boolean isend;
+    private boolean endYN;
     private String name;
     private String description;
     private String sid;

@@ -78,6 +78,18 @@
             margin-bottom: 5px;
             color: #444;
         }
+        .active-chat {
+            background-color: #007bff !important;
+            color: #fff !important;
+        }
+        .clear-chat-btn {
+            background: #ff4d4d;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
@@ -85,20 +97,21 @@
     <h4>${userNickname} 님</h4>
     <div>
         <h5>단체</h5>
-        <button class="btn btn-secondary btn-block">단체 채팅1</button>
-        <button class="btn btn-secondary btn-block">단체 채팅2</button>
-        <button class="btn btn-primary btn-block">단체 채팅3</button>
-        <h5>개인</h5>
+        <button id="group-1" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅1')">단체 채팅1</button>
+        <button id="group-2" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅2')">단체 채팅2</button>
+        <button id="group-3" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅3')">단체 채팅3</button>
+        <h5>접속 중인 사용자</h5>
         <div id="privateChatList"></div>
     </div>
 </div>
 <div class="chat-container">
     <div class="chat-header">
-        <h5>단체 채팅3</h5>
+        <h5 id="chatTitle">단체 채팅1</h5>
         <div class="icons">
-            <span class="badge bg-primary">${currentDate}</span>
+            <span class="badge bg-primary" id="currentDate"></span>
             <i class="fas fa-search"></i>
             <i class="fas fa-ellipsis-v"></i>
+            <button class="clear-chat-btn" onclick="clearChatHistory()">채팅 기록 지우기</button>
         </div>
     </div>
     <div class="chat-body" id="chatArea">
@@ -119,16 +132,22 @@
 <script>
 var userNickname = '${userNickname}';
 var userEmail = '${userEmail}';
+var currentChatType = 'group';
+var currentChatName = '단체 채팅1';
 var socket = new WebSocket('ws://192.168.0.10:5656/chat');
 
 $(document).ready(function () {
+    loadChatHistory();  // 페이지 로드 시 채팅 기록 불러오기
+    updateActiveChatButton(currentChatType, currentChatName); // 초기 활성화 버튼 설정
+    setCurrentDate(); // 현재 날짜 설정
+
     function ws_conn() {
         socket.onopen = function (evt) {
             console.log("Connection opened");
             const joinMessage = {
                 email: userEmail,
                 nickname: userNickname,
-                /* content: userNickname + "님이 입장하셨습니다!" */
+                content: userNickname + "님이 입장하셨습니다!"
             };
             socket.send(JSON.stringify(joinMessage));
         };
@@ -167,24 +186,30 @@ function sendMsg() {
     const message = {
         email: userEmail,
         nickname: userNickname,
-        content: content
+        content: content,
+        chatType: currentChatType,
+        chatName: currentChatName
     };
     socket.send(JSON.stringify(message));
     $("#msg").val("");
-
-    // 내가 보낸 메시지는 서버에서 수신하지 않으므로 화면에 추가하지 않음
 }
 
 function revMsg(data) {
     const message = JSON.parse(data);
     const nickname = message.nickname.trim();
     const content = message.content.trim();
+    const chatType = message.chatType;
+    const chatName = message.chatName;
     const isSender = (nickname === userNickname.trim());
 
-    console.log("Received message from:", nickname, " Content: ", content);
+    // 현재 채팅방의 메시지인 경우에만 표시
+    if (chatType === currentChatType && chatName === currentChatName) {
+        console.log("Received message from:", nickname, " Content: ", content);
+        addMessageToChat(nickname, content, isSender);
 
-    // 메시지를 화면에 추가
-    addMessageToChat(nickname, content, isSender);
+        // 메시지를 로컬 스토리지에 저장
+        saveMessageToLocalStorage(message);
+    }
 }
 
 function addMessageToChat(nickname, content, isSender) {
@@ -203,6 +228,22 @@ function addMessageToChat(nickname, content, isSender) {
     $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight); // 스크롤을 맨 아래로 이동
 }
 
+function saveMessageToLocalStorage(message) {
+    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName.replace(/\s/g, ''))) || [];
+    chatHistory.push(message);
+    localStorage.setItem("chatHistory_" + currentChatName.replace(/\s/g, ''), JSON.stringify(chatHistory));
+}
+
+function loadChatHistory() {
+    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName.replace(/\s/g, ''))) || [];
+    chatHistory.forEach(function(message) {
+        const nickname = message.nickname.trim();
+        const content = message.content.trim();
+        const isSender = (nickname === userNickname.trim());
+        addMessageToChat(nickname, content, isSender);
+    });
+}
+
 function handleUserList(data) {
     const users = JSON.parse(data);
     $("#privateChatList").empty();
@@ -210,10 +251,43 @@ function handleUserList(data) {
         if (user !== userNickname) {
             var userButton = $("<button></button>")
                 .addClass("btn btn-secondary btn-block")
+                .attr("id", "private-" + user.replace(/\s/g, ''))
+                .attr("onclick", "changeChat('private', '" + user + "')")
                 .text(user);
             $("#privateChatList").append(userButton);
         }
     });
+}
+
+function changeChat(type, name) {
+    currentChatType = type;
+    currentChatName = name;
+    $("#chatTitle").text(name);
+    $("#chatMessageArea").empty();
+    loadChatHistory();  // 채팅방 변경 시 채팅 기록 불러오기
+    updateActiveChatButton(type, name);
+}
+
+function updateActiveChatButton(type, name) {
+    // 모든 버튼에서 active-chat 클래스 제거
+    $(".btn").removeClass("active-chat");
+
+    // 현재 채팅 방 버튼에 active-chat 클래스 추가
+    var chatId = type + '-' + name.replace(/\s/g, '');
+    $("#" + chatId).addClass("active-chat");
+}
+
+function clearChatHistory() {
+    if(confirm("정말로 채팅 기록을 지우시겠습니까?")) {
+        localStorage.removeItem("chatHistory_" + currentChatName.replace(/\s/g, ''));
+        $("#chatMessageArea").empty();
+    }
+}
+
+function setCurrentDate() {
+    var date = new Date();
+    var formattedDate = date.getFullYear() + '-' + String(date.getMonth() + 1).padStart(2, '0') + '-' + String(date.getDate()).padStart(2, '0');
+    $("#currentDate").text(formattedDate);
 }
 </script>
 </body>

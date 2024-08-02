@@ -75,9 +75,6 @@ public class ChatHandler extends TextWebSocketHandler {
         }
     }
 
-
-
-
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
         System.out.println(session.getId() + " 에러 발생: " + exception.getMessage());

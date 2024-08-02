@@ -42,9 +42,90 @@
 		}
 	</style>
 <script type="text/javascript">
+
+
 $(document).ready(function(){
+// 초기세팅
+var ganttData;
+
+	gantt.config.show_empty_state = true;
+	gantt.config.start_date = new Date(2023, 07, 01);
+	gantt.config.end_date = new Date(2025, 08, 01);
+	gantt.config.columns = [
+        { name: "text", label: "Task name", width: "300px", tree: true },
+        { name: "start_date", label: "Start time", align: "center" },
+        { name: "duration", label: "Duration", align: "center" },
+        { name: "users", label: "User", align: "center" },
+        {name: "add", label: "+", width: 30, template: function(task) {
+            return "<button class='gantt_add_task'>+</button>";
+        }}
+    ];
+
+	gantt.config.lightbox.sections = [
+	    {name:"description", height:38, map_to:"text", type:"textarea",focus:true},  
+	    
+	    {name:"time", height:72, type:"duration", map_to:"auto"}
+	];
+	
+	gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
+	
     
+///////////
+var opts;
+	$.ajax({
+		url: 'timeline',
+		type: 'POST',
+		dataType: 'json',
+		success: function(data){
+			console.log(data)
+			ganttData = data
+			
+			gantt.init("gantt_here");
+			gantt.parse(ganttData, "json");
+		    gantt.attachEvent("onBeforeTaskAdd", function(id, task) {
+		    	var parentCount = countParentTasks(id);
+		    	if(parentCount>1){
+					alert('하위 파일을 더 이상 만들 수 없습니다.')
+					gantt.deleteTask(id)
+					return false;
+		    	}
+		        return true; 
+		    });
+		    
+		    gantt.attachEvent("onAfterTaskAdd", function(id, task) {
+		        console.log("Task added:", id, task);
+		        return true; 
+		    });
+		    
+		    gantt.attachEvent("onAfterTaskUpdate", function(id, task) {
+		        console.log("Task update:", id, task);
+		        return true; 
+		    });
+		    
+		    gantt.attachEvent("onAfterTaskDelete", function(id, task) {
+		        console.log("Task delete:", id, task);
+		        return true; 
+		    });
+		    
+		},
+		error: function(err){
+			console.log(err)
+		}
+	})
+	
+	function countParentTasks(taskId) {
+        var count = 0;
+        var task = gantt.getTask(taskId);
+
+        while (task.parent!=0) {
+            count++;
+            task = gantt.getTask(task.parent);
+        }
+
+        return count;
+    }
 });
+
 
 </script>
 </head> 
@@ -65,10 +146,7 @@ $(document).ready(function(){
 			    
 		<div id="gantt_here" style='width:960px; height:700px;'></div>
 	<script>
-		gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
-		gantt.init("gantt_here");
-		gantt.load("/gantt/samples/common/data.json", "json");
-		gantt.parse(demo_tasks);
+		
 	</script>  
 				
 				

@@ -35,24 +35,20 @@ $(document).ready(function(){
         var pid = $(this).parent().attr('class');
         $.ajax({
             data: $("form.schPrj").serialize(),  // 데이터 객체로 전달
-            url: 'schProject',
+            url: 'prjList',
             type: 'POST',
             success: function(data){
-                // 서버에서 JSON 형식으로 프로젝트 목록을 반환한다고 가정
-                $("tbody.prjList").empty();  // 기존 목록 지우기
-                $.each(data.prjs, function(index, prj) {
-                    var row = '<tr class="' + prj.pid + '">'
-                            + '<td class="cell">' + prj.pid + '</td>'
-                            + '<td class="cell"><span class="truncate">' + prj.title + '</span></td>'
-                            + '<td class="cell">' + formatDate(prj.start_date) + '</td>'
-                            + '<td class="cell">' + formatDate(prj.end_date) + '</td>'
+            	$("tbody.prjList").empty();  // 기존 목록 지우기
+				for(i=0;i<data.length;i++){
+	                $("tbody.prjList").append('<tr class="' + data[i].pid + '">'
+                            + '<td class="cell">' + data[i].pid + '</td>'
+                            + '<td class="cell"><span class="truncate">' + data[i].title + '</span></td>'
+                            + '<td class="cell">' + formatDate(data[i].start_date) + '</td>'
+                            + '<td class="cell">' + formatDate(data[i].end_date) + '</td>'
                             + '<td class="cell"><a class="btn-sm app-btn-secondary prjDelBtn" href="#">삭제</a></td>'
-                            + '</tr>';
-                    $("tbody.prjList").append(row);
-                });
-
-                // 동적으로 추가된 삭제 버튼에 클릭 이벤트 다시 등록
-                $(".prjDelBtn").off('click').on('click', prjDel);
+                            + '</tr>')
+				}
+				$(".prjDelBtn").off('click').on('click', prjDel);
             },
             error: function(err){
                 console.log(err);
@@ -73,20 +69,19 @@ $(document).ready(function(){
                 success: function(data) {
                     // 서버에서 JSON 형식으로 프로젝트 목록을 반환한다고 가정
                     $("tbody.prjList").empty();  // 기존 목록 지우기
-                    $.each(data.prjs, function(index, prj) {
-                        var row = '<tr class="' + prj.pid + '">'
-                                + '<td class="cell">' + prj.pid + '</td>'
-                                + '<td class="cell"><span class="truncate">' + prj.title + '</span></td>'
-                                + '<td class="cell">' + formatDate(prj.start_date) + '</td>'
-                                + '<td class="cell">' + formatDate(prj.end_date) + '</td>'
+                    for(i=0;i<data.length;i++) {
+                    	$("tbody.prjList").append('<tr class="' + data[i].pid + '">'
+                                + '<td class="cell">' + data[i].pid + '</td>'
+                                + '<td class="cell"><span class="truncate">' + data[i].title + '</span></td>'
+                                + '<td class="cell">' + formatDate(data[i].start_date) + '</td>'
+                                + '<td class="cell">' + formatDate(data[i].end_date) + '</td>'
                                 + '<td class="cell"><a class="btn-sm app-btn-secondary prjDelBtn" href="#">삭제</a></td>'
-                                + '</tr>';
-                        $("tbody.prjList").append(row);
-                    });
+                                + '</tr>')
+                        
+                    };
 					
                     // 동적으로 추가된 삭제 버튼에 클릭 이벤트 다시 등록
                     $(".prjDelBtn").off('click').on('click', prjDel);
-                    location.href = 'prjList'
                 },
                 error: function(err) {
                     console.log(err);

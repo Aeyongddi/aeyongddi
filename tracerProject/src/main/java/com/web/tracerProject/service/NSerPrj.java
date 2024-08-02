@@ -30,14 +30,14 @@ public class NSerPrj {
 	public boolean alreadyWorking(User_info user_info) {
 		return dao.alreadyWorking(user_info)>0?true:false;
 	}
-	
 	public List<Project> getProject(){
 		return dao.getProject();
 	}
 	public List<Project> schProject(String prjTitle){
 		return dao.schProject(prjTitle);
 	}
-	public String delPrj(String pid) {
-		return dao.delPrj(pid)>0?"프로젝트삭제성공":"프로젝트삭제실패";
+	public List<Project> delPrj(String pid) {
+		dao.delPrj(pid);
+		return dao.schProject("");
 	}
 }

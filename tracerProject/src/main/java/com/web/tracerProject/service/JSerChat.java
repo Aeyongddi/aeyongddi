@@ -14,15 +14,17 @@ public class JSerChat {
     @Autowired
     private JDaoChat dao;
 
-    public void saveChatMessage(Chatting chatMessage) {
+    public void saveChatMessage(Chatting chatMessage) throws Exception {
+        // 닉네임 유효성 검사
+        if (dao.countUserByNickname(chatMessage.getNickname()) == 0) {
+            chatMessage.setNickname("GUEST");
+        }
         dao.saveChatMessage(chatMessage);
     }
 
-    public String getNicknameByEmail(String email) {
-        return dao.getNicknameByEmail(email);
-    }
-    
     public List<Chatting> getAllChatMessages() {
         return dao.getAllChatMessages();
     }
 }
+
+

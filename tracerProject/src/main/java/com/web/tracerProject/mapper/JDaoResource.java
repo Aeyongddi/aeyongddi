@@ -28,6 +28,7 @@ public interface JDaoResource {
     @Select("SELECT * FROM PROJECT")
     List<Project> getAllProjects();
     
-    @Select("SELECT software_name AS softwareName, license_purchase_date AS licensePurchaseDate, license_expiry_date AS licenseExpiryDate, software_price AS softwarePrice FROM ResourceManage WHERE rtype = 'SOFTWARE'")
+    @Select("SELECT software_name , license_purchase_date , license_expiry_date , software_price FROM ResourceManage WHERE rtype = 'SOFTWARE'")
     List<ResourceManage> getAllAssets();
+
 }

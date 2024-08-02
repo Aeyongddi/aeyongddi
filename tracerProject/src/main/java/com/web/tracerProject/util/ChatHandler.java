@@ -28,11 +28,10 @@ public class ChatHandler extends TextWebSocketHandler {
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        String nickname = getNicknameFromSession(session); // 세션에서 닉네임을 가져오는 함수 (구현)
+        String nickname = (String) session.getAttributes().get("nickname");
 
         if (nickname == null || nickname.isEmpty()) {
-            // 로그인하지 않은 사용자라면 게스트 닉네임 할당
-            nickname = "guest" + guestCounter.getAndIncrement();
+            nickname = "Guest" + guestCounter.getAndIncrement();
         }
 
         userNicknames.put(session, nickname);
@@ -42,48 +41,42 @@ public class ChatHandler extends TextWebSocketHandler {
         sendJoinMessage(session, nickname);
     }
 
+
+
+
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
-        System.out.println(session.getId() + "에서 온 메시지: " + payload);
-
         Map<String, String> messageMap = objectMapper.readValue(payload, Map.class);
-        String type = messageMap.get("type");
 
-        if ("USER_LIST_REQUEST".equals(type)) {
-            sendUserList(session);
-        } else {
-            String sender = messageMap.get("email");
-            String nickname = messageMap.get("nickname");
-            String content = messageMap.get("content");
-            String chatType = messageMap.get("chatType");
-            String chatName = messageMap.get("chatName");
+        String email = messageMap.get("email");
+        String nickname = messageMap.get("nickname");
+        String content = messageMap.get("content");
 
-            Chatting chatMessage = new Chatting();
-            chatMessage.setChid(UUID.randomUUID().toString());
-            chatMessage.setEmail(sender);
-            chatMessage.setSent_date(new Date());
-            chatMessage.setContent(content);
+        Chatting chatMessage = new Chatting();
+        chatMessage.setChid(UUID.randomUUID().toString());
+        chatMessage.setEmail(email);
+        chatMessage.setNickname(nickname);
+        chatMessage.setSent_date(new Date());
+        chatMessage.setContent(content);
 
+        try {
             chatService.saveChatMessage(chatMessage);
+        } catch (Exception e) {
+            session.sendMessage(new TextMessage("Error: " + e.getMessage()));
+            return;
+        }
 
-            if ("private".equals(chatType)) {
-                for (Map.Entry<WebSocketSession, String> entry : userNicknames.entrySet()) {
-                    if (entry.getValue().equals(chatName)) {
-                        entry.getKey().sendMessage(new TextMessage(payload));
-                        break;
-                    }
-                }
-            } else {
-                for (Map.Entry<String, WebSocketSession> userEntry : users.entrySet()) {
-                    WebSocketSession userSession = userEntry.getValue();
-                    if (!userSession.getId().equals(session.getId())) {
-                        userSession.sendMessage(new TextMessage(payload));
-                    }
-                }
+        // 모든 클라이언트에게 브로드캐스트
+        for (WebSocketSession userSession : users.values()) {
+            if (userSession.isOpen()) {
+                userSession.sendMessage(new TextMessage(payload));
             }
         }
     }
+
+
+
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
@@ -97,7 +90,7 @@ public class ChatHandler extends TextWebSocketHandler {
         userNicknames.remove(session);
         System.out.println(nickname + "님 접속 종료");
 
-        String leaveMessage = String.format("{\"nickname\":\"%s\", \"content\":\"%s님이 나가셨습니다\", \"chatType\":\"system\", \"chatName\":\"all\"}", nickname, nickname);
+        String leaveMessage = String.format("{\"nickname\":\"%s\", \"content\":\"%s님이 퇴장하셨습니다\", \"chatType\":\"system\", \"chatName\":\"all\"}", nickname, nickname);
         for (WebSocketSession userSession : users.values()) {
             userSession.sendMessage(new TextMessage(leaveMessage));
         }
@@ -119,7 +112,7 @@ public class ChatHandler extends TextWebSocketHandler {
     }
 
     private void sendJoinMessage(WebSocketSession session, String nickname) throws Exception {
-        String joinMessage = String.format("{\"nickname\":\"%s\", \"content\":\"%s님이 입장하셨습니다\", \"chatType\":\"system\", \"chatName\":\"all\"}", nickname, nickname);
+        String joinMessage = String.format("{\"nickname\":\"%s\", \"content\":\"%s님이 입장하셨습니다!\", \"chatType\":\"system\", \"chatName\":\"all\"}", nickname, nickname);
         for (WebSocketSession userSession : users.values()) {
             if (!userSession.getId().equals(session.getId())) {
                 userSession.sendMessage(new TextMessage(joinMessage));

@@ -14,9 +14,10 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Chatting {
-	private String chid;
-	private String email;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date sent_date;
-	private String content;
+    private String chid;
+    private String email;
+    private String nickname;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date sent_date;
+    private String content;
 }

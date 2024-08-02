@@ -32,6 +32,43 @@
             margin-left: 10px;
         }
     </style>
+    <!-- Date calculation script -->
+    <script>
+        function calculateRemainingDays(expiryDate) {
+            const now = new Date();
+            const expiry = new Date(expiryDate);
+            const diffTime = expiry - now;
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            let years = Math.floor(diffDays / 365);
+            let months = Math.floor((diffDays % 365) / 30);
+            let days = (diffDays % 365) % 30;
+
+            return { totalDays: diffDays, years: years, months: months, days: days };
+        }
+
+        function updateRemainingDays() {
+            document.querySelectorAll('.expiry-date').forEach(function (elem) {
+                const expiryDate = elem.dataset.expiry;
+                const remaining = calculateRemainingDays(expiryDate);
+
+                elem.innerHTML = `${remaining.totalDays}일 남음 (${remaining.years}년 ${remaining.months}월 ${remaining.days}일)`;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', updateRemainingDays);
+
+        function formatPrice(price) {
+            return price.toLocaleString() + ' 원';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.software-price').forEach(function (elem) {
+                const price = parseInt(elem.innerText.replace(/[^0-9]/g, ''), 10);
+                elem.innerText = formatPrice(price);
+            });
+        });
+    </script>
 </head>
 <body>
 <jsp:include page="/headerSidebar.jsp"/>
@@ -128,10 +165,10 @@
                                     <tbody>
                                         <c:forEach var="asset" items="${assetList}">
                                             <tr>
-                                                <td class="cell">${asset.softwareName}</td>
-                                                <td class="cell"><fmt:formatDate value="${asset.licensePurchaseDate}" pattern="yyyy-MM-dd"/></td>
-                                                <td class="cell"><fmt:formatDate value="${asset.licenseExpiryDate}" pattern="yyyy-MM-dd"/></td>
-                                                <td class="cell">${asset.softwarePrice}</td>
+                                                <td class="cell">${asset.software_name}</td>
+                                                <td class="cell"><fmt:formatDate value="${asset.license_purchase_date}" pattern="yyyy-MM-dd"/></td>
+                                                <td class="cell"><fmt:formatDate value="${asset.license_expiry_date}" pattern="yyyy-MM-dd"/></td>
+                                                <td class="cell software-price">${asset.software_price}</td>
                                             </tr>
                                         </c:forEach>
                                     </tbody>

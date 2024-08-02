@@ -36,7 +36,7 @@ public class G_Controller_BOARD {
         // 세션에서 이메일 가져오기 예시
         String email = "fixed_email@example.com"; // 실제로는 세션에서 가져와야 함
         ins.setEmail(email);
-        d.addAttribute("result", service.insertBoard(ins));
+        d.addAttribute("result");
         return service.insertBoard(ins)>0?"등록성공":"등록실패"; // 등록 후 리다이렉트
     }
 

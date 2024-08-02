@@ -35,9 +35,9 @@
             justify-content: space-between;
             align-items: center;
         }
-        .chat-header .title {
-            flex: 1;
-            text-align: center;
+        .chat-header .icons {
+            display: flex;
+            gap: 10px;
         }
         .chat-body {
             flex: 1;
@@ -78,31 +78,27 @@
             margin-bottom: 5px;
             color: #444;
         }
-        .active-chat {
-            background-color: #007bff !important;
-            color: #fff !important;
-        }
     </style>
 </head>
 <body>
 <div class="sidebar">
-    <h4 id="nicknameDisplay"></h4>
+    <h4>${userNickname} 님</h4>
     <div>
         <h5>단체</h5>
-        <button id="group-1" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅1')">단체 채팅1</button>
-        <button id="group-2" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅2')">단체 채팅2</button>
-        <button id="group-3" class="btn btn-primary btn-block" onclick="changeChat('group', '단체 채팅3')">단체 채팅3</button>
+        <button class="btn btn-secondary btn-block">단체 채팅1</button>
+        <button class="btn btn-secondary btn-block">단체 채팅2</button>
+        <button class="btn btn-primary btn-block">단체 채팅3</button>
         <h5>개인</h5>
         <div id="privateChatList"></div>
     </div>
 </div>
 <div class="chat-container">
     <div class="chat-header">
-        <div class="title">
-            <h5 id="chatTitle">단체 채팅3</h5>
-            <span class="badge bg-primary">
-                <fmt:formatDate value="${currentDate}" pattern="yyyy-MM-dd" />
-            </span>
+        <h5>단체 채팅3</h5>
+        <div class="icons">
+            <span class="badge bg-primary">${currentDate}</span>
+            <i class="fas fa-search"></i>
+            <i class="fas fa-ellipsis-v"></i>
         </div>
     </div>
     <div class="chat-body" id="chatArea">
@@ -121,40 +117,32 @@
 <script src="${path}/a00_com/bootstrap.min.js"></script>
 <script src="${path}/a00_com/jquery-ui.js"></script>
 <script>
-var userNickname;
+var userNickname = '${userNickname}';
 var userEmail = '${userEmail}';
-var currentChatType = 'group';
-var currentChatName = '단체 채팅3';
 var socket = new WebSocket('ws://192.168.0.10:5656/chat');
 
 $(document).ready(function () {
     function ws_conn() {
         socket.onopen = function (evt) {
             console.log("Connection opened");
+            const joinMessage = {
+                email: userEmail,
+                nickname: userNickname,
+                /* content: userNickname + "님이 입장하셨습니다!" */
+            };
+            socket.send(JSON.stringify(joinMessage));
         };
         socket.onmessage = function (evt) {
             console.log("Message received: ", evt.data);
-            if(evt.data.startsWith("USER_LIST")) {
-                updatePrivateChatList(JSON.parse(evt.data.substring(9)));
+            if (evt.data.startsWith("USER_LIST")) {
+                handleUserList(evt.data.substring(9));
             } else {
-                var message = JSON.parse(evt.data);
-                if (message.nickname) {
-                    userNickname = message.nickname;
-                    $("#nicknameDisplay").text(userNickname + " 님");
-                }
                 revMsg(evt.data);
             }
         };
         socket.onclose = function () {
             console.log("Connection closed");
-            const leaveMessage = {
-                email: userEmail,
-                nickname: userNickname,
-                content: userNickname + "님이 퇴장하셨습니다!",
-                chatType: currentChatType,
-                chatName: currentChatName
-            };
-            revMsg(JSON.stringify(leaveMessage));
+            alert(userNickname + "님이 퇴장하셨습니다!");
         };
     }
 
@@ -170,24 +158,6 @@ $(document).ready(function () {
     ws_conn();
 });
 
-function changeChat(type, name) {
-    currentChatType = type;
-    currentChatName = name;
-    $("#chatTitle").text(name);
-    $("#chatMessageArea").empty();
-    updateActiveChatButton(type, name);
-    // 여기에서 이전 채팅 기록을 가져오는 코드 추가 가능
-}
-
-function updateActiveChatButton(type, name) {
-    // 모든 버튼에서 active-chat 클래스 제거
-    $(".btn").removeClass("active-chat");
-
-    // 현재 채팅 방 버튼에 active-chat 클래스 추가
-    var chatId = type + '-' + name;
-    $("#" + chatId).addClass("active-chat");
-}
-
 function sendMsg() {
     var content = $("#msg").val();
     if(content.trim() === "") {
@@ -197,30 +167,24 @@ function sendMsg() {
     const message = {
         email: userEmail,
         nickname: userNickname,
-        content: content,
-        chatType: currentChatType,
-        chatName: currentChatName
+        content: content
     };
     socket.send(JSON.stringify(message));
     $("#msg").val("");
 
-    // 내가 보낸 메시지 화면에 추가
-    addMessageToChat(userNickname, content, true);
+    // 내가 보낸 메시지는 서버에서 수신하지 않으므로 화면에 추가하지 않음
 }
 
 function revMsg(data) {
     const message = JSON.parse(data);
     const nickname = message.nickname.trim();
     const content = message.content.trim();
-    const chatType = message.chatType;
-    const chatName = message.chatName;
     const isSender = (nickname === userNickname.trim());
 
-    if(chatType === currentChatType && chatName === currentChatName) {
-        console.log("Received message from:", nickname, " Content: ", content);
-        // 메시지를 화면에 추가
-        addMessageToChat(nickname, content, isSender);
-    }
+    console.log("Received message from:", nickname, " Content: ", content);
+
+    // 메시지를 화면에 추가
+    addMessageToChat(nickname, content, isSender);
 }
 
 function addMessageToChat(nickname, content, isSender) {
@@ -239,21 +203,13 @@ function addMessageToChat(nickname, content, isSender) {
     $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight); // 스크롤을 맨 아래로 이동
 }
 
-function requestUserList() {
-    const request = {
-        type: "USER_LIST_REQUEST"
-    };
-    socket.send(JSON.stringify(request));
-}
-
-function updatePrivateChatList(users) {
+function handleUserList(data) {
+    const users = JSON.parse(data);
     $("#privateChatList").empty();
     users.forEach(function(user) {
-        if(user !== userNickname) {
+        if (user !== userNickname) {
             var userButton = $("<button></button>")
                 .addClass("btn btn-secondary btn-block")
-                .attr("id", "private-" + user)
-                .attr("onclick", "changeChat('private', '" + user + "')")
                 .text(user);
             $("#privateChatList").append(userButton);
         }

@@ -35,3 +35,4 @@ public class JSerResource {
         return dao.getAllAssets();
     }
 }
+

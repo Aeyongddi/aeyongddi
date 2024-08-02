@@ -15,12 +15,14 @@ import lombok.Setter;
 @Setter
 public class Task {
 	private String tkid;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date start_date;
-	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Date end_date;
-	private boolean isend;
-	private String name;
-	private String description;
-	private String sid;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date start_date;
+    private String start_dateStr;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date end_date;
+    private String end_dateStr;
+    private boolean isend;
+    private String name;
+    private String description;
+    private String sid;
 }

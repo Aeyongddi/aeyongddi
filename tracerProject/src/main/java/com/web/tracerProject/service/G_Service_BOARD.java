@@ -21,9 +21,9 @@ public class G_Service_BOARD {
     }
 
      
-    public int updateBoard(Board upt) {
-        return dao.updateBoard(upt);
-    }
+//    public int updateBoard(Board upt) {
+//        return dao.updateBoard(upt);
+//    }
     
     public int updateBoardStatus(String bid, boolean endYN) {
         return dao.updateBoardStatus(bid, endYN);

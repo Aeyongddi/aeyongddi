@@ -36,15 +36,19 @@ public class G_Controller_BOARD {
         // 세션에서 이메일 가져오기 예시
         String email = "fixed_email@example.com"; // 실제로는 세션에서 가져와야 함
         ins.setEmail(email);
-        d.addAttribute("result", service.insertBoard(ins));
-        return service.insertBoard(ins)>0?"등록성공":"등록실패"; // 등록 후 리다이렉트
+        
+        int result = service.insertBoard(ins); // 한 번만 호출
+        d.addAttribute("result", result);
+        
+        return result > 0 ? "등록성공" : "등록실패";
     }
 
-    @RequestMapping("/boardUpdate")
-    public String boardUpdate(Board upt, Model d) {
-        d.addAttribute("msg", service.updateBoard(upt));
-        return "tracerPages/board"; // 수정 후 리다이렉트
-    }
+
+//    @RequestMapping("/boardUpdate")
+//    public String boardUpdate(Board upt, Model d) {
+//        d.addAttribute("msg", service.updateBoard(upt));
+//        return "tracerPages/board"; // 수정 후 리다이렉트
+//    }
 
     @PostMapping("/boardDelete")
     public String boardDelete(@RequestBody Map<String, List<String>> payload, Model model) {
@@ -75,6 +79,7 @@ public class G_Controller_BOARD {
         }
     }
     
+   
     
 }
     

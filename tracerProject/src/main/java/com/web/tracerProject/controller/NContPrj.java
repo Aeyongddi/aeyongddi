@@ -55,7 +55,7 @@ public class NContPrj {
     	return ResponseEntity.ok(service.schProject(prjTitle));
     }
     @PostMapping("delPrj")
-    public ResponseEntity<String> delPrj(@RequestParam("pid") String pid) {
+    public ResponseEntity<List<Project>> delPrj(@RequestParam("pid") String pid) {
     	return ResponseEntity.ok(service.delPrj(pid));
     }
 }

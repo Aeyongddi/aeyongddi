@@ -23,7 +23,8 @@ public interface NDaoPrj {
 	@Insert("""
 			INSERT INTO
 			PROJECT VALUES
-			('PID'||LPAD(PID_SEQ.NEXTVAL, 5, '0'), #{start_date}, #{end_date}, #{title}, #{description})
+			('PID'||LPAD(PID_SEQ.NEXTVAL, 5, '0'), 
+			#{start_date}, #{end_date}, #{title}, #{description})
 			""")
 	int createPrj(Project project);
 	@Select("""
@@ -32,7 +33,7 @@ public interface NDaoPrj {
 	String getCurrPid();
 			
 	@Insert("""
-			INSERT INTO
+			INSERT INTOS
 			TEAM VALUES
 			('TID'||LPAD(TID_SEQ.NEXTVAL, 5, '0'), 
 			#{pid}, #{email}, #{auth})

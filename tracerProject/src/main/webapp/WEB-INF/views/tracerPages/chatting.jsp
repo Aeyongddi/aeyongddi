@@ -282,7 +282,7 @@ function revMsg(data) {
         console.log("Received message from:", nickname, " Content: ", content);
         addMessageToChat(nickname, content, isSender);
 
-        // 수신한 메시지를 로컬 스토리지에 저장
+    // 수신한 메시지를 로컬 스토리지에 저장
         saveMessageToLocalStorage(message);
     }
 }
@@ -298,19 +298,21 @@ function addMessageToChat(nickname, content, isSender) {
         var nicknameDiv = $("<div></div>").addClass("nickname").text(nickname);
         msgObj.prepend(nicknameDiv);
     }
-
     $("#chatMessageArea").append(msgObj);
     $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight); // 스크롤을 맨 아래로 이동
 }
 
 function saveMessageToLocalStorage(message) {
-    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName)) || [];
+    var chatHistory = JSON.parse(localStorage.getItem
+    		("chatHistory_" + currentChatName)) || [];
     chatHistory.push(message);
-    localStorage.setItem("chatHistory_" + currentChatName, JSON.stringify(chatHistory));
+    localStorage.setItem("chatHistory_" + currentChatName, 
+    		JSON.stringify(chatHistory));
 }
 
 function loadChatHistory() {
-    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName)) || [];
+    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + 
+    		currentChatName)) || [];
     chatHistory.forEach(function(message) {
         const nickname = message.nickname.trim();
         const content = message.content.trim();

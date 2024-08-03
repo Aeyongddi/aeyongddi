@@ -20,10 +20,12 @@ public class JContChat {
         // 세션에서 이메일과 닉네임 가져오기
         String userEmail = (String) session.getAttribute("userEmail");
         String userNickname = (String) session.getAttribute("userNickname");
+
         if (userNickname == null || userNickname.isEmpty()) {
             // 세션에 닉네임이 없으면 기본값 설정
             userNickname = "Guest" + new Date().getTime();
         }
+
         session.setAttribute("nickname", userNickname); // WebSocket 세션에 닉네임 설정
         d.addAttribute("userEmail", userEmail);
         d.addAttribute("userNickname", userNickname);

@@ -38,7 +38,8 @@
         .chat-header .icons {
             display: flex;
             gap: 10px;
-        }
+            align-items: center; /* 중앙 정렬 추가 */
+        }   
         .chat-body {
             flex: 1;
             padding: 10px;
@@ -82,19 +83,45 @@
             background-color: #007bff !important;
             color: #fff !important;
         }
-        .clear-chat-btn {
-            background: #ff4d4d;
-            border: none;
-            color: white;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin-left: 10px;
+        /* 닉네임 설정 모달 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 300px;
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .modal-header h2 {
+            margin: 0;
+        }
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
         }
     </style>
 </head>
 <body>
 <div class="sidebar">
-    <h4>${userNickname} 님</h4>
+    <h4 id="userNickname">${userNickname} 님</h4>
     <div>
         <h5>단체</h5>
         <button id="group-1" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅1')">단체 채팅1</button>
@@ -108,10 +135,10 @@
     <div class="chat-header">
         <h5 id="chatTitle">단체 채팅1</h5>
         <div class="icons">
-            <span class="badge bg-primary" id="currentDate"></span>
+            <span class="badge bg-primary"><fmt:formatDate value="${currentDate}" pattern="yyyy년 MM월 dd일"/></span>
             <i class="fas fa-search"></i>
             <i class="fas fa-ellipsis-v"></i>
-            <button class="clear-chat-btn" onclick="clearChatHistory()">채팅 기록 지우기</button>
+            <button id="clearChatBtn" class="btn btn-danger">채팅 기록 삭제</button>
         </div>
     </div>
     <div class="chat-body" id="chatArea">
@@ -121,6 +148,21 @@
         <div class="input-group">
             <input id="msg" type="text" class="form-control" placeholder="내용을 입력해주세요">
             <button id="sndBtn" class="btn btn-success">전송</button>
+        </div>
+    </div>
+</div>
+
+<!-- 닉네임 설정 모달 -->
+<div id="nicknameModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>닉네임 설정</h2>
+        </div>
+        <div class="modal-body">
+            <input id="nicknameInput" type="text" placeholder="닉네임을 입력하세요" class="form-control">
+        </div>
+        <div class="modal-footer">
+            <button id="saveNicknameBtn" class="btn btn-primary">저장</button>
         </div>
     </div>
 </div>
@@ -137,11 +179,16 @@ var currentChatName = '단체 채팅1';
 var socket = new WebSocket('ws://192.168.0.10:5656/chat');
 
 $(document).ready(function () {
-    loadChatHistory();  // 페이지 로드 시 채팅 기록 불러오기
-    updateActiveChatButton(currentChatType, currentChatName); // 초기 활성화 버튼 설정
-    setCurrentDate(); // 현재 날짜 설정
+    if (userNickname.startsWith("Guest")) {
+        showNicknameModal();
+    } else {
+        initializeChat();
+    }
 
-    function ws_conn() {
+    function initializeChat() {
+
+        loadChatHistory();  // 페이지 로드 시 채팅 기록 불러오기
+
         socket.onopen = function (evt) {
             console.log("Connection opened");
             const joinMessage = {
@@ -151,6 +198,7 @@ $(document).ready(function () {
             };
             socket.send(JSON.stringify(joinMessage));
         };
+
         socket.onmessage = function (evt) {
             console.log("Message received: ", evt.data);
             if (evt.data.startsWith("USER_LIST")) {
@@ -159,22 +207,50 @@ $(document).ready(function () {
                 revMsg(evt.data);
             }
         };
+
         socket.onclose = function () {
             console.log("Connection closed");
             alert(userNickname + "님이 퇴장하셨습니다!");
         };
+
+        $("#sndBtn").click(function () {
+            sendMsg();
+        });
+
+        $("#msg").keyup(function (event) {
+            if (event.keyCode === 13) {
+                sendMsg();
+            }
+        });
+
+        $("#clearChatBtn").click(function () {
+            clearChatHistory();
+        });
     }
 
-    $("#sndBtn").click(function () {
-        sendMsg();
-    });
-    $("#msg").keyup(function (event) {
-        if (event.keyCode === 13) {
-            sendMsg();
-        }
-    });
+    function showNicknameModal() {
+        $("#nicknameModal").show();
 
-    ws_conn();
+        $("#saveNicknameBtn").click(function () {
+            var newNickname = $("#nicknameInput").val().trim();
+            if (newNickname) {
+                userNickname = newNickname;
+                $("#userNickname").text(userNickname + " 님");
+                $("#nicknameModal").hide();
+                initializeChat();
+
+                // 닉네임 변경 메시지를 서버에 전송
+                const nicknameUpdateMessage = {
+                    type: "NICKNAME_UPDATE",
+                    oldNickname: '${userNickname}',
+                    newNickname: userNickname
+                };
+                socket.send(JSON.stringify(nicknameUpdateMessage));
+            } else {
+                alert("닉네임을 입력해주세요.");
+            }
+        });
+    }
 });
 
 function sendMsg() {
@@ -207,7 +283,7 @@ function revMsg(data) {
         console.log("Received message from:", nickname, " Content: ", content);
         addMessageToChat(nickname, content, isSender);
 
-        // 메시지를 로컬 스토리지에 저장
+        // 수신한 메시지를 로컬 스토리지에 저장
         saveMessageToLocalStorage(message);
     }
 }
@@ -229,19 +305,24 @@ function addMessageToChat(nickname, content, isSender) {
 }
 
 function saveMessageToLocalStorage(message) {
-    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName.replace(/\s/g, ''))) || [];
+    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName)) || [];
     chatHistory.push(message);
-    localStorage.setItem("chatHistory_" + currentChatName.replace(/\s/g, ''), JSON.stringify(chatHistory));
+    localStorage.setItem("chatHistory_" + currentChatName, JSON.stringify(chatHistory));
 }
 
 function loadChatHistory() {
-    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName.replace(/\s/g, ''))) || [];
+    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName)) || [];
     chatHistory.forEach(function(message) {
         const nickname = message.nickname.trim();
         const content = message.content.trim();
         const isSender = (nickname === userNickname.trim());
         addMessageToChat(nickname, content, isSender);
     });
+}
+
+function clearChatHistory() {
+    localStorage.removeItem("chatHistory_" + currentChatName);
+    $("#chatMessageArea").empty();
 }
 
 function handleUserList(data) {
@@ -251,8 +332,6 @@ function handleUserList(data) {
         if (user !== userNickname) {
             var userButton = $("<button></button>")
                 .addClass("btn btn-secondary btn-block")
-                .attr("id", "private-" + user.replace(/\s/g, ''))
-                .attr("onclick", "changeChat('private', '" + user + "')")
                 .text(user);
             $("#privateChatList").append(userButton);
         }
@@ -273,21 +352,8 @@ function updateActiveChatButton(type, name) {
     $(".btn").removeClass("active-chat");
 
     // 현재 채팅 방 버튼에 active-chat 클래스 추가
-    var chatId = type + '-' + name.replace(/\s/g, '');
+    var chatId = type + '-' + name;
     $("#" + chatId).addClass("active-chat");
-}
-
-function clearChatHistory() {
-    if(confirm("정말로 채팅 기록을 지우시겠습니까?")) {
-        localStorage.removeItem("chatHistory_" + currentChatName.replace(/\s/g, ''));
-        $("#chatMessageArea").empty();
-    }
-}
-
-function setCurrentDate() {
-    var date = new Date();
-    var formattedDate = date.getFullYear() + '년 ' + String(date.getMonth() + 1).padStart(2, '0') + '월 ' + String(date.getDate()).padStart(2, '0') + '일';
-    $("#currentDate").text(formattedDate);
 }
 </script>
 </body>

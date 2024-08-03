@@ -20,7 +20,7 @@ public class NSerGantt {
 		return dao.getGanttTask();
 	}
 	
-	public List<Gantt> getUsers(){
+	public List<String> getUsers(){ 
 		return dao.getUsers();
 	}
 }

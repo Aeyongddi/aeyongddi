@@ -47,7 +47,13 @@
 $(document).ready(function(){
 // 초기세팅
 var ganttData;
-
+var opts
+	gantt.i18n.setLocale({
+		labels: {
+			section_User: "Users"
+		}
+	})
+	gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
 	gantt.config.show_empty_state = true;
 	gantt.config.start_date = new Date(2023, 07, 01);
 	gantt.config.end_date = new Date(2025, 08, 01);
@@ -56,22 +62,35 @@ var ganttData;
         { name: "start_date", label: "Start time", align: "center" },
         { name: "duration", label: "Duration", align: "center" },
         { name: "users", label: "User", align: "center" },
-        {name: "add", label: "+", width: 30, template: function(task) {
+        { name: "add", label: "+", width: 30, template: function(task) {
             return "<button class='gantt_add_task'>+</button>";
         }}
     ];
 
-	gantt.config.lightbox.sections = [
-	    {name:"description", height:38, map_to:"text", type:"textarea",focus:true},  
-	    
-	    {name:"time", height:72, type:"duration", map_to:"auto"}
-	];
+	$.ajax({
+        url: 'getUsers',
+        type: 'POST',
+        dataType: 'json',
+        success: function(n) {
+            // data는 List<String> 형식의 사용자 목록입니다
+            // 간트 차트 설정
+            gantt.config.lightbox.sections = [
+                { name: "description", height: 38, map_to: "text", type: "textarea", focus: true },
+                { name: "User", height: 22, map_to: "users", type: "select", 
+				options: 
+					n.map(function(username) { return { key: username, label: username }; }) },
+                { name: "time", height: 72, type: "duration", map_to: "auto" }
+            ];
+            timelineFunc()
+        },
+        error: function(err) {
+            console.error("Failed to load users", err);
+        }
+    });
 	
-	gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
 	
-    
-///////////
-var opts;
+	
+	var timelineFunc = function(){
 	$.ajax({
 		url: 'timeline',
 		type: 'POST',
@@ -79,7 +98,6 @@ var opts;
 		success: function(data){
 			console.log(data)
 			ganttData = data
-			
 			gantt.init("gantt_here");
 			gantt.parse(ganttData, "json");
 		    gantt.attachEvent("onBeforeTaskAdd", function(id, task) {
@@ -106,13 +124,12 @@ var opts;
 		        console.log("Task delete:", id, task);
 		        return true; 
 		    });
-		    
 		},
 		error: function(err){
 			console.log(err)
 		}
 	})
-	
+}
 	function countParentTasks(taskId) {
         var count = 0;
         var task = gantt.getTask(taskId);

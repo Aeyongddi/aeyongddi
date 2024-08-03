@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -19,6 +18,7 @@ import com.web.tracerProject.vo.Gantt;
 public class NContGantt {
 	@Autowired(required=false)
 	NSerGantt service;
+	
 	@GetMapping("timeline")
 	public String timeline() {
 		return "tracerPages/timeline";
@@ -27,13 +27,18 @@ public class NContGantt {
     public ResponseEntity<Map<String, Object>> getGanttScheduleTask() {
         List<Gantt> ganttSchedule = service.getGanttSchedule();
         List<Gantt> ganttTask = service.getGanttTask();
+        
         List<Gantt> ganttData = new ArrayList<>();
         ganttData.addAll(ganttSchedule);
         ganttData.addAll(ganttTask);
-  
+        
         Map<String, Object> response = new HashMap<>();
         response.put("data", ganttData);
 
         return ResponseEntity.ok(response);
     }
+	@PostMapping("getUsers")
+	public ResponseEntity<List<String>> getUsers() {
+		return ResponseEntity.ok(service.getUsers());
+	}
 }

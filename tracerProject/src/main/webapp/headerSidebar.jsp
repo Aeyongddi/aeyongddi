@@ -45,7 +45,7 @@ $(document).ready(function(){
 		$(".newPrjFrm").hide(400)
 		$(".newPrjFrm input").val("")
 		$(".newPrjFrm textarea").val("")
-	})
+	})''''
 	$(".innerCls").click(function(){
 		$('.authSel').prop('selectedIndex', 0);
 		$(".emailSch").hide(400)
@@ -309,10 +309,10 @@ $(document).ready(function(){
                         </a><!--//nav-link-->
                         <div id="submenu-1" class="collapse submenu submenu-1" data-bs-parent="#menu-accordion">
                             <ul class="submenu-list list-unstyled">
-                                <li class="submenu-item"><a class="submenu-link" href="notifications.jsp"><fmt:message key='risk.management.board'/></a></li>
-                                <li class="submenu-item"><a class="submenu-link" href="account.jsp"><fmt:message key='schedule.board'/></a></li>
-                                <li class="submenu-item"><a class="submenu-link" href="settings.jsp"><fmt:message key='approval.board'/></a></li>
-                                <li class="submenu-item"><a class="submenu-link" href="settings.jsp"><fmt:message key='completed.approval.board'/></a></li>
+                                <li class="submenu-item"><a class="submenu-link" href="boardList"><fmt:message key='risk.management.board'/></a></li>
+                                <li class="submenu-item"><a class="submenu-link" href="boardList"><fmt:message key='schedule.board'/></a></li>
+                                <li class="submenu-item"><a class="submenu-link" href="boardList"><fmt:message key='approval.board'/></a></li>
+                                <li class="submenu-item"><a class="submenu-link" href="boardList"><fmt:message key='completed.approval.board'/></a></li>
                             </ul>
                         </div>
                     </li><!--//nav-item-->
@@ -379,7 +379,6 @@ function openChatWindow(url) {
         name="description" class="form-control mr-sm-2" placeholder="프로젝트 설명 입력" required></textarea><br>
        	<div id="inTeamList">
 	        참여 인원<br>
-	        <p>닉네임 : ${user_info.nickname} / 권한 : admin</p>
        	</div>
         <input type="email" name="invEmail" class="form-control" placeholder="이메일 검색" required/>
         <button type="button" id="schEmailBtn" class="btn btn-info" style="width: 15%;">검색</button>

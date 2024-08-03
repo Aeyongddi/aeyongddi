@@ -43,8 +43,8 @@ public interface NDaoGantt {
 	@Select("""
 			SELECT NICKNAME FROM USER_INFO
 			""")
-	List<Gantt> getUsers();
-	
+	List<String> getUsers();
+	                                                                           
 	@Insert("""
 			
 			""")

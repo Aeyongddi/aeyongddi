@@ -24,5 +24,4 @@ public class Gantt {
 	private String open;
 	private String text;
 	private String users;
-	private List<String> userList;
 }

@@ -1,19 +1,15 @@
 package com.web.tracerProject.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,12 +19,6 @@ import com.web.tracerProject.vo.Task;
 
 @Controller
 public class G_Controller_Task {
-	@InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        dateFormat.setLenient(false);
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, false));
-    }	
     @Autowired(required = false)
     private G_Service_TASK service;
    
@@ -39,17 +29,45 @@ public class G_Controller_Task {
         d.addAttribute("taskList", taskList);
         return "tracerPages/tkid"; 
     }
+    
+    // 등록하는 코드 
     @PostMapping("/taskListInsert")
     @ResponseBody
     public ResponseEntity<String> taskInsert(@RequestBody Task ins) {
-        System.out.println("Received Task: " + ins);
+        // Task 객체의 null 필드에 기본값 설정
+        if (ins.getStart_date() == null) {
+            ins.setStart_date(new Date()); // 현재 날짜로 설정
+        }
+        if (ins.getEnd_date() == null) {
+            ins.setEnd_date(new Date()); // 현재 날짜로 설정
+        }
+        
+        // 필드 기본값 설정
+        if (ins.getName() == null) {
+            ins.setName("");
+        }
+        if (ins.getDescription() == null) {
+            ins.setDescription("");
+        }
+        if (ins.getSid() == null) {
+            ins.setSid("");
+        }
+        if (!ins.isEndYN()) {
+            ins.setEndYN(false);
+        }
+
+        // 서비스 메서드를 호출하여 작업 삽입
         int result = service.insertTask(ins);
 
-        return ResponseEntity.ok(result > 0 ? "등록성공" : "등록실패");
+        // 응답 반환
+        return result > 0 
+            ? ResponseEntity.ok("등록 성공")
+            : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 실패");
     }
+     
 
    
-
+    // 단일 삭제 및 전체 삭제하는 코드
     @PostMapping("/taskDelete")
     public String taskDelete(@RequestBody Map<String, List<String>> payload, Model model) {
         List<String> tkids = payload.get("ids");
@@ -64,13 +82,14 @@ public class G_Controller_Task {
         model.addAttribute("proc", "삭제");
         return "tracerPages/tkid";
     }
-
+    
+    //  endYN boolean 값 DB에 바로 적용하는 코드
     @PostMapping("/updateTaskStatus")
     public ResponseEntity<String> updateTaskStatus(@RequestBody Map<String, Object> payload) {
         String tkid = (String) payload.get("tkid");
-        boolean isend = (Boolean) payload.get("isend");
+        boolean endYN = (Boolean) payload.get("endYN");
 
-        int result = service.updateTaskStatus(tkid, isend);
+        int result = service.updateTaskStatus(tkid, endYN);
 
         if (result > 0) {
             return ResponseEntity.ok("Status updated successfully");

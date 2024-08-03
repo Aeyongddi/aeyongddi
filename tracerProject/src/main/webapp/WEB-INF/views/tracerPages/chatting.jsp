@@ -124,9 +124,9 @@
     <h4 id="userNickname">${userNickname} 님</h4>
     <div>
         <h5>단체</h5>
-        <button id="group-1" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅1')">단체 채팅1</button>
-        <button id="group-2" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅2')">단체 채팅2</button>
-        <button id="group-3" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅3')">단체 채팅3</button>
+        <button id="group-1" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅1', this)">단체 채팅1</button>
+        <button id="group-2" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅2', this)">단체 채팅2</button>
+        <button id="group-3" class="btn btn-secondary btn-block" onclick="changeChat('group', '단체 채팅3', this)">단체 채팅3</button>
         <h5>접속 중인 사용자</h5>
         <div id="privateChatList"></div>
     </div>
@@ -159,7 +159,7 @@
             <h2>닉네임 설정</h2>
         </div>
         <div class="modal-body">
-            <input id="nicknameInput" type="text" placeholder="닉네임을 입력하세요" class="form-control">
+            <input id="nicknameInput" type="text" placeholder="${userNickname}" class="form-control">
         </div>
         <div class="modal-footer">
             <button id="saveNicknameBtn" class="btn btn-primary">저장</button>
@@ -179,14 +179,9 @@ var currentChatName = '단체 채팅1';
 var socket = new WebSocket('ws://192.168.0.10:5656/chat');
 
 $(document).ready(function () {
-    if (userNickname.startsWith("Guest")) {
-        showNicknameModal();
-    } else {
-        initializeChat();
-    }
+    showNicknameModal();
 
     function initializeChat() {
-
         loadChatHistory();  // 페이지 로드 시 채팅 기록 불러오기
 
         socket.onopen = function (evt) {
@@ -230,26 +225,30 @@ $(document).ready(function () {
 
     function showNicknameModal() {
         $("#nicknameModal").show();
+        $("#nicknameInput").val(userNickname); // placeholder 설정
+        $("#nicknameInput").focus();
 
-        $("#saveNicknameBtn").click(function () {
-            var newNickname = $("#nicknameInput").val().trim();
-            if (newNickname) {
-                userNickname = newNickname;
-                $("#userNickname").text(userNickname + " 님");
-                $("#nicknameModal").hide();
-                initializeChat();
-
-                // 닉네임 변경 메시지를 서버에 전송
-                const nicknameUpdateMessage = {
-                    type: "NICKNAME_UPDATE",
-                    oldNickname: '${userNickname}',
-                    newNickname: userNickname
-                };
-                socket.send(JSON.stringify(nicknameUpdateMessage));
-            } else {
-                alert("닉네임을 입력해주세요.");
+        $("#nicknameInput").keyup(function (event) {
+            if (event.keyCode === 13) {
+                saveNickname();
             }
         });
+
+        $("#saveNicknameBtn").click(function () {
+            saveNickname();
+        });
+    }
+
+    function saveNickname() {
+        var newNickname = $("#nicknameInput").val().trim();
+        if (newNickname) {
+            userNickname = newNickname;
+            $("#userNickname").text(userNickname + " 님");
+            $("#nicknameModal").hide();
+            initializeChat();
+        } else {
+            alert("닉네임을 입력해주세요.");
+        }
     }
 });
 
@@ -329,32 +328,33 @@ function handleUserList(data) {
     const users = JSON.parse(data);
     $("#privateChatList").empty();
     users.forEach(function(user) {
-        if (user !== userNickname) {
-            var userButton = $("<button></button>")
-                .addClass("btn btn-secondary btn-block")
-                .text(user);
-            $("#privateChatList").append(userButton);
+        var userButton = $("<button></button>")
+            .addClass("btn btn-secondary btn-block")
+            .text(user);
+        if (user === userNickname) {
+            userButton.addClass("active-chat");
         }
+        $("#privateChatList").append(userButton);
     });
 }
 
-function changeChat(type, name) {
+function changeChat(type, name, button) {
     currentChatType = type;
     currentChatName = name;
     $("#chatTitle").text(name);
     $("#chatMessageArea").empty();
     loadChatHistory();  // 채팅방 변경 시 채팅 기록 불러오기
-    updateActiveChatButton(type, name);
+    updateActiveChatButton(button);
 }
 
-function updateActiveChatButton(type, name) {
+function updateActiveChatButton(button) {
     // 모든 버튼에서 active-chat 클래스 제거
     $(".btn").removeClass("active-chat");
 
-    // 현재 채팅 방 버튼에 active-chat 클래스 추가
-    var chatId = type + '-' + name;
-    $("#" + chatId).addClass("active-chat");
+    // 클릭된 버튼에 active-chat 클래스 추가
+    $(button).addClass("active-chat");
 }
+
 </script>
 </body>
 </html>

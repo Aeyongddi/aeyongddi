@@ -3,12 +3,10 @@ package com.web.tracerProject.util;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.tracerProject.service.JSerChat;
 import com.web.tracerProject.vo.Chatting;
@@ -18,7 +16,7 @@ public class ChatHandler extends TextWebSocketHandler {
 
     private final Map<String, WebSocketSession> users = new ConcurrentHashMap<>();
     private final Map<WebSocketSession, String> userNicknames = new ConcurrentHashMap<>();
-    private final AtomicInteger guestCounter = new AtomicInteger(1);
+    private final AtomicInteger guestCounter = new AtomicInteger(1);  // 게스트 카운터
 
     @Autowired
     private JSerChat chatService;
@@ -48,12 +46,6 @@ public class ChatHandler extends TextWebSocketHandler {
         String email = messageMap.get("email");
         String nickname = messageMap.get("nickname");
         String content = messageMap.get("content");
-        String type = messageMap.get("type");
-
-        if ("NICKNAME_UPDATE".equals(type)) {
-            handleNicknameUpdate(session, messageMap.get("newNickname"));
-            return;
-        }
 
         Chatting chatMessage = new Chatting();
         chatMessage.setChid(UUID.randomUUID().toString());
@@ -69,6 +61,7 @@ public class ChatHandler extends TextWebSocketHandler {
             return;
         }
 
+        // 모든 클라이언트에게 브로드캐스트
         for (WebSocketSession userSession : users.values()) {
             if (userSession.isOpen()) {
                 userSession.sendMessage(new TextMessage(payload));
@@ -92,26 +85,6 @@ public class ChatHandler extends TextWebSocketHandler {
         for (WebSocketSession userSession : users.values()) {
             userSession.sendMessage(new TextMessage(leaveMessage));
         }
-        sendUserList();
-    }
-
-    private void handleNicknameUpdate(WebSocketSession session, String newNickname) throws Exception {
-        String oldNickname = userNicknames.get(session);
-        userNicknames.put(session, newNickname);
-
-        Map<String, Object> updateMessage = new HashMap<>();
-        updateMessage.put("type", "NICKNAME_UPDATE");
-        updateMessage.put("oldNickname", oldNickname);
-        updateMessage.put("newNickname", newNickname);
-        updateMessage.put("userList", new ArrayList<>(userNicknames.values()));
-
-        String payload = objectMapper.writeValueAsString(updateMessage);
-        for (WebSocketSession userSession : users.values()) {
-            if (userSession.isOpen()) {
-                userSession.sendMessage(new TextMessage(payload));
-            }
-        }
-
         sendUserList();
     }
 

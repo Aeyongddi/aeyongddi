@@ -18,24 +18,27 @@ public class G_Service_TASK {
 		// processNullFields(sch);
 		return dao.getTaskList();
 	}
-	// List<Task> getTkidList() Task
-
-//    public int updateBoard(Board upt) {
-//        return dao.updateBoard(upt);
-//    }
-
+    
+	// 수정하는 코드
+    public String updateTask(Task upt) {
+        return dao.updateTask(upt) > 0 ? "수정성공" : "수정실패";
+    }
+	
+    // boolean 값 수정하는 코드
 	public int updateTaskStatus(String tkid, boolean endYN) {
 		return dao.updateTaskStatus(tkid, endYN);
 	}
-
+    
+	// 단일 삭제하는 코드
 	public int deleteTask(String tkid) {
 		return dao.deleteTask(tkid);
 	}
-
+    // 전체 삭제하는 코드
 	public int deleteTasks(List<String> tkids) {
 		return dao.deleteTasks(tkids);
 	}
-
+    
+	// 등록하는 코드 처리 값
 	public int insertTask(Task ins) {
 	    ins.setTkid(dao.getTkid()); // tkid를 시퀀스로 자동 생성
 

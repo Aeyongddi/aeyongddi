@@ -45,7 +45,7 @@ $(document).ready(function(){
 		$(".newPrjFrm").hide(400)
 		$(".newPrjFrm input").val("")
 		$(".newPrjFrm textarea").val("")
-	})''''
+	})
 	$(".innerCls").click(function(){
 		$('.authSel').prop('selectedIndex', 0);
 		$(".emailSch").hide(400)
@@ -98,8 +98,6 @@ $(document).ready(function(){
 			alert('권한을 선택해주세요')
 		else{
 			auth.push($("[name=auth]").val())
-			console.log(auth)
-			console.log(addEmail)
 			$("#inTeamList").append("<p class='team"+(count++)+
 					"'>닉네임 : "+nickname+" / 권한 : "+auth[auth.length-1]+"</p>")
 			$("input[name=invEmail]").val("")
@@ -126,7 +124,6 @@ $(document).ready(function(){
 			url: 'createPrj',
 			type: 'POST',
 			success: function(data){
-				console.log(data)
 				alert(data)
 				getCurrPid(auth, email)
 			},

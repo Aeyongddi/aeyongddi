@@ -41,6 +41,7 @@ public class ChatHandler extends TextWebSocketHandler {
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 		String payload = message.getPayload();
+		System.out.println("Received message payload: " + payload); // 서버 로그 추가
 		Map<String, String> messageMap = objectMapper.readValue(payload, Map.class);
 
 		String email = messageMap.get("email");

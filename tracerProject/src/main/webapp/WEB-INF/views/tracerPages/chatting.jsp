@@ -259,7 +259,6 @@ function sendMsg() {
     }
     console.log("Sending message: ", content);
     const message = {
-        email: userEmail,
         nickname: userNickname,
         content: content,
         chatType: currentChatType,

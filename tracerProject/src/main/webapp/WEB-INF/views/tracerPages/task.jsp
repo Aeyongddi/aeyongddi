@@ -42,7 +42,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #0054FF;
     padding-bottom: 20px;
 }
 
@@ -116,14 +116,13 @@
             <span class="issue-count"> 3개 이슈 <select
                 onchange="handleSelectChange(this.value)">
                     <option value="">선택</option>
-                    <option value="edit">편집</option>
                     <option value="delete">삭제</option>
             </select>
             </span>
         </div>
         <ul class="issue-list">
             <c:forEach var="task" items="${taskList}">
-                <li class="issue-item"><input type="checkbox"
+                <li class="issue-item" id="issue-item-${task.tkid}"><input type="checkbox"
                     class="issue-checkbox" id="issue-${task.tkid}" value="${task.tkid}">
                     <label for="issue-${task.tkid}" class="issue-key">${task.tkid}</label>
                     <span class="issue-summary"
@@ -142,7 +141,8 @@
         <div class="textarea-container" id="textarea-container">
             <textarea id="issue-name" placeholder="이슈 제목을 입력하세요..."></textarea>
             <div class="date-picker-wrapper">
-                시작 날짜 <input type="text" id="issue-start-date" class="custom-date-input"> 종료 날짜 <input type="text" id="issue-end-date" class="custom-date-input">
+                시작 날짜 <input type="text" id="issue-start-date" class="custom-date-input"> 
+                종료 날짜 <input type="text" id="issue-end-date" class="custom-date-input">
             </div>
             <button type="button" class="btn btn-primary" onclick="saveIssue()">저장</button>
             <button type="button" class="btn btn-secondary" onclick="closeTextarea()">닫기</button>
@@ -159,17 +159,23 @@
                 <input type="hidden" id="edit-tkid">
                 <div class="form-group">
                     <label for="edit-description">설명</label>
-                  
-                  0  <textarea id="edit-description" class="form-control"></textarea>
+                    <textarea id="edit-description" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
                     <label for="edit-sid">SID</label> <input type="text" id="edit-sid"
                         class="form-control">
                 </div>
+                <div class="form-group">
+                    <label for="edit-start_date">시작 날짜 수정</label> <input type="date" id="edit-start_date"
+                        class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="edit-end_date">종료 날짜 수정</label> <input type="date" id="edit-end_date"
+                        class="form-control">
+                </div>
             </form>
             <div>
-                <button type="button" class="btn btn-primary"
-                    onclick="updateReservation(${reservation.reservation})">업데이트</button>
+                <button type="button" class="btn btn-primary" onclick="updateReservation()">업데이트</button>
             </div>
         </div>
     </div>
@@ -325,20 +331,45 @@
             });
         });
 
-        function updateReservation(reservationId) {
-            var formData = $('#form' + reservationId).serialize(); // 폼 데이터 직렬화
+        function updateReservation() {
+            const tkid = document.getElementById('edit-tkid').value;
+            const name = document.getElementById('edit-name').value;
+            const description = document.getElementById('edit-description').value;
+            const sid = document.getElementById('edit-sid').value;
+            const startDate = document.getElementById('edit-start_date').value;
+            const endDate = document.getElementById('edit-end_date').value;
+
+            // Check if required fields are filled
+            if (!tkid || !name || !sid) {
+                alert('필수 입력 필드를 모두 입력해주세요.');
+                return;
+            }
 
             $.ajax({
-                type: "POST",
-                url: "${path}/updateTask",
-                data: formData,
+                url: '/updateTask',
+                type: 'POST',
+                data: JSON.stringify({
+                    tkid: tkid,
+                    name: name,
+                    description: description,
+                    sid: sid,
+                    start_date: startDate,
+                    end_date: endDate
+                }),
+                contentType: 'application/json',
                 success: function(response) {
-                    alert("예약이 성공적으로 업데이트되었습니다.");
-                    $('#detailsModal' + reservationId).modal('hide'); // 모달 닫기
-                    window.location.href = "${path}/taskList"; // 리스트 페이지로 이동
+                    alert('업데이트 성공');
+                    // Optionally update the issue item on the page
+                    const issueItem = document.getElementById(`issue-item-${tkid}`);
+                    if (issueItem) {
+                        issueItem.querySelector('.issue-summary').textContent = name;
+                        // Update other fields as needed
+                    }
+                    closeEditContainer();
                 },
                 error: function(xhr, status, error) {
-                    alert("업데이트 중 오류가 발생하였습니다: " + error);
+                    console.error('Error updating task:', error);
+                    alert('업데이트 중 오류가 발생했습니다.');
                 }
             });
         }

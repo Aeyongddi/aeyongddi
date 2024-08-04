@@ -97,11 +97,16 @@ public class G_Controller_Task {
          }
      }
      
-     // 수정하는 코드
+  // 수정하는 코드
      @PostMapping("/updateTask")
-     public String Reservation01Update(Task upt, Model d) {
- 		d.addAttribute("msg", service.updateTask(upt));
- 		return "tracerPages/task"; 
- 	}
+     @ResponseBody
+     public ResponseEntity<String> updateTask(@RequestBody Task upt) {
+         int result = service.updateTask(upt);
+         if (result > 0) {
+             return ResponseEntity.ok("업데이트 성공");
+         } else {
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("업데이트 실패");
+         }
+     }
      
 }

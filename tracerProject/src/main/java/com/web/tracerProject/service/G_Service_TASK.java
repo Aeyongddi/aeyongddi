@@ -20,9 +20,9 @@ public class G_Service_TASK {
 	}
     
 	// 수정하는 코드
-    public String updateTask(Task upt) {
-        return dao.updateTask(upt) > 0 ? "수정성공" : "수정실패";
-    }
+	public int updateTask(Task upt) {
+	    return dao.updateTask(upt);
+	}
 	
     // boolean 값 수정하는 코드
 	public int updateTaskStatus(String tkid, boolean endYN) {

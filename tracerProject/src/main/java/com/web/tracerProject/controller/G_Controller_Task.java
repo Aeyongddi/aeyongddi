@@ -27,14 +27,13 @@ public class G_Controller_Task {
     public String taskList(Task sch, Model d) {
         List<Task> taskList = service.getTaskList(sch);
         d.addAttribute("taskList", taskList);
-        return "tracerPages/tkid"; 
+        return "tracerPages/task"; 
     }
     
     // 등록하는 코드 
     @PostMapping("/taskListInsert")
     @ResponseBody
     public ResponseEntity<String> taskInsert(@RequestBody Task ins) {
-        // Task 객체의 null 필드에 기본값 설정
         if (ins.getStart_date() == null) {
             ins.setStart_date(new Date()); // 현재 날짜로 설정
         }
@@ -65,36 +64,44 @@ public class G_Controller_Task {
             : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("등록 실패");
     }
      
-
+     
    
-    // 단일 삭제 및 전체 삭제하는 코드
-    @PostMapping("/taskDelete")
-    public String taskDelete(@RequestBody Map<String, List<String>> payload, Model model) {
+     // 단일 삭제 및 전체 삭제하는 코드
+     @PostMapping("/taskDelete")
+     public String taskDelete(@RequestBody Map<String, List<String>> payload, Model model) {
         List<String> tkids = payload.get("ids");
         if (tkids == null || tkids.isEmpty()) {
             model.addAttribute("msg", "삭제할 항목이 없습니다.");
             model.addAttribute("proc", "삭제 실패");
-            return "tracerPages/tkid";
+            return "tracerPages/task";
         }
 
         int result = service.deleteTasks(tkids);
         model.addAttribute("msg", result > 0 ? "삭제 성공" : "삭제 실패");
         model.addAttribute("proc", "삭제");
-        return "tracerPages/tkid";
-    }
+        return "tracerPages/task";
+     }
     
-    //  endYN boolean 값 DB에 바로 적용하는 코드
-    @PostMapping("/updateTaskStatus")
-    public ResponseEntity<String> updateTaskStatus(@RequestBody Map<String, Object> payload) {
-        String tkid = (String) payload.get("tkid");
-        boolean endYN = (Boolean) payload.get("endYN");
+     //  endYN boolean 값 DB에 바로 적용하는 코드
+     @PostMapping("/updateTaskStatus")
+     public ResponseEntity<String> updateTaskStatus(@RequestBody Map<String, Object> payload) {
+         String tkid = (String) payload.get("tkid");
+         boolean endYN = (Boolean) payload.get("endYN");
 
-        int result = service.updateTaskStatus(tkid, endYN);
+         int result = service.updateTaskStatus(tkid, endYN);
 
-        if (result > 0) {
-            return ResponseEntity.ok("Status updated successfully");
-        } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update status");
-        }
-    }
+         if (result > 0) {
+             return ResponseEntity.ok("Status updated successfully");
+         } else {
+             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update status");
+         }
+     }
+     
+     // 수정하는 코드
+     @PostMapping("/updateTask")
+     public String Reservation01Update(Task upt, Model d) {
+ 		d.addAttribute("msg", service.updateTask(upt));
+ 		return "tracerPages/task"; 
+ 	}
+     
 }

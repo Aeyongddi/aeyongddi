@@ -1,6 +1,7 @@
 package com.web.tracerProject.service;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,10 +38,14 @@ public class JSerResource {
         return dao.getAllAssets();
     }
 
-    public void addAssetAndUpdateBudget(String pid, String rtype, String software_name, String license_purchase_date, String license_expiry_date, BigDecimal software_price) {
-        String rid = dao.generateRid();
-        dao.addAsset(rid, pid, rtype, software_name, license_purchase_date, license_expiry_date, software_price);
+    public ResourceManage addAssetAndUpdateBudget(String pid, String rtype, String software_name, String license_purchase_date, String license_expiry_date, BigDecimal software_price) {
+        int nextVal = dao.getNextRid();
+        String rid = String.format("R%03d", nextVal);
+        Date purchaseDate = Date.valueOf(license_purchase_date);
+        Date expiryDate = Date.valueOf(license_expiry_date);
+        ResourceManage asset = new ResourceManage(rid, rtype, null, null, software_name, purchaseDate, expiryDate, software_price, pid);
+        dao.addAsset(asset);
         dao.increaseUsedBudget(pid, software_price);
+        return asset;
     }
-
 }

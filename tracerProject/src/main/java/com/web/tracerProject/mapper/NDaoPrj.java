@@ -33,7 +33,7 @@ public interface NDaoPrj {
 	String getCurrPid();
 			
 	@Insert("""
-			INSERT INTOS
+			INSERT INTO
 			TEAM VALUES
 			('TID'||LPAD(TID_SEQ.NEXTVAL, 5, '0'), 
 			#{pid}, #{email}, #{auth})

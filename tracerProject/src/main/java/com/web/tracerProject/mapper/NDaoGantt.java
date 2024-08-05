@@ -5,10 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.web.tracerProject.vo.Gantt;
+import com.web.tracerProject.vo.Schedule;
+import com.web.tracerProject.vo.Task;
 
 @Mapper
 public interface NDaoGantt {
@@ -44,27 +47,44 @@ public interface NDaoGantt {
 			SELECT NICKNAME FROM USER_INFO
 			""")
 	List<String> getUsers();
-	                                                                           
 	@Insert("""
-			
+			INSERT INTO SCHEDULE (SID, START_DATE, END_DATE, ENDYN,
+				TITLE, DESCRIPTION, EMAIL, PID)
+			VALUES('SID'||LPAD(SID_SEQ.NEXTVAL, 5, '0'), 
+			    #{start_date}, #{end_date}, 0,
+				#{title}, #{description}, #{email}, #{pid})
 			""")
-	int insGanttTask();
+	int insGanttSchedule(Schedule schedule);
+	@Insert("""
+			INSERT INTO TASK (TKID, START_DATE, END_DATE, ENDYN, 
+				NAME, DESCRIPTION, SID)
+			VALUES('TKID'||LPAD(TKID_SEQ.NEXTVAL, 4, '0'), 
+				#{start_date}, #{end_date}, 0,
+				#{name}, #{description}, #{sid})
+			""")
+	int insGanttTask(Task task);
 	
 	@Update("""
-			
+			UPDATE SCHEDULE 
+			SET START_DATE = #{start_date}, END_DATE = #{end_date},
+				TITLE = #{title}, DESCRIPTION = #{description}
+			WHERE SID = #{sid}
 			""")
-	int uptGanttSchedule();
+	int uptGanttSchedule(Schedule schedule);
 	@Update("""
-			
+			UPDATE TASK
+			SET START_DATE = #{start_date}, END_DATE = #{end_date},
+				NAME = #{name}, DESCRIPTION = #{description}
+			WHERE TID = #{tid}
 			""")
-	int uptGanttTask();
+	int uptGanttTask(Task task);
 	
 	@Delete("""
-			
+			DELETE SCHEDULE WHERE SID = #{sid}
 			""")
-	int delGanttSchedule();
+	int delGanttSchedule(@Param("sid") String sid);
 	@Delete("""
-			
+			DELETE TASK WHERE TKID = #{tkid}
 			""")
-	int delGanttTask();
+	int delGanttTask(@Param("tkid") String tkid);
 }

@@ -66,7 +66,7 @@ public interface JDaoMain {
             "FROM project p " +
             "JOIN schedule s ON p.pid = s.pid " +
             "JOIN task t ON s.sid = t.sid " +
-            "WHERE p.end_date >= TRUNC(SYSDATE) " +
+			"WHERE p.end_date >= TRUNC(SYSDATE) " +
             "GROUP BY p.pid, p.title")
     List<ProjectProgress> getProjectProgress();
 }

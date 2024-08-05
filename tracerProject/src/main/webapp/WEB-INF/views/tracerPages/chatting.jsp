@@ -192,6 +192,8 @@ $(document).ready(function () {
                 content: userNickname + "님이 입장하셨습니다!"
             };
             socket.send(JSON.stringify(joinMessage));
+            // 현재 채팅방을 강조
+            highlightCurrentChatButton();
         };
 
         socket.onmessage = function (evt) {
@@ -250,6 +252,14 @@ $(document).ready(function () {
             alert("닉네임을 입력해주세요.");
         }
     }
+
+    function highlightCurrentChatButton() {
+        // 모든 버튼에서 active-chat 클래스 제거
+        $(".btn").removeClass("active-chat");
+
+        // 현재 채팅방 버튼에 active-chat 클래스 추가
+        $("button:contains('" + currentChatName + "')").addClass("active-chat");
+    }
 });
 
 function sendMsg() {
@@ -302,16 +312,13 @@ function addMessageToChat(nickname, content, isSender) {
 }
 
 function saveMessageToLocalStorage(message) {
-    var chatHistory = JSON.parse(localStorage.getItem
-    		("chatHistory_" + currentChatName)) || [];
+    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName)) || [];
     chatHistory.push(message);
-    localStorage.setItem("chatHistory_" + currentChatName, 
-    		JSON.stringify(chatHistory));
+    localStorage.setItem("chatHistory_" + currentChatName, JSON.stringify(chatHistory));
 }
 
 function loadChatHistory() {
-    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + 
-    		currentChatName)) || [];
+    var chatHistory = JSON.parse(localStorage.getItem("chatHistory_" + currentChatName)) || [];
     chatHistory.forEach(function(message) {
         const nickname = message.nickname.trim();
         const content = message.content.trim();

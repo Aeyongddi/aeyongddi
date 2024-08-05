@@ -1,5 +1,6 @@
 package com.web.tracerProject.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,15 @@ public class JSerResource {
     public List<Project> getAllProjects() {
         return dao.getAllProjects();
     }
+
     public List<ResourceManage> getAllAssets() {
         return dao.getAllAssets();
     }
-}
 
+    public void addAssetAndUpdateBudget(String pid, String rtype, String software_name, String license_purchase_date, String license_expiry_date, BigDecimal software_price) {
+        String rid = dao.generateRid();
+        dao.addAsset(rid, pid, rtype, software_name, license_purchase_date, license_expiry_date, software_price);
+        dao.increaseUsedBudget(pid, software_price);
+    }
+
+}

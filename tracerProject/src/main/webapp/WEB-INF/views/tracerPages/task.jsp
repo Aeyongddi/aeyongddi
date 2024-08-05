@@ -149,7 +149,10 @@
         </div>
     </div>
     <!-- 수정창 코드-->
+    
+    
     <div class="edit-container" id="edit-container">
+    <br><br><br><br>
         <div class="edit-header">
             <label for="edit-name"></label> <input type="text" id="edit-name"
                 style="font-size: 72px">

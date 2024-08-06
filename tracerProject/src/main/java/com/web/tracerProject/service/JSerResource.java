@@ -1,7 +1,8 @@
 package com.web.tracerProject.service;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,14 +39,35 @@ public class JSerResource {
         return dao.getAllAssets();
     }
 
-    public ResourceManage addAssetAndUpdateBudget(String pid, String rtype, String software_name, String license_purchase_date, String license_expiry_date, BigDecimal software_price) {
-        int nextVal = dao.getNextRid();
-        String rid = String.format("R%03d", nextVal);
-        Date purchaseDate = Date.valueOf(license_purchase_date);
-        Date expiryDate = Date.valueOf(license_expiry_date);
-        ResourceManage asset = new ResourceManage(rid, rtype, null, null, software_name, purchaseDate, expiryDate, software_price, pid);
-        dao.addAsset(asset);
-        dao.increaseUsedBudget(pid, software_price);
-        return asset;
+    public void addBudget(String pid, BigDecimal amount) {
+        dao.addBudget(pid, amount);
     }
+
+    public void reduceBudget(String pid, BigDecimal amount) {
+        dao.reduceBudget(pid, amount);
+    }
+
+    public void assignBudget(String pid, BigDecimal amount) {
+        Integer maxRid = dao.getMaxRid();
+        String newRid = String.format("R%03d", (maxRid == null ? 1 : maxRid + 1));
+        dao.assignBudget(newRid, pid, amount);
+    }
+
+    public ResourceManage addAssetAndUpdateBudget(String pid, String rtype, String software_name, String license_purchase_date, String license_expiry_date, BigDecimal software_price) {
+        Integer maxRid = dao.getMaxRid();
+        String newRid = String.format("R%03d", (maxRid == null ? 1 : maxRid + 1));
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            ResourceManage asset = new ResourceManage(newRid, pid, rtype, software_name, sdf.parse(license_purchase_date), sdf.parse(license_expiry_date), software_price, null);
+            dao.addAsset(asset);
+            return asset;
+        } catch (ParseException e) {
+            throw new RuntimeException("날짜 형식 변환 오류", e);
+        }
+    }
+    
+    public List<Project> getProjectsWithNoBudget() {
+        return dao.getProjectsWithNoBudget();
+    }
+
 }

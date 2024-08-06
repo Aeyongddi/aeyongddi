@@ -26,5 +26,16 @@ public class ResourceManage {
     private Date license_expiry_date;
     private BigDecimal software_price;
     private String pid;
-}
+    private String projectTitle;
 
+    public ResourceManage(String rid, String pid, String rtype, String software_name, Date license_purchase_date, Date license_expiry_date, BigDecimal software_price, String projectTitle) {
+        this.rid = rid;
+        this.pid = pid;
+        this.rtype = rtype;
+        this.software_name = software_name;
+        this.license_purchase_date = license_purchase_date;
+        this.license_expiry_date = license_expiry_date;
+        this.software_price = software_price;
+        this.projectTitle = projectTitle;
+    }
+}

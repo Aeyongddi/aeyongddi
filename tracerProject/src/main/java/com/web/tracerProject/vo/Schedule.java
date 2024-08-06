@@ -19,7 +19,7 @@ public class Schedule {
 	private Date start_date;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date end_date;
-	private boolean end_YN;
+	private boolean endYN;
 	private String title;
 	private String description;
 	private String email;

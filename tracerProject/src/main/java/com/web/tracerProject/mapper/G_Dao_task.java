@@ -14,13 +14,14 @@ import com.web.tracerProject.vo.Task;
 @Mapper
 public interface G_Dao_task {
   
-	@Select("SELECT * FROM TASK ORDER BY TKID")
+	@Select("SELECT *\r\n"
+			+ "FROM TASK\r\n"
+			+ "ORDER BY TO_NUMBER(SUBSTR(TKID, 3))")
     List<Task> getTaskList();
-    
+     
 	// 등록하는 코드 
-	@Update("UPDATE TASK SET tkid=#{tkid}, start_date=#{start_date}, end_date=#{end_date},"
-	 		+ " name=#{name}, description=#{description}, WHERE sid=#{sid} ")
-	int updateTask(Task upt);
+	 @Update("UPDATE TASK SET name=#{name}, description=#{description}, sid=#{sid} WHERE tkid=#{tkid}")
+	 int updateTask(Task task);  
 	
 	// endYN DB에 바로 적용되는 코드
 	@Update("UPDATE TASK SET endYN = #{endYN} WHERE tkid = #{tkid}")

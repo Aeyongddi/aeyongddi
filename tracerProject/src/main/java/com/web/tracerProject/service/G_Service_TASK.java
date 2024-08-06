@@ -13,16 +13,17 @@ import com.web.tracerProject.vo.Task;
 public class G_Service_TASK {
 	@Autowired(required = false)
 	private G_Dao_task dao;
-
+	
 	public List<Task> getTaskList(Task sch) {
 		// processNullFields(sch);
 		return dao.getTaskList();
 	}
-    
+	
 	// 수정하는 코드
-    public String updateTask(Task upt) {
-        return dao.updateTask(upt) > 0 ? "수정성공" : "수정실패";
+    public int updateTask(Task task) {
+        return dao.updateTask(task);
     }
+
 	
     // boolean 값 수정하는 코드
 	public int updateTaskStatus(String tkid, boolean endYN) {

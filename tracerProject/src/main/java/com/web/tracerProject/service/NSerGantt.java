@@ -26,22 +26,26 @@ public class NSerGantt {
 		return dao.getUsers();
 	}
 	
-	public String insGanttSchedule(Schedule schedule) {
-		return dao.insGanttSchedule(schedule)>0?"일정등록성공":"일정등록실패";
+	public String insGanttSchedule(Gantt gantt) {
+		return dao.insGanttSchedule(gantt)>0?"일정등록성공":"일정등록실패";
 	}
-	public String insGanttTask(Task task) {
-		return dao.insGanttTask(task)>0?"업무등록성공":"업무등록실패";
+	public String insGanttTask(Gantt gantt) {
+		return dao.insGanttTask(gantt)>0?"업무등록성공":"업무등록실패";
 	}
-	public String uptGanttSchedule(Schedule schedule) {
-		return dao.uptGanttSchedule(schedule)>0?"일정수정성공":"일정수정실패";
+	public String uptGanttSchedule(Gantt gantt) {
+		return dao.uptGanttSchedule(gantt)>0?"일정수정성공":"일정수정실패";
 	}
-	public String uptGanttTask(Task task) {
-		return dao.uptGanttTask(task)>0?"업무수정성공":"업무수정실패";
+	public String uptGanttTask(Gantt gantt) {
+		return dao.uptGanttTask(gantt)>0?"업무수정성공":"업무수정실패";
 	}
-	public String delGanttSchedule(String sid) {
-		return dao.delGanttSchedule(sid)>0?"일정삭제성공":"일정삭제실패";
+	public String delGanttSchedule(Gantt gantt) {
+		return dao.delGanttSchedule(gantt)>0?"일정삭제성공":"일정삭제실패";
 	}
-	public String delGanttTask(String tkid) {
-		return dao.delGanttTask(tkid)>0?"업무삭제성공":"업무삭제실패";
+	public String delGanttTask(Gantt gantt) {
+		return dao.delGanttTask(gantt)>0?"업무삭제성공":"업무삭제실패";
+	}
+	
+	public String getEmail(Gantt gantt) {
+		return dao.getEmail(gantt);
 	}
 }

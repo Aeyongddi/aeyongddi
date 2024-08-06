@@ -5,13 +5,10 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.web.tracerProject.vo.Gantt;
-import com.web.tracerProject.vo.Schedule;
-import com.web.tracerProject.vo.Task;
 
 @Mapper
 public interface NDaoGantt {
@@ -49,42 +46,50 @@ public interface NDaoGantt {
 	List<String> getUsers();
 	@Insert("""
 			INSERT INTO SCHEDULE (SID, START_DATE, END_DATE, ENDYN,
-				TITLE, DESCRIPTION, EMAIL, PID)
+				TITLE, EMAIL, PID)
 			VALUES('SID'||LPAD(SID_SEQ.NEXTVAL, 5, '0'), 
-			    #{start_date}, #{end_date}, 0,
-				#{title}, #{description}, #{email}, #{pid})
+			    TO_TIMESTAMP_TZ(#{start_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM'), 
+			    TO_TIMESTAMP_TZ(#{end_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM'), 
+			    0, #{text}, #{email}, #{pid})
 			""")
-	int insGanttSchedule(Schedule schedule);
+	int insGanttSchedule(Gantt gantt);
 	@Insert("""
-			INSERT INTO TASK (TKID, START_DATE, END_DATE, ENDYN, 
-				NAME, DESCRIPTION, SID)
-			VALUES('TKID'||LPAD(TKID_SEQ.NEXTVAL, 4, '0'), 
-				#{start_date}, #{end_date}, 0,
-				#{name}, #{description}, #{sid})
+			INSERT INTO TASK (TKID, START_DATE, END_DATE, ENDYN,
+				NAME, SID)
+			VALUES('TKID'||LPAD(TKID_SEQ.NEXTVAL, 4, '0'),
+				TO_TIMESTAMP_TZ(#{start_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM'),
+			    TO_TIMESTAMP_TZ(#{end_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM'),
+				0, #{text}, 'SID'||LPAD(#{parent}, 5, '0'))
 			""")
-	int insGanttTask(Task task);
+	int insGanttTask(Gantt gantt);
 	
 	@Update("""
-			UPDATE SCHEDULE 
+			UPDATE SCHEDULE
 			SET START_DATE = #{start_date}, END_DATE = #{end_date},
-				TITLE = #{title}, DESCRIPTION = #{description}
-			WHERE SID = #{sid}
+				TITLE = #{text}
+			WHERE SID = #{id}
 			""")
-	int uptGanttSchedule(Schedule schedule);
+	int uptGanttSchedule(Gantt gantt);
 	@Update("""
 			UPDATE TASK
 			SET START_DATE = #{start_date}, END_DATE = #{end_date},
-				NAME = #{name}, DESCRIPTION = #{description}
-			WHERE TID = #{tid}
+				NAME = #{text}
+			WHERE TID = #{id}
 			""")
-	int uptGanttTask(Task task);
+	int uptGanttTask(Gantt gantt);
 	
 	@Delete("""
 			DELETE SCHEDULE WHERE SID = #{sid}
 			""")
-	int delGanttSchedule(@Param("sid") String sid);
+	int delGanttSchedule(Gantt gantt);
 	@Delete("""
 			DELETE TASK WHERE TKID = #{tkid}
 			""")
-	int delGanttTask(@Param("tkid") String tkid);
+	int delGanttTask(Gantt gantt);
+	
+	@Select("""
+			SELECT EMAIL FROM USER_INFO 
+			WHERE NICKNAME = #{users}
+			""")
+	String getEmail(Gantt gantt);
 }

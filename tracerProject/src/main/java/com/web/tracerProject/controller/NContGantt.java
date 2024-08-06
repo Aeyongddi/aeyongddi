@@ -46,31 +46,34 @@ public class NContGantt {
 	}
 	
 	@PostMapping("insSchByGantt")
-	public ResponseEntity<String> insSchByGantt(Schedule schedule){
-		return ResponseEntity.ok(service.insGanttSchedule(schedule));
+	public ResponseEntity<String> insSchByGantt(Gantt gantt){
+		return ResponseEntity.ok(service.insGanttSchedule(gantt));
 	}
 	@PostMapping("insTaskByGantt")
-	public ResponseEntity<String> insTaskByGantt(Task task){
-		return ResponseEntity.ok(service.insGanttTask(task));
+	public ResponseEntity<String> insTaskByGantt(Gantt gantt){
+		return ResponseEntity.ok(service.insGanttTask(gantt));
 	}
 	@PostMapping("uptSchByGantt")
-	public ResponseEntity<String> uptSchByGantt(Schedule schedule){
-		return ResponseEntity.ok(service.uptGanttSchedule(schedule));
+	public ResponseEntity<String> uptSchByGantt(Gantt gantt){
+		return ResponseEntity.ok(service.uptGanttSchedule(gantt));
 	}
 	@PostMapping("uptTaskByGantt")
-	public ResponseEntity<String> uptTaskByGantt(Task task){
-		return ResponseEntity.ok(service.uptGanttTask(task));
+	public ResponseEntity<String> uptTaskByGantt(Gantt gantt){
+		return ResponseEntity.ok(service.uptGanttTask(gantt));
 	}
 	@PostMapping("delSchByGantt")
-	public ResponseEntity<String> delSchByGantt(@RequestParam("sid") String sid){
-		return ResponseEntity.ok(service.delGanttSchedule(sid));
+	public ResponseEntity<String> delSchByGantt(Gantt gantt){
+		return ResponseEntity.ok(service.delGanttSchedule(gantt));
 	}
 	@PostMapping("delTaskByGantt")
-	public ResponseEntity<String> delTaskByGantt(@RequestParam("tkid") String tkid){
-		return ResponseEntity.ok(service.delGanttTask(tkid));
+	public ResponseEntity<String> delTaskByGantt(Gantt gantt){
+		return ResponseEntity.ok(service.delGanttTask(gantt));
 	}
 	
-	
+	@PostMapping("getEmail")
+	public ResponseEntity<String> getEmail(Gantt gantt){
+		return ResponseEntity.ok(service.getEmail(gantt));
+	}
 	
 	
 }

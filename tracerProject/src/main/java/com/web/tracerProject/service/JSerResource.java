@@ -58,8 +58,12 @@ public class JSerResource {
         String newRid = String.format("R%03d", (maxRid == null ? 1 : maxRid + 1));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            ResourceManage asset = new ResourceManage(newRid, pid, rtype, software_name, sdf.parse(license_purchase_date), sdf.parse(license_expiry_date), software_price, null);
+            ResourceManage asset = new ResourceManage(newRid, pid, rtype, software_name, sdf.parse(license_purchase_date), sdf.parse(license_expiry_date), software_price);
             dao.addAsset(asset);
+
+            // 사용 예산 업데이트
+            dao.updateUsedBudget(pid, software_price);
+
             return asset;
         } catch (ParseException e) {
             throw new RuntimeException("날짜 형식 변환 오류", e);
@@ -69,5 +73,5 @@ public class JSerResource {
     public List<Project> getProjectsWithNoBudget() {
         return dao.getProjectsWithNoBudget();
     }
-
 }
+

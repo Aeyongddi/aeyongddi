@@ -2,9 +2,7 @@ package com.web.tracerProject.vo;
 
 import java.math.BigDecimal;
 import java.util.Date;
-
 import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,7 +26,8 @@ public class ResourceManage {
     private String pid;
     private String projectTitle;
 
-    public ResourceManage(String rid, String pid, String rtype, String software_name, Date license_purchase_date, Date license_expiry_date, BigDecimal software_price, String projectTitle) {
+    // 필요한 생성자 추가
+    public ResourceManage(String rid, String pid, String rtype, String software_name, Date license_purchase_date, Date license_expiry_date, BigDecimal software_price) {
         this.rid = rid;
         this.pid = pid;
         this.rtype = rtype;
@@ -36,6 +35,6 @@ public class ResourceManage {
         this.license_purchase_date = license_purchase_date;
         this.license_expiry_date = license_expiry_date;
         this.software_price = software_price;
-        this.projectTitle = projectTitle;
     }
 }
+

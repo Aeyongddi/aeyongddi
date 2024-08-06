@@ -46,10 +46,12 @@ public interface JDaoResource {
     @Insert("INSERT INTO ResourceManage (rid, pid, rtype, software_name, license_purchase_date, license_expiry_date, software_price) VALUES (#{rid}, #{pid}, #{rtype}, #{software_name}, #{license_purchase_date}, #{license_expiry_date}, #{software_price})")
     void addAsset(ResourceManage asset);
 
+    @Update("UPDATE ResourceManage SET used_budget = used_budget + #{amount} WHERE pid = #{pid} AND rtype = 'BUDGET'")
+    void updateUsedBudget(@Param("pid") String pid, @Param("amount") BigDecimal amount);
+
     @Select("SELECT * FROM PROJECT")
     List<Project> getAllProjects();
     
     @Select("SELECT p.* FROM PROJECT p LEFT JOIN ResourceManage r ON p.pid = r.pid AND r.rtype = 'BUDGET' WHERE r.assigned_budget IS NULL OR r.assigned_budget = 0")
     List<Project> getProjectsWithNoBudget();
-
 }

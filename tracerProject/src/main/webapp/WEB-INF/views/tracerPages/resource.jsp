@@ -277,7 +277,7 @@
                         <input type="text" class="form-control" id="softwareName" name="software_name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="licensePurchaseDate" class="form-label">구매일</label>
+                        <label for="licensePurchaseDate" class="form-label">구매일/임대일</label>
                         <input type="date" class="form-control" id="licensePurchaseDate" name="license_purchase_date" required>
                     </div>
                     <div class="mb-3">
@@ -300,169 +300,178 @@
 <script src="assets/plugins/chart.js/chart.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
-    $(document).ready(function() {
-        function updateChart(pid) {
-            $.ajax({
-                url: '/getBudget',
-                type: 'GET',
-                data: { pid: pid },
-                success: function(data) {
-                    budgetDonutChart.data.datasets[0].data = [data.assigned_budget, data.used_budget];
-                    budgetDonutChart.update();
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error: ' + error);
-                },
-                dataType: 'json'
-            });
-        }
+$(document).ready(function() {
+	function updateChart(pid) {
+	    $.ajax({
+	        url: '/getBudget',
+	        type: 'GET',
+	        data: { pid: pid },
+	        success: function(data) {
+	            budgetDonutChart.data.datasets[0].data = [data.assigned_budget, data.used_budget];
+	            budgetDonutChart.update();
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('Error: ' + error);
+	        },
+	        dataType: 'json'
+	    });
+	}
 
-        var ctx = document.getElementById('budgetDonutChart').getContext('2d');
-        var budgetDonutChart = new Chart(ctx, {
-            type: 'doughnut',
-            data: {
-                labels: ['할당 예산', '사용 예산'],
-                datasets: [{
-                    data: [0, 0],
-                    backgroundColor: ['#36a2eb', '#ff6384']
-                }]
+    var ctx = document.getElementById('budgetDonutChart').getContext('2d');
+    var budgetDonutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['할당 예산', '사용 예산'],
+            datasets: [{
+                data: [0, 0],
+                backgroundColor: ['#36a2eb', '#ff6384']
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'top'
             },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                legend: {
-                    position: 'top'
-                },
-                animation: {
-                    animateScale: true,
-                    animateRotate: true
-                },
-                tooltips: {
-                    callbacks: {
-                        label: function(tooltipItem, data) {
-                            var label = data.labels[tooltipItem.index];
-                            var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                            return label + ': ' + value.toLocaleString() + ' 원';
-                        }
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index];
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return label + ': ' + value.toLocaleString() + ' 원';
                     }
                 }
             }
-        });
-
-        $('#projectSelect').change(function() {
-            var selectedPid = $(this).val();
-            updateChart(selectedPid);
-        });
-
-        var initialPid = $('#projectSelect').val();
-        if (initialPid) {
-            updateChart(initialPid);
-        }
-
-        // 예산 추가 폼 제출
-        $('#addBudgetForm').submit(function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: '/addBudget',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    alert(response);
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error: ' + error);
-                },
-                dataType: 'text'
-            });
-        });
-
-        // 예산 삭감 폼 제출
-        $('#reduceBudgetForm').submit(function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: '/reduceBudget',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    alert(response);
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error: ' + error);
-                },
-                dataType: 'text'
-            });
-        });
-
-        // 새로운 프로젝트 예산 부여 폼 제출
-        $('#assignBudgetForm').submit(function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: '/assignBudget',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    alert(response);
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error: ' + error);
-                },
-                dataType: 'text'
-            });
-        });
-
-        // 자산 추가 폼 제출
-        $('#addAssetForm').submit(function(event) {
-            event.preventDefault();
-            $.ajax({
-                url: '/addAsset',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    alert(response);
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    alert('Error: ' + error);
-                },
-                dataType: 'text'
-            });
-        });
-
-        // 자산 프로젝트 선택에 따른 필터링
-        $('#assetProjectSelect').change(function() {
-            var selectedPid = $(this).val();
-            filterAssets(selectedPid);
-        });
-
-        function filterAssets(pid) {
-            var rows = $('#asset-table-body').children('tr');
-            if (pid === "") {
-                rows.show();
-            } else {
-                rows.each(function() {
-                    var row = $(this);
-                    if (row.data('pid') === pid) {
-                        row.show();
-                    } else {
-                        row.hide();
-                    }
-                });
-            }
-        }
-
-        // 마지막으로 본 탭 저장 및 복원
-        $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-            localStorage.setItem('activeTab', $(e.target).attr('href'));
-        });
-
-        var activeTab = localStorage.getItem('activeTab');
-        if (activeTab) {
-            $('#orders-table-tab a[href="' + activeTab + '"]').tab('show');
         }
     });
+
+    $('#projectSelect').change(function() {
+        var selectedPid = $(this).val();
+        updateChart(selectedPid);
+    });
+
+    var initialPid = $('#projectSelect').val();
+    if (initialPid) {
+        updateChart(initialPid);
+    }
+
+ // 예산 추가 폼 제출
+    $('#addBudgetForm').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/addBudget',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                alert(response);
+                var selectedPid = $('#projectSelect').val();
+                updateChart(selectedPid); // 예산 추가 후 차트 업데이트
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error);
+            },
+            dataType: 'text'
+        });
+    });
+
+    // 예산 삭감 폼 제출
+    $('#reduceBudgetForm').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/reduceBudget',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                alert(response);
+                var selectedPid = $('#projectSelect').val();
+                updateChart(selectedPid); // 예산 삭감 후 차트 업데이트
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error);
+            },
+            dataType: 'text'
+        });
+    });
+
+    // 새로운 프로젝트 예산 부여 폼 제출
+    $('#assignBudgetForm').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/assignBudget',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                alert(response);
+                var selectedPid = $('#projectSelect').val();
+                updateChart(selectedPid); // 예산 부여 후 차트 업데이트
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error);
+            },
+            dataType: 'text'
+        });
+    });
+
+
+ // 자산 추가 폼 제출
+    $('#addAssetForm').submit(function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/addAsset',
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function(response) {
+                alert(response);
+                location.reload(); // 자산 추가 후 페이지 새로고침
+            },
+            error: function(xhr, status, error) {
+                alert('Error: ' + error);
+            },
+            dataType: 'text'
+        });
+    });
+
+
+    // 자산 프로젝트 선택에 따른 필터링
+    $('#assetProjectSelect').change(function() {
+        var selectedPid = $(this).val();
+        filterAssets(selectedPid);
+    });
+
+    function filterAssets(pid) {
+        var rows = $('#asset-table-body').children('tr');
+        if (pid === "") {
+            rows.show();
+        } else {
+            rows.each(function() {
+                var row = $(this);
+                if (row.data('pid') === pid) {
+                    row.show();
+                } else {
+                    row.hide();
+                }
+            });
+        }
+    }
+
+    // 마지막으로 본 탭 저장 및 복원
+    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
+        localStorage.setItem('activeTab', $(e.target).attr('href'));
+    });
+
+    var activeTab = localStorage.getItem('activeTab');
+    if (activeTab) {
+        $('#orders-table-tab a[href="' + activeTab + '"]').tab('show');
+    }
+});
+
 </script>
 </body>
 </html>

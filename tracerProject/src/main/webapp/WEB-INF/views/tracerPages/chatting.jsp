@@ -269,6 +269,7 @@ function sendMsg() {
     }
     console.log("Sending message: ", content);
     const message = {
+        email: userEmail,
         nickname: userNickname,
         content: content,
         chatType: currentChatType,
@@ -276,6 +277,10 @@ function sendMsg() {
     };
     socket.send(JSON.stringify(message));
     $("#msg").val("");
+
+    // 자신이 보낸 메시지를 UI에 추가
+    addMessageToChat(userNickname, content, true);
+    saveMessageToLocalStorage(message);  // 로컬 저장소에 메시지 저장
 }
 
 function revMsg(data) {
@@ -287,14 +292,16 @@ function revMsg(data) {
     const isSender = (nickname === userNickname.trim());
 
     // 현재 채팅방의 메시지인 경우에만 표시
-    if (chatType === currentChatType && chatName === currentChatName) {
+    if (chatType === currentChatType && (chatName === currentChatName || chatName === userNickname)) {
         console.log("Received message from:", nickname, " Content: ", content);
         addMessageToChat(nickname, content, isSender);
 
-    // 수신한 메시지를 로컬 스토리지에 저장
+        // 수신한 메시지를 로컬 스토리지에 저장
         saveMessageToLocalStorage(message);
     }
 }
+
+
 
 function addMessageToChat(nickname, content, isSender) {
     var timestamp = new Date().toLocaleTimeString();
@@ -338,13 +345,18 @@ function handleUserList(data) {
     users.forEach(function(user) {
         var userButton = $("<button></button>")
             .addClass("btn btn-secondary btn-block")
-            .text(user);
+            .text(user)
+            .click(function () {
+                changeChat('private', user, userButton);
+            });
         if (user === userNickname) {
             userButton.addClass("active-chat");
         }
         $("#privateChatList").append(userButton);
     });
 }
+
+
 
 function changeChat(type, name, button) {
     currentChatType = type;
@@ -362,6 +374,7 @@ function updateActiveChatButton(button) {
     // 클릭된 버튼에 active-chat 클래스 추가
     $(button).addClass("active-chat");
 }
+
 
 </script>
 </body>

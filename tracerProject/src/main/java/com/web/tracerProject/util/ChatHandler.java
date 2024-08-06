@@ -40,28 +40,40 @@ public class ChatHandler extends TextWebSocketHandler {
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		String payload = message.getPayload();
-		System.out.println("Received message payload: " + payload); // 서버 로그 추가
-		Map<String, String> messageMap = objectMapper.readValue(payload, Map.class);
+	    String payload = message.getPayload();
+	    System.out.println("Received message payload: " + payload); // 서버 로그 추가
+	    Map<String, String> messageMap = objectMapper.readValue(payload, Map.class);
 
-		String email = messageMap.get("email");
-		String nickname = messageMap.get("nickname");
-		String content = messageMap.get("content");
+	    String email = messageMap.get("email");
+	    String nickname = messageMap.get("nickname");
+	    String content = messageMap.get("content");
+	    String chatType = messageMap.get("chatType");
+	    String chatName = messageMap.get("chatName");
 
-		Chatting chatMessage = new Chatting();
-		chatMessage.setChid(UUID.randomUUID().toString());
-		chatMessage.setEmail(email);
-		chatMessage.setNickname(nickname);
-		chatMessage.setSent_date(new Date());
-		chatMessage.setContent(content);
+	    Chatting chatMessage = new Chatting();
+	    chatMessage.setChid(UUID.randomUUID().toString());
+	    chatMessage.setEmail(email);
+	    chatMessage.setNickname(nickname);
+	    chatMessage.setSent_date(new Date());
+	    chatMessage.setContent(content);
 
-		// 모든 클라이언트에게 브로드캐스트
-		for (WebSocketSession userSession : users.values()) {
-			if (userSession.isOpen()) {
-				userSession.sendMessage(new TextMessage(payload));
-			}
-		}
+	    // 모든 클라이언트에게 브로드캐스트
+	    for (WebSocketSession userSession : users.values()) {
+	        if (userSession.isOpen()) {
+	            // 그룹 채팅일 경우, 모든 사용자에게 전송
+	            if ("group".equals(chatType)) {
+	                userSession.sendMessage(new TextMessage(payload));
+	            }
+	            // 1:1 채팅일 경우, 해당 사용자와 송신자에게만 전송
+	            else if ((chatName.equals(userNicknames.get(userSession)) && nickname.equals(userNicknames.get(userSession))) || chatName.equals(nickname)) {
+	                userSession.sendMessage(new TextMessage(payload));
+	            }
+	        }
+	    }
 	}
+
+
+
 
 	@Override
 	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {

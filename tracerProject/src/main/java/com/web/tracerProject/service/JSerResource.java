@@ -69,6 +69,7 @@ public class JSerResource {
             throw new RuntimeException("날짜 형식 변환 오류", e);
         }
     }
+
     
     public List<Project> getProjectsWithNoBudget() {
         return dao.getProjectsWithNoBudget();

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko"> 
 <head>
-    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
+    <title>TRACER - 결재 페이지</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
@@ -22,16 +22,15 @@
     <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
 
 </head> 
-<jsp:include page="/headerSidebar.jsp"/> 	
+<jsp:include page="/headerSidebar.jsp"/> 
 <body>   
     <div class="app-wrapper">
-	    
 	    <div class="app-content pt-3 p-md-3 p-lg-4">
 		    <div class="container-xl">
 			    <br><br>
 			    <div class="row g-3 mb-4 align-items-center justify-content-between">
 				    <div class="col-auto">
-			            <h1 class="app-page-title mb-0">Orders</h1>
+			            <h1 class="app-page-title mb-0">결재</h1>
 				    </div>
 				    <div class="col-auto">
 					     <div class="page-utilities">

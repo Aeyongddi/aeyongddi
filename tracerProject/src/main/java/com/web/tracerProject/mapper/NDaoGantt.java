@@ -43,28 +43,53 @@ public interface NDaoGantt {
 	@Select("""
 			SELECT NICKNAME FROM USER_INFO
 			""")
-	List<Gantt> getUsers();
-	
+	List<String> getUsers();
 	@Insert("""
-			
+			INSERT INTO SCHEDULE (SID, START_DATE, END_DATE, ENDYN,
+				TITLE, EMAIL, PID)
+			VALUES('SID'||LPAD(SID_SEQ.NEXTVAL, 5, '0'), 
+			    TO_TIMESTAMP_TZ(#{start_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM'), 
+			    TO_TIMESTAMP_TZ(#{end_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM'), 
+			    0, #{text}, #{email}, #{pid})
 			""")
-	int insGanttTask();
+	int insGanttSchedule(Gantt gantt);
+	@Insert("""
+			INSERT INTO TASK (TKID, START_DATE, END_DATE, ENDYN,
+				NAME, SID)
+			VALUES('TKID'||LPAD(TKID_SEQ.NEXTVAL, 4, '0'),
+				TO_TIMESTAMP_TZ(#{start_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM'),
+			    TO_TIMESTAMP_TZ(#{end_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM'),
+				0, #{text}, 'SID'||LPAD(#{parent}, 5, '0'))
+			""")
+	int insGanttTask(Gantt gantt);
 	
 	@Update("""
-			
+			UPDATE SCHEDULE
+			SET START_DATE = #{start_date}, END_DATE = #{end_date},
+				TITLE = #{text}
+			WHERE SID = #{id}
 			""")
-	int uptGanttSchedule();
+	int uptGanttSchedule(Gantt gantt);
 	@Update("""
-			
+			UPDATE TASK
+			SET START_DATE = #{start_date}, END_DATE = #{end_date},
+				NAME = #{text}
+			WHERE TID = #{id}
 			""")
-	int uptGanttTask();
+	int uptGanttTask(Gantt gantt);
 	
 	@Delete("""
-			
+			DELETE SCHEDULE WHERE SID = #{sid}
 			""")
-	int delGanttSchedule();
+	int delGanttSchedule(Gantt gantt);
 	@Delete("""
-			
+			DELETE TASK WHERE TKID = #{tkid}
 			""")
-	int delGanttTask();
+	int delGanttTask(Gantt gantt);
+	
+	@Select("""
+			SELECT EMAIL FROM USER_INFO 
+			WHERE NICKNAME = #{users}
+			""")
+	String getEmail(Gantt gantt);
 }

@@ -13,7 +13,8 @@ public class MessageConfig implements WebMvcConfigurer{
 	
 	@Bean
 	public ReloadableResourceBundleMessageSource messageSource() {
-        ReloadableResourceBundleMessageSource source = new ReloadableResourceBundleMessageSource();
+        ReloadableResourceBundleMessageSource source = 
+        		new ReloadableResourceBundleMessageSource();
         source.setBasename("classpath:/message/msg");
         source.setDefaultEncoding("UTF-8");
         source.setCacheSeconds(60);

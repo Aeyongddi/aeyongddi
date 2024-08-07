@@ -1,6 +1,6 @@
 package com.web.tracerProject.vo;
 
-import java.util.List;
+import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -24,5 +24,10 @@ public class Gantt {
 	private String open;
 	private String text;
 	private String users;
-	private List<String> userList;
+	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+	private String end_date;
+	
+	
+	private String email;
+	private String pid;
 }

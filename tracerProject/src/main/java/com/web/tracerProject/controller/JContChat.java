@@ -4,9 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
 import jakarta.servlet.http.HttpSession;
-
 import java.util.Date;
 
 @Controller
@@ -34,3 +32,4 @@ public class JContChat {
         return "tracerPages/chatting";
     }
 }
+

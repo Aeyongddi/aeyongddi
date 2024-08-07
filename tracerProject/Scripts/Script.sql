@@ -177,3 +177,19 @@ INSERT INTO task SELECT * FROM task_temp;
 -- 임시 테이블 삭제
 DROP TABLE task_temp;
 
+SELECT * FROM v$version;
+
+SELECT p.pid, p.title,
+                   (SUM(CASE WHEN t.endYN = 1 THEN 1 ELSE 0 END) * 100 / COUNT(*)) AS progress, 
+                  SUM(CASE WHEN t.endYN = 1 THEN 1 ELSE 0 END) AS completedTasks, 
+                  COUNT(*) AS totalTasks 
+            FROM project p 
+            JOIN schedule s ON p.pid = s.pid
+            JOIN task t ON s.sid = t.sid
+            WHERE p.end_date >= TRUNC(SYSDATE)
+            GROUP BY p.pid, p.title;
+
+CREATE SEQUENCE ResourceManageSeq START WITH 1 INCREMENT BY 1 NOCACHE;
+        SELECT ResourceManageSeq.NEXTVAL FROM DUAL;
+DROP SEQUENCE ResourceManageSeq;
+           

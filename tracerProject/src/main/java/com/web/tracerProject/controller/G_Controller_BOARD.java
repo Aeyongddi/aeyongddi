@@ -29,6 +29,12 @@ public class G_Controller_BOARD {
         d.addAttribute("boardList", boardList);
         return "tracerPages/board";
     }
+    
+ // http://localhost:5656/riskBoard
+    @RequestMapping("riskBoard")
+    public String riskBoard() {
+    	return "tracerPages/riskBoard";
+    }
 
     @PostMapping("/boardListInsert")
     @ResponseBody

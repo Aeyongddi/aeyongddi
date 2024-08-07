@@ -70,9 +70,23 @@ public class JSerResource {
         }
     }
 
+    public void addUser(User_info user) {
+        dao.addUser(user);
+    }
+
+    public User_info getUserByEmail(String email) {
+        return dao.getUserByEmail(email);
+    }
+
+    public void updateUser(User_info user) {
+        dao.updateUser(user);
+    }
+
+    public void deleteUser(String email) {
+        dao.deleteUser(email);
+    }
     
     public List<Project> getProjectsWithNoBudget() {
         return dao.getProjectsWithNoBudget();
     }
 }
-

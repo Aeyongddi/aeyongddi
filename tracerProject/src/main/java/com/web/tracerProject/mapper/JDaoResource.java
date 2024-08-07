@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Delete;
 
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ResourceManage;
@@ -48,6 +49,18 @@ public interface JDaoResource {
 
     @Update("UPDATE ResourceManage SET used_budget = used_budget + #{amount} WHERE pid = #{pid} AND rtype = 'BUDGET'")
     void updateUsedBudget(@Param("pid") String pid, @Param("amount") BigDecimal amount);
+
+    @Insert("INSERT INTO USER_INFO (email, password, nickname, name, birth, phone) VALUES (#{email}, #{password}, #{nickname}, #{name}, #{birth}, #{phone})")
+    void addUser(User_info user);
+
+    @Select("SELECT * FROM USER_INFO WHERE email = #{email}")
+    User_info getUserByEmail(String email);
+
+    @Update("UPDATE USER_INFO SET name = #{name}, birth = #{birth}, phone = #{phone}, nickname = #{nickname}, password = #{password} WHERE email = #{email}")
+    void updateUser(User_info user);
+
+    @Delete("DELETE FROM USER_INFO WHERE email = #{email}")
+    void deleteUser(String email);
 
     @Select("SELECT * FROM PROJECT")
     List<Project> getAllProjects();

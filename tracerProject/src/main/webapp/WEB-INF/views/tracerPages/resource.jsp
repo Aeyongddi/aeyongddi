@@ -12,6 +12,8 @@
     <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
     <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
         .app-card-header {
             display: flex;
@@ -41,43 +43,8 @@
             </nav>
             <div class="tab-content" id="orders-table-tab-content">
                 <div class="tab-pane fade show active" id="hr-management" role="tabpanel" aria-labelledby="hr-management-tab">
-                    <div class="app-card app-card-orders-table shadow-sm mb-5">
-                        <div class="app-card-body">
-                            <div class="table-responsive">
-                                <table class="table app-table-hover mb-0 text-left">
-                                    <thead>
-                                        <tr>
-                                            <th class="cell">이름</th>
-                                            <th class="cell">이메일</th>
-                                            <th class="cell">생일</th>
-                                            <th class="cell">전화번호</th>
-                                            <th class="cell">팀</th>
-                                            <th class="cell">진행중인 프로젝트</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="user" items="${userInfoList}">
-                                            <tr>
-                                                <td class="cell">${user.name}</td>
-                                                <td class="cell">${user.email}</td>
-                                                <td class="cell"><fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd"/></td>
-                                                <td class="cell">${user.phone}</td>
-                                                <td class="cell">
-                                                    <c:forEach var="team" items="${user.teams}">
-                                                        ${team.tid}<br>
-                                                    </c:forEach>
-                                                </td>
-                                                <td class="cell">
-                                                    <c:forEach var="project" items="${user.projects}">
-                                                        ${project.title}<br>
-                                                    </c:forEach>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div id="app">
+                        <hr-management></hr-management>
                     </div>
                 </div>
 
@@ -300,178 +267,176 @@
 <script src="assets/plugins/chart.js/chart.min.js"></script>
 <script src="assets/js/app.js"></script>
 <script>
-$(document).ready(function() {
-	function updateChart(pid) {
-	    $.ajax({
-	        url: '/getBudget',
-	        type: 'GET',
-	        data: { pid: pid },
-	        success: function(data) {
-	            budgetDonutChart.data.datasets[0].data = [data.assigned_budget, data.used_budget];
-	            budgetDonutChart.update();
-	        },
-	        error: function(xhr, status, error) {
-	            console.error('Error: ' + error);
-	        },
-	        dataType: 'json'
-	    });
-	}
-
-    var ctx = document.getElementById('budgetDonutChart').getContext('2d');
-    var budgetDonutChart = new Chart(ctx, {
-        type: 'doughnut',
-        data: {
-            labels: ['할당 예산', '사용 예산'],
-            datasets: [{
-                data: [0, 0],
-                backgroundColor: ['#36a2eb', '#ff6384']
-            }]
+Vue.component('hr-management', {
+    data: function() {
+        return {
+            users: ${userInfoListJson},
+            showForm: false,
+            formData: {
+                name: '',
+                email: '',
+                birth: '',
+                phone: '',
+                nickname: '',
+                password: ''
+            },
+            editMode: false
+        }
+    },
+    methods: {
+        formatDate(date) {
+            let d = new Date(date);
+            return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
         },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            legend: {
-                position: 'top'
-            },
-            animation: {
-                animateScale: true,
-                animateRotate: true
-            },
-            tooltips: {
-                callbacks: {
-                    label: function(tooltipItem, data) {
-                        var label = data.labels[tooltipItem.index];
-                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-                        return label + ': ' + value.toLocaleString() + ' 원';
-                    }
+        showAddUserForm() {
+            this.showForm = true;
+            this.editMode = false;
+            this.formData = { name: '', email: '', birth: '', phone: '', nickname: '', password: '' };
+        },
+        editUser(user) {
+            this.showForm = true;
+            this.editMode = true;
+            this.formData = { ...user, password: '' }; // 비밀번호는 빈 문자열로 설정
+        },
+        saveUser() {
+            if (this.editMode) {
+                this.updateUser();
+            } else {
+                this.addUser();
+            }
+        },
+        addUser() {
+            axios.post('/addUser', this.formData, {
+                headers: {
+                    'Content-Type': 'application/json'
                 }
+            })
+            .then(response => {
+                this.users.push(response.data);
+                this.showForm = false;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('사용자 추가 실패: ' + error.response.data);
+            });
+        },
+        updateUser() {
+            axios.post('/updateUser', this.formData, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                let index = this.users.findIndex(user => user.email === this.formData.email);
+                if (index !== -1) {
+                    this.$set(this.users, index, response.data);
+                }
+                this.showForm = false;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('사용자 수정 실패: ' + error.response.data);
+            });
+        },
+        deleteUser(email) {
+            if (confirm('정말 삭제하시겠습니까?')) {
+                axios.post('/deleteUser', { email: email }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    let index = this.users.findIndex(user => user.email === email);
+                    if (index !== -1) {
+                        this.users.splice(index, 1);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('사용자 삭제 실패: ' + error.response.data);
+                });
             }
         }
-    });
+    },
+    template: `
+    <div>
+        <div class="app-card app-card-orders-table shadow-sm mb-5">
+            <div class="app-card-body">
+                <div class="table-responsive">
+                    <table class="table app-table-hover mb-0 text-left">
+                        <thead>
+                            <tr>
+                                <th class="cell">이름</th>
+                                <th class="cell">이메일</th>
+                                <th class="cell">생일</th>
+                                <th class="cell">전화번호</th>
+                                <th class="cell">팀</th>
+                                <th class="cell">진행중인 프로젝트</th>
+                                <th class="cell">액션</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="user in users" :key="user.email">
+                                <td class="cell">{{ user.name }}</td>
+                                <td class="cell">{{ user.email }}</td>
+                                <td class="cell">{{ formatDate(user.birth) }}</td>
+                                <td class="cell">{{ user.phone }}</td>
+                                <td class="cell">
+                                    <div v-for="team in user.teams" :key="team.tid">{{ team.tid }}</div>
+                                </td>
+                                <td class="cell">
+                                    <div v-for="project in user.projects" :key="project.title">{{ project.title }}</div>
+                                </td>
+                                <td class="cell">
+                                    <button @click="editUser(user)">수정</button>
+                                    <button @click="deleteUser(user.email)">삭제</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button @click="showAddUserForm">사용자 추가</button>
+            </div>
+        </div>
 
-    $('#projectSelect').change(function() {
-        var selectedPid = $(this).val();
-        updateChart(selectedPid);
-    });
-
-    var initialPid = $('#projectSelect').val();
-    if (initialPid) {
-        updateChart(initialPid);
-    }
-
- // 예산 추가 폼 제출
-    $('#addBudgetForm').submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/addBudget',
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function(response) {
-                alert(response);
-                var selectedPid = $('#projectSelect').val();
-                updateChart(selectedPid); // 예산 추가 후 차트 업데이트
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                alert('Error: ' + error);
-            },
-            dataType: 'text'
-        });
-    });
-
-    // 예산 삭감 폼 제출
-    $('#reduceBudgetForm').submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/reduceBudget',
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function(response) {
-                alert(response);
-                var selectedPid = $('#projectSelect').val();
-                updateChart(selectedPid); // 예산 삭감 후 차트 업데이트
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                alert('Error: ' + error);
-            },
-            dataType: 'text'
-        });
-    });
-
-    // 새로운 프로젝트 예산 부여 폼 제출
-    $('#assignBudgetForm').submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/assignBudget',
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function(response) {
-                alert(response);
-                var selectedPid = $('#projectSelect').val();
-                updateChart(selectedPid); // 예산 부여 후 차트 업데이트
-                location.reload();
-            },
-            error: function(xhr, status, error) {
-                alert('Error: ' + error);
-            },
-            dataType: 'text'
-        });
-    });
-
-
- // 자산 추가 폼 제출
-    $('#addAssetForm').submit(function(event) {
-        event.preventDefault();
-        $.ajax({
-            url: '/addAsset',
-            type: 'POST',
-            data: $(this).serialize(),
-            success: function(response) {
-                alert(response);
-                location.reload(); // 자산 추가 후 페이지 새로고침
-            },
-            error: function(xhr, status, error) {
-                alert('Error: ' + error);
-            },
-            dataType: 'text'
-        });
-    });
-
-
-    // 자산 프로젝트 선택에 따른 필터링
-    $('#assetProjectSelect').change(function() {
-        var selectedPid = $(this).val();
-        filterAssets(selectedPid);
-    });
-
-    function filterAssets(pid) {
-        var rows = $('#asset-table-body').children('tr');
-        if (pid === "") {
-            rows.show();
-        } else {
-            rows.each(function() {
-                var row = $(this);
-                if (row.data('pid') === pid) {
-                    row.show();
-                } else {
-                    row.hide();
-                }
-            });
-        }
-    }
-
-    // 마지막으로 본 탭 저장 및 복원
-    $('a[data-bs-toggle="tab"]').on('shown.bs.tab', function (e) {
-        localStorage.setItem('activeTab', $(e.target).attr('href'));
-    });
-
-    var activeTab = localStorage.getItem('activeTab');
-    if (activeTab) {
-        $('#orders-table-tab a[href="' + activeTab + '"]').tab('show');
-    }
+        <!-- 사용자 추가/수정 모달 -->
+        <div v-if="showForm">
+            <form @submit.prevent="saveUser">
+                <div>
+                    <label>이름:</label>
+                    <input v-model="formData.name" required>
+                </div>
+                <div>
+                    <label>이메일:</label>
+                    <input v-model="formData.email" required>
+                </div>
+                <div>
+                    <label>생일:</label>
+                    <input type="date" v-model="formData.birth" required>
+                </div>
+                <div>
+                    <label>전화번호:</label>
+                    <input v-model="formData.phone" required>
+                </div>
+                <div>
+                    <label>닉네임:</label>
+                    <input v-model="formData.nickname" required>
+                </div>
+                <div>
+                    <label>비밀번호:</label>
+                    <input type="password" v-model="formData.password" required>
+                </div>
+                <button type="submit">저장</button>
+                <button @click="showForm = false">취소</button>
+            </form>
+        </div>
+    </div>
+    `
 });
 
+new Vue({
+    el: '#app'
+});
 </script>
 </body>
 </html>

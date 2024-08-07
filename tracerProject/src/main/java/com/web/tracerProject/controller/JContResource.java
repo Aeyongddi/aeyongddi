@@ -1,16 +1,21 @@
 package com.web.tracerProject.controller;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.web.tracerProject.service.JSerResource;
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ResourceManage;
@@ -34,8 +39,61 @@ public class JContResource {
 
         List<Project> projectsWithNoBudget = service.getProjectsWithNoBudget();
         model.addAttribute("projectsWithNoBudget", projectsWithNoBudget);
-        
+
+        // JSON 형식으로 데이터 변환
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            String userInfoListJson = mapper.writeValueAsString(userInfoList);
+            model.addAttribute("userInfoListJson", userInfoListJson);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
         return "tracerPages/resource";
+    }
+
+    @PostMapping("/addUser")
+    @ResponseBody
+    public User_info addUser(@RequestBody Map<String, String> request) {
+        User_info user = new User_info();
+        user.setName(request.get("name"));
+        user.setEmail(request.get("email"));
+        user.setBirth(Date.valueOf(request.get("birth")));
+        user.setPhone(request.get("phone"));
+        user.setNickname(request.get("nickname"));
+        user.setPassword(request.get("password"));
+        service.addUser(user);
+        return user;
+    }
+
+    @PostMapping("/updateUser")
+    @ResponseBody
+    public User_info updateUser(@RequestBody Map<String, String> request) {
+        User_info user = service.getUserByEmail(request.get("email"));
+        if (user == null) {
+            throw new RuntimeException("사용자를 찾을 수 없습니다.");
+        }
+        user.setName(request.get("name"));
+        user.setBirth(Date.valueOf(request.get("birth")));
+        user.setPhone(request.get("phone"));
+        user.setNickname(request.get("nickname"));
+        if (request.get("password") != null && !request.get("password").isEmpty()) {
+            user.setPassword(request.get("password"));
+        }
+        service.updateUser(user);
+        return user;
+    }
+
+    @PostMapping("/deleteUser")
+    @ResponseBody
+    public String deleteUser(@RequestBody Map<String, String> request) {
+        String email = request.get("email");
+        try {
+            service.deleteUser(email);
+            return "사용자가 삭제되었습니다.";
+        } catch (Exception e) {
+            return "사용자 삭제 실패: " + e.getMessage();
+        }
     }
 
     @GetMapping("/getBudget")

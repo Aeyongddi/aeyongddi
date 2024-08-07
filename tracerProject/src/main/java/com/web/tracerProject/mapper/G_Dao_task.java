@@ -14,10 +14,13 @@ import com.web.tracerProject.vo.Task;
 @Mapper
 public interface G_Dao_task {
   
-	@Select("SELECT *\r\n"
-			+ "FROM TASK\r\n"
-			+ "ORDER BY TO_NUMBER(SUBSTR(TKID, 3))")
-    List<Task> getTaskList();
+	@Select("SELECT * " +
+	        "FROM TASK " +
+	        "ORDER BY CASE " +
+	        "             WHEN REGEXP_LIKE(SUBSTR(TKID, 3), '^[0-9]+$') THEN TO_NUMBER(SUBSTR(TKID, 3)) " +
+	        "             ELSE NULL " +
+	        "         END")
+	List<Task> getTaskList();
      
 	// 등록하는 코드 
 	 @Update("UPDATE TASK SET name=#{name}, description=#{description}, sid=#{sid} WHERE tkid=#{tkid}")

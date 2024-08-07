@@ -15,22 +15,27 @@ public class G_Service_SCHEDULE {
 	@Autowired(required = false)
 	private G_Dao_Schedule dao;
 	// 조회하는 코드
-	public List<Schedule> getScheduleList(Schedule sch){
-		return dao.getScheduleList();
+	public List<Schedule> getSchedule(Schedule sch){
+		return dao.getSchedule();
 	}
 	
 	// 삭제하는 코드
-	public int deleteSchedule(String pid) {
-		return dao.deleteSchedule(pid);
-	}
+//	public int deleteSchedule(String sid) {
+//		return dao.deleteSchedule(sid);
+//	}
+//	
+//	// 수정하는 코드
+//	public int updateSchedule(Schedule ins) {
+//	        return dao.updateSchedule(ins);
+//	}
 	
-	// 수정하는 코드
-	public int updateSchedule(Schedule ins) {
-	        return dao.updateSchedule(ins);
-	}
 	
+//	 public int updateScheduleStatus(String sid, boolean endYN) {
+//	        return dao.updateScheduleStatus(sid, endYN);
+//	 }
 	// 등록하는 코드 null처리 
 	public int insertSchedule(Schedule ins) {
+		
 		if (ins.getStart_date() == null) {
 	        ins.setStart_date(new Date()); // 현재 날짜로 설정
 	    }

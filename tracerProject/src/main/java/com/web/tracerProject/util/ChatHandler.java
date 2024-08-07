@@ -25,23 +25,23 @@ public class ChatHandler extends TextWebSocketHandler {
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		String nickname = (String) session.getAttributes().get("nickname");
+	    String nickname = (String) session.getAttributes().get("nickname");
 
-		if (nickname == null || nickname.isEmpty()) {
-			nickname = "Guest" + guestCounter.getAndIncrement();
-		}
+	    if (nickname == null || nickname.isEmpty()) {
+	        nickname = "Guest" + guestCounter.getAndIncrement();
+	    }
 
-		userNicknames.put(session, nickname);
-		users.put(session.getId(), session);
-		System.out.println(nickname + "님 접속하셨습니다. 현재 접속자 수: " + users.size());
-		sendUserList();
-		sendJoinMessage(session, nickname);
+	    userNicknames.put(session, nickname);
+	    users.put(session.getId(), session);
+	    System.out.println(nickname + "님 접속하셨습니다. 현재 접속자 수: " + users.size());
+	    sendUserList();
+	    sendJoinMessage(session, nickname);
 	}
 
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
 	    String payload = message.getPayload();
-	    System.out.println("Received message payload: " + payload); // 서버 로그 추가
+	    System.out.println("Received message payload: " + payload);
 	    Map<String, String> messageMap = objectMapper.readValue(payload, Map.class);
 
 	    String email = messageMap.get("email");
@@ -57,20 +57,17 @@ public class ChatHandler extends TextWebSocketHandler {
 	    chatMessage.setSent_date(new Date());
 	    chatMessage.setContent(content);
 
-	    // 모든 클라이언트에게 브로드캐스트
 	    for (WebSocketSession userSession : users.values()) {
 	        if (userSession.isOpen()) {
-	            // 그룹 채팅일 경우, 모든 사용자에게 전송
 	            if ("group".equals(chatType)) {
 	                userSession.sendMessage(new TextMessage(payload));
-	            }
-	            // 1:1 채팅일 경우, 해당 사용자와 송신자에게만 전송
-	            else if ((chatName.equals(userNicknames.get(userSession)) && nickname.equals(userNicknames.get(userSession))) || chatName.equals(nickname)) {
+	            } else if ((chatName.equals(userNicknames.get(userSession)) && nickname.equals(userNicknames.get(userSession))) || chatName.equals(nickname)) {
 	                userSession.sendMessage(new TextMessage(payload));
 	            }
 	        }
 	    }
 	}
+
 
 
 
@@ -81,11 +78,11 @@ public class ChatHandler extends TextWebSocketHandler {
 	}
 
 	private void sendUserList() throws Exception {
-		List<String> userList = new ArrayList<>(userNicknames.values());
-		String userListMessage = "USER_LIST" + objectMapper.writeValueAsString(userList);
-		for (WebSocketSession userSession : users.values()) {
-			userSession.sendMessage(new TextMessage(userListMessage));
-		}
+	    List<String> userList = new ArrayList<>(userNicknames.values());
+	    String userListMessage = "USER_LIST" + objectMapper.writeValueAsString(userList);
+	    for (WebSocketSession userSession : users.values()) {
+	        userSession.sendMessage(new TextMessage(userListMessage));
+	    }
 	}
 
 	@Override

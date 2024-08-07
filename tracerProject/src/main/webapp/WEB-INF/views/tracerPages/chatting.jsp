@@ -358,23 +358,21 @@ function handleUserList(data) {
 
 
 
+
 function changeChat(type, name, button) {
     currentChatType = type;
     currentChatName = name;
     $("#chatTitle").text(name);
     $("#chatMessageArea").empty();
-    loadChatHistory();  // 채팅방 변경 시 채팅 기록 불러오기
+    loadChatHistory();
     updateActiveChatButton(button);
 }
 
-function updateActiveChatButton(button) {
-    // 모든 버튼에서 active-chat 클래스 제거
-    $(".btn").removeClass("active-chat");
 
-    // 클릭된 버튼에 active-chat 클래스 추가
+function updateActiveChatButton(button) {
+    $(".btn").removeClass("active-chat");
     $(button).addClass("active-chat");
 }
-
 
 </script>
 </body>

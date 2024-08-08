@@ -193,3 +193,21 @@ CREATE SEQUENCE ResourceManageSeq START WITH 1 INCREMENT BY 1 NOCACHE;
         SELECT ResourceManageSeq.NEXTVAL FROM DUAL;
 DROP SEQUENCE ResourceManageSeq;
            
+SELECT * FROM board;
+
+SELECT 'B'||LPAD(BID_SEQ.NEXTVAL, 3, '0')FROM dual;
+SELECT * FROM BOARD;
+
+SELECT * FROM COMMENTS;
+
+SELECT * FROM SCHEDULE;
+
+SELECT * FROM COMMENTS;
+
+INSERT INTO BOARD (bid, title, content, upt_date, views, btype, cid, email, sid, endYN) 
+VALUES
+('B'||LPAD(BID_SEQ.NEXTVAL, 5, '0'), '남원이', '재현이 아파', SYSDATE, 1, '하하', 'C004', 'alice@example.com', 'SID00143', 0);
+
+INSERT INTO BOARD (bid, title, content, upt_date, views, btype, cid, email, sid, endYN) 
+VALUES
+('B'||LPAD(BID_SEQ.NEXTVAL, 5, '0'), '남원이', '재현이 아파', SYSDATE, 1, '하하', 'C005', 'email', 'SID00143', 0);

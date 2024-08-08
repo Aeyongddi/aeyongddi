@@ -1,5 +1,6 @@
 package com.web.tracerProject.controller;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.tracerProject.service.G_Service_BOARD;
@@ -22,50 +22,45 @@ public class G_Controller_BOARD {
      
     @Autowired(required=false)
     private G_Service_BOARD service;
-    // http://localhost:5656/boardList
-    @GetMapping("/boardList")
-    public String boardList(Board sch, Model d) {
-        List<Board> boardList = service.getBoardList(sch);
-        d.addAttribute("boardList", boardList);
-        return "tracerPages/board";
-    }
-    
+     
  // http://localhost:5656/riskBoard
-    @RequestMapping("riskBoard")
-    public String riskBoard() {
-    	return "tracerPages/riskBoard";
+    @GetMapping("riskBoard")
+    public String riskBoard(Board sch, Model d) {
+        List<Board> boardList = service.getBoardList(sch);
+         d.addAttribute("boardList", boardList);
+       return "tracerPages/riskBoard";
     }
 
     @PostMapping("/boardListInsert")
     @ResponseBody
-    public String boardInsert(@RequestBody Board ins, Model d) {
-        // 세션에서 이메일 가져오기 예시
-        String email = "fixed_email@example.com"; // 실제로는 세션에서 가져와야 함
-        ins.setEmail(email);
-        d.addAttribute("result");
-        return service.insertBoard(ins)>0?"등록성공":"등록실패"; // 등록 후 리다이렉트
+    public String boardInsert(@RequestBody Board ins) {
+        if (ins.getUpt_date() == null) {
+            ins.setUpt_date(new Date()); // 현재 날짜로 기본값 설정
+        }
+        return service.insertBoard(ins) > 0 ? "등록성공" : "등록실패";
     }
 
 
-//    @RequestMapping("/boardUpdate")
-//    public String boardUpdate(Board upt, Model d) {
-//        d.addAttribute("msg", service.updateBoard(upt));
-//        return "tracerPages/board"; // 수정 후 리다이렉트
-//    }
 
-    @PostMapping("/boardDelete")
-    public String boardDelete(@RequestBody Map<String, List<String>> payload, Model model) {
-        List<String> titles = payload.get("ids");
-        if (titles == null || titles.isEmpty()) {
-            model.addAttribute("msg", "삭제할 항목이 없습니다.");
-            model.addAttribute("proc", "삭제 실패");
-            return "tracerPages/board";
-        }
+    @PostMapping("/boardUpdate")
+    public String boardUpdate(Board upt, Model d) {
+        d.addAttribute("msg", service.updateBoard(upt));
+        return "tracerPages/riskBoard"; // 수정 후 리다이렉트
+    }
 
-        int result = service.deleteBoards(titles);
+//    @PostMapping("/boardDelete")
+//    public String boardDelete(@RequestBody Map<String, List<String>> payload, Model model) {
+//        List<String> bids = payload.get("bids");
+//        if (bids == null || bids.isEmpty()) {
+//            model.addAttribute("msg", "삭제할 항목이 없습니다.");
+//            model.addAttribute("proc", "삭제 실패");
+//            return "tracerPages/riskBoard";
+//        }
+
+        int result = service.deleteBoards(bids);
         model.addAttribute("msg", result > 0 ? "삭제 성공" : "삭제 실패");
         model.addAttribute("proc", "삭제");
-        return "tracerPages/board";
+        return "tracerPages/riskBoard";
     }
     
     @PostMapping("/updateBoardStatus")
@@ -81,8 +76,7 @@ public class G_Controller_BOARD {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update status");
         }
     }
-    
-   
+       
     
 }
     

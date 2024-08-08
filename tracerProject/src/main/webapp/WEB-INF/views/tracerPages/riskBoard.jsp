@@ -2,340 +2,291 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko"> 
+<html lang="ko">
 <head>
-    <title>Portal - Bootstrap 5 Admin Dashboard Template For Developers</title>
-    
-    <!-- Meta -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta name="description" content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
-    <meta name="author" content="Xiaoying Riley at 3rd Wave Media">    
-    <link rel="shortcut icon" href="favicon.ico"> 
-    
-    <!-- FontAwesome JS-->
-    <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
-    
-    <!-- App CSS -->  
-    <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
+<title>Portal - Bootstrap 5 Admin Dashboard Template For
+	Developers</title>
+<!-- Meta -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description"
+	content="Portal - Bootstrap 5 Admin Dashboard Template For Developers">
+<meta name="author" content="Xiaoying Riley at 3rd Wave Media">
+<link rel="shortcut icon" href="favicon.ico">
+<!-- FontAwesome JS -->
+<script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
+<!-- App CSS -->
+<link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
+</head>
 
-</head> 
-<jsp:include page="/headerSidebar.jsp"/> 	
-<body>   
-    <div class="app-wrapper">
-	    
-	    <div class="app-content pt-3 p-md-3 p-lg-4">
-		    <div class="container-xl">
-			    <br><br>
-			    <div class="row g-3 mb-4 align-items-center justify-content-between">
-				    <div class="col-auto">
-			            <h1 class="app-page-title mb-0">Orders</h1>
-				    </div>
-				    <div class="col-auto">
-					     <div class="page-utilities">
-						    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
-							    <div class="col-auto">
-								    <form class="table-search-form row gx-1 align-items-center">
-					                    <div class="col-auto">
-					                        <input type="text" id="search-orders" name="searchorders" class="form-control search-orders" placeholder="Search">
-					                    </div>
-					                    <div class="col-auto">
-					                        <button type="submit" class="btn app-btn-secondary">Search</button>
-					                    </div>
-					                </form>
-					                
-							    </div><!--//col-->
-							    <div class="col-auto">
-								    
-								    <select class="form-select w-auto" >
-										  <option selected value="option-1">All</option>
-										  <option value="option-2">This week</option>
-										  <option value="option-3">This month</option>
-										  <option value="option-4">Last 3 months</option>
-										  
+<style>
+.custom-select-width {
+	width: 110px; /* 원하는 너비로 조정 */
+}
+
+.modal-header {
+    background-color: #17A663; /* 배경색상 설정 */
+    color: #ffffff; /* 텍스트 색상 흰색 */
+}
+
+
+
+/* 등록 버튼 텍스트 색상 흰색 */
+.btn-primary {
+    background-color: #17A663; /* 버튼 배경색상 설정 */
+    border-color: #17A663; /* 버튼 테두리 색상 설정 */
+    color: #ffffff; /* 버튼 텍스트 색상 흰색 */
+}
+
+.btn-primary:hover {
+    background-color: #138c53; /* 버튼 호버 시 배경색상 설정 */
+    border-color: #138c53; /* 버튼 호버 시 테두리 색상 설정 */
+}
+
+-- 게시판 제목 게시일 조회수 글씨 크기
+.table thead th {
+    font-size: 32rem; /* 원하는 글씨 크기로 조정 (예: 1.2rem) */
+}
+</style>
+
+<body>
+	<jsp:include page="/headerSidebar.jsp" />
+	<div class="app-wrapper">
+		<div class="app-content pt-3 p-md-3 p-lg-4">
+			<div class="container-xl">
+				<br> <br>
+				<div class="row g-3 mb-4 align-items-center justify-content-between">
+					<div class="col-auto">
+						<h1 class="app-page-title mb-0">Orders</h1>
+					</div>
+					<div class="col-auto">
+						<div class="page-utilities">
+							<div
+								class="row g-2 justify-content-start justify-content-md-end align-items-center">
+								<div class="col-auto">
+									<form class="table-search-form row gx-1 align-items-center">
+										<div class="col-auto">
+											<input type="text" id="search-orders" name="searchorders"
+												class="form-control search-orders" placeholder="Search">
+										</div>
+										<div class="col-auto">
+											<button type="submit" class="btn app-btn-secondary">Search</button>
+										</div>
+									</form>
+								</div>
+								<div class="col-auto">
+									<select class="form-select w-auto">
+										<option selected value="option-1">All</option>
+										<option value="option-2">This week</option>
+										<option value="option-3">This month</option>
+										<option value="option-4">Last 3 months</option>
 									</select>
-							    </div>
-							    <div class="col-auto">						    
-								    <a class="btn app-btn-secondary" href="#">
-									    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-download me-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-		  <path fill-rule="evenodd" d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
-		  <path fill-rule="evenodd" d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
-		</svg>
-									    Download CSV
-									</a>
-							    </div>
-						    </div><!--//row-->
-					    </div><!--//table-utilities-->
-				    </div><!--//col-auto-->
-			    </div><!--//row-->
-			   
-			    
-			    <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-				    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">All</a>
-				    <a class="flex-sm-fill text-sm-center nav-link"  id="orders-paid-tab" data-bs-toggle="tab" href="#orders-paid" role="tab" aria-controls="orders-paid" aria-selected="false">Paid</a>
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">Pending</a>
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-cancelled-tab" data-bs-toggle="tab" href="#orders-cancelled" role="tab" aria-controls="orders-cancelled" aria-selected="false">Cancelled</a>
+								</div>
+								<div class="col-auto">
+									<a class="btn app-btn-secondary" id="openModalButton"
+										data-bs-toggle="modal" data-bs-target="#orderDetailsModal">등록</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<nav id="orders-table-tab"
+					class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
+					<a class="flex-sm-fill text-sm-center nav-link active"
+						id="orders-all-tab" data-bs-toggle="tab" href="#orders-all"
+						role="tab" aria-controls="orders-all" aria-selected="true">리스트게시판</a>
 				</nav>
-				
-				
+
 				<div class="tab-content" id="orders-table-tab-content">
-			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-					    <div class="app-card app-card-orders-table shadow-sm mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-							        <table class="table app-table-hover mb-0 text-left">
-										<thead>
+					<div class="tab-pane fade show active" id="orders-all"
+						role="tabpanel" aria-labelledby="orders-all-tab">
+						<div class="app-card app-card-orders-table shadow-sm mb-5">
+							<div class="app-card-body">
+								<div class="table-responsive">
+									<table class="table app-table-hover mb-0 text-left">
+										<thead class="table-header">
 											<tr>
-												<th class="cell">Order</th>
-												<th class="cell">Product</th>
-												<th class="cell">Customer</th>
-												<th class="cell">Date</th>
-												<th class="cell">Status</th>
-												<th class="cell">Total</th>
-												<th class="cell"></th>
+												<th class="cell">게시판</th>
+												<th class="cell">제목</th>
+												<th class="cell">게시일</th>
+												<th class="cell">조회수</th>
+												<th class="cell">작성자</th>
+												<th class="cell">진행사항</th>
+												<th class="cell">결재</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="cell">#15346</td>
-												<td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-												<td class="cell">John Sanders</td>
-												<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$259.35</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											<tr>
-												<td class="cell">#15345</td>
-												<td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-												<td class="cell">Dylan Ambrose</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-												<td class="cell"><span class="badge bg-warning">Pending</span></td>
-												<td class="cell">$96.20</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											<tr>
-												<td class="cell">#15344</td>
-												<td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-												<td class="cell">Teresa Holland</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$123.00</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15343</td>
-												<td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-												<td class="cell">Jayden Massey</td>
-												<td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$199.00</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15342</td>
-												<td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-												<td class="cell">Reina Brooks</td>
-												<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-												<td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-												<td class="cell">$59.00</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15341</td>
-												<td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-												<td class="cell">Raymond Atkins</td>
-												<td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$678.26</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-		
+											<c:forEach var="boa" items="${boardList}">
+												<tr>
+													<td class="cell">${boa.bid}</td>
+													<td class="cell">${boa.title}</td>
+													<td class="cell"><fmt:formatDate
+															value="${boa.upt_date}" pattern="yyyy-MM-dd" /></td>
+													<td class="cell">${boa.views}</td>
+													<td class="cell">${boa.email}</td>
+													<td class="cell"><select class="form-select"
+														id="modal-endYN-${boa.bid}" name="endYN"
+														onchange="updateStatus('${boa.bid}', this.value)">
+															<option value="0" ${boa.endYN ? 'selected' : ''}>진행중</option>
+															<option value="1" ${!boa.endYN ? 'selected' : ''}>완료</option>
+													</select></td>
+													<td class="cell"><a class="btn-sm app-btn-secondary"
+														href="#">올리기</a> <a class="btn-sm app-btn-secondary"
+														href="#">삭제</a></td>
+												</tr>
+											</c:forEach>
 										</tbody>
 									</table>
-						        </div><!--//table-responsive-->
-						       
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-						<nav class="app-pagination">
-							<ul class="pagination justify-content-center">
-								<li class="page-item disabled">
-									<a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-							    </li>
-								<li class="page-item active"><a class="page-link" href="#">1</a></li>
-								<li class="page-item"><a class="page-link" href="#">2</a></li>
-								<li class="page-item"><a class="page-link" href="#">3</a></li>
-								<li class="page-item">
-								    <a class="page-link" href="#">Next</a>
-								</li>
-							</ul>
-						</nav><!--//app-pagination-->
-						
-			        </div><!--//tab-pane-->
-			        
-			        <div class="tab-pane fade" id="orders-paid" role="tabpanel" aria-labelledby="orders-paid-tab">
-					    <div class="app-card app-card-orders-table mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-								    
-							        <table class="table mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">Order</th>
-												<th class="cell">Product</th>
-												<th class="cell">Customer</th>
-												<th class="cell">Date</th>
-												<th class="cell">Status</th>
-												<th class="cell">Total</th>
-												<th class="cell"></th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td class="cell">#15346</td>
-												<td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-												<td class="cell">John Sanders</td>
-												<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$259.35</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15344</td>
-												<td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-												<td class="cell">Teresa Holland</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$123.00</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											
-											<tr>
-												<td class="cell">#15343</td>
-												<td class="cell"><span class="truncate">Vestibulum a accumsan lectus sed mollis ipsum</span></td>
-												<td class="cell">Jayden Massey</td>
-												<td class="cell"><span class="cell-data">15 Oct</span><span class="note">8:07 PM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$199.00</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-										
-											
-											<tr>
-												<td class="cell">#15341</td>
-												<td class="cell"><span class="truncate">Morbi vulputate lacinia neque et sollicitudin</span></td>
-												<td class="cell">Raymond Atkins</td>
-												<td class="cell"><span class="cell-data">11 Oct</span><span class="note">11:18 AM</span></td>
-												<td class="cell"><span class="badge bg-success">Paid</span></td>
-												<td class="cell">$678.26</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-		
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-			        </div><!--//tab-pane-->
-			        
-			        <div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
-					    <div class="app-card app-card-orders-table mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-							        <table class="table mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">Order</th>
-												<th class="cell">Product</th>
-												<th class="cell">Customer</th>
-												<th class="cell">Date</th>
-												<th class="cell">Status</th>
-												<th class="cell">Total</th>
-												<th class="cell"></th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td class="cell">#15345</td>
-												<td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-												<td class="cell">Dylan Ambrose</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-												<td class="cell"><span class="badge bg-warning">Pending</span></td>
-												<td class="cell">$96.20</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-			        </div><!--//tab-pane-->
-			        <div class="tab-pane fade" id="orders-cancelled" role="tabpanel" aria-labelledby="orders-cancelled-tab">
-					    <div class="app-card app-card-orders-table mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-							        <table class="table mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">Order</th>
-												<th class="cell">Product</th>
-												<th class="cell">Customer</th>
-												<th class="cell">Date</th>
-												<th class="cell">Status</th>
-												<th class="cell">Total</th>
-												<th class="cell"></th>
-											</tr>
-										</thead>
-										<tbody>
-											
-											<tr>
-												<td class="cell">#15342</td>
-												<td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-												<td class="cell">Reina Brooks</td>
-												<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-												<td class="cell"><span class="badge bg-danger">Cancelled</span></td>
-												<td class="cell">$59.00</td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-			        </div><!--//tab-pane-->
-				</div><!--//tab-content-->
-				
-				
-			    
-		    </div><!--//container-fluid-->
-	    </div><!--//app-content-->
-	    
-	    <footer class="app-footer">
-		    <div class="container text-center py-3">
-		         <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-            <small class="copyright">Designed with by <a class="app-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> for developers</small>
-		       
-		    </div>
-	    </footer><!--//app-footer-->
-	    
-    </div><!--//app-wrapper-->    					
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
- 
-    <!-- Javascript -->          
-    <script src="assets/plugins/popper.min.js"></script>
-    <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>  
-    
-    
-    <!-- Page Specific JS -->
-    <script src="assets/js/app.js"></script> 
+				<nav class="app-pagination">
+					<ul class="pagination justify-content-center">
+						<li class="page-item disabled"><a class="page-link" href="#"
+							tabindex="-1" aria-disabled="true">Previous</a></li>
+						<li class="page-item active"><a class="page-link" href="#">1</a></li>
+						<li class="page-item"><a class="page-link" href="#">2</a></li>
+						<li class="page-item"><a class="page-link" href="#">3</a></li>
+						<li class="page-item"><a class="page-link" href="#">Next</a></li>
+					</ul>
+				</nav>
 
+				<!-- 모달 창 -->
+				<div class="modal fade" id="orderDetailsModal" tabindex="-1"
+					aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="orderDetailsModalLabel">게시판 등록</h5>
+								<button type="button" class="btn-close" data-bs-dismiss="modal"
+									aria-label="닫기"></button>
+							</div>
+							<div class="modal-body">
+								<form id="orderDetailsForm">
+									<div class="mb-3">
+										<label for="modal-title" class="form-label">제목</label> <input
+											type="text" class="form-control" id="modal-title"
+											name="title" required>
+									</div>
+									<div class="mb-3">
+										<label for="modal-content" class="form-label">내용</label>
+										<textarea class="form-control" id="modal-content"
+											name="content" rows="3" required></textarea>
+									</div>
+									<div class="mb-3">
+										<label for="modal-email" class="form-label">이메일</label> <input
+											type="email" class="form-control" id="modal-email"
+											name="email">
+									</div>
+									<div class="mb-3">
+										<label for="modal-cid" class="form-label">댓글 ID</label> <input
+											type="text" class="form-control" id="modal-cid" name="cid"
+											required>
+									</div>
+									<div class="mb-3">
+										<label for="modal-sid" class="form-label">프로젝트 ID</label> <input
+											type="text" class="form-control" id="modal-sid" name="sid"
+											required>
+									</div>
+									<div class="modal-footer">
+										<button type="submit" class="btn btn-primary">등록</button>
+										<button type="button" class="btn btn-secondary"
+											data-bs-dismiss="modal">닫기</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Javascript -->
+				<script src="assets/plugins/popper.min.js"></script>
+				<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+				<script type="text/javascript">
+				$(document).ready(function() {
+				    // '등록' 버튼 클릭 시 AJAX 요청을 보낼 수 있도록 설정
+				    $("#orderDetailsForm").on("submit", function(event) {
+				        event.preventDefault(); // 폼 제출 기본 동작 방지
+
+				        // 사용자 입력을 가져오기
+				        var title = $("#modal-title").val();
+				        var content = $("#modal-content").val(); // 사용자 입력이 없으면 빈 문자열로 처리
+				        var uptDate = new Date().toISOString(); // 현재 날짜와 시간을 ISO 문자열로 변환
+				        var views = parseInt($("#viewsInput").val(), 10); // 숫자로 변환
+				        var btype = $("#btypeInput").val();
+				        var cid = $("#modal-cid").val();
+				        var email = $("#modal-email").val();
+				        var sid = $("#modal-sid").val();
+
+				        // AJAX 요청 보내기
+				        $.ajax({
+				            url : '/boardListInsert', // 서버의 엔드포인트 URL (수정 필요)
+				            type : 'POST',
+				            contentType : 'application/json',
+				            data : JSON.stringify({
+				                title : title,
+				                content : content || null,  // 빈 문자열이 아니라 null로 설정
+				                upt_date : uptDate,  // 자동으로 설정된 현재 날짜
+				                views : isNaN(views) ? null : views, // 숫자가 아닌 경우 null로 설정
+				                btype : btype,
+				                cid : cid,
+				                email : email,
+				                sid : sid
+				                // endYN을 보내지 않음
+				            }),
+				            success : function(response) {
+				                console.log("Success:", response);
+				                // 성공적으로 처리된 경우 사용자에게 알림
+				                alert("등록 성공");
+				                // 모달 닫기
+				                $('#orderDetailsModal').modal('hide');
+				                // 페이지 새로고침
+				                location.reload();
+				            },
+				            error : function(xhr, status, error) {
+				                console.error("Error:", error);
+				                // 오류 발생 시 사용자에게 알림
+				                alert("등록 실패하였습니다.");
+				            }
+				        });
+				    });
+
+				    // 상태 업데이트 함수
+				    function updateStatus(bid, newStatus) {
+				        $.ajax({
+				            url : '/updateBoardStatus',
+				            type : 'POST',
+				            contentType : 'application/json',
+				            data : JSON.stringify({
+				                bid : bid,
+				                endYN : newStatus === '1' // '1'은 true, '0'은 false
+				            }),
+				            success : function(response) {
+				                console.log('Status updated successfully:', response);
+				            },
+				            error : function(xhr, status, error) {
+				                console.error('Error updating status:', error);
+				                alert('상태 업데이트 중 오류가 발생했습니다.');
+				            }
+				        });
+				    }
+
+				    // 상태 변경 시 호출되는 이벤트 핸들러
+				    $('select[name="endYN"]').on('change', function() {
+				        var bid = $(this).attr('id').split('-').pop(); // ID에서 bid 추출
+				        var newStatus = $(this).val(); // 선택된 값 (0 또는 1)
+				        updateStatus(bid, newStatus);
+				    });
+				});
+				</script>
+				<!-- Page Specific JS -->
+				<script src="assets/js/app.js"></script>
+			</div>
+		</div>
+	</div>
 </body>
-</html> 
-
+</html>

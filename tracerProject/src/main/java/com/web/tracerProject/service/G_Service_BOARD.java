@@ -33,10 +33,10 @@ public class G_Service_BOARD {
         return dao.deleteBoard(title);
     }
 
-    public int deleteBoards(List<String> titles) {
+    public int deleteBoards(List<String> bids) {
         int totalDeleted = 0;
-        for (String title : titles) {
-            totalDeleted += dao.deleteBoard(title);
+        for (String bid : bids) {
+            totalDeleted += dao.deleteBoard(bid);
         }
         return totalDeleted;
     }
@@ -73,17 +73,19 @@ public class G_Service_BOARD {
     }
    
     public int insertBoard(Board ins) {
-    	// VALUES (#{bid}, #{title}, #{content}, SYSDATE, #{views}, #{btype}, #{cid}, #{email}, #{sid}, #{endYN})")
-        // bid 생성
-        ins.setBid(dao.getBid());
-        // 기본값 설정
-        if (ins.getUpt_date() == null) {
+    	if (ins.getTitle() == null) {
+    		ins.setTitle("");
+        }
+    	
+    	if (ins.getUpt_date() == null) {
             ins.setUpt_date(new Date()); // 현재 날짜로 기본값 설정
         }
-        if (ins.getEmail() == null) {
-            ins.setEmail(""); // 기본값 설정
+    	if (ins.getContent() == null) {
+    		ins.setContent("");
         }
-        // endYN 기본값 설정
+    	if (ins.getBtype() == null) {
+    		ins.setBtype("");
+        }
         if (!ins.isEndYN()) {
             ins.setEndYN(false); // 기본값 설정
         }

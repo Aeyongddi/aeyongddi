@@ -15,7 +15,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Gantt {
 	private String id;
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private String start_date;
 	private String duration;
 	private String progress;
@@ -24,7 +23,6 @@ public class Gantt {
 	private String open;
 	private String text;
 	private String users;
-	@DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
 	private String end_date;
 	
 	

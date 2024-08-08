@@ -59,10 +59,10 @@ var opts
 			section_time: "기간",
 		}
 	})
-	gantt.config.date_format = "%Y-%m-%d %H:%i:%s";
+	gantt.config.date_format = "%Y-%m-%d";
 	gantt.config.show_empty_state = true;
-	gantt.config.start_date = new Date(2023, 07, 01);
-	gantt.config.end_date = new Date(2025, 08, 01);
+	gantt.config.start_date = new Date(2024, 06, 01);
+	gantt.config.end_date = new Date(2026, 08, 01);
 	gantt.config.columns = [
         { name: "text", label: "일정/업무", width: "300px", tree: true },
         { name: "start_date", label: "시작일", align: "center" },
@@ -77,9 +77,7 @@ var opts
 		if(task.$level==0){
 			gantt.deleteTask(id)
 			ganttAjaxSchedule("insSchByGantt" ,task, function(){
-				timelineFunc()
 			})
-			timelineFunc()
         }else{
         	gantt.deleteTask(id)
         	ganttAjaxTask("insTaskByGantt" ,task, function(){
@@ -88,13 +86,16 @@ var opts
         }
         return true; 
     });
-    
     gantt.attachEvent("onAfterTaskUpdate", function(id, task) {
         console.log("Task update:", id, task);
         if(task.$level==0){
-			timelineFunc()
+        	ganttAjaxSchedule("uptSchByGantt" ,task, function(){
+				timelineFunc()
+			})
         }else{
-        	timelineFunc()	
+        	ganttAjaxSchedule("uptTaskByGantt" ,task, function(){
+				timelineFunc()
+			})
         }
         return true; 
     });
@@ -102,9 +103,13 @@ var opts
     gantt.attachEvent("onAfterTaskDelete", function(id, task) {
         console.log("Task delete:", id, task);
 		if(task.$level==0){
-			timelineFunc()
+			ganttAjaxSchedule("delSchByGantt" ,task, function(){
+				timelineFunc()
+			})
         }else{
-        	timelineFunc()	
+        	ganttAjaxSchedule("delTaskByGantt" ,task, function(){
+				timelineFunc()
+			})	
         }
         return true; 
     });
@@ -149,7 +154,7 @@ var opts
 			type: 'POST',
 			dataType: 'json',
 			success: function(data){
-				console.log(data)
+				console.log("Received data:", data)
 				gantt.clearAll()
 				gantt.init("gantt_here");
 				gantt.parse(data, "json");
@@ -176,20 +181,18 @@ var opts
 			url: 'getEmail',
 			type: 'POST',
 			success: function(data){
-				console.log(data)
-				console.log(sel.start_date)
-				sel.start_date = sel.start_date.toISOString()
-				sel.end_date = sel.end_date.toISOString()
-				console.log(sel)
+				console.log("debug", sel)
+				sel.start_date = new Date(sel.start_date).toISOString()
+				sel.end_date = new Date(sel.end_date).toISOString()
 				sel.email = data
-				sel.pid = 'PID00044'
+				sel.pid = 'PID00044' // 추후 수정할 것. 세션처리
+					console.log("1234"+sel)
 				$.ajax({
 					data: sel,
 					url: url,
 					type: 'POST',
 					dataType: 'text',
 					success: function(data){
-						console.log(data)
 						if (callback) callback()
 					},
 					error: function(err){
@@ -220,8 +223,7 @@ var opts
 			}
 		})
 	}
-
-
+	
 
 </script>
 </head> 

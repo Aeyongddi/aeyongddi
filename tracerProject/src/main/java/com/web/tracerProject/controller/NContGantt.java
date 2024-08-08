@@ -10,12 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.tracerProject.service.NSerGantt;
 import com.web.tracerProject.vo.Gantt;
-import com.web.tracerProject.vo.Schedule;
-import com.web.tracerProject.vo.Task;
 
 @Controller
 public class NContGantt {

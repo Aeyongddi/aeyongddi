@@ -13,45 +13,40 @@ import com.web.tracerProject.vo.Board;
 
 @Mapper
 public interface G_Dao_BOARD {
+	// 조회하는 코드
     @Select("SELECT * FROM BOARD ORDER BY bid")
     List<Board> getBoardList();
-
-    @Update("UPDATE BOARD SET BID=#{bid}, title=#{title}, content=#{content}, views=#{views}, btype=#{btype}, email=#{email}, sid=#{sid}, is_end=#{is_end} WHERE bid=#{bid}")
+    
+    // 업데이트하는 코드
+    @Update("UPDATE BOARD SET title=#{title}, content=#{content}, endYN=#{endYN}, up=#{up} WHERE bid=#{bid}")
     int updateBoard(Board upt);
     
+    // 실시간으로 진행중 / 완료 하는코드
     @Update("UPDATE BOARD SET endYN = #{endYN} WHERE bid = #{bid}")
     int updateBoardStatus(@Param("bid") String bid, @Param("endYN") boolean endYN);
-
-    @Insert("INSERT INTO BOARD (bid, title, content, upt_date, views, btype, cid, email, sid, endYN) " +
-            "VALUES ('B'||LPAD(BID_SEQ.NEXTVAL, 5, '0'), #{title}, #{content}, #{upt_date}, #{views}, #{btype}, #{cid}, #{email}, #{sid}, #{endYN})")
+   
+    // 등록하는 코드
+    @Insert("INSERT INTO BOARD (bid, title, content, upt_date, views, btype, cid, email, sid, endYN, uf, name) " +
+            "VALUES ('B'||LPAD(BID_SEQ.NEXTVAL, 5, '0'), #{title}, #{content}, #{upt_date}, #{views}, #{btype}, " +
+            "#{cid}, #{email}, #{sid}, #{endYN}, #{uf}, #{name})")
     int insertBoard(Board board);
     
-//    @Insert("INSERT INTO BOARD2 (bid, endYN) VALUES (#{bid}, #{endYN})")
-//    int insertBoard1(@Param("bid") String bid, @Param("endYN") boolean endYN);
-
-//    @Insert("INSERT INTO BOARD (bid, title, upt_date, email,  endYN) " +
-//            "VALUES (#{bid}, #{title}, SYSDATE, #{email}, #{endYN})")
-    
-
+    // 검색하는 코드 <select> 사용해서 제목 작성자 나누어서 검색하는 코드
+    @Select("<script>" +
+            "SELECT * FROM BOARD" +
+            "<where>" +
+            "<if test='searchType != null and searchText != null'>" +
+            "  AND ${searchType} LIKE '%' || #{searchText} || '%'" +
+            "</if>" +
+            "</where>" +
+            "ORDER BY bid" +
+            "</script>")
+    List<Board> search(@Param("searchText") String searchText, @Param("searchType") String searchType);
+   
+    // 삭제 하는 코드
     @Delete("DELETE FROM board WHERE bid = #{bid}")
     int deleteBoard(@Param("bid") String bid);
-     
-    @Delete({
-        "<script>",
-        "DELETE FROM BOARD2 WHERE bid IN",
-        "<foreach collection='bids' item='bid' open='(' separator=',' close=')'>",
-        "#{bid}",
-        "</foreach>",
-        "</script>"
-    })
-    int deleteBoardsByBids(@Param("bids") List<String> bids);
     
-    
-//    @Select("SELECT 'B' || LPAD(TO_CHAR(TO_NUMBER(MAX(SUBSTR(bid, 2))) + 1), 3, '0') FROM board2")
-//	String getBid();
-    
-//    @Select("SELECT 'B' || LPAD(TO_CHAR(board2_seq.NEXTVAL), 3, '0') FROM dual")
-//    String getBid();
     
     
     

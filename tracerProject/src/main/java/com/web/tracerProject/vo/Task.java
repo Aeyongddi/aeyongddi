@@ -22,6 +22,6 @@ public class Task {
     private String name;
     private String description;
     private String sid;
-	public boolean endYN;
+    private boolean endYN;
 	}
 

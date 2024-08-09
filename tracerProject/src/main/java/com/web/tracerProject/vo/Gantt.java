@@ -25,6 +25,7 @@ public class Gantt {
 	private String users;
 	private String end_date;
 	
+	private String $index;
 	
 	private String email;
 	private String pid;

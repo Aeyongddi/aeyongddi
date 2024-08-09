@@ -12,7 +12,6 @@ import com.web.tracerProject.vo.Gantt;
 
 @Mapper
 public interface NDaoGantt {
-	
 	@Select("""
 			SELECT  
 				TRIM(LEADING '0' FROM REGEXP_REPLACE(sid, '[^0-9]', '')) AS id,

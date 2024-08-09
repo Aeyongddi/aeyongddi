@@ -40,13 +40,20 @@
 			position:absolute;
 			top:15%;
 		}
+		.highlight-parent {
+            background-color: #4AE087; 
+            border-color: #6EBFE6;
+        }
+        .highlight {
+        	background-color: ;
+        	border-color: ;
+        }
 	</style>
 <script type="text/javascript">
-
-
 $(document).ready(function(){
 // 초기세팅
 var opts
+
 	
 	gantt.locale.labels.icon_save = "저장";
 	gantt.locale.labels.icon_cancel = "취소";
@@ -72,16 +79,24 @@ var opts
             return "<button class='gantt_add_task'>+</button>";
         }}
     ];
+	 gantt.templates.task_class = function(start, end, task){
+         if(task.parent == 0){
+             return "highlight-parent";
+         }
+         return "highlight";
+     };
+
 	gantt.attachEvent("onAfterTaskAdd", function(id, task) {
         console.log("Task added:", id, task);
 		if(task.$level==0){
 			gantt.deleteTask(id)
 			ganttAjaxSchedule("insSchByGantt" ,task, function(){
+				timelineFunc(task)
 			})
         }else{
         	gantt.deleteTask(id)
         	ganttAjaxTask("insTaskByGantt" ,task, function(){
-				timelineFunc()
+				timelineFunc(task)
 			})
         }
         return true; 
@@ -90,11 +105,11 @@ var opts
         console.log("Task update:", id, task);
         if(task.$level==0){
         	ganttAjaxSchedule("uptSchByGantt" ,task, function(){
-				timelineFunc()
+				timelineFunc(task)
 			})
         }else{
         	ganttAjaxSchedule("uptTaskByGantt" ,task, function(){
-				timelineFunc()
+				timelineFunc(task)
 			})
         }
         return true; 
@@ -104,11 +119,11 @@ var opts
         console.log("Task delete:", id, task);
 		if(task.$level==0){
 			ganttAjaxSchedule("delSchByGantt" ,task, function(){
-				timelineFunc()
+				timelineFunc(task)
 			})
         }else{
         	ganttAjaxSchedule("delTaskByGantt" ,task, function(){
-				timelineFunc()
+				timelineFunc(task)
 			})	
         }
         return true; 
@@ -139,7 +154,7 @@ var opts
 					n.map(function(username) { return { key: username, label: username }; }) },
                 { name: "time", height: 72, type: "duration", map_to: "auto" }
             ];
-            timelineFunc()
+            timelineFunc('1')
         },
         error: function(err) {
             console.error("Failed to load users", err);
@@ -148,7 +163,7 @@ var opts
 });
 	
 	
-	function timelineFunc(){
+	function timelineFunc(task){
 		$.ajax({
 			url: 'timeline',
 			type: 'POST',
@@ -156,8 +171,11 @@ var opts
 			success: function(data){
 				console.log("Received data:", data)
 				gantt.clearAll()
-				gantt.init("gantt_here");
-				gantt.parse(data, "json");
+				gantt.init("gantt_here")
+				gantt.parse(data, "json")
+				gantt.sort("start_date", false)
+				if(task != '1')
+					gantt.showTask(task.id)
 			},
 			error: function(err){
 				console.log(err)
@@ -181,12 +199,10 @@ var opts
 			url: 'getEmail',
 			type: 'POST',
 			success: function(data){
-				console.log("debug", sel)
 				sel.start_date = new Date(sel.start_date).toISOString()
 				sel.end_date = new Date(sel.end_date).toISOString()
 				sel.email = data
 				sel.pid = 'PID00044' // 추후 수정할 것. 세션처리
-					console.log("1234"+sel)
 				$.ajax({
 					data: sel,
 					url: url,
@@ -215,7 +231,6 @@ var opts
 			type: 'POST',
 			dataType: 'text',
 			success: function(data){
-				console.log(data)
 				if (callback) callback()
 			},
 			error: function(err){

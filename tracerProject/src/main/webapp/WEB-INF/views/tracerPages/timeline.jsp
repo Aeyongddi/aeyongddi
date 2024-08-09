@@ -91,12 +91,12 @@ var opts
 		if(task.$level==0){
 			gantt.deleteTask(id)
 			ganttAjaxSchedule("insSchByGantt" ,task, function(){
-				timelineFunc(task)
+				timelineFunc('1')
 			})
         }else{
         	gantt.deleteTask(id)
         	ganttAjaxTask("insTaskByGantt" ,task, function(){
-				timelineFunc(task)
+				timelineFunc('1')
 			})
         }
         return true; 
@@ -119,11 +119,11 @@ var opts
         console.log("Task delete:", id, task);
 		if(task.$level==0){
 			ganttAjaxSchedule("delSchByGantt" ,task, function(){
-				timelineFunc(task)
+				timelineFunc('1')
 			})
         }else{
         	ganttAjaxSchedule("delTaskByGantt" ,task, function(){
-				timelineFunc(task)
+				timelineFunc('1')
 			})	
         }
         return true; 

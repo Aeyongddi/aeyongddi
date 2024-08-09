@@ -264,7 +264,7 @@ $(document).ready(function () {
 
 function sendMsg() {
     var content = $("#msg").val();
-    if(content.trim() === "") {
+    if (content.trim() === "") {
         return;
     }
     console.log("Sending message: ", content);
@@ -275,13 +275,17 @@ function sendMsg() {
         chatType: currentChatType,
         chatName: currentChatName
     };
+
+    // 메시지를 서버에 전송
     socket.send(JSON.stringify(message));
-    $("#msg").val("");
+    $("#msg").val("");  // 메시지 입력창 초기화
 
     // 자신이 보낸 메시지를 UI에 추가
     addMessageToChat(userNickname, content, true);
     saveMessageToLocalStorage(message);  // 로컬 저장소에 메시지 저장
 }
+
+
 
 function revMsg(data) {
     const message = JSON.parse(data);
@@ -294,12 +298,18 @@ function revMsg(data) {
     // 현재 채팅방의 메시지인 경우에만 표시
     if (chatType === currentChatType && (chatName === currentChatName || chatName === userNickname)) {
         console.log("Received message from:", nickname, " Content: ", content);
-        addMessageToChat(nickname, content, isSender);
+
+        // 발신자가 자신이 아닌 경우에만 메시지를 UI에 추가
+        if (!isSender) {
+            addMessageToChat(nickname, content, false);
+        }
 
         // 수신한 메시지를 로컬 스토리지에 저장
         saveMessageToLocalStorage(message);
     }
 }
+
+
 
 
 

@@ -11,6 +11,8 @@
     <link rel="shortcut icon" href="favicon.ico">
     <script defer src="assets/plugins/fontawesome/js/all.min.js"></script>
     <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -42,6 +44,7 @@
                 <a class="flex-sm-fill text-sm-center nav-link" id="asset-management-tab" data-bs-toggle="tab" href="#asset-management" role="tab" aria-controls="asset-management" aria-selected="false">자산 관리</a>
             </nav>
             <div class="tab-content" id="orders-table-tab-content">
+                <!-- 인적 자원 관리 탭 -->
                 <div class="tab-pane fade show active" id="hr-management" role="tabpanel" aria-labelledby="hr-management-tab">
                     <div id="app">
                         <hr-management></hr-management>
@@ -50,25 +53,37 @@
 
                 <!-- 예산 관리 탭 -->
                 <div class="tab-pane fade" id="budget-management" role="tabpanel" aria-labelledby="budget-management-tab">
-                    <div class="app-card app-card-chart h-100 shadow-sm">
-                        <div class="app-card-header p-3 border-0">
-                            <div class="left-section">
-                                <h4 class="app-card-title">예산 현황</h4>
-                                <select class="form-select form-select-sm ms-3 d-inline-flex w-auto" id="projectSelect">
-                                    <c:forEach var="project" items="${projectList}">
-                                        <option value="${project.pid}">${project.title}</option>
-                                    </c:forEach>
-                                </select>
+                    <div id="budget-management-section">
+                        <div class="app-card app-card-chart h-100 shadow-sm">
+                            <div class="app-card-header p-3 border-0">
+                                <div class="left-section">
+                                    <h4 class="app-card-title">예산 현황</h4>
+                                    <select class="form-select form-select-sm ms-3 d-inline-flex w-auto" id="projectSelect">
+                                        <c:forEach var="project" items="${projectList}">
+                                            <option value="${project.pid}">${project.title}</option>
+                                        </c:forEach>
+                                    </select>
+                                </div>
+                                <div class="card-header-action">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBudgetModal">예산 추가</button>
+                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reduceBudgetModal">예산 삭감</button>
+                                    <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#assignBudgetModal">새 프로젝트 예산 부여</button>
+                                </div>
                             </div>
-                            <div class="card-header-action">
-                                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBudgetModal">예산 추가</button>
-                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reduceBudgetModal">예산 삭감</button>
-                                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#assignBudgetModal">새 프로젝트 예산 부여</button>
-                            </div>
-                        </div>
-                        <div class="app-card-body p-3 p-lg-4">
-                            <div class="chart-container" style="position: relative; height:40vh; width:80vw">
-                                <canvas id="budgetDonutChart"></canvas>
+                            <div class="app-card-body p-3 p-lg-4">
+                                <div class="text-center">
+                                    <div class="row justify-content-center">
+                                        <div class="col-lg-4">
+                                            <h4>전체 예산</h4>
+                                            <p id="total-budget">0 원</p>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="chart-container" style="position: relative; height:40vh; width:40vw; margin: 0 auto;">
+                                                <canvas id="budgetDonutChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -115,6 +130,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
@@ -134,7 +150,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addBudgetForm">
+                <form id="addBudgetForm" method="post">
                     <div class="mb-3">
                         <label for="addBudgetProjectSelect" class="form-label">프로젝트 선택</label>
                         <select class="form-select" id="addBudgetProjectSelect" name="pid" required>
@@ -163,7 +179,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="reduceBudgetForm">
+                <form id="reduceBudgetForm" method="post">
                     <div class="mb-3">
                         <label for="reduceBudgetProjectSelect" class="form-label">프로젝트 선택</label>
                         <select class="form-select" id="reduceBudgetProjectSelect" name="pid" required>
@@ -176,27 +192,27 @@
                         <label for="reduceBudgetAmount" class="form-label">금액</label>
                         <input type="number" class="form-control" id="reduceBudgetAmount" name="amount" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">저장</button>
+                    <button type="submit" class="btn btn-danger">삭감</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<!-- 새로운 프로젝트 예산 부여 모달 -->
+<!-- 새 프로젝트 예산 부여 모달 -->
 <div class="modal fade" id="assignBudgetModal" tabindex="-1" aria-labelledby="assignBudgetModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="assignBudgetModalLabel">새로운 프로젝트 예산 부여</h5>
+                <h5 class="modal-title" id="assignBudgetModalLabel">새 프로젝트 예산 부여</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="assignBudgetForm">
+                <form id="assignBudgetForm" method="post">
                     <div class="mb-3">
                         <label for="assignBudgetProjectSelect" class="form-label">프로젝트 선택</label>
                         <select class="form-select" id="assignBudgetProjectSelect" name="pid" required>
-                            <c:forEach var="project" items="${projectsWithNoBudget}">
+                            <c:forEach var="project" items="${projectsWithNoAssignedBudget}">
                                 <option value="${project.pid}">${project.title}</option>
                             </c:forEach>
                         </select>
@@ -205,13 +221,12 @@
                         <label for="assignBudgetAmount" class="form-label">금액</label>
                         <input type="number" class="form-control" id="assignBudgetAmount" name="amount" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">저장</button>
+                    <button type="submit" class="btn btn-success">부여</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- 자산 추가 모달 -->
 <div class="modal fade" id="addAssetModal" tabindex="-1" aria-labelledby="addAssetModalLabel" aria-hidden="true">
@@ -222,7 +237,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addAssetForm">
+                <form id="addAssetForm" method="post" action="/addAsset">
                     <div class="mb-3">
                         <label for="assetProjectSelect" class="form-label">프로젝트 선택</label>
                         <select class="form-select" id="assetProjectSelect" name="pid" required>
@@ -266,6 +281,8 @@
 <script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="assets/plugins/chart.js/chart.min.js"></script>
 <script src="assets/js/app.js"></script>
+
+<!-- Vue.js 관련 코드 -->
 <script>
 Vue.component('hr-management', {
     data: function() {
@@ -438,5 +455,156 @@ new Vue({
     el: '#app'
 });
 </script>
+
+<!-- 기존 JavaScript 코드 (Vue.js와 별도로 동작) -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 모든 모달 초기화 코드 제거 (불필요할 수 있음)
+    // var modals = document.querySelectorAll('.modal');
+    // modals.forEach(function(modalElement) {
+    //     var modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
+    // });
+
+    // 예산 관리 차트 초기화 함수
+    function updateChart(pid) {
+        $.ajax({
+            url: '/getBudget',
+            type: 'GET',
+            data: { pid: pid },
+            success: function(data) {
+                // 전체 예산 표시 업데이트
+                var totalBudget = data.assigned_budget || 0;
+                $('#total-budget').text(totalBudget.toLocaleString() + ' 원');
+                
+                // 차트 데이터 업데이트
+                budgetDonutChart.data.datasets[0].data = [totalBudget - data.used_budget, data.used_budget];
+                budgetDonutChart.update();
+            },
+            error: function(xhr, status, error) {
+                console.error('Error: ' + error);
+            },
+            dataType: 'json'
+        });
+    }
+
+    // 차트 초기화 코드
+    var ctx = document.getElementById('budgetDonutChart').getContext('2d');
+    var budgetDonutChart = new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['남은 예산', '사용 예산'],
+            datasets: [{
+                data: [0, 0], // 초기값으로 비워둠
+                backgroundColor: ['#36a2eb', '#ff6384'] // 남은 예산: 파란색, 사용 예산: 빨간색
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'top'
+            },
+            animation: {
+                animateScale: true,
+                animateRotate: true
+            },
+            tooltips: {
+                callbacks: {
+                    label: function(tooltipItem, data) {
+                        var label = data.labels[tooltipItem.index];
+                        var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
+                        return label + ': ' + value.toLocaleString() + ' 원';
+                    }
+                }
+            }
+        }
+    });
+
+    $('#projectSelect').change(function() {
+        var selectedPid = $(this).val();
+        updateChart(selectedPid);
+    });
+
+    // 초기 선택된 프로젝트에 대한 차트 업데이트
+    var initialPid = $('#projectSelect').val();
+    if (initialPid) {
+        updateChart(initialPid);
+    }
+
+    // 예산 추가 폼 제출 처리
+    $('#addBudgetForm').on('submit', function(event) {
+        event.preventDefault();
+        const formData = $(this).serialize();
+        $.post('/addBudget', formData, function(response) {
+            alert(response);
+            window.location.reload(); // 페이지 새로고침
+        }).fail(function(xhr) {
+            alert('예산 추가 실패: ' + xhr.responseText);
+        });
+    });
+
+    // 예산 삭감 폼 제출 처리
+    $('#reduceBudgetForm').on('submit', function(event) {
+        event.preventDefault();
+        const formData = $(this).serialize();
+        $.post('/reduceBudget', formData, function(response) {
+            alert(response);
+            window.location.reload(); // 페이지 새로고침
+        }).fail(function(xhr) {
+            alert('예산 삭감 실패: ' + xhr.responseText);
+        });
+    });
+
+    // 새 프로젝트 예산 부여 폼 제출 처리
+    $('#assignBudgetForm').on('submit', function(event) {
+        event.preventDefault();
+        const formData = $(this).serialize();
+        $.post('/assignBudget', formData, function(response) {
+            alert(response);
+            window.location.reload(); // 페이지 새로고침
+        }).fail(function(xhr) {
+            alert('새 프로젝트 예산 부여 실패: ' + xhr.responseText);
+        });
+    });
+    
+ 	// 자산 관리 필터링 기능
+    const assetProjectSelect = document.getElementById('assetProjectSelect');
+    const assetTableBody = document.getElementById('asset-table-body');
+
+    assetProjectSelect.addEventListener('change', function() {
+        const selectedPid = this.value;
+        const rows = assetTableBody.getElementsByTagName('tr');
+
+        for (let row of rows) {
+            if (selectedPid === "" || row.getAttribute('data-pid') === selectedPid) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        }
+    });
+
+    // 자산 추가 폼 제출 처리
+    $('#addAssetForm').on('submit', function(event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        fetch('/addAsset', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+            window.location.reload(); // 페이지 새로고침
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('자산 추가 실패: ' + error.message);
+        });
+    });
+
+});
+</script>
+
 </body>
 </html>

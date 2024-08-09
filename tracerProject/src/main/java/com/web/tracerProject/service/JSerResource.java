@@ -28,8 +28,14 @@ public class JSerResource {
     }
 
     public ResourceManage getBudget(String pid) {
-        return dao.getBudget(pid);
+        ResourceManage budget = dao.getBudget(pid);
+        if (budget != null) {
+            BigDecimal remainingBudget = budget.getAssigned_budget().subtract(budget.getUsed_budget());
+            budget.setRemainingBudget(remainingBudget); // ResourceManage 객체에 남은 예산 필드를 추가했다고 가정
+        }
+        return budget;
     }
+
 
     public List<Project> getAllProjects() {
         return dao.getAllProjects();
@@ -86,7 +92,7 @@ public class JSerResource {
         dao.deleteUser(email);
     }
     
-    public List<Project> getProjectsWithNoBudget() {
-        return dao.getProjectsWithNoBudget();
+    public List<Project> getProjectsWithNoAssignedBudget() {
+        return dao.getProjectsWithNoAssignedBudget();
     }
 }

@@ -37,8 +37,8 @@ public class JContResource {
         List<ResourceManage> assetList = service.getAllAssets();
         model.addAttribute("assetList", assetList);
 
-        List<Project> projectsWithNoBudget = service.getProjectsWithNoBudget();
-        model.addAttribute("projectsWithNoBudget", projectsWithNoBudget);
+        List<Project> projectsWithNoAssignedBudget = service.getProjectsWithNoAssignedBudget();
+        model.addAttribute("projectsWithNoAssignedBudget", projectsWithNoAssignedBudget);
 
         // JSON 형식으로 데이터 변환
         ObjectMapper mapper = new ObjectMapper();
@@ -128,6 +128,7 @@ public class JContResource {
             return "예산 추가 실패: " + e.getMessage();
         }
     }
+
 
     @PostMapping("/reduceBudget")
     @ResponseBody

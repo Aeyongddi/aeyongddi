@@ -199,18 +199,17 @@
         var budgetDonutChart = new Chart(ctx, {
             type: 'doughnut',
             data: {
-                labels: ['할당 예산', '사용 예산'],
+                labels: ['남은 예산', '사용 예산'],
                 datasets: [{
-                    label: '예산', // 레이블 추가
-                    data: [],
-                    backgroundColor: ['#36a2eb', '#ff6384']
+                    data: [0, 0], // 초기값으로 비워둠
+                    backgroundColor: ['#36a2eb', '#ff6384'] // 남은 예산: 파란색, 사용 예산: 빨간색
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 legend: {
-                    position: 'top',
+                    position: 'top'
                 },
                 animation: {
                     animateScale: true,
@@ -219,7 +218,7 @@
                 tooltips: {
                     callbacks: {
                         label: function(tooltipItem, data) {
-                            var label = data.labels[tooltipItem.index]; // 레이블을 데이터 레이블에서 가져옴
+                            var label = data.labels[tooltipItem.index];
                             var value = data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
                             return label + ': ' + value.toLocaleString() + ' 원';
                         }

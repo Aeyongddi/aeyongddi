@@ -21,6 +21,7 @@ public class Task {
     private Date end_date;
     private String name;
     private String description;
+    private String approvalStatus;
     private String sid;
     private boolean endYN;
 	}

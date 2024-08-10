@@ -228,49 +228,84 @@
     </div>
 </div>
 
-<!-- 자산 추가 모달 -->
-<div class="modal fade" id="addAssetModal" tabindex="-1" aria-labelledby="addAssetModalLabel" aria-hidden="true">
+<!-- 사용자 추가 모달 -->
+<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addAssetModalLabel">자산 추가</h5>
+                <h5 class="modal-title" id="addUserModalLabel">사용자 추가</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="addAssetForm" method="post" action="/addAsset">
+                <form @submit.prevent="addUser">
                     <div class="mb-3">
-                        <label for="assetProjectSelect" class="form-label">프로젝트 선택</label>
-                        <select class="form-select" id="assetProjectSelect" name="pid" required>
-                            <c:forEach var="project" items="${projectList}">
-                                <option value="${project.pid}">${project.title}</option>
-                            </c:forEach>
-                        </select>
+                        <label for="addUserName" class="form-label">이름:</label>
+                        <input id="addUserName" v-model="addFormData.name" type="text" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="assetType" class="form-label">자산 종류</label>
-                        <select class="form-select" id="assetType" name="rtype" required>
-                            <option value="LICENSE">라이센스</option>
-                            <option value="FEE">이용료</option>
-                            <option value="EQUIPMENT">장비</option>
-                        </select>
+                        <label for="addUserEmail" class="form-label">이메일:</label>
+                        <input id="addUserEmail" v-model="addFormData.email" type="email" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="softwareName" class="form-label">자산 이름</label>
-                        <input type="text" class="form-control" id="softwareName" name="software_name" required>
+                        <label for="addUserBirth" class="form-label">생일:</label>
+                        <input id="addUserBirth" v-model="addFormData.birth" type="date" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="licensePurchaseDate" class="form-label">구매일/임대일</label>
-                        <input type="date" class="form-control" id="licensePurchaseDate" name="license_purchase_date" required>
+                        <label for="addUserPhone" class="form-label">전화번호:</label>
+                        <input id="addUserPhone" v-model="addFormData.phone" type="text" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="licenseExpiryDate" class="form-label">만료일</label>
-                        <input type="date" class="form-control" id="licenseExpiryDate" name="license_expiry_date" required>
+                        <label for="addUserNickname" class="form-label">닉네임:</label>
+                        <input id="addUserNickname" v-model="addFormData.nickname" type="text" class="form-control" required>
                     </div>
                     <div class="mb-3">
-                        <label for="softwarePrice" class="form-label">가격</label>
-                        <input type="number" class="form-control" id="softwarePrice" name="software_price" required>
+                        <label for="addUserPassword" class="form-label">비밀번호:</label>
+                        <input id="addUserPassword" v-model="addFormData.password" type="password" class="form-control" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">저장</button>
+                    <button type="submit" class="btn btn-primary">추가</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 사용자 수정 모달 -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">사용자 수정</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form @submit.prevent="updateUser">
+                    <div class="mb-3">
+                        <label for="editUserName" class="form-label">이름:</label>
+                        <input id="editUserName" v-model="editFormData.name" type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUserEmail" class="form-label">이메일:</label>
+                        <input id="editUserEmail" v-model="editFormData.email" type="email" class="form-control" required readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUserBirth" class="form-label">생일:</label>
+                        <input id="editUserBirth" v-model="editFormData.birth" type="date" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUserPhone" class="form-label">전화번호:</label>
+                        <input id="editUserPhone" v-model="editFormData.phone" type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUserNickname" class="form-label">닉네임:</label>
+                        <input id="editUserNickname" v-model="editFormData.nickname" type="text" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="editUserPassword" class="form-label">비밀번호:</label>
+                        <input id="editUserPassword" v-model="editFormData.password" type="password" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">수정</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                 </form>
             </div>
         </div>
@@ -283,13 +318,13 @@
 <script src="assets/js/app.js"></script>
 
 <!-- Vue.js 관련 코드 -->
+<!-- 사용자 관리 템플릿을 포함한 Vue.js 코드 -->
 <script>
 Vue.component('hr-management', {
     data: function() {
         return {
             users: ${userInfoListJson},
-            showForm: false,
-            formData: {
+            addFormData: {
                 name: '',
                 email: '',
                 birth: '',
@@ -297,61 +332,78 @@ Vue.component('hr-management', {
                 nickname: '',
                 password: ''
             },
-            editMode: false
+            editFormData: {
+                name: '',
+                email: '',
+                birth: '',
+                phone: '',
+                nickname: '',
+                password: ''
+            },
+            showForm: false
         }
     },
     methods: {
-        formatDate(date) {
-            let d = new Date(date);
-            return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
-        },
         showAddUserForm() {
+            this.addFormData = { name: '', email: '', birth: '', phone: '', nickname: '', password: '' };
             this.showForm = true;
-            this.editMode = false;
-            this.formData = { name: '', email: '', birth: '', phone: '', nickname: '', password: '' };
+            const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
+            addUserModal.show();
         },
-        editUser(user) {
-            this.showForm = true;
-            this.editMode = true;
-            this.formData = { ...user, password: '' }; // 비밀번호는 빈 문자열로 설정
-        },
-        saveUser() {
-            if (this.editMode) {
-                this.updateUser();
-            } else {
-                this.addUser();
-            }
+        showEditUserForm(user) {
+            // 선택한 사용자의 정보를 Vue 컴포넌트의 데이터에 설정
+            this.editFormData = { ...user, password: '' };
+            this.editFormData.birth = this.formatDate(user.birth);
+
+            // 모달을 열기 전에 데이터를 설정하고, 모달을 열었을 때 DOM 업데이트가 완료되었는지 확인
+            const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+            editUserModal.show();
+
+            // DOM 업데이트 후 필드가 올바르게 설정되었는지 확인
+            this.$nextTick(() => {
+                document.getElementById('editUserName').value = this.editFormData.name;
+                document.getElementById('editUserEmail').value = this.editFormData.email;
+                document.getElementById('editUserBirth').value = this.editFormData.birth;
+                document.getElementById('editUserPhone').value = this.editFormData.phone;
+                document.getElementById('editUserNickname').value = this.editFormData.nickname;
+            });
         },
         addUser() {
-            axios.post('/addUser', this.formData, {
+            axios.post('/addUser', this.addFormData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
             .then(response => {
+                console.log('사용자 추가 응답:', response.data); // 서버 응답 확인
                 this.users.push(response.data);
+                const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
+                addUserModal.hide();
                 this.showForm = false;
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('사용자 추가 오류:', error.response.data); // 에러 메시지 확인
                 alert('사용자 추가 실패: ' + error.response.data);
             });
         },
         updateUser() {
-            axios.post('/updateUser', this.formData, {
+            axios.post('/updateUser', this.editFormData, {
                 headers: {
                     'Content-Type': 'application/json'
                 }
             })
             .then(response => {
-                let index = this.users.findIndex(user => user.email === this.formData.email);
+                console.log('사용자 수정 응답:', response.data); // 서버 응답 확인
+                let index = this.users.findIndex(user => user.email === this.editFormData.email);
                 if (index !== -1) {
                     this.$set(this.users, index, response.data);
                 }
+                const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
+                editUserModal.hide();
                 this.showForm = false;
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('사용자 수정 오류:', error.response.data); // 에러 메시지 확인
                 alert('사용자 수정 실패: ' + error.response.data);
             });
         },
@@ -373,6 +425,10 @@ Vue.component('hr-management', {
                     alert('사용자 삭제 실패: ' + error.response.data);
                 });
             }
+        },
+        formatDate(date) {
+            let d = new Date(date);
+            return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
         }
     },
     template: `
@@ -387,9 +443,9 @@ Vue.component('hr-management', {
                                 <th class="cell">이메일</th>
                                 <th class="cell">생일</th>
                                 <th class="cell">전화번호</th>
-                                <th class="cell">팀</th>
+                                <th class="cell">소속 팀</th>
                                 <th class="cell">진행중인 프로젝트</th>
-                                <th class="cell">액션</th>
+                                <th class="cell">상세</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -405,47 +461,15 @@ Vue.component('hr-management', {
                                     <div v-for="project in user.projects" :key="project.title">{{ project.title }}</div>
                                 </td>
                                 <td class="cell">
-                                    <button @click="editUser(user)">수정</button>
-                                    <button @click="deleteUser(user.email)">삭제</button>
+                                    <button @click="showEditUserForm(user)" class="btn btn-primary btn-sm">수정</button>
+                                    <button @click="deleteUser(user.email)" class="btn btn-danger btn-sm">삭제</button>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-                <button @click="showAddUserForm">사용자 추가</button>
+                <button @click="showAddUserForm()" class="btn btn-success">사용자 추가</button>
             </div>
-        </div>
-
-        <!-- 사용자 추가/수정 모달 -->
-        <div v-if="showForm">
-            <form @submit.prevent="saveUser">
-                <div>
-                    <label>이름:</label>
-                    <input v-model="formData.name" required>
-                </div>
-                <div>
-                    <label>이메일:</label>
-                    <input v-model="formData.email" required>
-                </div>
-                <div>
-                    <label>생일:</label>
-                    <input type="date" v-model="formData.birth" required>
-                </div>
-                <div>
-                    <label>전화번호:</label>
-                    <input v-model="formData.phone" required>
-                </div>
-                <div>
-                    <label>닉네임:</label>
-                    <input v-model="formData.nickname" required>
-                </div>
-                <div>
-                    <label>비밀번호:</label>
-                    <input type="password" v-model="formData.password" required>
-                </div>
-                <button type="submit">저장</button>
-                <button @click="showForm = false">취소</button>
-            </form>
         </div>
     </div>
     `
@@ -456,15 +480,10 @@ new Vue({
 });
 </script>
 
+
 <!-- 기존 JavaScript 코드 (Vue.js와 별도로 동작) -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 모든 모달 초기화 코드 제거 (불필요할 수 있음)
-    // var modals = document.querySelectorAll('.modal');
-    // modals.forEach(function(modalElement) {
-    //     var modalInstance = bootstrap.Modal.getOrCreateInstance(modalElement);
-    // });
-
     // 예산 관리 차트 초기화 함수
     function updateChart(pid) {
         $.ajax({
@@ -472,11 +491,8 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'GET',
             data: { pid: pid },
             success: function(data) {
-                // 전체 예산 표시 업데이트
                 var totalBudget = data.assigned_budget || 0;
                 $('#total-budget').text(totalBudget.toLocaleString() + ' 원');
-                
-                // 차트 데이터 업데이트
                 budgetDonutChart.data.datasets[0].data = [totalBudget - data.used_budget, data.used_budget];
                 budgetDonutChart.update();
             },
@@ -487,15 +503,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // 차트 초기화 코드
     var ctx = document.getElementById('budgetDonutChart').getContext('2d');
     var budgetDonutChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: ['남은 예산', '사용 예산'],
             datasets: [{
-                data: [0, 0], // 초기값으로 비워둠
-                backgroundColor: ['#36a2eb', '#ff6384'] // 남은 예산: 파란색, 사용 예산: 빨간색
+                data: [0, 0],
+                backgroundColor: ['#36a2eb', '#ff6384']
             }]
         },
         options: {
@@ -525,49 +540,44 @@ document.addEventListener('DOMContentLoaded', function() {
         updateChart(selectedPid);
     });
 
-    // 초기 선택된 프로젝트에 대한 차트 업데이트
     var initialPid = $('#projectSelect').val();
     if (initialPid) {
         updateChart(initialPid);
     }
 
-    // 예산 추가 폼 제출 처리
     $('#addBudgetForm').on('submit', function(event) {
         event.preventDefault();
         const formData = $(this).serialize();
         $.post('/addBudget', formData, function(response) {
             alert(response);
-            window.location.reload(); // 페이지 새로고침
+            window.location.reload();
         }).fail(function(xhr) {
             alert('예산 추가 실패: ' + xhr.responseText);
         });
     });
 
-    // 예산 삭감 폼 제출 처리
     $('#reduceBudgetForm').on('submit', function(event) {
         event.preventDefault();
         const formData = $(this).serialize();
         $.post('/reduceBudget', formData, function(response) {
             alert(response);
-            window.location.reload(); // 페이지 새로고침
+            window.location.reload();
         }).fail(function(xhr) {
             alert('예산 삭감 실패: ' + xhr.responseText);
         });
     });
 
-    // 새 프로젝트 예산 부여 폼 제출 처리
     $('#assignBudgetForm').on('submit', function(event) {
         event.preventDefault();
         const formData = $(this).serialize();
         $.post('/assignBudget', formData, function(response) {
             alert(response);
-            window.location.reload(); // 페이지 새로고침
+            window.location.reload();
         }).fail(function(xhr) {
             alert('새 프로젝트 예산 부여 실패: ' + xhr.responseText);
         });
     });
     
- 	// 자산 관리 필터링 기능
     const assetProjectSelect = document.getElementById('assetProjectSelect');
     const assetTableBody = document.getElementById('asset-table-body');
 
@@ -584,7 +594,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // 자산 추가 폼 제출 처리
     $('#addAssetForm').on('submit', function(event) {
         event.preventDefault();
         const formData = new FormData(this);
@@ -595,7 +604,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.text())
         .then(data => {
             alert(data);
-            window.location.reload(); // 페이지 새로고침
+            window.location.reload();
         })
         .catch(error => {
             console.error('Error:', error);

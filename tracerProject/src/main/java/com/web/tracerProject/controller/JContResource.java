@@ -68,21 +68,28 @@ public class JContResource {
 
     @PostMapping("/updateUser")
     @ResponseBody
-    public User_info updateUser(@RequestBody Map<String, String> request) {
-        User_info user = service.getUserByEmail(request.get("email"));
-        if (user == null) {
+    public User_info updateUser(@RequestBody User_info user) {
+        User_info existingUser = service.getUserByEmail(user.getEmail());
+        if (existingUser == null) {
             throw new RuntimeException("사용자를 찾을 수 없습니다.");
         }
-        user.setName(request.get("name"));
-        user.setBirth(Date.valueOf(request.get("birth")));
-        user.setPhone(request.get("phone"));
-        user.setNickname(request.get("nickname"));
-        if (request.get("password") != null && !request.get("password").isEmpty()) {
-            user.setPassword(request.get("password"));
+
+        // 필요한 필드 업데이트
+        existingUser.setName(user.getName());
+        existingUser.setBirth(user.getBirth());
+        existingUser.setPhone(user.getPhone());
+        existingUser.setNickname(user.getNickname());
+
+        // 비밀번호는 빈 문자열이 아닐 때만 업데이트
+        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
+            existingUser.setPassword(user.getPassword());
         }
-        service.updateUser(user);
-        return user;
+
+        service.updateUser(existingUser);
+        return existingUser;
     }
+
+
 
     @PostMapping("/deleteUser")
     @ResponseBody

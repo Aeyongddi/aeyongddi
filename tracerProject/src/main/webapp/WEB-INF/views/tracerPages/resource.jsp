@@ -233,8 +233,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addUserModalLabel">사용자 추가</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button @click="showAddUserForm" class="btn btn-success">사용자 추가</button>
             </div>
             <div class="modal-body">
                 <form @submit.prevent="addUser">
@@ -300,10 +299,6 @@
                         <label for="editUserNickname" class="form-label">닉네임:</label>
                         <input id="editUserNickname" v-model="editFormData.nickname" type="text" class="form-control" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="editUserPassword" class="form-label">비밀번호:</label>
-                        <input id="editUserPassword" v-model="editFormData.password" type="password" class="form-control">
-                    </div>
                     <button type="submit" class="btn btn-primary">수정</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                 </form>
@@ -330,29 +325,27 @@ Vue.component('hr-management', {
                 birth: '',
                 phone: '',
                 nickname: '',
-                password: ''
+                password: '' // 이 부분은 추가 사용자에서만 필요
             },
             editFormData: {
                 name: '',
                 email: '',
                 birth: '',
                 phone: '',
-                nickname: '',
-                password: ''
+                nickname: ''
             },
             showForm: false
         }
     },
     methods: {
-        showAddUserForm() {
+    	showAddUserForm() {
             this.addFormData = { name: '', email: '', birth: '', phone: '', nickname: '', password: '' };
-            this.showForm = true;
             const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
             addUserModal.show();
         },
         showEditUserForm(user) {
             // 선택한 사용자의 정보를 Vue 컴포넌트의 데이터에 설정
-            this.editFormData = { ...user, password: '' };
+            this.editFormData = { ...user }; // password는 제외
             this.editFormData.birth = this.formatDate(user.birth);
 
             // 모달을 열기 전에 데이터를 설정하고, 모달을 열었을 때 DOM 업데이트가 완료되었는지 확인
@@ -394,10 +387,17 @@ Vue.component('hr-management', {
             })
             .then(response => {
                 console.log('사용자 수정 응답:', response.data); // 서버 응답 확인
+                
+                // 성공 메시지 출력
+                alert('사용자가 성공적으로 수정되었습니다.');
+
+                // 사용자 목록 갱신
                 let index = this.users.findIndex(user => user.email === this.editFormData.email);
                 if (index !== -1) {
                     this.$set(this.users, index, response.data);
                 }
+                
+                // 모달 닫기
                 const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
                 editUserModal.hide();
                 this.showForm = false;

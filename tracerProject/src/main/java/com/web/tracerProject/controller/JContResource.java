@@ -80,14 +80,13 @@ public class JContResource {
         existingUser.setPhone(user.getPhone());
         existingUser.setNickname(user.getNickname());
 
-        // 비밀번호는 빈 문자열이 아닐 때만 업데이트
-        if (user.getPassword() != null && !user.getPassword().isEmpty()) {
-            existingUser.setPassword(user.getPassword());
-        }
-
         service.updateUser(existingUser);
+
+        // 성공 메시지 출력용으로 처리
         return existingUser;
     }
+
+
 
 
 

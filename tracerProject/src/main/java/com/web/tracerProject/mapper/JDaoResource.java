@@ -58,6 +58,9 @@ public interface JDaoResource {
 
     @Update("UPDATE USER_INFO SET name = #{name}, birth = #{birth}, phone = #{phone}, nickname = #{nickname}, password = #{password} WHERE email = #{email}")
     void updateUser(User_info user);
+    
+    @Update("UPDATE USER_INFO SET name = #{name}, birth = #{birth}, phone = #{phone}, nickname = #{nickname} WHERE email = #{email}")
+    void updateUserWithoutPassword(User_info user);
 
     @Delete("DELETE FROM USER_INFO WHERE email = #{email}")
     void deleteUser(String email);

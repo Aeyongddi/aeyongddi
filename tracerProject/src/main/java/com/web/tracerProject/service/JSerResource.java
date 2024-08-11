@@ -85,8 +85,16 @@ public class JSerResource {
     }
 
     public void updateUser(User_info user) {
-        dao.updateUser(user);
+        // 사용자 정보 업데이트 전 비밀번호가 null이거나 빈 문자열인지 확인
+        if (user.getPassword() == null || user.getPassword().isEmpty()) {
+            // 비밀번호가 제공되지 않은 경우 비밀번호 필드를 제거한 후 업데이트
+            dao.updateUserWithoutPassword(user);
+        } else {
+            // 비밀번호가 제공된 경우 비밀번호 포함하여 업데이트
+            dao.updateUser(user);
+        }
     }
+
 
     public void deleteUser(String email) {
         dao.deleteUser(email);

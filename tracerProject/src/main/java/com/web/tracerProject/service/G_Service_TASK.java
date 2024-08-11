@@ -26,9 +26,9 @@ public class G_Service_TASK {
 
 	
     // boolean 값 수정하는 코드
-	public int updateTaskStatus(String tkid, boolean endYN) {
-		return dao.updateTaskStatus(tkid, endYN);
-	}
+    public int updateTaskStatus(String tkid, boolean endYN, String approvalStatus) {
+        return dao.updateTaskStatus(tkid, endYN, approvalStatus);
+    }
     
 	// 단일 삭제하는 코드
 	public int deleteTask(String tkid) {
@@ -42,27 +42,32 @@ public class G_Service_TASK {
 	// 등록하는 코드 처리 값
 	public int insertTask(Task ins) {
 	    ins.setTkid(dao.getTkid()); // tkid를 시퀀스로 자동 생성
-
+	    
+	    // 기본값 설정
 	    if (ins.getName() == null) {
-	        ins.setName(""); // 기본값 설정
+	        ins.setName(""); 
 	    }
 	    if (ins.getDescription() == null) {
-	        ins.setDescription(""); // 기본값 설정
+	        ins.setDescription("");
 	    }
 	    if (ins.getSid() == null) {
 	        ins.setSid(""); 
 	    }
+	    if (ins.getApprovalStatus() == null) {
+	        ins.setApprovalStatus("진행중"); // 기본 결재 상태 설정
+	    }
 	    if (!ins.isEndYN()) {
-            ins.setEndYN(false); // 기본값 설정
-        }
+	        ins.setEndYN(false); 
+	    }
 	    if (ins.getStart_date() == null) {
-	        ins.setStart_date(new Date()); // 현재 날짜로 설정
+	        ins.setStart_date(new Date());
 	    }
 	    if (ins.getEnd_date() == null) {
-	        ins.setEnd_date(new Date()); // 현재 날짜로 설정
+	        ins.setEnd_date(new Date());
 	    }
 	    return dao.insertTask(ins);
 	}
+
 	
 	
 }

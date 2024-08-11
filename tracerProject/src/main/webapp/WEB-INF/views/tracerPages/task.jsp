@@ -36,8 +36,8 @@
                     </span>
                     <span class="issue-status">
                         <select class="form-select" name="status-${task.tkid}" id="status-${task.tkid}" onchange="updateStatus('${task.tkid}', this.value)">
-                            <option value="0" ${task.endYN ? '' : 'selected'}>진행중</option>
-                            <option value="1" ${task.endYN ? 'selected' : ''}>완료</option>
+                            <option value="진행중" ${task.approvalStatus == '진행중' ? 'selected' : ''}>진행중</option>
+                            <option value="완료" ${task.approvalStatus == '완료' ? 'selected' : ''}>완료</option>
                         </select>
                     </span>
                 </li>
@@ -60,7 +60,7 @@
         </div>
     </div>
 
-    <!-- 수정창 코드-->
+    <!-- 수정창 코드 -->
     <div class="edit-container" id="edit-container">
         <div class="edit-header">
             <label for="edit-name"></label>
@@ -69,14 +69,13 @@
         <div class="edit-content">
             <form id="edit-form">
                 <input type="hidden" id="edit-tkid">
-                <input type="text" id="edit-email" value="${sessionScope.userEmail}" readonly>  <!-- 이메일 정보 추가 -->
+                <input type="hidden" id="edit-email" value="${sessionScope.userEmail}" readonly>  
                 <div class="form-group">
                     <label for="edit-description">설명</label>
                     <textarea id="edit-description" class="form-control"></textarea>
                 </div>
                 <div class="form-group">
-                    <label for="edit-sid">SID</label>
-                    <input type="text" id="edit-sid" class="form-control">
+                    <input type="hidden" id="edit-sid" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="edit-start_date">시작 날짜 수정</label>
@@ -150,26 +149,12 @@
 
     <script>
     function openEditContainer(tkid, name, description, sid, approvalStatus) {
-        console.log("openEditContainer called with tkid:", tkid, "name:", name, "description:", description, "sid:", sid, "approvalStatus:", approvalStatus);
-
         const editTkIdElement = document.getElementById('edit-tkid');
         const editNameElement = document.getElementById('edit-name');
         const editDescriptionElement = document.getElementById('edit-description');
         const editSidElement = document.getElementById('edit-sid');
         const approvalStatusElement = document.getElementById('approval-status');
         const emailElement = document.getElementById('edit-email');
-
-        if (!editTkIdElement) console.error("edit-tkid element not found");
-        if (!editNameElement) console.error("edit-name element not found");
-        if (!editDescriptionElement) console.error("edit-description element not found");
-        if (!editSidElement) console.error("edit-sid element not found");
-        if (!approvalStatusElement) console.error("approval-status element not found");
-        if (!emailElement) console.error("edit-email element not found");
-
-        if (!editTkIdElement || !editNameElement || !editDescriptionElement || !editSidElement || !approvalStatusElement || !emailElement) {
-            console.error("One or more elements not found");
-            return;
-        }
 
         editTkIdElement.value = tkid;
         editNameElement.value = name;
@@ -181,7 +166,7 @@
         document.getElementById('edit-container').style.display = 'block';
     }
 
-    function generateUUID() { // UUID 생성 함수
+    function generateUUID() { 
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
             var r = Math.random() * 16 | 0,
                 v = c === 'x' ? r : (r & 0x3 | 0x8);
@@ -191,7 +176,7 @@
 
     function requestApproval() {
         const approvalData = {
-            apid: generateUUID(),  // APID를 생성합니다.
+            apid: generateUUID(),
             content: document.getElementById('edit-description').value,
             email: document.getElementById('edit-email').value,
             approvalStatus: '결재 대기',
@@ -216,7 +201,38 @@
         });
     }
 
+    function updateTask() {
+        const tkid = document.getElementById('edit-tkid').value;
+        const name = document.getElementById('edit-name').value;
+        const description = document.getElementById('edit-description').value;
+        const sid = document.getElementById('edit-sid').value;
+        const approvalStatus = document.getElementById('approval-status').value;
 
+        const taskData = {
+            tkid: tkid,
+            name: name,
+            description: description,
+            sid: sid,
+            approvalStatus: approvalStatus
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/updateTask",
+            contentType: "application/json",
+            data: JSON.stringify(taskData),
+            success: function(response) {
+                alert(response);
+                location.reload(); 
+            },
+            error: function(xhr, status, error) {
+                console.error("Status: ", status);
+                console.error("Error: ", error);
+                console.error("Response: ", xhr.responseText);
+                alert(xhr.responseText);
+            }
+        });
+    }
 
     function openModal(tkid, name, description, sid, startDate, endDate, author, approvalStatus) {
         document.getElementById('details-tkid').value = tkid;

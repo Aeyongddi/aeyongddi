@@ -19,13 +19,13 @@ public interface JDaoAppro {
     @Select("SELECT 'AP' || LPAD(approval_seq.NEXTVAL, 3, '0') FROM DUAL")
     String generateApid();
 
-    @Insert("INSERT INTO APPROVAL (APID, CONTENT, EMAIL, APPROVAL_STATUS, NICKNAME) VALUES (#{apid}, #{content}, #{email}, #{approvalStatus}, #{nickname})")
+    @Insert("INSERT INTO APPROVAL (APID, CONTENT, EMAIL, APPROVALSTATUS, NICKNAME) VALUES (#{apid}, #{content}, #{email}, #{approvalStatus}, #{nickname})")
     void insertApproval(Approval approval);
 
-    @Update("UPDATE APPROVAL SET APPROVAL_STATUS = #{status} WHERE APID = #{apid}")
+    @Update("UPDATE APPROVAL SET APPROVALSTATUS = #{status} WHERE APID = #{apid}")
     void updateApprovalStatus(@Param("apid") String apid, @Param("status") String status);
 
-    @Select("SELECT * FROM APPROVAL WHERE APPROVAL_STATUS = #{status}")
+    @Select("SELECT * FROM APPROVAL WHERE APPROVALSTATUS = #{status}")
     List<Approval> getApprovalsByStatus(@Param("status") String status);
 }
 

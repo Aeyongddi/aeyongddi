@@ -57,6 +57,7 @@ public class JContMain {
             User_info loggedInUser = service.getMember(user_info);
             session.setAttribute("info", loggedInUser);
             session.setAttribute("userNickname", loggedInUser.getNickname()); // 닉네임 세션에 저장
+            session.setAttribute("userEmail", loggedInUser.getEmail()); // 이메일 세션에 저장
             d.addAttribute("user_info", loggedInUser);
 
             // 로그인 시 로케일 설정

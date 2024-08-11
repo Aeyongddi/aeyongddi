@@ -412,33 +412,51 @@
 							data-bs-parent="#menu-accordion">
 							<ul class="submenu-list list-unstyled">
 								<li class="submenu-item"><a class="submenu-link"
-									href="boardList"><fmt:message key='risk.management.board' /></a></li>
+									href="taskList"><fmt:message key='risk.management.board' /></a></li>
 								<li class="submenu-item"><a class="submenu-link"
-									href="boardList"><fmt:message key='schedule.board' /></a></li>
+									href="taskList"><fmt:message key='schedule.board' /></a></li>
 								<li class="submenu-item"><a class="submenu-link"
-									href="boardList"><fmt:message key='approval.board' /></a></li>
+									href="taskList"><fmt:message key='approval.board' /></a></li>
 								<li class="submenu-item"><a class="submenu-link"
-									href="boardList"><fmt:message
+									href="taskList"><fmt:message
 											key='completed.approval.board' /></a></li>
 							</ul>
 						</div></li>
 					<!--//nav-item-->
-					<li class="nav-item"><a class="nav-link openChatBtn" href="#">
-							<span class="nav-icon"> <svg width="1em" height="1em"
-									viewBox="0 0 16 16" class="bi bi-columns-gap"
-									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-										d="M6 1H1v3h5V1zM1 0a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1H1zm14 12h-5v3h5v-3zm-5-1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1h-5zM6 8H1v7h5V8zM1 7a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H1zm14-6h-5v7h5V1zm-5-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h5a1 1 0 0 0 1-1V1a1 1 0 0 0-1-1h-5z" />
+					<li class="nav-item has-submenu">
+    <a class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse" data-bs-target="#chat-submenu" aria-expanded="false" aria-controls="chat-submenu">
+        <span class="nav-icon">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chat-dots" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M8 1a7 7 0 1 0 4.546 12.874l3.584 1.3c.464.168.89-.342.688-.808l-1.27-2.952A7 7 0 0 0 8 1zm3.336 9.836c.206-.267.413-.628.507-1.057a.5.5 0 0 0-.647-.518 2.47 2.47 0 0 1-.676.197.5.5 0 0 0-.431.514c.054.512.229.916.392 1.207.081.143.164.262.255.381a6.978 6.978 0 0 1-2.25.725 1 1 0 0 1-.596-.106 1 1 0 0 1-.311-.193 1 1 0 0 1-.221-.454 1.006 1.006 0 0 1 .217-.706c.175-.234.427-.384.707-.384a7.097 7.097 0 0 1 1.235-.223zM6.326 10.83a.5.5 0 0 0-.415-.253H5.5a.5.5 0 0 0 0 1h.176a2.495 2.495 0 0 1 1.003-.215.5.5 0 0 0 .512-.518z"/>
             </svg>
-						</span> <span class="nav-link-text"><fmt:message key='chat' /></span>
-					</a>
-					<!--//nav-link--></li>
+        </span>
+        <span class="nav-link-text">Chat</span>
+        <span class="submenu-arrow">
+            <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-chevron-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z"/>
+            </svg>
+        </span>
+    </a>
+    <div id="chat-submenu" class="collapse submenu">
+        <ul class="submenu-list list-unstyled">
+            <li class="submenu-item"><a class="submenu-link" href="#" onclick="openChat('group')">단체 채팅</a></li>
+            <li class="submenu-item"><a class="submenu-link" href="#" onclick="openChat('private')">개인 채팅</a></li>
+        </ul>
+    </div>
+</li>
+
 					<!--//nav-item-->
 					<script>
 						function openChatWindow(url) {
 							window.open(url, "ChatWindow",
 									"width=1000,height=800");
 						}
+						function openChat(chatType) {
+						    var chatUrl = chatType === 'group' ? '/chatting' : '/private-chat';
+						    document.getElementById('chatIframe').src = chatUrl;
+						    $('#chatModal').show();
+						}
+
 					</script>
 					<!-- 채팅 모달 -->
 					<div id="chatModal" class="modal" tabindex="-1">

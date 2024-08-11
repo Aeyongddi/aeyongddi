@@ -309,10 +309,6 @@ function revMsg(data) {
     }
 }
 
-
-
-
-
 function addMessageToChat(nickname, content, isSender) {
     var timestamp = new Date().toLocaleTimeString();
     var msgObj = $("<div></div>").addClass("message").addClass(isSender ? "sent" : "received");

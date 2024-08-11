@@ -46,7 +46,7 @@
 					                </form>
 							    </div><!--//col-->
 							    <div class="col-auto">
-								    <select class="form-select w-auto" >
+								    <select class="form-select w-auto">
 										  <option selected value="option-1">All</option>
 										  <option value="option-2">This week</option>
 										  <option value="option-3">This month</option>
@@ -61,12 +61,12 @@
 			    <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
 				    <a class="flex-sm-fill text-sm-center nav-link active" id="orders-all-tab" data-bs-toggle="tab" href="#orders-all" role="tab" aria-controls="orders-all" aria-selected="true">전체</a>
 				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-pending-tab" data-bs-toggle="tab" href="#orders-pending" role="tab" aria-controls="orders-pending" aria-selected="false">결재 대기</a>
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-inprocess-tab" data-bs-toggle="tab" href="#orders-inprocess" role="tab" aria-controls="orders-inprocess" aria-selected="false">처리 중</a>
-				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-rejected-tab" data-bs-toggle="tab" href="#orders-rejected" role="tab" aria-controls="orders-rejected" aria-selected="false">반려</a>
+				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-rejected-tab" data-bs-toggle="tab" href="#orders-rejected" role="tab" aria-controls="orders-rejected" aria-selected="false">보류</a>
 				    <a class="flex-sm-fill text-sm-center nav-link" id="orders-completed-tab" data-bs-toggle="tab" href="#orders-completed" role="tab" aria-controls="orders-completed" aria-selected="false">결재 완료</a>
 				</nav>
 				
 				<div class="tab-content" id="orders-table-tab-content">
+			        <!-- 전체 탭 -->
 			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
 					    <div class="app-card app-card-orders-table shadow-sm mb-5">
 						    <div class="app-card-body">
@@ -77,51 +77,33 @@
 												<th class="cell">결재번호</th>
 												<th class="cell">내용</th>
 												<th class="cell">요청자</th>
-												<th class="cell">날짜</th>
+												<th class="cell">이메일</th>
 												<th class="cell">상태</th>
-												<th class="cell">상세보기</th>
+												<th class="cell">상태 변경</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="cell">#15346</td>
-												<td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-												<td class="cell">John Sanders</td>
-												<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-												<td class="cell"><span class="badge bg-success">결재 완료</span></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											<tr>
-												<td class="cell">#15345</td>
-												<td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-												<td class="cell">Dylan Ambrose</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-												<td class="cell"><span class="badge bg-warning">결재 대기</span></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											<tr>
-												<td class="cell">#15344</td>
-												<td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-												<td class="cell">Teresa Holland</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-												<td class="cell"><span class="badge bg-info">처리 중</span></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											<tr>
-												<td class="cell">#15342</td>
-												<td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-												<td class="cell">Reina Brooks</td>
-												<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-												<td class="cell"><span class="badge bg-danger">반려</span></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
+										    <c:forEach var="approval" items="${allApprovals}">
+										        <tr>
+										            <td class="cell">${approval.apid}</td>
+										            <td class="cell"><span class="truncate">${approval.content}</span></td>
+										            <td class="cell">${approval.nickname}</td>
+										            <td class="cell"><span>${approval.email}</span></td>
+										            <td class="cell"><span>${approval.approvalStatus}</span></td>
+										            <td class="cell">
+										                <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '승인')">승인</button>
+										                <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '보류')">보류</button>
+										            </td>
+										        </tr>
+										    </c:forEach>
 										</tbody>
 									</table>
 						        </div><!--//table-responsive-->
 						    </div><!--//app-card-body-->		
 						</div><!--//app-card-->
 			        </div><!--//tab-pane-->
-			        
+
+			        <!-- 결재 대기 탭 -->
 			        <div class="tab-pane fade" id="orders-pending" role="tabpanel" aria-labelledby="orders-pending-tab">
 					    <div class="app-card app-card-orders-table mb-5">
 						    <div class="app-card-body">
@@ -132,60 +114,33 @@
 												<th class="cell">결재번호</th>
 												<th class="cell">내용</th>
 												<th class="cell">요청자</th>
-												<th class="cell">날짜</th>
+												<th class="cell">이메일</th>
 												<th class="cell">상태</th>
-												<th class="cell">상세보기</th>
+												<th class="cell">상태 변경</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="cell">#15345</td>
-												<td class="cell"><span class="truncate">Consectetur adipiscing elit</span></td>
-												<td class="cell">Dylan Ambrose</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">03:16 AM</span></td>
-												<td class="cell"><span class="badge bg-warning">결재 대기</span></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											<!-- 추가 데이터들 -->
+										    <c:forEach var="approval" items="${pendingApprovals}">
+										        <tr>
+										            <td class="cell">${approval.apid}</td>
+										            <td class="cell"><span class="truncate">${approval.content}</span></td>
+										            <td class="cell">${approval.nickname}</td>
+										            <td class="cell"><span>${approval.email}</span></td>
+										            <td class="cell"><span>${approval.approvalStatus}</span></td>
+										            <td class="cell">
+										                <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '승인')">승인</button>
+										                <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '보류')">보류</button>
+										            </td>
+										        </tr>
+										    </c:forEach>
 										</tbody>
 									</table>
 						        </div><!--//table-responsive-->
 						    </div><!--//app-card-body-->		
 						</div><!--//app-card-->
 			        </div><!--//tab-pane-->
-			        
-			        <div class="tab-pane fade" id="orders-inprocess" role="tabpanel" aria-labelledby="orders-inprocess-tab">
-					    <div class="app-card app-card-orders-table mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-							        <table class="table mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">결재번호</th>
-												<th class="cell">내용</th>
-												<th class="cell">요청자</th>
-												<th class="cell">날짜</th>
-												<th class="cell">상태</th>
-												<th class="cell">상세보기</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td class="cell">#15344</td>
-												<td class="cell"><span class="truncate">Pellentesque diam imperdiet</span></td>
-												<td class="cell">Teresa Holland</td>
-												<td class="cell"><span class="cell-data">16 Oct</span><span class="note">01:16 AM</span></td>
-												<td class="cell"><span class="badge bg-info">처리 중</span></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											<!-- 추가 데이터들 -->
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-			        </div><!--//tab-pane-->
-			        
+
+			        <!-- 보류 탭 (반려에서 변경) -->
 			        <div class="tab-pane fade" id="orders-rejected" role="tabpanel" aria-labelledby="orders-rejected-tab">
 					    <div class="app-card app-card-orders-table mb-5">
 						    <div class="app-card-body">
@@ -196,21 +151,25 @@
 												<th class="cell">결재번호</th>
 												<th class="cell">내용</th>
 												<th class="cell">요청자</th>
-												<th class="cell">날짜</th>
+												<th class="cell">이메일</th>
 												<th class="cell">상태</th>
-												<th class="cell">상세보기</th>
+												<th class="cell">상태 변경</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr>
-												<td class="cell">#15342</td>
-												<td class="cell"><span class="truncate">Justo feugiat neque</span></td>
-												<td class="cell">Reina Brooks</td>
-												<td class="cell"><span class="cell-data">12 Oct</span><span class="note">04:23 PM</span></td>
-												<td class="cell"><span class="badge bg-danger">반려</span></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											<!-- 추가 데이터들 -->
+										    <c:forEach var="approval" items="${rejectedApprovals}">
+										        <tr>
+										            <td class="cell">${approval.apid}</td>
+										            <td class="cell"><span class="truncate">${approval.content}</span></td>
+										            <td class="cell">${approval.nickname}</td>
+										            <td class="cell"><span>${approval.email}</span></td>
+										            <td class="cell"><span>${approval.approvalStatus}</span></td>
+										            <td class="cell">
+										                <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '승인')">승인</button>
+										                <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '보류')">보류</button>
+										            </td>
+										        </tr>
+										    </c:forEach>
 										</tbody>
 									</table>
 						        </div><!--//table-responsive-->
@@ -218,37 +177,61 @@
 						</div><!--//app-card-->
 			        </div><!--//tab-pane-->
 
-			        <div class="tab-pane fade" id="orders-completed" role="tabpanel" aria-labelledby="orders-completed-tab">
-					    <div class="app-card app-card-orders-table mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-							        <table class="table mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">결재번호</th>
-												<th class="cell">내용</th>
-												<th class="cell">요청자</th>
-												<th class="cell">날짜</th>
-												<th class="cell">상태</th>
-												<th class="cell">상세보기</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr>
-												<td class="cell">#15346</td>
-												<td class="cell"><span class="truncate">Lorem ipsum dolor sit amet eget volutpat erat</span></td>
-												<td class="cell">John Sanders</td>
-												<td class="cell"><span>17 Oct</span><span class="note">2:16 PM</span></td>
-												<td class="cell"><span class="badge bg-success">결재 완료</span></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary" href="#">View</a></td>
-											</tr>
-											<!-- 추가 데이터들 -->
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-			        </div><!--//tab-pane-->
+			       <!-- 결재 완료 탭 -->
+<div class="tab-pane fade" id="orders-completed" role="tabpanel" aria-labelledby="orders-completed-tab">
+    <div class="app-card app-card-orders-table mb-5">
+        <div class="app-card-body">
+            <div class="table-responsive">
+                <table class="table mb-0 text-left">
+                    <thead>
+                        <tr>
+                            <th class="cell">결재번호</th>
+                            <th class="cell">내용</th>
+                            <th class="cell">요청자</th>
+                            <th class="cell">이메일</th>
+                            <th class="cell">상태</th>
+                            <th class="cell">액션</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <c:forEach var="approval" items="${completedApprovals}">
+                            <tr>
+                                <td class="cell">${approval.apid}</td>
+                                <td class="cell"><span class="truncate">${approval.content}</span></td>
+                                <td class="cell">${approval.nickname}</td>
+                                <td class="cell"><span>${approval.email}</span></td>
+                                <td class="cell"><span>${approval.approvalStatus}</span></td>
+                                <td class="cell">
+                                    <!-- 결재 완료된 항목에 대한 추가 액션이 있다면 여기에 추가 -->
+                                </td>
+                            </tr>
+                        </c:forEach>
+                    </tbody>
+                </table>
+            </div><!--//table-responsive-->
+        </div><!--//app-card-body-->
+    </div><!--//app-card-->
+</div><!--//tab-pane-->
+
+			        <script>
+			        function updateApprovalStatus(apid, status) {
+			            $.ajax({
+			                type: "POST",
+			                url: "/updateApprovalStatus",
+			                data: { apid: apid, status: status },
+			                success: function(response) {
+			                    alert(response);
+			                    location.reload(); // 페이지 새로고침
+			                },
+			                error: function(xhr, status, error) {
+			                    console.error("Status: ", status);
+			                    console.error("Error: ", error);
+			                    console.error("Response: ", xhr.responseText);
+			                    alert(xhr.responseText);
+			                }
+			            });
+			        }
+			        </script>
 				</div><!--//tab-content-->
 		    </div><!--//container-fluid-->
 	    </div><!--//app-content-->

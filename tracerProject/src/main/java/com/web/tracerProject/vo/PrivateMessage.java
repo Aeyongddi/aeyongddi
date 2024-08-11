@@ -9,10 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Approval {
-    private String apid;
-    private String content;
-    private String email;
-    private String approvalStatus;
-    private String nickname;
+public class PrivateMessage {
+	private String sender;
+	private String receiver;
+	private String content;
 }

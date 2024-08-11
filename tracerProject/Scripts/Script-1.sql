@@ -14,3 +14,7 @@ SELECT object_type
 FROM user_objects
 WHERE object_name = 'RESOURCEMANAGE';
 
+CREATE SEQUENCE approval_seq
+START WITH 1
+INCREMENT BY 1;
+

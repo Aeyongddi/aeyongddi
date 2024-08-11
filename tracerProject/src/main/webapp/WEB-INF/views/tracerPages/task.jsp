@@ -181,19 +181,28 @@
         document.getElementById('edit-container').style.display = 'block';
     }
 
-    function requestApproval() {
-        const email = document.getElementById('edit-email').value;
+    function generateUUID() { // UUID 생성 함수
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+            var r = Math.random() * 16 | 0,
+                v = c === 'x' ? r : (r & 0x3 | 0x8);
+            return v.toString(16);
+        });
+    }
 
-        if (!email) {
-            alert("Email이 필요합니다.");
-            return;
-        }
+    function requestApproval() {
+        const approvalData = {
+            apid: generateUUID(),  // APID를 생성합니다.
+            content: document.getElementById('edit-description').value,
+            email: document.getElementById('edit-email').value,
+            approvalStatus: '결재 대기',
+            nickname: document.getElementById('edit-author').value
+        };
 
         $.ajax({
             type: "POST",
             url: "/requestApproval",
             contentType: "application/json",
-            data: JSON.stringify({ email: email }),
+            data: JSON.stringify(approvalData),
             success: function(response) {
                 alert(response);
                 window.location.href = "/approval";
@@ -206,6 +215,8 @@
             }
         });
     }
+
+
 
     function openModal(tkid, name, description, sid, startDate, endDate, author, approvalStatus) {
         document.getElementById('details-tkid').value = tkid;

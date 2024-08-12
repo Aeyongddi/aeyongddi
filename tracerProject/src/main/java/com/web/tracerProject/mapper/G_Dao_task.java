@@ -29,7 +29,7 @@ public interface G_Dao_task {
 	
 	// endYN DB에 바로 적용되는 코드
 	@Update("UPDATE TASK SET endYN = #{endYN}, approvalStatus = #{approvalStatus} WHERE tkid = #{tkid}")
-	 int updateTaskStatus(@Param("tkid") String tkid, @Param("endYN") boolean endYN, @Param("approvalStatus") String approvalStatus);
+	int updateTaskStatus(@Param("tkid") String tkid, @Param("endYN") boolean endYN, @Param("approvalStatus") String approvalStatus);
 	
     // 등록하는 코드 
 	@Insert("INSERT INTO task (tkid, start_date, end_date, name, description, endYN, sid) " +
@@ -54,6 +54,7 @@ public interface G_Dao_task {
 	 // tkid 스퀀스 등록 하는 코드
 	 @Select("SELECT 'tk' || TO_CHAR(task_seq.NEXTVAL) AS tkid FROM dual")
      String getTkid();
+	 
 	 
 	 
 

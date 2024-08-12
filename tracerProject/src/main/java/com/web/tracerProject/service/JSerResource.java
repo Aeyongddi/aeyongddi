@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.web.tracerProject.mapper.JDaoResource;
 import com.web.tracerProject.vo.Project;
@@ -75,7 +76,8 @@ public class JSerResource {
             throw new RuntimeException("날짜 형식 변환 오류", e);
         }
     }
-
+    
+    @Transactional
     public void addUser(User_info user) {
         dao.addUser(user);
     }
@@ -83,7 +85,8 @@ public class JSerResource {
     public User_info getUserByEmail(String email) {
         return dao.getUserByEmail(email);
     }
-
+    
+    @Transactional
     public void updateUser(User_info user) {
         // 사용자 정보 업데이트 전 비밀번호가 null이거나 빈 문자열인지 확인
         if (user.getPassword() == null || user.getPassword().isEmpty()) {

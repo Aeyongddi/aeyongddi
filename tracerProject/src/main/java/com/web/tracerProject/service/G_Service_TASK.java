@@ -27,7 +27,7 @@ public class G_Service_TASK {
 	
     // boolean 값 수정하는 코드
     public int updateTaskStatus(String tkid, boolean endYN, String approvalStatus) {
-        return dao.updateTaskStatus(tkid, endYN, approvalStatus);
+	    return dao.updateTaskStatus(tkid, endYN, approvalStatus);
     }
     
 	// 단일 삭제하는 코드
@@ -69,6 +69,7 @@ public class G_Service_TASK {
 	}
 
 	
+	}
 	
-}
+	
 

@@ -14,18 +14,20 @@ import com.web.tracerProject.vo.Approval;
 public interface JDaoAppro {
 
 	@Select("SELECT * FROM APPROVAL")
-    List<Approval> getAllApprovals();
+	List<Approval> getAllApprovals();
 
-    @Select("SELECT 'AP' || LPAD(approval_seq.NEXTVAL, 3, '0') FROM DUAL")
-    String generateApid();
+	@Select("SELECT * FROM APPROVAL WHERE SID = #{sid}")
+	List<Approval> getApprovalsBySid(@Param("sid") String sid);
 
-    @Insert("INSERT INTO APPROVAL (APID, CONTENT, EMAIL, APPROVALSTATUS, NICKNAME) VALUES (#{apid}, #{content}, #{email}, #{approvalStatus}, #{nickname})")
-    void insertApproval(Approval approval);
+	@Select("SELECT 'AP' || LPAD(approval_seq.NEXTVAL, 3, '0') FROM DUAL")
+	String generateApid();
 
-    @Update("UPDATE APPROVAL SET APPROVALSTATUS = #{status} WHERE APID = #{apid}")
-    void updateApprovalStatus(@Param("apid") String apid, @Param("status") String status);
+	@Insert("INSERT INTO APPROVAL (APID, CONTENT, EMAIL, APPROVALSTATUS, NICKNAME) VALUES (#{apid}, #{content}, #{email}, #{approvalStatus}, #{nickname})")
+	void insertApproval(Approval approval);
 
-    @Select("SELECT * FROM APPROVAL WHERE APPROVALSTATUS = #{status}")
-    List<Approval> getApprovalsByStatus(@Param("status") String status);
+	@Update("UPDATE APPROVAL SET APPROVALSTATUS = #{status} WHERE APID = #{apid}")
+	void updateApprovalStatus(@Param("apid") String apid, @Param("status") String status);
+
+	@Select("SELECT * FROM APPROVAL WHERE APPROVALSTATUS = #{status}")
+	List<Approval> getApprovalsByStatus(@Param("status") String status);
 }
-

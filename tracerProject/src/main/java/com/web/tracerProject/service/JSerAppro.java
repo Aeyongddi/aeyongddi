@@ -27,6 +27,10 @@ public class JSerAppro {
     public List<Approval> getApprovalsByStatus(String status) {
         return jDaoAppro.getApprovalsByStatus(status);
     }
+    
+    public List<Approval> getApprovalsBySid(String sid) {
+        return jDaoAppro.getApprovalsBySid(sid);
+    }
 
     public void updateApprovalStatus(String apid, String status) {
         jDaoAppro.updateApprovalStatus(apid, status);

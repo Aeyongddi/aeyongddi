@@ -14,20 +14,23 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <style>
+        .iframe-container {
+            width: 100%;
+            height: 600px; /* 필요한 높이 설정 */
+            border: none;
+        }
+        .card-header-action {
+            display: flex;
+            justify-content: center; /* 버튼 중앙 정렬 */
+            gap: 10px; /* 버튼 간격 추가 */
+            margin-top: 10px; /* 위쪽 간격 */
+        }
         .app-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-        }
-        .app-card-header .left-section {
-            display: flex;
-            align-items: center;
-        }
-        .app-card-header .left-section select {
-            margin-left: 10px;
+            flex-wrap: wrap;
         }
     </style>
 </head>
@@ -46,17 +49,16 @@
             <div class="tab-content" id="orders-table-tab-content">
                 <!-- 인적 자원 관리 탭 -->
                 <div class="tab-pane fade show active" id="hr-management" role="tabpanel" aria-labelledby="hr-management-tab">
-                    <div id="app">
-                        <hr-management></hr-management>
-                    </div>
+                    <iframe src="/hr-management" class="iframe-container"></iframe>
                 </div>
 
                 <!-- 예산 관리 탭 -->
                 <div class="tab-pane fade" id="budget-management" role="tabpanel" aria-labelledby="budget-management-tab">
                     <div id="budget-management-section">
+                        <!-- 예산 관리 내용 -->
                         <div class="app-card app-card-chart h-100 shadow-sm">
                             <div class="app-card-header p-3 border-0">
-                                <div class="left-section">
+                                <div class="d-flex justify-content-between align-items-center">
                                     <h4 class="app-card-title">예산 현황</h4>
                                     <select class="form-select form-select-sm ms-3 d-inline-flex w-auto" id="projectSelect">
                                         <c:forEach var="project" items="${projectList}">
@@ -64,9 +66,9 @@
                                         </c:forEach>
                                     </select>
                                 </div>
-                                <div class="card-header-action">
-                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addBudgetModal">예산 추가</button>
-                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#reduceBudgetModal">예산 삭감</button>
+                                <div class="card-header-action d-flex justify-content-end mt-2">
+                                    <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addBudgetModal">예산 추가</button>
+                                    <button class="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#reduceBudgetModal">예산 삭감</button>
                                     <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#assignBudgetModal">새 프로젝트 예산 부여</button>
                                 </div>
                             </div>
@@ -130,7 +132,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -228,78 +229,49 @@
     </div>
 </div>
 
-<!-- 사용자 추가 모달 -->
-<div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+<!-- 자산 추가 모달 -->
+<div class="modal fade" id="addAssetModal" tabindex="-1" aria-labelledby="addAssetModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button @click="showAddUserForm" class="btn btn-success">사용자 추가</button>
-            </div>
-            <div class="modal-body">
-                <form @submit.prevent="addUser">
-                    <div class="mb-3">
-                        <label for="addUserName" class="form-label">이름:</label>
-                        <input id="addUserName" v-model="addFormData.name" type="text" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="addUserEmail" class="form-label">이메일:</label>
-                        <input id="addUserEmail" v-model="addFormData.email" type="email" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="addUserBirth" class="form-label">생일:</label>
-                        <input id="addUserBirth" v-model="addFormData.birth" type="date" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="addUserPhone" class="form-label">전화번호:</label>
-                        <input id="addUserPhone" v-model="addFormData.phone" type="text" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="addUserNickname" class="form-label">닉네임:</label>
-                        <input id="addUserNickname" v-model="addFormData.nickname" type="text" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="addUserPassword" class="form-label">비밀번호:</label>
-                        <input id="addUserPassword" v-model="addFormData.password" type="password" class="form-control" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">추가</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- 사용자 수정 모달 -->
-<div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editUserModalLabel">사용자 수정</h5>
+                <h5 class="modal-title" id="addAssetModalLabel">자산 추가</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form @submit.prevent="updateUser">
+                <form id="addAssetForm" method="post">
                     <div class="mb-3">
-                        <label for="editUserName" class="form-label">이름:</label>
-                        <input id="editUserName" v-model="editFormData.name" type="text" class="form-control" required>
+                        <label for="addAssetName" class="form-label">자산 이름</label>
+                        <input type="text" class="form-control" id="addAssetName" name="software_name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editUserEmail" class="form-label">이메일:</label>
-                        <input id="editUserEmail" v-model="editFormData.email" type="email" class="form-control" required readonly>
+                        <label for="addAssetType" class="form-label">자산 유형</label>
+                        <select class="form-select" id="addAssetType" name="rtype" required>
+                            <option value="EQUIPMENT">장비</option>
+                            <option value="FEE">이용권</option>
+                            <option value="LICENSE">라이센스</option>
+                        </select>
                     </div>
                     <div class="mb-3">
-                        <label for="editUserBirth" class="form-label">생일:</label>
-                        <input id="editUserBirth" v-model="editFormData.birth" type="date" class="form-control" required>
+                        <label for="addAssetPurchaseDate" class="form-label">구매일/임대일</label>
+                        <input type="date" class="form-control" id="addAssetPurchaseDate" name="license_purchase_date" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editUserPhone" class="form-label">전화번호:</label>
-                        <input id="editUserPhone" v-model="editFormData.phone" type="text" class="form-control" required>
+                        <label for="addAssetExpiryDate" class="form-label">만료일</label>
+                        <input type="date" class="form-control" id="addAssetExpiryDate" name="license_expiry_date" required>
                     </div>
                     <div class="mb-3">
-                        <label for="editUserNickname" class="form-label">닉네임:</label>
-                        <input id="editUserNickname" v-model="editFormData.nickname" type="text" class="form-control" required>
+                        <label for="addAssetPrice" class="form-label">가격</label>
+                        <input type="number" class="form-control" id="addAssetPrice" name="software_price" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">수정</button>
+                    <div class="mb-3">
+                        <label for="addAssetProjectSelect" class="form-label">프로젝트 선택</label>
+                        <select class="form-select" id="addAssetProjectSelect" name="pid" required>
+                            <c:forEach var="project" items="${projectList}">
+                                <option value="${project.pid}">${project.title}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">저장</button>
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
                 </form>
             </div>
@@ -312,176 +284,7 @@
 <script src="assets/plugins/chart.js/chart.min.js"></script>
 <script src="assets/js/app.js"></script>
 
-<!-- Vue.js 관련 코드 -->
-<!-- 사용자 관리 템플릿을 포함한 Vue.js 코드 -->
-<script>
-Vue.component('hr-management', {
-    data: function() {
-        return {
-            users: ${userInfoListJson},
-            addFormData: {
-                name: '',
-                email: '',
-                birth: '',
-                phone: '',
-                nickname: '',
-                password: '' // 이 부분은 추가 사용자에서만 필요
-            },
-            editFormData: {
-                name: '',
-                email: '',
-                birth: '',
-                phone: '',
-                nickname: ''
-            },
-            showForm: false
-        }
-    },
-    methods: {
-    	showAddUserForm() {
-            this.addFormData = { name: '', email: '', birth: '', phone: '', nickname: '', password: '' };
-            const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
-            addUserModal.show();
-        },
-        showEditUserForm(user) {
-            // 선택한 사용자의 정보를 Vue 컴포넌트의 데이터에 설정
-            this.editFormData = { ...user }; // password는 제외
-            this.editFormData.birth = this.formatDate(user.birth);
-
-            // 모달을 열기 전에 데이터를 설정하고, 모달을 열었을 때 DOM 업데이트가 완료되었는지 확인
-            const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
-            editUserModal.show();
-
-            // DOM 업데이트 후 필드가 올바르게 설정되었는지 확인
-            this.$nextTick(() => {
-                document.getElementById('editUserName').value = this.editFormData.name;
-                document.getElementById('editUserEmail').value = this.editFormData.email;
-                document.getElementById('editUserBirth').value = this.editFormData.birth;
-                document.getElementById('editUserPhone').value = this.editFormData.phone;
-                document.getElementById('editUserNickname').value = this.editFormData.nickname;
-            });
-        },
-        addUser() {
-            axios.post('/addUser', this.addFormData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                console.log('사용자 추가 응답:', response.data); // 서버 응답 확인
-                this.users.push(response.data);
-                const addUserModal = new bootstrap.Modal(document.getElementById('addUserModal'));
-                addUserModal.hide();
-                this.showForm = false;
-            })
-            .catch(error => {
-                console.error('사용자 추가 오류:', error.response.data); // 에러 메시지 확인
-                alert('사용자 추가 실패: ' + error.response.data);
-            });
-        },
-        updateUser() {
-            axios.post('/updateUser', this.editFormData, {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                console.log('사용자 수정 응답:', response.data); // 서버 응답 확인
-                
-                // 성공 메시지 출력
-                alert('사용자가 성공적으로 수정되었습니다.');
-
-                // 사용자 목록 갱신
-                let index = this.users.findIndex(user => user.email === this.editFormData.email);
-                if (index !== -1) {
-                    this.$set(this.users, index, response.data);
-                }
-                
-                // 모달 닫기
-                const editUserModal = new bootstrap.Modal(document.getElementById('editUserModal'));
-                editUserModal.hide();
-                this.showForm = false;
-            })
-            .catch(error => {
-                console.error('사용자 수정 오류:', error.response.data); // 에러 메시지 확인
-                alert('사용자 수정 실패: ' + error.response.data);
-            });
-        },
-        deleteUser(email) {
-            if (confirm('정말 삭제하시겠습니까?')) {
-                axios.post('/deleteUser', { email: email }, {
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => {
-                    let index = this.users.findIndex(user => user.email === email);
-                    if (index !== -1) {
-                        this.users.splice(index, 1);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    alert('사용자 삭제 실패: ' + error.response.data);
-                });
-            }
-        },
-        formatDate(date) {
-            let d = new Date(date);
-            return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
-        }
-    },
-    template: `
-    <div>
-        <div class="app-card app-card-orders-table shadow-sm mb-5">
-            <div class="app-card-body">
-                <div class="table-responsive">
-                    <table class="table app-table-hover mb-0 text-left">
-                        <thead>
-                            <tr>
-                                <th class="cell">이름</th>
-                                <th class="cell">이메일</th>
-                                <th class="cell">생일</th>
-                                <th class="cell">전화번호</th>
-                                <th class="cell">소속 팀</th>
-                                <th class="cell">진행중인 프로젝트</th>
-                                <th class="cell">상세</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="user in users" :key="user.email">
-                                <td class="cell">{{ user.name }}</td>
-                                <td class="cell">{{ user.email }}</td>
-                                <td class="cell">{{ formatDate(user.birth) }}</td>
-                                <td class="cell">{{ user.phone }}</td>
-                                <td class="cell">
-                                    <div v-for="team in user.teams" :key="team.tid">{{ team.tid }}</div>
-                                </td>
-                                <td class="cell">
-                                    <div v-for="project in user.projects" :key="project.title">{{ project.title }}</div>
-                                </td>
-                                <td class="cell">
-                                    <button @click="showEditUserForm(user)" class="btn btn-primary btn-sm">수정</button>
-                                    <button @click="deleteUser(user.email)" class="btn btn-danger btn-sm">삭제</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <button @click="showAddUserForm()" class="btn btn-success">사용자 추가</button>
-            </div>
-        </div>
-    </div>
-    `
-});
-
-new Vue({
-    el: '#app'
-});
-</script>
-
-
-<!-- 기존 JavaScript 코드 (Vue.js와 별도로 동작) -->
+<!-- JavaScript 코드 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // 예산 관리 차트 초기화 함수
@@ -607,7 +410,6 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.reload();
         })
         .catch(error => {
-            console.error('Error:', error);
             alert('자산 추가 실패: ' + error.message);
         });
     });

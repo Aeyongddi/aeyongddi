@@ -40,10 +40,13 @@ public class JContResource {
         List<Project> projectsWithNoAssignedBudget = service.getProjectsWithNoAssignedBudget();
         model.addAttribute("projectsWithNoAssignedBudget", projectsWithNoAssignedBudget);
 
-        // JSON 형식으로 데이터 변환
         ObjectMapper mapper = new ObjectMapper();
         try {
             String userInfoListJson = mapper.writeValueAsString(userInfoList);
+            
+            // JSON 변환 확인
+            System.out.println("User Info List JSON: " + userInfoListJson); 
+            
             model.addAttribute("userInfoListJson", userInfoListJson);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -55,16 +58,21 @@ public class JContResource {
     @PostMapping("/addUser")
     @ResponseBody
     public User_info addUser(@RequestBody Map<String, String> request) {
-        User_info user = new User_info();
-        user.setName(request.get("name"));
-        user.setEmail(request.get("email"));
-        user.setBirth(Date.valueOf(request.get("birth")));
-        user.setPhone(request.get("phone"));
-        user.setNickname(request.get("nickname"));
-        user.setPassword(request.get("password"));
-        service.addUser(user);
-        return user;
+        try {
+            User_info user = new User_info();
+            user.setName(request.get("name"));
+            user.setEmail(request.get("email"));
+            user.setBirth(Date.valueOf(request.get("birth")));
+            user.setPhone(request.get("phone"));
+            user.setNickname(request.get("nickname"));
+            user.setPassword(request.get("password"));
+            service.addUser(user);
+            return user;
+        } catch (Exception e) {
+            throw new RuntimeException("사용자 추가 실패: " + e.getMessage());
+        }
     }
+
 
     @PostMapping("/updateUser")
     @ResponseBody
@@ -156,5 +164,10 @@ public class JContResource {
         } catch (Exception e) {
             return "새 프로젝트 예산 부여 실패: " + e.getMessage();
         }
+    }
+    
+    @GetMapping("hr-management")
+    public String hrManagement() {
+    	return "tracerPages/hr_management";
     }
 }

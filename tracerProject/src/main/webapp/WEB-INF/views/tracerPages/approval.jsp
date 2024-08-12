@@ -37,6 +37,7 @@
     <div class="app-wrapper">
         <div class="app-content pt-3 p-md-3 p-lg-4">
             <div class="container-xl">
+            <br><br>
                 <!-- Title and Utilities -->
                 <div class="row g-3 mb-4 align-items-center justify-content-between">
                     <div class="col-auto">
@@ -252,23 +253,24 @@
 
     <!-- 상태 업데이트를 위한 스크립트 -->
     <script>
-        function updateApprovalStatus(apid, status) {
-            $.ajax({
-                type: "POST",
-                url: "/updateApprovalStatus",
-                data: { apid: apid, status: status },
-                success: function(response) {
-                    alert(response);
-                    location.reload(); // 페이지 새로고침
-                },
-                error: function(xhr, status, error) {
-                    console.error("Status: ", status);
-                    console.error("Error: ", error);
-                    console.error("Response: ", xhr.responseText);
-                    alert(xhr.responseText);
-                }
-            });
-        }
+    function updateApprovalStatus(apid, status) {
+        $.ajax({
+            type: "POST",
+            url: "/updateApprovalStatus",
+            data: { apid: apid, status: status },
+            success: function(response) {
+                alert(response);
+                location.reload(); // 페이지 새로고침으로 상태 반영
+            },
+            error: function(xhr, status, error) {
+                console.error("Status: ", status);
+                console.error("Error: ", error);
+                console.error("Response: ", xhr.responseText);
+                alert(xhr.responseText);
+            }
+        });
+    }
+
     </script>
 </body>
 </html>

@@ -250,6 +250,8 @@
     function closeModal() {
         document.getElementById('details-modal').style.display = 'none';
     }
+    
+    
     </script>
 
     <div id="title-modal" class="modal">

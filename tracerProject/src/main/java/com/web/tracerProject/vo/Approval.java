@@ -15,4 +15,5 @@ public class Approval {
     private String email;
     private String approvalStatus;
     private String nickname;
+    private String sid;
 }

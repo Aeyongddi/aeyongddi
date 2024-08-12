@@ -1,6 +1,9 @@
 package com.web.tracerProject.controller;
 
 
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +25,16 @@ public class JContAppro {
     @PostMapping("/requestApproval")
     @ResponseBody
     public String requestApproval(@RequestBody Approval approval) {
+        // 기존 결재 상태 확인
+        List<Approval> existingApprovals = jSerAppro.getApprovalsByStatus("결재 대기");
+        boolean isAlreadyRequested = existingApprovals.stream()
+                                      .anyMatch(a -> Objects.equals(a.getEmail(), approval.getEmail()) 
+                                                  && Objects.equals(a.getContent(), approval.getContent()));
+
+        if (isAlreadyRequested) {
+            return "이미 결재가 요청된 작업입니다.";
+        }
+
         try {
             jSerAppro.requestApproval(approval);
             return "결재 요청이 성공적으로 접수되었습니다.";
@@ -29,6 +42,8 @@ public class JContAppro {
             return "결재 요청에 실패했습니다: " + e.getMessage();
         }
     }
+
+
 
     @PostMapping("/updateApprovalStatus")
     @ResponseBody

@@ -50,7 +50,7 @@ public interface NDaoGantt {
 				TITLE, EMAIL, PID)
 			VALUES('SID'||LPAD(SID_SEQ.NEXTVAL, 5, '0'), 
 			    TO_TIMESTAMP_TZ(#{start_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM') + INTERVAL '1' DAY, 
-			    TO_TIMESTAMP_TZ(#{end_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM') + INTERVAL '1' DAY, 
+			    TO_TIMESTAMP_TZ(#{end_date}, 'YYYY-MM-DD"T"HH24:MI:SS.FF3TZH:TZM') + INTERVAL '' DAY, 
 			    0, #{text}, #{email}, #{pid})
 			""")
 	int insGanttSchedule(Gantt gantt);

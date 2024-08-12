@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectKey;
 
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.Team;
@@ -26,12 +27,14 @@ public interface NDaoPrj {
 			('PID'||LPAD(PID_SEQ.NEXTVAL, 5, '0'), 
 			#{start_date}, #{end_date}, #{title}, #{description})
 			""")
+	@SelectKey(statement = "SELECT PID_SEQ.NEXTVAL FROM dual",
+	keyProperty = "pid", before = true, resultType = String.class)
 	int createPrj(Project project);
 	@Select("""
 			SELECT 'PID'||LPAD(PID_SEQ.CURRVAL, 5, '0') FROM dual
 			""")
 	String getCurrPid();
-			
+	
 	@Insert("""
 			INSERT INTO
 			TEAM VALUES

@@ -236,7 +236,6 @@
 						$('.closeChatModal').click(function() {
 							$('#chatModal').hide();
 						});
-
 					});
 </script>
 <header class="app-header fixed-top">

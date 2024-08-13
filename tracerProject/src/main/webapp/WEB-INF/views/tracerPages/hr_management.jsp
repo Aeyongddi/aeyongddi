@@ -163,6 +163,7 @@
         </div>
         `,
         mounted() {
+        	console.log("Initialized users data:", this.users);
             console.log("Users Data:", this.users);  // users 데이터가 제대로 넘어왔는지 확인
             const addUserModalElement = document.getElementById('addUserModal');
             const editUserModalElement = document.getElementById('editUserModal');
@@ -270,6 +271,8 @@
     new Vue({
         el: '#app'
     });
+    </script>
+    <script>
     </script>
 </body>
 </html>

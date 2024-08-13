@@ -29,6 +29,9 @@ public class JContResource {
     @GetMapping("/resource")
     public String resource(Model model) {
         List<User_info> userInfoList = service.getAllUsersInfo();
+        
+        System.out.println("Fetched users:" + userInfoList);
+        
         model.addAttribute("userInfoList", userInfoList);
 
         List<Project> projectList = service.getAllProjects();

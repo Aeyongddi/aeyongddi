@@ -21,6 +21,8 @@ public class JSerResource {
 
     public List<User_info> getAllUsersInfo() {
         List<User_info> users = dao.getAllUsersInfo();
+        
+        System.out.println("Users from DB: "+users);
         for (User_info user : users) {
             user.setTeams(dao.getTeamsByEmail(user.getEmail()));
             user.setProjects(dao.getProjectsByEmail(user.getEmail()));

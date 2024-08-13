@@ -2,211 +2,147 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
-    <title>TRACER - 1대1 채팅</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="${path}/a00_com/bootstrap.min.css">
-    <!-- jQuery UI CSS -->
-    <link rel="stylesheet" href="${path}/a00_com/jquery-ui.css">
-    <!-- FontAwesome for icons -->
-    <script defer src="${path}/assets/plugins/fontawesome/js/all.min.js"></script>
-
-    <!-- Custom Styles -->
-    <style>
-        body {
-            display: flex;
-            height: 100vh;
-            margin: 0;
-        }
-        .chat-container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-        }
-        .chat-header {
-            background: #333;
-            color: #fff;
-            padding: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chat-body {
-            flex: 1;
-            padding: 10px;
-            overflow-y: auto;
-            border: 1px solid #ccc;
-        }
-        .chat-footer {
-            padding: 10px;
-            border-top: 1px solid #ccc;
-        }
-        .message {
-            margin-bottom: 15px;
-        }
-        .message.sent {
-            text-align: right;
-        }
-        .message.received {
-            text-align: left;
-        }
-        .message .content {
-            display: inline-block;
-            padding: 10px;
-            border-radius: 10px;
-        }
-        .message.sent .content {
-            background: #daf8cb;
-        }
-        .message.received .content {
-            background: #f1f0f0;
-        }
-        .message .timestamp {
-            display: block;
-            font-size: 0.75em;
-            color: #888;
-        }
-        .message .nickname {
-            font-weight: bold;
-            margin-bottom: 5px;
-            color: #444;
-        }
-    </style>
-
-    <!-- jQuery -->
-    <script src="${path}/a00_com/jquery.min.js"></script>
-    <!-- SockJS and StompJS -->
-    <script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <h4>사용자 목록</h4>
-                <div id="privateChatList"></div>
-            </div>
-            <div class="col-md-8">
-                <div class="chat-header">
-                    <h5 id="chatTitle">대화 중: <span id="currentChatUser"></span></h5>
-                </div>
-                <div id="chatArea" class="chat-body" style="height: 400px; overflow-y: auto; border: 1px solid #ccc;">
-                    <div id="chatMessageArea"></div>
-                </div>
-                <div class="chat-footer mt-2">
-                    <div class="input-group mb-2">
-                        <input id="receiver" type="text" class="form-control" placeholder="받을 사람의 이메일을 입력 또는 선택하세요"> <!-- 받을 사람의 ID 저장 -->
-                    </div>
-                    <div class="input-group">
-                        <input id="msg" type="text" class="form-control" placeholder="내용을 입력해주세요">
-                        <button id="sndBtn" class="btn btn-success">전송</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        var userNickname = '${userNickname}';
-        var userEmail = '${userEmail}';
+<meta charset="UTF-8">
+<title>Private Chat</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
+<style>
+    .chat-container {
+        height: 70vh;
+        overflow-y: auto;
+        padding: 10px;
+        background-color: #f1f1f1;
+    }
+    .message {
+        margin: 10px 0;
+        padding: 10px;
+        border-radius: 10px;
+        max-width: 60%; /* 말풍선의 최대 너비를 설정 */
+        word-wrap: break-word; /* 단어가 너무 길 경우 줄바꿈 처리 */
+        clear: both; /* 이전 플로트 요소에 영향을 받지 않도록 설정 */
+    }
+    .message.received {
+        background-color: #e9ecef;
+        text-align: left;
+        float: left; /* 수신자 메시지를 왼쪽에 정렬 */
+    }
+    .message.sent {
+        background-color: #007bff;
+        color: white;
+        text-align: right;
+        float: right; /* 발신자 메시지를 오른쪽에 정렬 */
+    }
+    .timestamp {
+        font-size: 0.75rem;
+        color: #ffffff; /* 발신자 메시지의 시간 색상을 흰색으로 설정 */
+        display: block;
+        margin-top: 5px;
+    }
+    .timestamp.received {
+        color: #6c757d; /* 수신자 메시지의 시간 색상 설정 */
+    }
+    .date-header {
+        text-align: center;
+        font-size: 1rem;
+        font-weight: bold;
+        margin-bottom: 15px;
+        color: #000000; /* 날짜 색상을 검정색으로 설정 */
+    }
+</style>
+<script type="text/javascript">
+    $(document).ready(function() {
         var socket = new SockJS('/ws');
         var stompClient = Stomp.over(socket);
 
-        $(document).ready(function () {
-            stompClient.connect({}, function (frame) {
-                console.log('Connected: ' + frame);
+        stompClient.connect({}, function(frame) {
+            console.log('Connected: ' + frame);
 
-                // 사용자 목록 가져오기
-                stompClient.subscribe('/topic/user-list', function (message) {
-                    updateUserList(JSON.parse(message.body));
-                });
+            // 오늘 날짜 표시
+            var today = new Date();
+            var dateString = today.toLocaleDateString('ko-KR', { year: 'numeric', month: 'long', day: 'numeric' });
+            $('#show').append('<div class="date-header">' + dateString + '</div>');
 
-                // 개인 채팅 메시지 수신
-                stompClient.subscribe('/user/queue/messages', function (message) {
-                    revMsg(message.body);
-                });
+            // 메시지 구독
+            stompClient.subscribe('/topic/greetings', function(greeting){
+                var obj = JSON.parse(greeting.body);
+                var curName = document.getElementById('curName').value;
+                var receivedName = obj.name;
+                var targetName = obj.targetName;
+                var time = new Date(obj.time).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
 
-                // 메시지 전송 버튼 클릭 시
-                $("#sndBtn").click(function () {
-                    sendPrivateMessage();
-                });
-
-                // Enter 키로 메시지 전송
-                $("#msg").keyup(function (event) {
-                    if (event.keyCode === 13) {
-                        sendPrivateMessage();
-                    }
-                });
+                if (curName == targetName) {
+                    addMessage(receivedName, obj.msg, time, 'received');
+                }
             });
         });
 
-        function sendPrivateMessage() {
-            var content = $("#msg").val();
-            var receiver = $("#receiver").val();
+        $('#sendButton').click(function() {
+            sendName();
+        });
 
-            if (content.trim() === "" || receiver.trim() === "") {
-                alert("내용과 받을 사람을 모두 입력해야 합니다.");
+        $('#msg').keypress(function(e) {
+            if (e.which == 13) { // 엔터 키
+                sendName();
+                return false; // 엔터 키의 기본 동작 방지 (줄 바꿈)
+            }
+        });
+
+        function sendName() {
+            var msg = document.getElementById('msg').value.trim();
+
+            if (msg === "") {
+                alert("메시지를 입력하세요.");
                 return;
             }
 
-            var message = {
-                sender: userNickname,
-                receiver: receiver,
-                content: content
-            };
-
-            stompClient.send("/app/hello", {}, JSON.stringify(message));
-            addMessageToChat(userNickname, content, true);
-            $("#msg").val(""); // 입력창 초기화
+            var name = document.getElementById('curName').value; 
+            var targetName = document.getElementById('name').value; 
+            var time = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+            addMessage(name, msg, time, 'sent');
+            stompClient.send("/app/hello", {}, JSON.stringify({'name': name, 'targetName': targetName, 'msg': msg, 'time': new Date().getTime()}));
+            document.getElementById('msg').value = ''; // 메시지 입력 후 필드 초기화
         }
 
-        function revMsg(data) {
-            var message = JSON.parse(data);
-            addMessageToChat(message.nickname, message.content, false);
+
+
+        function addMessage(sender, message, time, type) {
+            var timeClass = type === 'sent' ? 'timestamp' : 'timestamp received';
+            var messageContainer = $('<div>').addClass('message ' + type)
+                                             .html(sender + ': ' + message + '<span class="' + timeClass + '">' + time + '</span>');
+            $('#show').append(messageContainer);
+            $('.chat-container').scrollTop($('.chat-container')[0].scrollHeight); // 스크롤바 하단으로
         }
-
-        function addMessageToChat(nickname, content, isSender) {
-            var timestamp = new Date().toLocaleTimeString();
-            var msgObj = $("<div></div>").addClass("message").addClass(isSender ? "sent" : "received");
-            var contentDiv = $("<div></div>").addClass("content").text(content);
-            var timestampDiv = $("<div></div>").addClass("timestamp").text(timestamp);
-            msgObj.append(contentDiv).append(timestampDiv);
-
-            if (!isSender) {
-                var nicknameDiv = $("<div></div>").addClass("nickname").text(nickname);
-                msgObj.prepend(nicknameDiv);
-            }
-
-            $("#chatMessageArea").append(msgObj);
-            $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight); // 스크롤을 맨 아래로 이동
-        }
-
-        function updateUserList(users) {
-            $("#privateChatList").empty();
-            users.forEach(function(user) {
-                addUserToChatList(user.email, user.nickname);
-            });
-        }
-
-        function addUserToChatList(receiver, userName) {
-            var userButton = $("<button></button>")
-                .addClass("btn btn-secondary btn-block")
-                .text(userName)
-                .data("receiver", receiver)
-                .click(function () {
-                    $("#receiver").val(receiver); // 선택한 사용자의 이메일을 받는 사람 칸에 입력
-                    $("#currentChatUser").text(userName);
-                    $("#chatMessageArea").empty(); // 기존 대화 내용 초기화
-                });
-
-            $("#privateChatList").append(userButton);
-        }
-    </script>
+    });
+</script>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h3>개인 채팅</h3>
+        </div>
+        <div class="card-body">
+            <div class="mb-3">
+                <label for="curName" class="form-label">발신자</label>
+                <input type="text" id="curName" class="form-control" value="${userNickname}">
+            </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">수신자</label>
+                <input type="text" id="name" class="form-control" placeholder="수신자 닉네임을 입력하세요. (영어: 대소문자 구분해야함)">
+            </div>
+            <div class="chat-container" id="show">
+                <!-- 채팅 메시지들이 이곳에 표시됩니다 -->
+            </div>
+            <div class="mt-3">
+                <input type="text" id="msg" class="form-control" placeholder="메시지를 입력하세요">
+            </div>
+            <button type="button" id="sendButton" class="btn btn-primary mt-2">전송</button>
+        </div>
+    </div>
+</div>
 </body>
 </html>

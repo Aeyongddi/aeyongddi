@@ -38,7 +38,7 @@
         .chat-header .icons {
             display: flex;
             gap: 10px;
-            align-items: center; /* 중앙 정렬 추가 */
+            align-items: center;
         }   
         .chat-body {
             flex: 1;
@@ -83,39 +83,14 @@
             background-color: #007bff !important;
             color: #fff !important;
         }
-        /* 닉네임 설정 모달 */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgb(0,0,0);
-            background-color: rgba(0,0,0,0.4);
-            padding-top: 60px;
-        }
         .modal-content {
             background-color: #fefefe;
             margin: 5% auto;
             padding: 20px;
             border: 1px solid #888;
             width: 80%;
-            max-width: 300px;
-        }
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .modal-header h2 {
-            margin: 0;
-        }
-        .modal-footer {
-            display: flex;
-            justify-content: flex-end;
+            max-width: 400px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
     </style>
 </head>
@@ -192,8 +167,9 @@ $(document).ready(function () {
                 content: userNickname + "님이 입장하셨습니다!"
             };
             socket.send(JSON.stringify(joinMessage));
-            // 현재 채팅방을 강조
-            highlightCurrentChatButton();
+
+            // "단체 채팅1" 버튼을 자동으로 강조 표시
+            highlightCurrentChatButton($("#group-1"));
         };
 
         socket.onmessage = function (evt) {
@@ -253,13 +229,13 @@ $(document).ready(function () {
         }
     }
 
-    function highlightCurrentChatButton() {
-        // 모든 버튼에서 active-chat 클래스 제거
+    function highlightCurrentChatButton(button) {
         $(".btn").removeClass("active-chat");
-
-        // 현재 채팅방 버튼에 active-chat 클래스 추가
-        $("button:contains('" + currentChatName + "')").addClass("active-chat");
+        $(button).addClass("active-chat");
     }
+
+    // 초기화 시 "단체 채팅1"을 기본 선택
+    highlightCurrentChatButton($("#group-1"));
 });
 
 function sendMsg() {
@@ -282,10 +258,8 @@ function sendMsg() {
 
     // 자신이 보낸 메시지를 UI에 추가
     addMessageToChat(userNickname, content, true);
-    saveMessageToLocalStorage(message);  // 로컬 저장소에 메시지 저장
+    saveMessageToLocalStorage(message);
 }
-
-
 
 function revMsg(data) {
     const message = JSON.parse(data);
@@ -295,16 +269,13 @@ function revMsg(data) {
     const chatName = message.chatName;
     const isSender = (nickname === userNickname.trim());
 
-    // 현재 채팅방의 메시지인 경우에만 표시
-    if (chatType === currentChatType && (chatName === currentChatName || chatName === userNickname)) {
+    if (chatType === currentChatType && chatName === currentChatName) {
         console.log("Received message from:", nickname, " Content: ", content);
 
-        // 발신자가 자신이 아닌 경우에만 메시지를 UI에 추가
         if (!isSender) {
             addMessageToChat(nickname, content, false);
         }
 
-        // 수신한 메시지를 로컬 스토리지에 저장
         saveMessageToLocalStorage(message);
     }
 }
@@ -321,7 +292,7 @@ function addMessageToChat(nickname, content, isSender) {
         msgObj.prepend(nicknameDiv);
     }
     $("#chatMessageArea").append(msgObj);
-    $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight); // 스크롤을 맨 아래로 이동
+    $("#chatArea").scrollTop($("#chatArea")[0].scrollHeight);
 }
 
 function saveMessageToLocalStorage(message) {
@@ -352,18 +323,10 @@ function handleUserList(data) {
         var userButton = $("<button></button>")
             .addClass("btn btn-secondary btn-block")
             .text(user)
-            .click(function () {
-                changeChat('private', user, userButton);
-            });
-        if (user === userNickname) {
-            userButton.addClass("active-chat");
-        }
+            .prop("disabled", true); // 사용자 버튼을 비활성화하여 클릭을 막음
         $("#privateChatList").append(userButton);
     });
 }
-
-
-
 
 function changeChat(type, name, button) {
     currentChatType = type;
@@ -373,7 +336,6 @@ function changeChat(type, name, button) {
     loadChatHistory();
     updateActiveChatButton(button);
 }
-
 
 function updateActiveChatButton(button) {
     $(".btn").removeClass("active-chat");

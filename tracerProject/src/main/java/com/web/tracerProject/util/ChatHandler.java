@@ -34,6 +34,8 @@ public class ChatHandler extends TextWebSocketHandler {
 	    userNicknames.put(session, nickname);
 	    users.put(session.getId(), session);
 	    System.out.println(nickname + "님 접속하셨습니다. 현재 접속자 수: " + users.size());
+	    
+	    // 접속한 사용자 목록을 모든 사용자에게 브로드캐스트
 	    sendUserList();
 	    sendJoinMessage(session, nickname);
 	}
@@ -45,10 +47,10 @@ public class ChatHandler extends TextWebSocketHandler {
 	    Map<String, String> messageMap = objectMapper.readValue(payload, Map.class);
 
 	    String email = messageMap.get("email");
-	    String nickname = messageMap.get("nickname");
+	    String nickname = messageMap.get("nickname"); 
 	    String content = messageMap.get("content");
 	    String chatType = messageMap.get("chatType");
-	    String chatName = messageMap.get("chatName");
+	    String chatName = messageMap.get("chatName"); 
 
 	    Chatting chatMessage = new Chatting();
 	    chatMessage.setChid(UUID.randomUUID().toString());
@@ -59,17 +61,15 @@ public class ChatHandler extends TextWebSocketHandler {
 
 	    for (WebSocketSession userSession : users.values()) {
 	        if (userSession.isOpen()) {
+	            String sessionNickname = userNicknames.get(userSession); 
 	            if ("group".equals(chatType)) {
 	                userSession.sendMessage(new TextMessage(payload));
-	            } else if ((chatName.equals(userNicknames.get(userSession)) && nickname.equals(userNicknames.get(userSession))) || chatName.equals(nickname)) {
+	            } else if (sessionNickname.equals(chatName)) {
 	                userSession.sendMessage(new TextMessage(payload));
 	            }
 	        }
 	    }
 	}
-
-
-
 
 
 	@Override
@@ -80,6 +80,8 @@ public class ChatHandler extends TextWebSocketHandler {
 	private void sendUserList() throws Exception {
 	    List<String> userList = new ArrayList<>(userNicknames.values());
 	    String userListMessage = "USER_LIST" + objectMapper.writeValueAsString(userList);
+	    
+	    // 모든 접속자에게 사용자 목록을 브로드캐스트
 	    for (WebSocketSession userSession : users.values()) {
 	        userSession.sendMessage(new TextMessage(userListMessage));
 	    }

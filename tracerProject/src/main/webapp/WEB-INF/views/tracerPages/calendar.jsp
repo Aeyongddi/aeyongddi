@@ -158,11 +158,11 @@
 				$("#uptBtn").hide()
 				$("#delBtn").hide()
 				// 같은 모달창(등록/상세)에서 등록버튼만 화성화 처리..
-				$("#start").val(arg.start.toLocaleDateString())
+				$("#start").val(arg.start.toLocaleString())
 				// 보이는 날짜 처리 형식
 				$("[name=start]").val(arg.startStr)
 				// 실제 저장할 날짜 처리 형식..
-				$("#end").val(arg.end.toLocaleDateString())
+				$("#end").val(arg.end.toLocaleString())
 				$("[name=end]").val(arg.endStr)
 				
 				calendar.unselect()
@@ -174,9 +174,8 @@
 				$("#regBtn").hide()
 				$("#uptBtn").show()
 				$("#delBtn").show()
-				
 				addForm(arg.event)
-				$("#showModel").click() 
+				$("#showModel").click()
 				// 상세화면 - 수정/삭제
 				/*
 				if (confirm('Are you sure you want to delete this event?')) {
@@ -186,18 +185,20 @@
 			},
 			eventDrop:function(arg){
 				addForm(arg.event)
-				ajaxFun("updateCalendar.do")
+				ajaxFun("uptScheduleCalendar")
+				$(".form")[0].reset()
 			},
 			eventResize:function(arg){
 				addForm(arg.event)
-				ajaxFun("updateCalendar.do")				
+				ajaxFun("uptScheduleCalendar")		
+				$(".form")[0].reset()
 			},
 			editable : true,
 			dayMaxEvents : true, // allow "more" link when too many events
 			events : function(info, successCallback, failureCallback){
 				// callList.do
 				$.ajax({
-					method: "POST",
+					type : "POST",
 					url: "getScheduleCalendarList",
 					dataType: "json",
 					success: function(data){
@@ -222,13 +223,13 @@
 
 			// 전달되는 데이터와 호출하여 보이는 데이터 차이가 있는 데이터
 			$("[name=start]").val(event.startStr)
-			$("#start").val(event.start.toLocaleDateString())
+			$("#start").val(event.start.toLocaleString())
 			if(event.end==null){
 				$("[name=end]").val(event.startStr)
-				$("#end").val(event.start.toLocaleDateString())			
+				$("#end").val(event.start.toLocaleString())			
 			}else{
 				$("[name=end]").val(event.endStr)
-				$("#end").val(event.end.toLocaleDateString())				
+				$("#end").val(event.end.toLocaleString())				
 			}
 			// fullcalendar 자체에서는 없지만 사용자에 의해서 필요한 추가 속성..
 			$("[name=writer]").val(event.extendedProps.writer)
@@ -237,40 +238,53 @@
 		calendar.render();
 		$("#regBtn").click(function(){
 			if(confirm("등록하시겠습니까?")){
-				ajaxFun("insertCalendar.do")
+				ajaxFun("insScheduleCalendar")
 			}
 		})	
 		
 		$("#clsBtn").click(function(){
 			console.log('초기화')
 			$(".form")[0].reset()
+			$("#showModel").click()
 		})
 		
 		$("#uptBtn").click(function(){
 			if(confirm("수정하시겠습니까?")){
-				ajaxFun("updateCalendar.do")
+				ajaxFun("uptScheduleCalendar")
 			}
 		})	
 		$("#delBtn").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				ajaxFun("deleteCalendar.do")
+				ajaxFun("delScheduleCalendar")
 			}
 		})	
 		function ajaxFun(url){
 			$.ajax({
-				type:"post",
-				url:url,
-				data:$("form").serialize(),// form안에 있는 name/value 속성값을 key=val변환 처리.
+				type :"POST",
 				dataType:"json",
+				url:url,
+				data:$(".form").serialize(),
 				success:function(data){
 					// 등록이 완료된 후,  등록성공/실패 메시지와 다시 등록이 된 내용을 적용한
 					// 화면을 로딩하기 위한 처리..
 					alert(data.msg)
 					calendar.removeAllEvents()
-					calendar.addEventSource(data.calList)
-					// 등록 완료된 후에는 등록 모달창 닫기 처리.
-					console.log(data.msg.indexOf('수정'))
-					// 메시지가 '수정'포함인 경우만 창닫는 처리 방지
+					var events = data.res.map(function(item){
+						return{
+							allDay: item.allDay,
+							backgroundColor: item.backgroundColor,
+							content: item.content,
+							end: item.end,
+							id: item.id,
+							start: item.start,
+							textColor: item.textColor,
+							title: item.title,
+							url: item.url,
+							writer: item.writer,	
+						}
+					})
+					console.log(events)
+					calendar.addEventSource(events)
 					if(data.msg.indexOf('수정')==-1){
 						$("#clsBtn").click()
 					}

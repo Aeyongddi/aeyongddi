@@ -24,7 +24,7 @@ public interface NDaoPrj {
 	@Insert("""
 			INSERT INTO
 			PROJECT VALUES
-			('PID'||LPAD(PID_SEQ.NEXTVAL, 5, '0'), 
+			('PID'||LPAD(#{pid}, 5, '0'), 
 			#{start_date}, #{end_date}, #{title}, #{description})
 			""")
 	@SelectKey(statement = "SELECT PID_SEQ.NEXTVAL FROM dual",

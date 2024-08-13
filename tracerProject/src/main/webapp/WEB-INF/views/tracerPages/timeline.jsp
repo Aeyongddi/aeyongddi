@@ -202,7 +202,7 @@ var opts
 				sel.start_date = new Date(sel.start_date).toISOString()
 				sel.end_date = new Date(sel.end_date).toISOString()
 				sel.email = data
-				sel.pid = 'PID00109' // 추후 수정할 것. 세션처리
+				sel.pid = 'PID00142' // 추후 수정할 것. 세션처리
 				$.ajax({
 					data: sel,
 					url: url,

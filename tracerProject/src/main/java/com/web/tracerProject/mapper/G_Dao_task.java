@@ -55,6 +55,10 @@ public interface G_Dao_task {
 	 @Select("SELECT 'tk' || TO_CHAR(task_seq.NEXTVAL) AS tkid FROM dual")
      String getTkid();
 	 
+	// 특정 tkid로 Task를 조회하는 메서드
+	    @Select("SELECT * FROM TASK WHERE TKID = #{tkid}")
+	    Task getTaskByTkid(@Param("tkid") String tkid);
+	 
 	 
 	 
 

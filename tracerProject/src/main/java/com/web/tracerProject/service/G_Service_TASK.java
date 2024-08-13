@@ -67,6 +67,10 @@ public class G_Service_TASK {
 	    }
 	    return dao.insertTask(ins);
 	}
+	
+	 public Task getTaskByTkid(String tkid) {
+	        return dao.getTaskByTkid(tkid);
+	    }
 
 	
 	}

@@ -1,6 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -88,19 +89,22 @@
                                         <thead>
                                             <tr>
                                                 <th class="cell">결재번호</th>
-                                                <th class="cell">내용</th>
+                                                <th class="cell">제목</th> <!-- 제목으로 변경 -->
                                                 <th class="cell">요청자</th>
+                                                <th class="cell">결재 요청 시간</th>
                                                 <th class="cell">이메일</th>
                                                 <th class="cell">상태</th>
                                                 <th class="cell">상태 변경</th>
+                                                <th class="cell">상태 변경 시간</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach var="approval" items="${allApprovals}">
                                                 <tr>
                                                     <td class="cell">${approval.apid}</td>
-                                                    <td class="cell"><span class="truncate">${approval.content}</span></td>
+                                                    <td class="cell"><span class="truncate">${approval.name}</span></td> <!-- name으로 변경 -->
                                                     <td class="cell">${approval.nickname}</td>
+                                                    <td class="cell">${approval.formattedRequestDateTime}</td> <!-- 결재 요청 시간 -->
                                                     <td class="cell"><span>${approval.email}</span></td>
                                                     <td class="cell">
                                                         <span class="<c:choose>
@@ -115,6 +119,7 @@
                                                         <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '결재 완료')">승인</button>
                                                         <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '보류')">보류</button>
                                                     </td>
+                                                    <td class="cell">${approval.formattedStatusUpdateDateTime}</td> <!-- 상태 변경 시간 -->
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -133,19 +138,22 @@
                                         <thead>
                                             <tr>
                                                 <th class="cell">결재번호</th>
-                                                <th class="cell">내용</th>
+                                                <th class="cell">제목</th> <!-- 제목으로 변경 -->
                                                 <th class="cell">요청자</th>
+                                                <th class="cell">결재 요청 시간</th>
                                                 <th class="cell">이메일</th>
                                                 <th class="cell">상태</th>
                                                 <th class="cell">상태 변경</th>
+                                                <th class="cell">상태 변경 시간</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach var="approval" items="${pendingApprovals}">
                                                 <tr>
                                                     <td class="cell">${approval.apid}</td>
-                                                    <td class="cell"><span class="truncate">${approval.content}</span></td>
+                                                    <td class="cell"><span class="truncate">${approval.name}</span></td> <!-- name으로 변경 -->
                                                     <td class="cell">${approval.nickname}</td>
+                                                    <td class="cell">${approval.formattedRequestDateTime}</td> <!-- 결재 요청 시간 -->
                                                     <td class="cell"><span>${approval.email}</span></td>
                                                     <td class="cell">
                                                         <span class="status-pending">${approval.approvalStatus}</span>
@@ -154,6 +162,7 @@
                                                         <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '결재 완료')">승인</button>
                                                         <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '보류')">보류</button>
                                                     </td>
+                                                    <td class="cell">${approval.formattedStatusUpdateDateTime}</td> <!-- 상태 변경 시간 -->
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -172,19 +181,22 @@
                                         <thead>
                                             <tr>
                                                 <th class="cell">결재번호</th>
-                                                <th class="cell">내용</th>
+                                                <th class="cell">제목</th> <!-- 제목으로 변경 -->
                                                 <th class="cell">요청자</th>
+                                                <th class="cell">결재 요청 시간</th>
                                                 <th class="cell">이메일</th>
                                                 <th class="cell">상태</th>
                                                 <th class="cell">상태 변경</th>
+                                                <th class="cell">상태 변경 시간</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach var="approval" items="${rejectedApprovals}">
                                                 <tr>
                                                     <td class="cell">${approval.apid}</td>
-                                                    <td class="cell"><span class="truncate">${approval.content}</span></td>
+                                                    <td class="cell"><span class="truncate">${approval.name}</span></td> <!-- name으로 변경 -->
                                                     <td class="cell">${approval.nickname}</td>
+                                                    <td class="cell">${approval.formattedRequestDateTime}</td> <!-- 결재 요청 시간 -->
                                                     <td class="cell"><span>${approval.email}</span></td>
                                                     <td class="cell">
                                                         <span class="status-rejected">${approval.approvalStatus}</span>
@@ -193,6 +205,7 @@
                                                         <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '결재 완료')">승인</button>
                                                         <button class="btn-sm app-btn-secondary" onclick="updateApprovalStatus('${approval.apid}', '보류')">보류</button>
                                                     </td>
+                                                    <td class="cell">${approval.formattedStatusUpdateDateTime}</td> <!-- 상태 변경 시간 -->
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -211,22 +224,26 @@
                                         <thead>
                                             <tr>
                                                 <th class="cell">결재번호</th>
-                                                <th class="cell">내용</th>
+                                                <th class="cell">제목</th> <!-- 제목으로 변경 -->
                                                 <th class="cell">요청자</th>
+                                                <th class="cell">결재 요청 시간</th>
                                                 <th class="cell">이메일</th>
                                                 <th class="cell">상태</th>
+                                                <th class="cell">상태 변경 시간</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach var="approval" items="${completedApprovals}">
                                                 <tr>
                                                     <td class="cell">${approval.apid}</td>
-                                                    <td class="cell"><span class="truncate">${approval.content}</span></td>
+                                                    <td class="cell"><span class="truncate">${approval.name}</span></td> <!-- name으로 변경 -->
                                                     <td class="cell">${approval.nickname}</td>
+                                                    <td class="cell">${approval.formattedRequestDateTime}</td> <!-- 결재 요청 시간 -->
                                                     <td class="cell"><span>${approval.email}</span></td>
                                                     <td class="cell">
                                                         <span class="status-completed">${approval.approvalStatus}</span>
                                                     </td>
+                                                    <td class="cell">${approval.formattedStatusUpdateDateTime}</td> <!-- 상태 변경 시간 -->
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
@@ -245,6 +262,17 @@
             </div>
         </footer><!--//app-footer-->
     </div><!--//app-wrapper-->
+    
+    <!-- 보류 사유 입력 모달 -->
+<div id="reject-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeRejectModal()">&times;</span>
+        <h2>보류 사유 입력</h2>
+        <textarea id="reject-reason" placeholder="보류 사유를 입력하세요..."></textarea>
+        <button type="button" class="btn btn-primary" onclick="submitRejectReason()">보류</button>
+    </div>
+</div>
+    
 
     <!-- Javascript -->
     <script src="assets/plugins/popper.min.js"></script>
@@ -253,13 +281,45 @@
 
     <!-- 상태 업데이트를 위한 스크립트 -->
     <script>
+    let currentApid = null; // 현재 보류 처리 중인 결재 번호
+
     function updateApprovalStatus(apid, status) {
+        if (status === '보류') {
+            currentApid = apid;
+            document.getElementById('reject-modal').style.display = 'block';
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/updateApprovalStatus",
+                data: { apid: apid, status: status },
+                success: function(response) {
+                    alert(response);
+                    location.reload(); // 페이지 새로고침으로 상태 반영
+                },
+                error: function(xhr, status, error) {
+                    console.error("Status: ", status);
+                    console.error("Error: ", error);
+                    console.error("Response: ", xhr.responseText);
+                    alert(xhr.responseText);
+                }
+            });
+        }
+    }
+
+    function submitRejectReason() {
+        const reason = document.getElementById('reject-reason').value;
+        if (!reason) {
+            alert("보류 사유를 입력하세요.");
+            return;
+        }
+
         $.ajax({
             type: "POST",
             url: "/updateApprovalStatus",
-            data: { apid: apid, status: status },
+            data: { apid: currentApid, status: '보류', reason: reason },
             success: function(response) {
                 alert(response);
+                closeRejectModal();
                 location.reload(); // 페이지 새로고침으로 상태 반영
             },
             error: function(xhr, status, error) {
@@ -270,6 +330,12 @@
             }
         });
     }
+
+    function closeRejectModal() {
+        document.getElementById('reject-modal').style.display = 'none';
+        document.getElementById('reject-reason').value = '';
+    }
+
 
     </script>
 </body>

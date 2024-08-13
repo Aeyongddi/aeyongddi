@@ -17,8 +17,12 @@ public interface G_Dao_BOARD {
     @Select("SELECT * FROM BOARD ORDER BY bid")
     List<Board> getBoardList();
     
+    // 단일 게시판 조회하는 코드 
+    @Select("SELECT * FROM BOARD WHERE bid = #{bid}")
+    Board getBoardById(@Param("bid") String bid);
+    
     // 업데이트하는 코드
-    @Update("UPDATE BOARD SET title=#{title}, content=#{content}, endYN=#{endYN}, up=#{up} WHERE bid=#{bid}")
+    @Update("UPDATE BOARD SET title=#{title}, content=#{content}, uf=#{uf} WHERE bid=#{bid}")
     int updateBoard(Board upt);
     
     // 실시간으로 진행중 / 완료 하는코드

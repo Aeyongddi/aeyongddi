@@ -25,11 +25,35 @@ public class G_Service_BOARD {
         return dao.search(searchText, searchType);
     }
     
-    // 수정하는 코드
-    public int updateBoard(Board upt) {
-        return dao.updateBoard(upt);
+ // 단일 게시판 조회
+    public Board getBoardById(String bid) {
+        return dao.getBoardById(bid);
     }
-    
+
+    // 게시판 수정
+    public int updateBoard(Board updatedBoard) {
+        // 기존 데이터 가져오기
+        Board existingBoard = dao.getBoardById(updatedBoard.getBid());
+
+        if (existingBoard != null) {
+            // 기존 데이터 유지
+            if (updatedBoard.getTitle() != null) {
+                existingBoard.setTitle(updatedBoard.getTitle());
+            }
+            if (updatedBoard.getContent() != null) {
+                existingBoard.setContent(updatedBoard.getContent());
+            }
+            if (updatedBoard.getUf() != null) {
+                existingBoard.setUf(updatedBoard.getUf());
+            }
+            // 상태를 업데이트
+            existingBoard.setEndYN(updatedBoard.isEndYN());
+
+            // 업데이트
+            return dao.updateBoard(existingBoard);
+        }
+        return 0; // 수정 실패
+    }
     // boolean 실시간으로 값 이동
     public int updateBoardStatus(String bid, boolean endYN) {
         return dao.updateBoardStatus(bid, endYN);

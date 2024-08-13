@@ -60,15 +60,40 @@ public class G_Controller_BOARD {
         return "tracerPages/riskBoard"; // JSP 파일 경로를 반환합니다.
     }
     
-    @PostMapping("/boardUpdate")
-    public String boardUpdate(Board upt, Model d) {
-        d.addAttribute("msg", service.updateBoard(upt));
-        return "tracerPages/riskBoard"; // 수정 후 리다이렉트
+    // 등록하는 코드
+ // 단일 게시판 조회
+    @GetMapping("/{bid}")
+    @ResponseBody
+    public String getBoardById(@PathVariable("bid") String bid) {
+        Board board = service.getBoardById(bid);
+        if (board != null) {
+            // JSON 형태로 반환
+            return "{ \"bid\": \"" + board.getBid() + "\", \"title\": \"" + board.getTitle() + "\", \"content\": \"" + board.getContent() + "\" }";
+        } else {
+            return "게시물 없음";
+        }
     }
+
+    @PostMapping("/boardUpdate")
+    @ResponseBody
+    public ResponseEntity<String> updateBoard(@RequestBody Board updatedBoard) {
+        try {
+            int result = service.updateBoard(updatedBoard);
+            if (result > 0) {
+                return ResponseEntity.ok("수정 성공");
+            } else {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("수정 실패");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류: " + e.getMessage());
+        }
+    }
+
+  
 
     @DeleteMapping("/delete/{bid}")
     @ResponseBody
-    public ResponseEntity<String> deleteBoard(@PathVariable String bid) {
+    public ResponseEntity<String> deleteBoard(@PathVariable("bid") String bid) {
         int result = service.deleteBoard(bid); // 게시물 삭제 호출
 
         if (result > 0) {

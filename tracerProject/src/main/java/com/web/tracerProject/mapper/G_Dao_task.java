@@ -22,7 +22,7 @@ public interface G_Dao_task {
 	        "         END")
 	List<Task> getTaskList();
      
-	// 등록하는 코드 
+	// 수정하는 코드
 	@Update("UPDATE TASK SET name=#{name}, description=#{description}, sid=#{sid}, approvalStatus=#{approvalStatus} WHERE tkid=#{tkid}")
 	int updateTask(Task task);
 

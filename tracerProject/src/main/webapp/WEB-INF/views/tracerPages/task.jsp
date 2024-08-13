@@ -121,54 +121,6 @@
 		</div>
 	</div>
 
-	<!-- 모달 창 코드 -->
-	<div id="details-modal" class="modal">
-		<div class="modal-content">
-			<span class="close-btn" onclick="closeModal()">&times;</span>
-			<h2>이슈 상세 정보</h2>
-			<form id="details-form">
-				<div class="form-group">
-					<label for="details-tkid">TKID</label> <input type="text"
-						id="details-tkid" class="form-control" readonly>
-				</div>
-				<div class="form-group">
-					<label for="details-name">이름</label> <input type="text"
-						id="details-name" class="form-control" readonly>
-				</div>
-				<div class="form-group">
-					<label for="details-description">설명</label>
-					<textarea id="details-description" class="form-control" readonly></textarea>
-				</div>
-				<div class="form-group">
-					<label for="details-sid">SID</label> <input type="text"
-						id="details-sid" class="form-control" readonly>
-				</div>
-				<div class="form-group">
-					<label for="details-start_date">시작 날짜</label> <input type="date"
-						id="details-start_date" class="form-control" readonly>
-				</div>
-				<div class="form-group">
-					<label for="details-end_date">종료 날짜</label> <input type="date"
-						id="details-end_date" class="form-control" readonly>
-				</div>
-				<div class="form-group">
-					<label for="details-author">작성자</label> <input type="text"
-						id="details-author" class="form-control" readonly>
-				</div>
-				<div class="form-group">
-					<label for="approval-status">결재 상태</label> <input type="text"
-						id="approval-status" class="form-control" readonly>
-				</div>
-				<div class="form-group" id="reject-reason-container"
-					style="display: none;">
-					<label for="reject-reason">보류 사유</label>
-					<textarea id="reject-reason" class="form-control" readonly></textarea>
-				</div>
-			</form>
-			<button type="button" class="btn btn-secondary"
-				onclick="closeModal()">닫기</button>
-		</div>
-	</div>
 
 	<script>
 	function openEditContainer(tkid, name, description, sid, approvalStatus, rejectReason = '') {

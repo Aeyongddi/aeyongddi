@@ -19,33 +19,7 @@
 
 <!-- App CSS -->
 <link id="theme-style" rel="stylesheet" href="assets/css/portal.css">
-
-<!-- Custom Styles -->
-<style>
-.custom-select-width {
-	width: 150px; /* 검색 select 박스 너비 조정 */
-}
-
-.modal-header {
-	background-color: #17A663; /* 배경색상 설정 */
-	color: #ffffff; /* 텍스트 색상 흰색 */
-}
-
-.btn-primary {
-	background-color: #17A663; /* 버튼 배경색상 설정 */
-	border-color: #17A663; /* 버튼 테두리 색상 설정 */
-	color: #ffffff; /* 버튼 텍스트 색상 흰색 */
-}
-
-.btn-primary:hover {
-	background-color: #138c53; /* 버튼 호버 시 배경색상 설정 */
-	border-color: #138c53; /* 버튼 호버 시 테두리 색상 설정 */
-}
-
-.table thead th {
-	font-size: 1.2rem; /* 글씨 크기를 1.2rem으로 설정 */
-}
-</style>
+<link rel="stylesheet" href="${path}/a00_com/project/board.css">
 </head>
 
 <body>
@@ -56,7 +30,7 @@
 			<div class="container-xl">
 				<br> <br>
 
-				<!-- Page Header and Utilities -->
+				<!-- 페이지 헤더 및 유틸리티 -->
 				<div class="row g-3 mb-4 align-items-center justify-content-between">
 					<div class="col-auto">
 						<h1 class="app-page-title mb-0">게시판</h1>
@@ -65,7 +39,7 @@
 						<div class="page-utilities">
 							<div
 								class="row g-2 justify-content-start justify-content-md-end align-items-center">
-								<!-- Search Form -->
+								<!-- 검색 폼 -->
 								<div class="col-auto">
 									<form action="/search" method="get">
 										<input type="text" name="searchText" value="${searchText}"
@@ -78,7 +52,7 @@
 										<button type="submit">검색</button>
 									</form>
 								</div>
-								<!-- Register Button -->
+								<!-- 등록 버튼 -->
 								<div class="col-auto">
 									<a class="btn app-btn-secondary" id="openModalButton"
 										data-bs-toggle="modal" data-bs-target="#orderDetailsModal">등록</a>
@@ -87,7 +61,7 @@
 						</div>
 					</div>
 
-					<!-- Orders Table Tabs -->
+					<!-- 게시판 탭 -->
 					<nav id="orders-table-tab"
 						class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
 						<a class="flex-sm-fill text-sm-center nav-link active"
@@ -96,7 +70,7 @@
 							게시판</a>
 					</nav>
 
-					<!-- Orders Table Content -->
+					<!-- 게시판 테이블 내용 -->
 					<div class="tab-content" id="orders-table-tab-content">
 						<div class="tab-pane fade show active" id="orders-all"
 							role="tabpanel" aria-labelledby="orders-all-tab">
@@ -112,32 +86,36 @@
 													<th class="cell">작성자</th>
 													<th class="cell">이메일</th>
 													<th class="cell">진행사항</th>
-													<th class="cell">결재</th>
+													<th class="cell"></th>
 												</tr>
 											</thead>
 											<tbody>
 												<c:forEach var="boa" items="${boardList}">
 													<tr>
 														<td class="cell"
-															onclick="openEditModal('${boa.bid}', '${boa.title}', '${boa.content}', '${boa.email}', '${boa.cid}', '${boa.sid}', '${boa.uf}', '${boa.name}')">${boa.title}</td>
+															onclick="openEditModal('${boa.bid}', '${boa.title}', '${boa.content}', '${boa.uf}')">${boa.title}</td>
 														<td class="cell"><fmt:formatDate
 																value="${boa.upt_date}" pattern="yyyy-MM-dd HH:mm" /></td>
-											        	<td class="cell"><c:if test="${not empty boa.uf}">
-                                                            <a href="${boa.uf}" target="_blank">${boa.uf}</a>
-                                                        </c:if></td>
+														<td class="cell"><c:if test="${not empty boa.uf}">
+																<a href="${boa.uf}" target="_blank">${boa.uf}</a>
+															</c:if></td>
 														<td class="cell"
-															onclick="openEditModal('${boa.bid}', '${boa.title}', '${boa.content}', '${boa.email}', '${boa.cid}', '${boa.sid}', '${boa.uf}', '${boa.name}')">${boa.name}</td>
+															onclick="openEditModal('${boa.bid}', '${boa.title}', '${boa.content}', '${boa.uf}')">${boa.name}</td>
 														<td class="cell"
-															onclick="openEditModal('${boa.bid}', '${boa.title}', '${boa.content}', '${boa.email}', '${boa.cid}', '${boa.sid}', '${boa.uf}', '${boa.name}')">${boa.email}</td>
+															onclick="openEditModal('${boa.bid}', '${boa.title}', '${boa.content}', '${boa.uf}')">${boa.email}</td>
 														<td class="cell"><select class="form-select"
 															id="modal-endYN-${boa.bid}" name="endYN"
 															onchange="updateStatus('${boa.bid}', this.value)">
-																<option value="0" ${boa.endYN ? 'selected' : ''}>진행중</option>
-																<option value="1" ${!boa.endYN ? 'selected' : ''}>완료</option>
+																<option value="0" ${boa.endYN == '0' ? 'selected' : ''}>진행중</option>
+																<option value="1" ${boa.endYN == '1' ? 'selected' : ''}>완료</option>
 														</select></td>
 														<td class="cell"><a href="#"
-															class="btn-sm app-btn-secondary"
-															onclick="deleteBoard('${boa.bid}'); return false;">삭제</a></td>
+															class="btn-sm app-btn-primary"
+															onclick="openEditModal('${boa.bid}', '${boa.title}', '${boa.content}', '${boa.uf}'); return false;">수정</a>
+															<a href="#" class="btn-sm app-btn-secondary"
+															onclick="deleteBoard('${boa.bid}'); return false;">삭제</a>
+
+														</td>
 													</tr>
 												</c:forEach>
 											</tbody>
@@ -148,7 +126,7 @@
 						</div>
 					</div>
 
-					<!-- Pagination -->
+					<!-- 페이지네이션 -->
 					<nav class="app-pagination">
 						<ul class="pagination justify-content-center">
 							<li class="page-item disabled"><a class="page-link" href="#"
@@ -160,7 +138,7 @@
 						</ul>
 					</nav>
 
-					<!-- Modal -->
+					<!-- 등록 모달 -->
 					<div class="modal fade" id="orderDetailsModal" tabindex="-1"
 						aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
@@ -198,216 +176,215 @@
 												required>
 										</div>
 										<div class="mb-3">
-											<label for="modal-uf" class="form-label">URL</label> <input
-												type="text" class="form-control" id="modal-uf" name="uf">
-										</div>
-										<div class="mb-3">
-											<label for="modal-name" class="form-label">이름</label> <input
-												type="text" class="form-control" id="modal-name" name="name">
-										</div>
-										<div class="modal-footer">
-											<button type="submit" class="btn btn-primary">등록</button>
-											<button type="button" class="btn btn-secondary"
-												data-bs-dismiss="modal">닫기</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<!-- 수정하는 모달창 -->
-					<div class="modal fade" id="editDetailsModal" tabindex="-1"
-						aria-labelledby="editDetailsModalLabel" aria-hidden="true">
-						<div class="modal-dialog">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="editDetailsModalLabel">게시판 수정</h5>
-									<button type="button" class="btn-close" data-bs-dismiss="modal"
-										aria-label="닫기"></button>
-								</div>
-								<div class="modal-body">
-									<form id="editDetailsForm">
-										<input type="hidden" id="edit-bid" name="bid">
-
-										<!-- 제목 입력 필드 -->
-										<div class="mb-3">
-											<label for="edit-title" class="form-label">제목</label> <input
-												type="text" class="form-control" id="edit-title"
-												name="title" required>
-										</div>
-
-										<!-- 내용 입력 필드 -->
-										<div class="mb-3">
-											<label for="edit-content" class="form-label">내용</label>
-											<textarea class="form-control" id="edit-content"
-												name="content" rows="5" required></textarea>
-										</div>
-
-										<!-- URL 입력 필드 -->
-										<div class="mb-3">
-                                             <label for="edit-uf" class="form-label">URL</label> <input
-                                              type="text" class="form-control" id="edit-uf" name="uf">
-                                        </div>
-
-										<!-- 진행상태 선택 필드 -->
-										<div class="mb-3">
-											<label for="edit-endYN" class="form-label">진행상태</label> <select
-												class="form-select" id="edit-endYN" name="endYN">
+											<label for="modal-endYN" class="form-label">상태</label> <select
+												class="form-select" id="modal-endYN" name="endYN">
 												<option value="0">진행중</option>
 												<option value="1">완료</option>
 											</select>
 										</div>
-
-										<!-- 모달 푸터 -->
-										<div class="modal-footer">
-											<button type="submit" class="btn btn-primary">수정</button>
-											<button type="button" class="btn btn-secondary"
-												data-bs-dismiss="modal">닫기</button>
-											<button type="button" class="btn btn-success"
-												id="approve-btn">결재 올리기</button>
+										<div class="mb-3">
+											<button type="submit" class="btn btn-primary">등록</button>
 										</div>
 									</form>
 								</div>
 							</div>
 						</div>
 					</div>
-					<!-- Javascript -->
-					<script src="assets/plugins/popper.min.js"></script>
-					<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-					<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-					<script type="text/javascript">
-					$(document).ready(function() {
-					    // '등록' 버튼 클릭 시 AJAX 요청을 보낼 수 있도록 설정
-					    $("#orderDetailsForm").on("submit", function(event) {
-					        event.preventDefault(); // 폼 제출 기본 동작 방지
 
-					        // 사용자 입력을 가져오기
-					        var formData = {
-					            title: $("#modal-title").val(),
-					            content: $("#modal-content").val(),
-					            email: $("#modal-email").val(),
-					            cid: $("#modal-cid").val(),
-					            sid: $("#modal-sid").val(),
-					            uf: $("#modal-uf").val(),
-					            name: $("#modal-name").val()
-					        };
-
-					        // AJAX 요청 보내기
-					        $.ajax({
-					            url: '/boardListInsert',
-					            type: 'POST',
-					            contentType: 'application/json',
-					            data: JSON.stringify(formData),
-					            success: function(response) {
-					                console.log("Success:", response);
-					                alert("등록 성공");
-					                $('#orderDetailsModal').modal('hide');
-					                location.reload();
-					            },
-					            error: function(xhr, status, error) {
-					                console.error("Error:", error);
-					                alert("등록 실패하였습니다.");
-					            }
-					        });
-					    });
-
-					    // 상태 업데이트 함수
-					    function updateStatus(bid, newStatus) {
-					        $.ajax({
-					            url: '/updateBoardStatus',
-					            type: 'POST',
-					            contentType: 'application/json',
-					            data: JSON.stringify({
-					                bid: bid,
-					                endYN: newStatus === '1'
-					            }),
-					            success: function(response) {
-					                console.log('Status updated successfully:', response);
-					            },
-					            error: function(xhr, status, error) {
-					                console.error('Error updating status:', error);
-					                alert('상태 업데이트 중 오류가 발생했습니다.');
-					            }
-					        });
-					    }
-
-					    // 상태 변경 시 호출되는 이벤트 핸들러
-					    $('select[name="endYN"]').on('change', function() {
-					        var bid = $(this).attr('id').split('-').pop(); // ID에서 bid 추출
-					        var newStatus = $(this).val(); // 선택된 값 (0 또는 1)
-					        updateStatus(bid, newStatus);
-					    });
-
-					    // 수정 모달 열기
-					   window.openEditModal = function(bid, title, content, uf, email, cid, sid, name) {
-    console.log("UF:", uf); // 콘솔에서 확인
-    $("#edit-bid").val(bid);
-    $("#edit-title").val(title);
-    $("#edit-content").val(content);
-    $("#edit-uf").val(uf);
-    $("#edit-email").val(email); // email 값을 넣는 것이 좋을 수도 있습니다.
-    $("#edit-cid").val(cid);
-    $("#edit-sid").val(sid);
-    $("#edit-name").val(name);
-    $("#editDetailsModal").modal('show');
-};
-
-					    // '수정' 버튼 클릭 시 AJAX 요청을 보낼 수 있도록 설정
-					    $("#editDetailsForm").on("submit", function(event) {
-					        event.preventDefault(); // 폼 제출 기본 동작 방지
-
-					        // 사용자 입력을 가져오기
-					        var formData = {
-					            bid: $("#edit-bid").val(),
-					            title: $("#edit-title").val(),
-					            content: $("#edit-content").val(),
-					            uf: $("#edit-uf").val(),
-					            endYN: $("#edit-endYN").val()
-					        };
-
-					        // AJAX 요청 보내기
-					        $.ajax({
-					            url: '/boardUpdate',
-					            type: 'POST',
-					            contentType: 'application/json',
-					            data: JSON.stringify(formData),
-					            success: function(response) {
-					                console.log("Success:", response);
-					                alert("수정 성공");
-					                $('#editDetailsModal').modal('hide');
-					                location.reload();
-					            },
-					            error: function(xhr, status, error) {
-					                console.error("Error:", error);
-					                alert("수정 실패하였습니다.");
-					            }
-					        });
-					    });
-					});
-						// 삭제하는 코드
-						function deleteBoard(bid) {
-							if (confirm('정말 삭제하시겠습니까?')) {
-								$.ajax({
-									url : '/delete/' + bid, // 삭제 URL
-									type : 'DELETE',
-									success : function(response) {
-										alert(response); // 서버로부터 받은 응답 메시지 표시
-										location.reload(); // 페이지 새로고침
-									},
-									error : function(xhr, status, error) {
-										console.error('Error:', error);
-										alert('삭제 중 오류가 발생했습니다.');
-									}
-								});
-							}
-						}
-					</script>
-					<!-- Page Specific JS -->
-					<script src="assets/js/app.js"></script>
 				</div>
 			</div>
 		</div>
 	</div>
+
+	<!-- 수정하는 모달창 -->
+	<div class="modal fade" id="editDetailsModal" tabindex="-1"
+		aria-labelledby="editDetailsModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="editDetailsModalLabel">게시판 수정</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="닫기"></button>
+				</div>
+				<div class="modal-body">
+					<form id="editDetailsForm">
+						<input type="hidden" id="edit-bid" name="bid">
+
+						<!-- 제목 입력 필드 -->
+						<div class="mb-3">
+							<label for="edit-title" class="form-label">제목</label> <input
+								type="text" class="form-control" id="edit-title" name="title"
+								required>
+						</div>
+
+						<!-- 내용 입력 필드 -->
+						<div class="mb-3">
+							<label for="edit-content" class="form-label">내용</label>
+							<textarea class="form-control" id="edit-content" name="content"
+								rows="5" required></textarea>
+						</div>
+
+						<!-- URL 입력 필드 -->
+						<div class="mb-3">
+							<label for="edit-uf" class="form-label">URL</label> <input
+								type="text" class="form-control" id="edit-uf" name="uf">
+						</div>
+
+						<!-- 상태 입력 필드 -->
+						<div class="mb-3">
+							<label for="edit-endYN" class="form-label">상태</label> <select
+								class="form-select" id="edit-endYN" name="endYN">
+								<option value="0">진행중</option>
+								<option value="1">완료</option>
+							</select>
+						</div>                        
+						<!-- 모달 푸터 -->
+						<div class="modal-footer">
+							<button type="submit" class="btn btn-primary">수정</button>
+							<button type="button" class="btn btn-secondary"
+								data-bs-dismiss="modal">닫기</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Javascript -->
+	<script src="assets/plugins/popper.min.js"></script>
+	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    // '등록' 버튼 클릭 시 AJAX 요청을 보낼 수 있도록 설정
+	    $("#orderDetailsForm").on("submit", function(event) {
+	        event.preventDefault(); // 폼 제출 기본 동작 방지
+
+	        // 사용자 입력을 가져오기
+	        var formData = {
+	            title: $("#modal-title").val(),
+	            content: $("#modal-content").val(),
+	            email: $("#modal-email").val(),
+	            cid: $("#modal-cid").val(),
+	            sid: $("#modal-sid").val(),
+	            uf: $("#modal-uf").val(),
+	            name: $("#modal-name").val(),
+	            endYN: false // endYN을 boolean 값으로 설정
+	        };
+
+	        // AJAX 요청 보내기
+	        $.ajax({
+	            url: '/boardListInsert',
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify(formData),
+	            success: function(response) {
+	                console.log("Success:", response);
+	                alert("등록 성공");
+	                $('#orderDetailsModal').modal('hide');
+	                location.reload();
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("Error:", error);
+	                alert("등록 실패하였습니다.");
+	            }
+	        });
+	    });
+
+	    // 상태 업데이트 함수
+	    function updateStatus(bid, newStatus) {
+	        $.ajax({
+	            url: '/updateBoardStatus',
+	            type: 'POST',
+	            contentType: 'application/json',
+	            data: JSON.stringify({
+	                bid: bid,
+	                endYN: newStatus === '1' // endYN을 boolean 값으로 설정
+	            }),
+	            success: function(response) {
+	                console.log('Status updated successfully:', response);
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('Error updating status:', error);
+	                alert('상태 업데이트 중 오류가 발생했습니다.');
+	            }
+	        });
+	    }
+
+	    // 상태 변경 시 호출되는 이벤트 핸들러
+	    $('select[name="endYN"]').on('change', function() {
+	        var bid = $(this).attr('id').split('-').pop(); // ID에서 bid 추출
+	        var newStatus = $(this).val(); // 선택된 값 (0 또는 1)
+	        updateStatus(bid, newStatus);
+	    });
+
+	    // 수정 모달 열기
+	    $(document).ready(function() {
+	        // 수정 폼 제출 시 AJAX 요청 보내기
+	        $("#editDetailsForm").on("submit", function(event) {
+	            event.preventDefault(); // 폼 제출 기본 동작 방지
+
+	            // 사용자 입력을 가져오기
+	            var formData = {
+	                bid: $("#edit-bid").val(), // bid 값은 formData에 포함되어야 함
+	                title: $("#edit-title").val(),
+	                content: $("#edit-content").val(),
+	                uf: $("#edit-uf").val(),
+	                endYN: $("#edit-endYN").val() === '1' // endYN을 boolean 값으로 설정
+	            };
+
+	            // AJAX 요청 보내기
+	            $.ajax({
+	                url: '/boardUpdate',
+	                type: 'POST',
+	                contentType: 'application/json',
+	                data: JSON.stringify(formData),
+	                success: function(response) {
+	                    console.log("성공:", response);
+	                    alert("수정 성공");
+	                    $('#editDetailsModal').modal('hide');
+	                    location.reload(); // 페이지 새로 고침
+	                },
+	                error: function(xhr, status, error) {
+	                    console.error("오류:", error);
+	                    alert("수정 실패하였습니다.");
+	                }
+	            });
+	        });
+
+	        // 모달 열기 함수
+	        window.openEditModal = function(id, title, content, uf, endYN) {
+	            $('#edit-bid').val(id);
+	            $('#edit-title').val(title);
+	            $('#edit-content').val(content);
+	            $('#edit-uf').val(uf);
+	            $('#edit-endYN').val(endYN ? '1' : '0'); // endYN 값을 드롭다운에 맞게 설정
+	            $('#editDetailsModal').modal('show');
+	        };
+	    });
+
+	    // 삭제하는 코드
+	    function deleteBoard(bid) {
+	        if (confirm('정말 삭제하시겠습니까?')) {
+	            $.ajax({
+	                url: '/delete/' + bid, // 삭제 URL
+	                type: 'DELETE',
+	                success: function(response) {
+	                    alert(response); // 서버로부터 받은 응답 메시지 표시
+	                    location.reload(); // 페이지 새로고침
+	                },
+	                error: function(xhr, status, error) {
+	                    console.error('Error:', error);
+	                    alert('삭제 중 오류가 발생했습니다.');
+	                }
+	            });
+	        }
+	    }
+
+	    // 전역 함수로 설정
+	    window.deleteBoard = deleteBoard;
+	});
+	</script>
+	<!-- Page Specific JS -->
+	<script src="assets/js/app.js"></script>
 </body>
 </html>

@@ -5,13 +5,15 @@ import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.web.tracerProject.service.JSerAppro;
 import com.web.tracerProject.service.G_Service_TASK; // TASK 서비스 추가
+import com.web.tracerProject.service.JSerAppro;
 import com.web.tracerProject.vo.Approval;
 import com.web.tracerProject.vo.Task;
 
@@ -64,5 +66,13 @@ public class JContAppro {
         } catch (Exception e) {
             return "결재 상태 업데이트에 실패했습니다: " + e.getMessage();
         }
+    }
+    @GetMapping("/approval")
+    public String approvalPage(Model model) {
+        model.addAttribute("allApprovals", jSerAppro.getAllApprovals());
+        model.addAttribute("pendingApprovals", jSerAppro.getApprovalsByStatus("결재 대기"));
+        model.addAttribute("rejectedApprovals", jSerAppro.getApprovalsByStatus("보류"));
+        model.addAttribute("completedApprovals", jSerAppro.getApprovalsByStatus("결재 완료"));
+        return "tracerPages/approval";
     }
 }

@@ -128,7 +128,7 @@
         <div class="card-body">
             <div class="mb-3">
                 <label for="curName" class="form-label">발신자</label>
-                <input type="text" id="curName" class="form-control" value="${userNickname}">
+                <input type="text" id="curName" class="form-control" value="${userNickname}" readonly>
             </div>
             <div class="mb-3">
                 <label for="name" class="form-label">수신자</label>

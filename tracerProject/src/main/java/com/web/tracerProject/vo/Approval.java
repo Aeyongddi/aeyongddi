@@ -18,6 +18,7 @@ public class Approval {
     private String apid;
     private String content;
     private String email;
+    private String name;
     private String approvalStatus;
     private String nickname;
     private String sid;

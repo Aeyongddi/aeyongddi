@@ -98,24 +98,23 @@
             }
         }
         /* endYN DB에 바로 적용 하는 코드*/
-        function updateStatus(tkid, status) {
-            // status가 '0'이면 false, '1'이면 true로 변환
-            const endYN = status === '1';
+		function updateStatus(tkid, status) {
+		    // status가 '0'이면 false, '1'이면 true로 변환
+		    const endYN = status === '1';
 
-            $.ajax({
-                url: '/updateTaskStatus',
-                type: 'POST',
-                data: JSON.stringify({ tkid: tkid, endYN: endYN }),
-                contentType: 'application/json',
-                success: function(response) {
-                    console.log('Status updated:', response);
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error updating status:', error);
-                }
-            });
-        }
-
+		    $.ajax({
+		        url: '/updateTaskStatus',
+		        type: 'POST',
+		        data: JSON.stringify({ tkid: tkid, endYN: endYN }),
+		        contentType: 'application/json',
+		        success: function(response) {
+		            console.log('Status updated:', response);
+		        },
+		        error: function(xhr, status, error) {
+		            console.error('Error updating status:', error);
+		        }
+		    });
+		}
         document.addEventListener('click', function(event) {
             const editContainer = document.getElementById('edit-container');
             if (editContainer.style.display === 'block' && !editContainer.contains(event.target) && !event.target.classList.contains('issue-summary')) {

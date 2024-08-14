@@ -12,16 +12,15 @@ import com.web.tracerProject.vo.Approval;
 @Service
 public class JSerAppro {
 
-    @Autowired
+	@Autowired
     private JDaoAppro jDaoAppro;
 
-    public void requestApproval(Approval approval) {
-        String apid = jDaoAppro.generateApid(); // APID 생성
-        approval.setApid(apid);
-        approval.setRequestDateTime(LocalDateTime.now()); // 요청 시간 설정
-        jDaoAppro.insertApproval(approval);
-    }
-
+	public void requestApproval(Approval approval) {
+	    String apid = jDaoAppro.generateApid(); // APID 생성
+	    approval.setApid(apid);
+	    approval.setRequestDateTime(LocalDateTime.now()); // 요청 시간 설정
+	    jDaoAppro.insertApproval(approval);
+	}
     public List<Approval> getAllApprovals() {
         return jDaoAppro.getAllApprovals();
     }
@@ -34,8 +33,8 @@ public class JSerAppro {
         return jDaoAppro.getApprovalsBySid(sid);
     }
 
-    public void updateApprovalStatus(String apid, String status) {
-        jDaoAppro.updateApprovalStatus(apid, status, LocalDateTime.now()); // 상태 변경 시간 설정
+    public void updateApprovalStatus(String apid, String status) throws Exception {
+        updateApprovalStatus(apid, status, null);
     }
 
     public void updateApprovalStatus(String apid, String status, String reason) throws Exception {
@@ -47,8 +46,10 @@ public class JSerAppro {
         approval.setApprovalStatus(status);
         if ("보류".equals(status)) {
             approval.setRejectReason(reason);
+        } else {
+            approval.setRejectReason(null); // 보류가 아닌 상태일 경우 사유를 null로 설정
         }
 
-        jDaoAppro.updateApprovalStatusWithReason(apid, status, reason);
+        jDaoAppro.updateApprovalStatusWithReason(apid, status, approval.getRejectReason());
     }
 }

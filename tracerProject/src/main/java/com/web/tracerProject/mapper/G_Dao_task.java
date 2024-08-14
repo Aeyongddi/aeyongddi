@@ -33,7 +33,7 @@ public interface G_Dao_task {
 	
     // 등록하는 코드 
 	@Insert("INSERT INTO task (tkid, start_date, end_date, name, description, endYN, sid) " +
-	        "VALUES (#{tkid}, #{start_date}, #{end_date},#{name}, #{description}, #{endYN}, #{sid})")
+	        "VALUES ('TKID'||LPAD(TKID_SEQ.NEXTVAL, 4, '0'), #{start_date}, #{end_date},#{name}, #{description}, #{endYN}, #{sid})")
 	int insertTask(Task task);
      
 	 // 삭제하는 코드
@@ -52,8 +52,8 @@ public interface G_Dao_task {
 	 int deleteTasks(@Param("tkids") List<String> tkids);
      
 	 // tkid 스퀀스 등록 하는 코드
-	 @Select("SELECT 'tk' || TO_CHAR(task_seq.NEXTVAL) AS tkid FROM dual")
-     String getTkid();
+//	 @Select("SELECT 'tk' || TO_CHAR(task_seq.NEXTVAL) AS tkid FROM dual")
+//     String getTkid();
 	 
 	// 특정 tkid로 Task를 조회하는 메서드
 	    @Select("SELECT * FROM TASK WHERE TKID = #{tkid}")

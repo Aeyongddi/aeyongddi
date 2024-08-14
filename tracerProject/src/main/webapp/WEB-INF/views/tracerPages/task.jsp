@@ -53,9 +53,9 @@
 			<textarea id="issue-name" placeholder="이슈 제목을 입력하세요..."></textarea>
 			<div class="date-picker-wrapper">
 				시작 날짜 : <input type="text" id="issue-start-date"
-					class="custom-date-input" value="시작 날짜 입력하세요. 클릭"> 종료 날짜 :
-				<input type="text" id="issue-end-date" class="custom-date-input"
-					value="종료 날짜 입력하세요. 클릭">
+					class="custom-date-input" placeholder="시작 날짜 입력하세요. 클릭"> 
+			    종료 날짜 : <input type="text" id="issue-end-date"
+					class="custom-date-input" placeholder="종료 날짜 입력하세요. 클릭">
 			</div>
 			<div class="form-group">
 				<label for="issue-author">작성자</label> <input type="text"
@@ -87,14 +87,6 @@
 					<input type="hidden" id="edit-sid" class="form-control">
 				</div>
 				<div class="form-group">
-					<label for="edit-start_date">시작 날짜 수정</label> <input type="date"
-						id="edit-start_date" class="form-control">
-				</div>
-				<div class="form-group">
-					<label for="edit-end_date">종료 날짜 수정</label> <input type="date"
-						id="edit-end_date" class="form-control">
-				</div>
-				<div class="form-group">
 					<label for="edit-author">작성자</label> <input type="text"
 						id="edit-author" class="form-control"
 						value="${sessionScope.userNickname}" readonly>
@@ -123,118 +115,196 @@
 
 
 	<script>
-	function openEditContainer(tkid, name, description, sid, approvalStatus, rejectReason = '') {
-	    const editTkIdElement = document.getElementById('edit-tkid');
-	    const editNameElement = document.getElementById('edit-name');
-	    const editDescriptionElement = document.getElementById('edit-description');
-	    const editSidElement = document.getElementById('edit-sid');
-	    const approvalStatusElement = document.getElementById('approval-status');
-	    const rejectReasonElement = document.getElementById('reject-reason');
-	    const rejectReasonContainer = document.getElementById('reject-reason-container');
+	 function openEditContainer(tkid, name, description, sid, approvalStatus, rejectReason = '') {
+	        const editTkIdElement = document.getElementById('edit-tkid');
+	        const editNameElement = document.getElementById('edit-name');
+	        const editDescriptionElement = document.getElementById('edit-description');
+	        const editSidElement = document.getElementById('edit-sid');
+	        const approvalStatusElement = document.getElementById('approval-status');
+	        const rejectReasonElement = document.getElementById('reject-reason');
+	        const rejectReasonContainer = document.getElementById('reject-reason-container');
 
-	    editTkIdElement.value = tkid;
-	    editNameElement.value = name;
-	    editDescriptionElement.value = description;
-	    editSidElement.value = sid;
-	    approvalStatusElement.value = approvalStatus;
+	        editTkIdElement.value = tkid;
+	        editNameElement.value = name;
+	        editDescriptionElement.value = description;
+	        editSidElement.value = sid;
+	        approvalStatusElement.value = approvalStatus;
 
-	    if (approvalStatus === '보류' && rejectReason) {
-	        rejectReasonElement.value = rejectReason;
-	        rejectReasonContainer.style.display = 'block';
-	    } else {
-	        rejectReasonContainer.style.display = 'none';
+	        if (approvalStatus === '보류' && rejectReason) {
+	            rejectReasonElement.value = rejectReason;
+	            rejectReasonContainer.style.display = 'block';
+	        } else {
+	            rejectReasonContainer.style.display = 'none';
+	        }
+
+	        document.getElementById('edit-container').style.display = 'block';
 	    }
 
-	    document.getElementById('edit-container').style.display = 'block';
-	}
+	    function generateUUID() {
+	        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
+	            function(c) {
+	                var r = Math.random() * 16 | 0, v = c === 'x' ? r
+	                    : (r & 0x3 | 0x8);
+	                return v.toString(16);
+	            });
+	    }
 
+	    function requestApproval() {
+	        const tkid = document.getElementById('edit-tkid').value;
+	        const approvalData = {
+	            apid: generateUUID(),
+	            content: document.getElementById('edit-description').value,
+	            email: document.getElementById('edit-email').value,
+	            approvalStatus: '결재 대기',
+	            nickname: document.getElementById('edit-author').value,
+	            requestDateTime: new Date().toISOString(),
+	            tkid: tkid
+	        };
 
-		function generateUUID() {
-			return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,
-					function(c) {
-						var r = Math.random() * 16 | 0, v = c === 'x' ? r
-								: (r & 0x3 | 0x8);
-						return v.toString(16);
-					});
-		}
+	        $.ajax({
+	            type: "POST",
+	            url: "/requestApproval",
+	            contentType: "application/json",
+	            data: JSON.stringify(approvalData),
+	            success: function(response) {
+	                alert(response);
+	                location.reload();
+	            },
+	            error: function(xhr, status, error) {
+	                console.error("Status: ", status);
+	                console.error("Error: ", error);
+	                console.error("Response: ", xhr.responseText);
+	            }
+	        });
+	    }
 
-		function requestApproval() {
-			const approvalData = {
-				apid : generateUUID(),
-				content : document.getElementById('edit-description').value,
-				email : document.getElementById('edit-email').value,
-				approvalStatus : '결재 대기',
-				nickname : document.getElementById('edit-author').value
-			};
+	    function updateTask() {
+	        const tkid = document.getElementById('edit-tkid').value;
+	        const name = document.getElementById('edit-name').value;
+	        const description = document.getElementById('edit-description').value;
+	        const sid = document.getElementById('edit-sid').value;
+	        const approvalStatus = document.getElementById('approval-status').value;
 
-			$.ajax({
-				type : "POST",
-				url : "/requestApproval",
-				contentType : "application/json",
-				data : JSON.stringify(approvalData),
-				success : function(response) {
-					alert(response); // 메시지를 표시하고 현재 페이지에 머무름
-				},
-				error : function(xhr, status, error) {
-					console.error("Status: ", status);
-					console.error("Error: ", error);
-					console.error("Response: ", xhr.responseText);
-					alert(xhr.responseText);
-				}
-			});
-		}
+	        const taskData = {
+	            tkid : tkid,
+	            name : name,
+	            description : description,
+	            sid : sid,
+	            approvalStatus : approvalStatus
+	        };
 
-		function updateTask() {
-			const tkid = document.getElementById('edit-tkid').value;
-			const name = document.getElementById('edit-name').value;
-			const description = document.getElementById('edit-description').value;
-			const sid = document.getElementById('edit-sid').value;
-			const approvalStatus = document.getElementById('approval-status').value;
+	        $.ajax({
+	            type : "POST",
+	            url : "/updateTask",
+	            contentType : "application/json",
+	            data : JSON.stringify(taskData),
+	            success : function(response) {
+	                alert(response);
+	                location.reload();
+	            },
+	            error : function(xhr, status, error) {
+	                console.error("Status: ", status);
+	                console.error("Error: ", error);
+	                console.error("Response: ", xhr.responseText);
+	                alert(xhr.responseText);
+	            }
+	        });
+	    }
 
-			const taskData = {
-				tkid : tkid,
-				name : name,
-				description : description,
-				sid : sid,
-				approvalStatus : approvalStatus
-			};
+	    function updateTask() {
+            const tkid = document.getElementById('edit-tkid').value;
+            const name = document.getElementById('edit-name').value;
+            const description = document.getElementById('edit-description').value;
+            const sid = document.getElementById('edit-sid').value;
+            const approvalStatus = document.getElementById('approval-status').value;
 
-			$.ajax({
-				type : "POST",
-				url : "/updateTask",
-				contentType : "application/json",
-				data : JSON.stringify(taskData),
-				success : function(response) {
-					alert(response);
-					location.reload();
-				},
-				error : function(xhr, status, error) {
-					console.error("Status: ", status);
-					console.error("Error: ", error);
-					console.error("Response: ", xhr.responseText);
-					alert(xhr.responseText);
-				}
-			});
-		}
+            const taskData = {
+                tkid: tkid,
+                name: name,
+                description: description,
+                sid: sid,
+                approvalStatus: approvalStatus
+            };
 
-		function openModal(tkid, name, description, sid, startDate, endDate,
-				author, approvalStatus) {
-			document.getElementById('details-tkid').value = tkid;
-			document.getElementById('details-name').value = name;
-			document.getElementById('details-description').value = description;
-			document.getElementById('details-sid').value = sid;
-			document.getElementById('details-start_date').value = startDate;
-			document.getElementById('details-end_date').value = endDate;
-			document.getElementById('details-author').value = author;
-			document.getElementById('details-approval_status').value = approvalStatus;
+            $.ajax({
+                type: "POST",
+                url: "/updateTask",
+                contentType: "application/json",
+                data: JSON.stringify(taskData),
+                success: function(response) {
+                    alert(response);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Status: ", status);
+                    console.error("Error: ", error);
+                    console.error("Response: ", xhr.responseText);
+                    alert(xhr.responseText);
+                }
+            });
+        }
 
-			document.getElementById('details-modal').style.display = 'block';
-		}
+        function openTitleModal() {
+            document.getElementById('title-modal').style.display = 'block';
+        }
 
-		function closeModal() {
-			document.getElementById('details-modal').style.display = 'none';
-		}
-	</script>
+        function closeTitleModal() {
+            document.getElementById('title-modal').style.display = 'none';
+        }
+
+        function updateTitle() {
+            const newTitle = document.getElementById('title-input').value;
+            if (newTitle.trim() === '') {
+                alert('제목을 입력하세요.');
+                return;
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/updateTitle",
+                data: { title: newTitle },
+                success: function(response) {
+                    alert(response);
+                    closeTitleModal();
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.error("Status: ", status);
+                    console.error("Error: ", error);
+                    console.error("Response: ", xhr.responseText);
+                    alert(xhr.responseText);
+                }
+            });
+        }
+
+        function openTextarea() {
+            document.getElementById('textarea-container').style.display = 'block';
+        }
+
+        function closeTextarea() {
+            document.getElementById('textarea-container').style.display = 'none';
+        }
+
+        function openEditContainer(tkid, name, description, sid, approvalStatus, rejectReason = '') {
+            document.getElementById('edit-tkid').value = tkid;
+            document.getElementById('edit-name').value = name;
+            document.getElementById('edit-description').value = description;
+            document.getElementById('edit-sid').value = sid;
+            document.getElementById('approval-status').value = approvalStatus;
+
+            const rejectReasonContainer = document.getElementById('reject-reason-container');
+            const rejectReasonElement = document.getElementById('reject-reason');
+
+            if (approvalStatus === '보류' && rejectReason) {
+                rejectReasonElement.value = rejectReason;
+                rejectReasonContainer.style.display = 'block';
+            } else {
+                rejectReasonContainer.style.display = 'none';
+            }
+
+            document.getElementById('edit-container').style.display = 'block';
+        }
+</script>
 
 	<div id="title-modal" class="modal">
 		<div class="modal-content">
@@ -252,5 +322,6 @@
 	<script src="${path}/assets/plugins/jquery/jquery.min.js"></script>
 	<script src="${path}/assets/js/taskjs.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 </body>
 </html>

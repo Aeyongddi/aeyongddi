@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
@@ -31,6 +31,70 @@
             color: #28a745; /* 초록색 */
             font-weight: bold;
         }
+        
+         .modal {
+        display: none; /* 모달 기본적으로 숨김 */
+        position: fixed; /* 화면에 고정 */
+        z-index: 1000; /* 다른 요소 위에 표시 */
+        left: 0;
+        top: 0;
+        width: 100%; /* 전체 화면 너비 */
+        height: 100%; /* 전체 화면 높이 */
+        overflow: auto; /* 내용이 넘칠 경우 스크롤 */
+        background-color: rgba(0,0,0,0.5); /* 반투명 배경 */
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto; /* 화면 중앙에 위치 (위쪽 여백 15%) */
+        padding: 20px;
+        border: 1px solid #888;
+        width: 50%; /* 모달 넓이 (원하는 크기로 조정) */
+        max-width: 500px; /* 최대 넓이 */
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+        border-radius: 8px; /* 모서리 둥글게 */
+    }
+
+    .close-btn {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close-btn:hover,
+    .close-btn:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px; /* 높이 조정 */
+        padding: 10px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin-top: 10px;
+        cursor: pointer;
+        border-radius: 4px;
+    }
+
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
     </style>
 </head>
 <jsp:include page="/headerSidebar.jsp"/> 
@@ -284,15 +348,22 @@
     let currentApid = null; // 현재 보류 처리 중인 결재 번호
 
     function updateApprovalStatus(apid, status) {
+        if (!apid || !status) {
+            console.error("APID 또는 Status가 누락되었습니다.");
+            return;
+        }
+
         if (status === '보류') {
             currentApid = apid;
             document.getElementById('reject-modal').style.display = 'block';
         } else {
+            console.log(`Sending approval update request for APID: ${apid} with Status: ${status}`);
             $.ajax({
                 type: "POST",
                 url: "/updateApprovalStatus",
                 data: { apid: apid, status: status },
                 success: function(response) {
+                    console.log("Response:", response);
                     alert(response);
                     location.reload(); // 페이지 새로고침으로 상태 반영
                 },
@@ -300,11 +371,12 @@
                     console.error("Status: ", status);
                     console.error("Error: ", error);
                     console.error("Response: ", xhr.responseText);
-                    alert(xhr.responseText);
+                    alert("서버와의 통신 중 오류가 발생했습니다.");
                 }
             });
         }
     }
+
 
     function submitRejectReason() {
         const reason = document.getElementById('reject-reason').value;
@@ -318,6 +390,7 @@
             url: "/updateApprovalStatus",
             data: { apid: currentApid, status: '보류', reason: reason },
             success: function(response) {
+                console.log("Response:", response);
                 alert(response);
                 closeRejectModal();
                 location.reload(); // 페이지 새로고침으로 상태 반영
@@ -326,16 +399,14 @@
                 console.error("Status: ", status);
                 console.error("Error: ", error);
                 console.error("Response: ", xhr.responseText);
-                alert(xhr.responseText);
+                alert("서버와의 통신 중 오류가 발생했습니다.");
             }
         });
     }
-
     function closeRejectModal() {
         document.getElementById('reject-modal').style.display = 'none';
         document.getElementById('reject-reason').value = '';
     }
-
 
     </script>
 </body>

@@ -88,9 +88,8 @@ public class G_Controller_Task {
      public ResponseEntity<String> updateTaskStatus(@RequestBody Map<String, Object> payload) {
          String tkid = (String) payload.get("tkid");
          boolean endYN = (Boolean) payload.get("endYN");
-         String approvalStatus = (String) payload.get("approvalStatus");
 
-         int result = service.updateTaskStatus(tkid, endYN, approvalStatus);
+         int result = service.updateTaskStatus(tkid, endYN);
 
          if (result > 0) {
              return ResponseEntity.ok("Status updated successfully");
@@ -98,7 +97,6 @@ public class G_Controller_Task {
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update status");
          }
      }
-
 
      
     // 작업 수정
@@ -110,6 +108,8 @@ public class G_Controller_Task {
             ? ResponseEntity.ok("업데이트 성공")
             : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("업데이트 실패");
      }
+    
+    
  
 }
      

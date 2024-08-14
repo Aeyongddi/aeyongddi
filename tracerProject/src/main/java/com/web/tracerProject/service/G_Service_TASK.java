@@ -41,7 +41,7 @@ public class G_Service_TASK {
     
 	// 등록하는 코드 처리 값
 	public int insertTask(Task ins) {
-	    ins.setTkid(dao.getTkid()); // tkid를 시퀀스로 자동 생성
+
 	    
 	    // 기본값 설정
 	    if (ins.getName() == null) {

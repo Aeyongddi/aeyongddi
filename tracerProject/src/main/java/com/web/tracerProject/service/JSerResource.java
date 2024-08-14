@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.web.tracerProject.mapper.JDaoResource;
 import com.web.tracerProject.vo.Project;
@@ -19,15 +18,26 @@ public class JSerResource {
     @Autowired(required = false)
     private JDaoResource dao;
 
+    
     public List<User_info> getAllUsersInfo() {
         List<User_info> users = dao.getAllUsersInfo();
-        
-        System.out.println("Users from DB: "+users);
         for (User_info user : users) {
             user.setTeams(dao.getTeamsByEmail(user.getEmail()));
             user.setProjects(dao.getProjectsByEmail(user.getEmail()));
         }
         return users;
+    }
+
+    public void addUser(User_info user) {
+        dao.addUser(user);
+    }
+
+    public void updateUser(User_info user) {
+        dao.updateUser(user);
+    }
+
+    public void deleteUser(String email) {
+        dao.deleteUser(email);
     }
 
     public ResourceManage getBudget(String pid) {
@@ -38,7 +48,6 @@ public class JSerResource {
         }
         return budget;
     }
-
 
     public List<Project> getAllProjects() {
         return dao.getAllProjects();
@@ -77,32 +86,6 @@ public class JSerResource {
         } catch (ParseException e) {
             throw new RuntimeException("날짜 형식 변환 오류", e);
         }
-    }
-    
-    @Transactional
-    public void addUser(User_info user) {
-        dao.addUser(user);
-    }
-
-    public User_info getUserByEmail(String email) {
-        return dao.getUserByEmail(email);
-    }
-    
-    @Transactional
-    public void updateUser(User_info user) {
-        // 사용자 정보 업데이트 전 비밀번호가 null이거나 빈 문자열인지 확인
-        if (user.getPassword() == null || user.getPassword().isEmpty()) {
-            // 비밀번호가 제공되지 않은 경우 비밀번호 필드를 제거한 후 업데이트
-            dao.updateUserWithoutPassword(user);
-        } else {
-            // 비밀번호가 제공된 경우 비밀번호 포함하여 업데이트
-            dao.updateUser(user);
-        }
-    }
-
-
-    public void deleteUser(String email) {
-        dao.deleteUser(email);
     }
     
     public List<Project> getProjectsWithNoAssignedBudget() {

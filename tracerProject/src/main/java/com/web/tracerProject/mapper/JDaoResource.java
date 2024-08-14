@@ -3,12 +3,12 @@ package com.web.tracerProject.mapper;
 import java.math.BigDecimal;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Delete;
 
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ResourceManage;
@@ -17,15 +17,24 @@ import com.web.tracerProject.vo.User_info;
 
 @Mapper
 public interface JDaoResource {
-    @Select("SELECT * FROM USER_INFO")
+	@Select("SELECT * FROM USER_INFO")
     List<User_info> getAllUsersInfo();
 
-    @Select("SELECT * FROM TEAM WHERE email = #{email}")
+    @Select("SELECT * FROM TEAM WHERE EMAIL = #{email}")
     List<Team> getTeamsByEmail(@Param("email") String email);
 
-    @Select("SELECT p.* FROM PROJECT p JOIN TEAM t ON p.PID = t.PID WHERE t.EMAIL = #{email}")
+    @Select("SELECT * FROM PROJECT WHERE PID IN (SELECT PID FROM TEAM WHERE EMAIL = #{email})")
     List<Project> getProjectsByEmail(@Param("email") String email);
 
+    @Insert("INSERT INTO USER_INFO (EMAIL, PASSWORD, NICKNAME, NAME, BIRTH, PHONE) VALUES (#{email}, #{password}, #{nickname}, #{name}, #{birth}, #{phone})")
+    void addUser(User_info user);
+
+    @Update("UPDATE USER_INFO SET PASSWORD = #{password}, NICKNAME = #{nickname}, NAME = #{name}, BIRTH = #{birth}, PHONE = #{phone} WHERE EMAIL = #{email}")
+    void updateUser(User_info user);
+
+    @Delete("DELETE FROM USER_INFO WHERE EMAIL = #{email}")
+    void deleteUser(@Param("email") String email);
+    
     @Select("SELECT assigned_budget, used_budget FROM ResourceManage WHERE rtype = 'BUDGET' AND pid = #{pid}")
     ResourceManage getBudget(String pid);
 
@@ -49,21 +58,6 @@ public interface JDaoResource {
 
     @Update("UPDATE ResourceManage SET used_budget = COALESCE(used_budget, 0) + #{amount} WHERE pid = #{pid} AND rtype = 'BUDGET'")
     void updateUsedBudget(@Param("pid") String pid, @Param("amount") BigDecimal amount);
-
-    @Insert("INSERT INTO USER_INFO (email, password, nickname, name, birth, phone) VALUES (#{email}, #{password}, #{nickname}, #{name}, #{birth}, #{phone})")
-    void addUser(User_info user);
-
-    @Select("SELECT * FROM USER_INFO WHERE email = #{email}")
-    User_info getUserByEmail(String email);
-
-    @Update("UPDATE USER_INFO SET name = #{name}, birth = #{birth}, phone = #{phone}, nickname = #{nickname}, password = #{password} WHERE email = #{email}")
-    void updateUser(User_info user);
-    
-    @Update("UPDATE USER_INFO SET name = #{name}, birth = #{birth}, phone = #{phone}, nickname = #{nickname} WHERE email = #{email}")
-    void updateUserWithoutPassword(User_info user);
-
-    @Delete("DELETE FROM USER_INFO WHERE email = #{email}")
-    void deleteUser(String email);
 
     @Select("SELECT * FROM PROJECT")
     List<Project> getAllProjects();

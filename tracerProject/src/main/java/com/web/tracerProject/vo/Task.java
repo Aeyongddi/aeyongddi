@@ -14,15 +14,13 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Task {
-	private String tkid;
+    private String tkid;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date start_date;
+    private Date startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date end_date;
+    private Date endDate;
     private String name;
     private String description;
-    private String approvalStatus;
     private String sid;
-    private boolean endYN;
-	}
-
+    private boolean endYn;
+}

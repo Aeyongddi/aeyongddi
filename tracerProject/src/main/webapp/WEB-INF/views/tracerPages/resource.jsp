@@ -42,18 +42,12 @@
             <br><br>
             <h1 class="app-page-title">자원 관리</h1>
             <nav id="orders-table-tab" class="orders-table-tab app-nav-tabs nav shadow-sm flex-column flex-sm-row mb-4">
-                <a class="flex-sm-fill text-sm-center nav-link active" id="hr-management-tab" data-bs-toggle="tab" href="#hr-management" role="tab" aria-controls="hr-management" aria-selected="true">인적 자원 관리</a>
-                <a class="flex-sm-fill text-sm-center nav-link" id="budget-management-tab" data-bs-toggle="tab" href="#budget-management" role="tab" aria-controls="budget-management" aria-selected="false">예산 관리</a>
+                <a class="flex-sm-fill text-sm-center nav-link active" id="budget-management-tab" data-bs-toggle="tab" href="#budget-management" role="tab" aria-controls="budget-management" aria-selected="true">예산 관리</a>
                 <a class="flex-sm-fill text-sm-center nav-link" id="asset-management-tab" data-bs-toggle="tab" href="#asset-management" role="tab" aria-controls="asset-management" aria-selected="false">자산 관리</a>
             </nav>
             <div class="tab-content" id="orders-table-tab-content">
-                <!-- 인적 자원 관리 탭 -->
-                <div class="tab-pane fade show active" id="hr-management" role="tabpanel" aria-labelledby="hr-management-tab">
-                    <iframe src="/hr-management" class="iframe-container"></iframe>
-                </div>
-
                 <!-- 예산 관리 탭 -->
-                <div class="tab-pane fade" id="budget-management" role="tabpanel" aria-labelledby="budget-management-tab">
+                <div class="tab-pane fade show active" id="budget-management" role="tabpanel" aria-labelledby="budget-management-tab">
                     <div id="budget-management-section">
                         <!-- 예산 관리 내용 -->
                         <div class="app-card app-card-chart h-100 shadow-sm">
@@ -141,6 +135,7 @@
         </div>
     </footer>
 </div>
+
 
 <!-- 예산 추가 모달 -->
 <div class="modal fade" id="addBudgetModal" tabindex="-1" aria-labelledby="addBudgetModalLabel" aria-hidden="true">

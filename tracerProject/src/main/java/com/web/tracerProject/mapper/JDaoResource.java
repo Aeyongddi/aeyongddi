@@ -3,7 +3,6 @@ package com.web.tracerProject.mapper;
 import java.math.BigDecimal;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,29 +11,9 @@ import org.apache.ibatis.annotations.Update;
 
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ResourceManage;
-import com.web.tracerProject.vo.Team;
-import com.web.tracerProject.vo.User_info;
 
 @Mapper
 public interface JDaoResource {
-	@Select("SELECT * FROM USER_INFO")
-    List<User_info> getAllUsersInfo();
-
-    @Select("SELECT * FROM TEAM WHERE EMAIL = #{email}")
-    List<Team> getTeamsByEmail(@Param("email") String email);
-
-    @Select("SELECT * FROM PROJECT WHERE PID IN (SELECT PID FROM TEAM WHERE EMAIL = #{email})")
-    List<Project> getProjectsByEmail(@Param("email") String email);
-
-    @Insert("INSERT INTO USER_INFO (EMAIL, PASSWORD, NICKNAME, NAME, BIRTH, PHONE) VALUES (#{email}, #{password}, #{nickname}, #{name}, #{birth}, #{phone})")
-    void addUser(User_info user);
-
-    @Update("UPDATE USER_INFO SET PASSWORD = #{password}, NICKNAME = #{nickname}, NAME = #{name}, BIRTH = #{birth}, PHONE = #{phone} WHERE EMAIL = #{email}")
-    void updateUser(User_info user);
-
-    @Delete("DELETE FROM USER_INFO WHERE EMAIL = #{email}")
-    void deleteUser(@Param("email") String email);
-    
     @Select("SELECT assigned_budget, used_budget FROM ResourceManage WHERE rtype = 'BUDGET' AND pid = #{pid}")
     ResourceManage getBudget(String pid);
 

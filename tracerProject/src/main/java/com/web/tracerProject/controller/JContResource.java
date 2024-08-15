@@ -23,33 +23,6 @@ public class JContResource {
     @Autowired(required = false)
     private JSerResource service;
 
-    @GetMapping("/hrManagement")
-    @ResponseBody
-    public List<User_info> userManagement() {
-        return service.getAllUsersInfo();
-    }
-
-    @PostMapping("/addUser")
-    @ResponseBody
-    public User_info addUser(@RequestBody User_info user) {
-        service.addUser(user);
-        return user;
-    }
-
-    @PostMapping("/updateUser")
-    @ResponseBody
-    public User_info updateUser(@RequestBody User_info user) {
-        service.updateUser(user);
-        return user;
-    }
-
-    @PostMapping("/deleteUser")
-    @ResponseBody
-    public String deleteUser(@RequestParam("email") String email) {
-        service.deleteUser(email);
-        return "사용자가 삭제되었습니다.";
-    }
-
     @GetMapping("/resource")
     public String resource(Model model) {
         List<Project> projectList = service.getAllProjects();

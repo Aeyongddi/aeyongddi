@@ -13,23 +13,56 @@ import com.web.tracerProject.vo.Approval;
 @Mapper
 public interface JDaoNewAppro {
 
+    // 주석 처리된 기존 코드
+    /*
     @Select("SELECT * FROM \"C##JH\".\"APPROVAL\"")
     List<Approval> findAllApprovals();
+    */
 
+    // 실제 코드로 변환
+    @Select("SELECT * FROM approval")
+    List<Approval> findAllApprovals();
+
+    // 주석 처리된 기존 코드
+    /*
     @Insert("INSERT INTO \"C##JH\".\"APPROVAL\" (\"APID\", \"APPROVALSTATUS\", \"REQUESTDATETIME\", \"STATUSUPDATEDATETIME\", \"FEEDBACK\", \"TKID\", \"UPFILE\", \"EMAIL\", \"CONTENT\") " +
+            "VALUES (#{apid}, #{approvalStatus}, #{requestDateTime}, #{statusUpdateDateTime}, #{feedback}, #{tkid}, #{upfile}, #{email}, #{content})")
+    */
+    
+    @Insert("INSERT INTO approval (APID, APPROVALSTATUS, REQUESTDATETIME, STATUSUPDATEDATETIME, FEEDBACK, TKID, UPFILE, EMAIL, CONTENT) " +
             "VALUES (#{apid}, #{approvalStatus}, #{requestDateTime}, #{statusUpdateDateTime}, #{feedback}, #{tkid}, #{upfile}, #{email}, #{content})")
     void insertApproval(Approval approval);
 
+    // 주석 처리된 기존 코드
+    /*
     @Update("UPDATE \"C##JH\".\"APPROVAL\" SET \"APPROVALSTATUS\" = #{approvalStatus}, \"STATUSUPDATEDATETIME\" = #{statusUpdateDateTime}, \"FEEDBACK\" = #{feedback} WHERE \"APID\" = #{apid}")
+    */
+    
+    @Update("UPDATE approval SET APPROVALSTATUS = #{approvalStatus}, STATUSUPDATEDATETIME = #{statusUpdateDateTime}, FEEDBACK = #{feedback} WHERE APID = #{apid}")
     void updateApproval(Approval approval);
 
+    // 주석 처리된 기존 코드
+    /*
     @Select("SELECT * FROM \"C##JH\".\"APPROVAL\" WHERE \"APID\" = #{apid}")
+    */
+    
+    @Select("SELECT * FROM approval WHERE APID = #{apid}")
     Approval findApprovalById(String apid);
 
+    // 주석 처리된 기존 코드
+    /*
     @Update("UPDATE \"C##JH\".\"APPROVAL\" SET \"FEEDBACK\" = #{feedback} WHERE \"APID\" = #{apid}")
+    */
+    
+    @Update("UPDATE approval SET FEEDBACK = #{feedback} WHERE APID = #{apid}")
     void updateFeedback(@Param("apid") String apid, @Param("feedback") String feedback);
 
+    // 주석 처리된 기존 코드
+    /*
     @Select("SELECT * FROM \"C##JH\".\"APPROVAL\" WHERE \"TKID\" = #{tkid, jdbcType=VARCHAR}")
+    */
+    
+    @Select("SELECT * FROM approval WHERE TKID = #{tkid, jdbcType=VARCHAR}")
     Approval findApprovalByTaskId(@Param("tkid") String tkid);
 
 }

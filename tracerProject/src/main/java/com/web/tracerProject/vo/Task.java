@@ -15,12 +15,22 @@ import lombok.Setter;
 @Setter
 public class Task {
     private String tkid;
+    
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
+    
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date endDate;
+    
     private String name;
     private String description;
     private String sid;
     private boolean endYn;
+    
+    // 포맷팅된 날짜 필드 추가
+    private String formattedStartDate;
+    private String formattedEndDate;
+    
+    // Approval 객체를 필드로 추가
+    private Approval approval; 
 }

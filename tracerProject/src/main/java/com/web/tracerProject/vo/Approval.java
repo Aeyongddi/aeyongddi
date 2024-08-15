@@ -16,13 +16,22 @@ import lombok.Setter;
 public class Approval {
     private String apid;
     private String approvalStatus;
+    
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime requestDateTime;
+    
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime statusUpdateDateTime;
+    
     private String feedback;
     private String tkid;
     private String upfile;
     private String email;
     private String content;
+    private String approvalTitle;
+    private String approvalDescription;
+    
+    // 포맷팅된 날짜 필드
+    private String formattedRequestDateTime;
+    private String formattedUpdateDateTime;
 }

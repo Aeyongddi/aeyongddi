@@ -48,6 +48,12 @@
 			    <div class="row g-3 mb-4 align-items-center justify-content-between">
 				    <div class="col-auto">
 			            <h1 class="app-page-title mb-0">캘린더</h1>
+			            <br>
+			            <select class="calendar-opts">
+			            	<option>프로젝트 일정</option>
+			            	<option>팀 일정</option>
+			            	<option>개인 일정</option>
+			            </select>
 				    </div>
 			    </div><!--//row-->
 			   

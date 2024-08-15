@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko"> 
 <head>
-    <title>TRACER - 프로젝트 목록</title>
+    <title>TRACER - 회원 목록</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
@@ -32,63 +32,87 @@
 $(document).ready(function(){
 	$("form").on("keypress", function(event) {
         if (event.key === "Enter") {
-            event.preventDefault(); // Enter 키 입력 시 폼 제출을 막음
+            event.preventDefault(); 
         }
     });
-    // 프로젝트 검색 버튼 클릭 이벤트
-    $(".prjSchBtn").click(function(){
+	// 권한 수정
+	$(document).on('change','select.auth-select',function(){
+		var email = $(this).parent().parent().attr('class');
+		var auth = $(this).val()
+		$.ajax({
+			url: 'uptUser',
+			type: 'POST',
+			data: {email: email, auth: auth},
+			success:function(data){
+				console.log(data)
+			},
+			error:function(err){
+				console.log(err)
+			}
+		})
+    })
+    // 유저 검색 버튼 클릭 이벤트
+    $(".userSchBtn").click(function(){
         var pid = $(this).parent().attr('class');
         $.ajax({
-            data: $("form.schPrj").serialize(),  // 데이터 객체로 전달
-            url: 'prjList',
+            data: $("form.schUser").serialize(),  // 데이터 객체로 전달
+            url: 'userList',
             type: 'POST',
             success: function(data){
-            	$("tbody.prjList").empty();  // 기존 목록 지우기
+            	$("tbody.userList").empty();  // 기존 목록 지우기
 				for(i=0;i<data.length;i++){
-	                $("tbody.prjList").append('<tr class="' + data[i].pid + '">'
-                            + '<td class="cell">' + data[i].pid + '</td>'
-                            + '<td class="cell"><span class="truncate">' + data[i].title + '</span></td>'
-                            + '<td class="cell">' + formatDate(data[i].start_date) + '</td>'
-                            + '<td class="cell">' + formatDate(data[i].end_date) + '</td>'
-                            + '<td class="cell"><a class="btn-sm app-btn-secondary prjDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary prjDelBtn" href="#">삭제</a></td>'
+					$("tbody.userList").append('<tr class="' + data[i].email + '">'
+                            + '<td class="cell">' + data[i].email + '</td>'
+                            + '<td class="cell">' + data[i].name + '</td>'
+                            + '<td class="cell">' + formatDate(data[i].birth) + '</td>'
+                            + '<td class="cell">' + '<select class="auth-select">'
+							+ '<option value="admin" ' + (data[i].auth == "admin" ? "selected" : "") + '>admin</option>'
+							+ '<option value="manager" ' + (data[i].auth == "manager" ? "selected" : "") + '>manager</option>'
+							+ '<option value="member" ' + (data[i].auth == "member" ? "selected" : "") + '>member</option>'
+							+ '<option value="noauth" ' + (data[i].auth == "noauth" ? "selected" : "") + '>noauth</option>'
+							+ '</select>' + '</td>'
+                            + '<td class="cell"><a class="btn-sm app-btn-secondary userDelBtn" href="#">삭제</a></td>'
                             + '</tr>')
 				}
-				$(".prjDelBtn").off('click').on('click', prjDel);
+				$(".userDelBtn").off('click').on('click', userDel);
             },
             error: function(err){
                 console.log(err);
             }
         });
     });
-	$(".prjDetail").click(function(){
-		location.href='prjDetail?pid='+$(this).parent().parent().attr('class')
-	})
-    // 프로젝트 삭제 함수 정의
-    var prjDel = function() {
+
+    // 유저 삭제 함수 정의
+    var userDel = function() {
         var that = this; // `this`의 컨텍스트 저장
         if(confirm('정말 삭제하시겠습니까?')) {
-            var pid = $(that).parent().parent().attr('class');
-            console.log(pid)
+            var email = $(that).parent().parent().attr('class');
+            console.log(email)
             $.ajax({
-                data: { pid: pid },  // 데이터 객체로 전달
-                url: 'delPrj',
+                data: { email: email, auth:"", name:""},  // 데이터 객체로 전달
+                url: 'delUser',
                 type: 'POST',
                 success: function(data) {
                     // 서버에서 JSON 형식으로 프로젝트 목록을 반환한다고 가정
-                    $("tbody.prjList").empty();  // 기존 목록 지우기
+                    $("tbody.userList").empty();  // 기존 목록 지우기
                     for(i=0;i<data.length;i++) {
-                    	$("tbody.prjList").append('<tr class="' + data[i].pid + '">'
-                                + '<td class="cell">' + data[i].pid + '</td>'
-                                + '<td class="cell"><span class="truncate">' + data[i].title + '</span></td>'
-                                + '<td class="cell">' + formatDate(data[i].start_date) + '</td>'
-                                + '<td class="cell">' + formatDate(data[i].end_date) + '</td>'
-                                + '<td class="cell"><a class="btn-sm app-btn-secondary prjDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary prjDelBtn" href="#">삭제</a></td>'
+                    	$("tbody.userList").append('<tr class="' + data[i].email + '">'
+                                + '<td class="cell">' + data[i].email + '</td>'
+                                + '<td class="cell">' + data[i].name + '</td>'
+                                + '<td class="cell">' + formatDate(data[i].birth) + '</td>'
+                                + '<td class="cell">' + '<select class="auth-select">'
+								+ '<option value="admin"' + (data[i].auth == "admin" ? "selected" : "") + '>admin</option>'
+								+ '<option value="manager"' + (data[i].auth == "manager" ? "selected" : "") + '>manager</option>'
+								+ '<option value="member"' + (data[i].auth == "member" ? "selected" : "") + '>member</option>'
+								+ '<option value="noauth"' + (data[i].auth == "noauth" ? "selected" : "") + '>noauth</option>'
+								+ '</select>' + '</td>'
+                                + '<td class="cell"><a class="btn-sm app-btn-secondary userDelBtn" href="#">삭제</a></td>'
                                 + '</tr>')
                         
                     };
 					
                     // 동적으로 추가된 삭제 버튼에 클릭 이벤트 다시 등록
-                    $(".prjDelBtn").off('click').on('click', prjDel);
+                    $(".userDelBtn").off('click').on('click', userDel);
                 },
                 error: function(err) {
                     console.log(err);
@@ -98,7 +122,7 @@ $(document).ready(function(){
     };
 
     // 초기 삭제 버튼에 클릭 이벤트 등록
-    $(".prjDelBtn").click(prjDel);
+    $(".userDelBtn").click(userDel);
 
     // 날짜 형식 변환 함수
     function formatDate(date) {
@@ -112,6 +136,8 @@ $(document).ready(function(){
 
         return [year, month, day].join('-');
     }
+    
+    
 });
 
 </script>
@@ -125,18 +151,27 @@ $(document).ready(function(){
 			    
 			    <div class="row g-3 mb-4 align-items-center justify-content-between">
 				    <div class="col-auto">
-			            <h1 class="app-page-title mb-0">프로젝트 목록</h1>
+			            <h1 class="app-page-title mb-0">회원 목록</h1>
 				    </div>
 				    <div class="col-auto">
 					     <div class="page-utilities">
 						    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 							    <div class="col-auto">
-								    <form class="schPrj table-search-form row gx-1 align-items-center">
+								    <form class="schUser table-search-form row gx-1 align-items-center">
 					                    <div class="col-auto">
-					                        <input type="text" id="search-orders" name="prjTitle" class="form-control search-orders" placeholder="프로젝트 명 입력">
+					                        <select name="auth">
+					                        	<option value="">전체</option>
+					                        	<option value="admin">admin</option>
+					                        	<option value="manager">manager</option>
+					                        	<option value="member">member</option>
+					                        	<option value="noauth">noauth</option>
+					                        </select>
 					                    </div>
 					                    <div class="col-auto">
-					                        <button type="button" class="prjSchBtn btn app-btn-secondary">검색</button>
+					                        <input type="text" id="search-orders" name="name" class="form-control search-orders" placeholder="사용자 이름 입력">
+					                    </div>
+					                    <div class="col-auto">
+					                        <button type="button" class="userSchBtn btn app-btn-secondary">검색</button>
 					                    </div>
 					                </form>
 					                
@@ -158,21 +193,26 @@ $(document).ready(function(){
 							        <table class="table app-table-hover mb-0 text-left">
 										<thead>
 											<tr>
-												<th class="cell">프로젝트 id</th>
-												<th class="cell">프로젝트명</th>
-												<th class="cell">시작일</th>
-												<th class="cell">종료일</th>
-												<th class="cell"></th>
+												<th class="cell">email</th>
+												<th class="cell">이름</th>
+												<th class="cell">생일</th>
+												<th class="cell">권한</th>
+												<th class="cell">삭제</th>
 											</tr>
 										</thead>
-										<tbody class="prjList">
-										<c:forEach items="${prjs }" var="prj">
-											<tr class="${prj.pid }">
-												<td class="cell">${prj.pid}</td>
-												<td class="cell"><span class="truncate">${prj.title }</span></td>
-												<td class="cell"><fmt:formatDate value="${prj.start_date}" pattern="yyyy-MM-dd"/></td>
-												<td class="cell"><fmt:formatDate value="${prj.end_date}" pattern="yyyy-MM-dd"/></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary prjDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary prjDelBtn">삭제</a></td>
+										<tbody class="userList">
+										<c:forEach items="${users }" var="user">
+											<tr class="${user.email }">
+												<td class="cell">${user.email}</td>
+												<td class="cell">${user.name}</td>
+												<td class="cell"><fmt:formatDate value="${user.birth}" pattern="yyyy-MM-dd"/></td>
+												<td class="cell"><select class="auth-select">
+																	<option value="admin" ${user.auth == 'admin' ? 'selected' : ''}>admin</option>
+																	<option value="manager" ${user.auth == 'manager' ? 'selected' : ''}>manager</option>
+																	<option value="member" ${user.auth == 'member' ? 'selected' : ''}>member</option>
+																	<option value="noauth" ${user.auth == 'noauth' ? 'selected' : ''}>noauth</option>
+																	</select></td>
+												<td class="cell"><a class="btn-sm app-btn-secondary userDelBtn" href="#">삭제</a></td>
 											</tr>
 										</c:forEach>
 										</tbody>

@@ -73,6 +73,11 @@ public class NSerMail {
 		
 		return "메일전송완료";
 	}
+	// 알림 메일 전송
+	public String notificationMail() {
+		return "알림 메일 전송";
+	}
+	
 	// 인증번호 / 비밀번호 초기화 랜덤 값 생성
 	String random() {
 		StringBuilder sb = new StringBuilder();

@@ -24,4 +24,5 @@ public class User_info {
 	private String phone;
 	private List<Team> teams;
 	private List<Project> projects;
+	private String auth;
 }

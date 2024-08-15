@@ -11,9 +11,9 @@ import com.web.tracerProject.vo.User_info;
 @Mapper
 public interface NDaoMem {
 	// mem - 회원가입
-	@Insert("INSERT INTO USER_INFO \r\n"
+	@Insert("INSERT INTO USER_INFO (EMAIL, PASSWORD, NICKNAME, NAME, BIRTH, PHONE)\r\n"
 			+ "VALUES(#{email}, #{password}, "
-			+ "#{nickname}, #{name}, #{birth}, #{phone}, null)")
+			+ "#{nickname}, #{name}, #{birth}, #{phone})")
 	int insMember(User_info user_info);
 	
 	// mem - 비밀번호변경 + 비밀번호초기화

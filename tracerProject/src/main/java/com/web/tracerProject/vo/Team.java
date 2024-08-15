@@ -11,7 +11,6 @@ import lombok.Setter;
 @Setter
 public class Team {
 	private String tid;
+	private String name;
 	private String pid;
-	private String email;
-	private String auth;
 }

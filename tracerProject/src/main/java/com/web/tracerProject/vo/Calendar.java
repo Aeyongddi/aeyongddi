@@ -20,4 +20,6 @@ public class Calendar {
 	private String textColor;
 	private boolean allDay;
 	private String url;
+	
+	private String tid;
 }

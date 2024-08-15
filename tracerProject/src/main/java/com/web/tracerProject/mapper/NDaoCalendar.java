@@ -13,38 +13,20 @@ import com.web.tracerProject.vo.Calendar;
 
 @Mapper
 public interface NDaoCalendar {
-	@Select("""
-			SELECT
-				SID AS ID, TITLE, EMAIL AS WRITER, 
-				TO_CHAR(START_DATE, 'YYYY-MM-DD') AS "START",
-				TO_CHAR(END_DATE, 'YYYY-MM-DD') AS "END", 
-				DESCRIPTION AS CONTENT,
-				'#2ecc71' AS BACKGROUNDCOLOR,
-				'WHITE' AS TEXTCOLOR, '#' AS URL,
-				'true' AS ALLDAY
-			FROM SCHEDULE
-			""")
-	List<Calendar> getScheduleCalendarList();
-	  @Insert("	INSERT INTO SCHEDULE "
-	  		+ "(SID, TITLE, EMAIL, START_DATE, END_DATE, DESCRIPTION, PID) "
-	  		+ " values('SID'||LPAD(SID_SEQ.NEXTVAL, 5, '0'),\r\n" +
-	  "		#{title},#{writer},#{start},#{end},\r\n" +
-	  "		#{content}, '')")
+	  List<Calendar> getScheduleCalendarList();
 	  int insScheduleCalendar(Calendar ins);
-	  
-	  @Update("""
-		        UPDATE SCHEDULE
-		        SET title = #{title},
-		            start_date = #{start},
-		            end_date = #{end},
-		            email = #{writer},
-		            description = #{content}
-		        WHERE sid = #{id}
-		        """)
 	  int uptScheduleCalendar(Calendar upt);
+	  int delScheduleCalendar(@Param("id") String id);
 	  
-	  @Delete("DELETE FROM SCHEDULE \r\n" + "WHERE sid = #{id}") int
-	  delScheduleCalendar(@Param("id") String id);
+	  List<Calendar> getScheduleCalendarListIndiv(@Param("id") String id);
+	  int insScheduleCalendarIndiv(Calendar ins);
+	  int uptScheduleCalendarIndiv(Calendar upt);
+	  int delScheduleCalendarIndiv(@Param("id") String id);
+	  
+	  List<Calendar> getScheduleCalendarListTeam(String id);
+	  int insScheduleCalendarGroup(Calendar ins);
+	  int uptScheduleCalendarGroup(Calendar upt);
+	  int delScheduleCalendarGroup(@Param("id") String id);
 	  
 }
 

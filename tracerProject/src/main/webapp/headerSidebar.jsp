@@ -16,214 +16,6 @@
 	$(document)
 			.ready(
 					function() {
-						/* if('${user_info.email}'==''||'${user_info.email}'==null){
-							alert('세션이 만료되었습니다. 로그인 페이지로 이동합니다.')
-							location.href='login'
-						} */
-						$("form").on('keydown', function(event) {
-							if (event.key === 'Enter') {
-								event.preventDefault();
-							}
-						})
-						let isWorking = isAlready('${user_info.email}')
-						let addEmail = [ '${user_info.email}' ]
-						let nickname
-						let auth = [ 'admin' ]
-						let count = 0
-						$(".newProject").click(function() {
-							if (!isWorking) {
-								$(".newPrjFrm").show(400)
-							} else {
-								alert('이미 작업중입니다.')
-							}
-						})
-
-						$(".clsBtn")
-								.click(
-										function() {
-
-											$("#inTeamList")
-													.html(
-															"참여 인원<br>"
-																	+ "<p>닉네임 : ${user_info.nickname} / 권한 : admin</p>")
-											addEmail = [ '${user_info.email}' ]
-											count = 0
-											auth = [ 'admin' ]
-											$(".newPrjFrm").hide(400)
-											$(".newPrjFrm input").val("")
-											$(".newPrjFrm textarea").val("")
-										})
-						$(".innerCls").click(function() {
-							$('.authSel').prop('selectedIndex', 0);
-							$(".emailSch").hide(400)
-							addEmail.pop()
-							$("input[name=invEmail]").val("")
-						})
-
-						$("#schEmailBtn")
-								.click(
-										function() {
-											let email = $("[name=invEmail]")
-													.val()
-											$
-													.ajax({
-														data : {
-															email : email
-														},
-														url : 'alreadyWorking',
-														type : 'POST',
-														success : function(data) {
-															if (!data) {
-																$
-																		.ajax({
-																			data : $(
-																					"form")
-																					.serialize(),
-																			url : 'schByEmail',
-																			type : 'POST',
-																			success : function(
-																					data) {
-																				if (data.nickname == null)
-																					alert('해당 사용자를 초대할 수 없습니다.')
-																				else if ('${user_info.email}' == $(
-																						"[name=invEmail]")
-																						.val()
-																						|| dupEmailChk($(
-																								"[name=invEmail]")
-																								.val())) {
-																					alert('이미 참가가 되어있는 사용자입니다.')
-																				} else {
-																					$(
-																							".invNickname")
-																							.html(
-																									data.nickname
-																											+ "님<br> 초대")
-																					nickname = data.nickname
-																					$(
-																							".emailSch")
-																							.show(
-																									400)
-																					addEmail
-																							.push(data.email)
-																					console
-																							.log(data.email)
-																				}
-																			},
-																			error : function(
-																					err) {
-																				console
-																						.log(err)
-																			}
-																		})
-															} else
-																alert('이미 작업 중입니다.')
-														},
-														error : function(err) {
-															console.log(err)
-														}
-													})
-										})
-
-						$(".inviteBtn").click(
-								function() {
-
-									if ($("[name=auth]").val() == "")
-										alert('권한을 선택해주세요')
-									else {
-										auth.push($("[name=auth]").val())
-										$("#inTeamList").append(
-												"<p class='team" + (count++)
-														+ "'>닉네임 : " + nickname
-														+ " / 권한 : "
-														+ auth[auth.length - 1]
-														+ "</p>")
-										$("input[name=invEmail]").val("")
-										$(".emailSch").hide(400)
-									}
-								})
-						$(".insNewPrjBtn").click(function() {
-							createPrj(auth, addEmail)
-							$(".clsBtn").click()
-						})
-						$(".newPrjFrm").hide(400)
-						function dupEmailChk(val) {
-							let isDup = false
-							addEmail.forEach(function(el) {
-								if (el == val) {
-									isDup = true;
-								}
-							})
-							return isDup;
-						}
-						function createPrj(auth, email) {
-							$.ajax({
-								data : $("form").serialize(),
-								url : 'createPrj',
-								type : 'POST',
-								success : function(data) {
-									alert(data)
-									getCurrPid(auth, email)
-								},
-								error : function(err) {
-									console.log(err)
-								}
-							})
-						}
-						function createPrjTeam(auth, email, pid) {
-							insData = email
-							auth.forEach(function(el, idx) {
-								$.ajax({
-									data : {
-										email : insData[idx],
-										auth : el,
-										pid : pid
-									},
-									url : 'createPrjTeam',
-									type : 'POST',
-									success : function(data) {
-										console.log(data)
-									},
-									error : function(err) {
-										console.log(err)
-									}
-								})
-							})
-
-						}
-						function getCurrPid(auth, email) {
-							$.ajax({
-								url : 'getCurrPid',
-								type : 'POST',
-								success : function(data) {
-									console.log(data)
-									createPrjTeam(auth, email, data)
-								},
-								error : function(err) {
-									console.log(err)
-								}
-							})
-						}
-						function isAlready(email) {
-							let result = false
-							$.ajax({
-								data : {
-									email : email
-								},
-								url : 'alreadyWorking',
-								type : 'POST',
-								success : function(data) {
-									if (data) {
-										console.log(data)
-										result = data
-									}
-								},
-								error : function(err) {
-									console.log(err)
-								}
-							})
-							return result
-						}
-
 						// 채팅 모달 초기화
 						$('#chatModal').hide();
 
@@ -237,6 +29,7 @@
 							$('#chatModal').hide();
 						});
 					});
+
 </script>
 <header class="app-header fixed-top">
 	<div class="app-header-inner">
@@ -338,11 +131,11 @@
                                     <path fill-rule="evenodd"
 										d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
                                 </svg>
-						</span> <span>통계 현황</span>
+						</span> <span>메인 페이지[대시보드]</span>
 					</a>
 					<!--//nav-link--></li>
 					<!--//nav-item-->
-					<li class="nav-item"><a class="nav-link newProject" href="#">
+					<li class="nav-item"><a class="nav-link newProject" href="newPrj">
 							<span class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-house-door"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -481,41 +274,62 @@
 										d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
                                 </svg>
 						</span> <span>프로젝트 목록</span>
-					</a>
-					
-					<li class="nav-item has-submenu"><a
-						class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
-						data-bs-target="#submenu-2" aria-expanded="false"
-						aria-controls="submenu-2"> <span class="nav-icon"> <svg
-									width="1em" height="1em" viewBox="0 0 16 16"
-									class="bi bi-files" fill="currentColor"
-									xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd"
-										d="M4 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4z" />
-                                    <path
-										d="M6 0h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1H4a2 2 0 0 1 2-2z" />
-                                </svg>
-						</span> <span>프로젝트 이동</span> <span
-							class="submenu-arrow"> <svg width="1em" height="1em"
-									viewBox="0 0 16 16" class="bi bi-chevron-down"
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="prjDetail?pid="> <span
+							class="nav-icon"> <svg width="1em" height="1em"
+									viewBox="0 0 16 16" class="bi bi-question-circle"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd"
-										d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+										d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+										d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
                                 </svg>
-						</span>
-						<!--//submenu-arrow-->
-					</a>
-					<!--//nav-link-->
-						<div id="submenu-2" class="collapse submenu submenu-2"
-							data-bs-parent="#menu-accordion">
-							<ul class="submenu-list list-unstyled">
-								<c:forEach items="prjs" var="prj">
-								<li class="submenu-item"><a class="submenu-link"
-									href="riskBoard"><fmt:message key='risk.management.board' /></a></li>
-								</c:forEach>
-							</ul>
-						</div></li>
-					<!--//nav-item-->
+						</span> <span>프로젝트 정보</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="prjInfo"> <span
+							class="nav-icon"> <svg width="1em" height="1em"
+									viewBox="0 0 16 16" class="bi bi-question-circle"
+									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+										d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+										d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                                </svg>
+						</span> <span>팀 목록</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="prjInfo"> <span
+							class="nav-icon"> <svg width="1em" height="1em"
+									viewBox="0 0 16 16" class="bi bi-question-circle"
+									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+										d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+										d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                                </svg>
+						</span> <span>팀 생성하기</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="prjInfo"> <span
+							class="nav-icon"> <svg width="1em" height="1em"
+									viewBox="0 0 16 16" class="bi bi-question-circle"
+									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+										d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+										d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                                </svg>
+						</span> <span>팀 정보</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="userManagement"> <span
+							class="nav-icon"> <svg width="1em" height="1em"
+									viewBox="0 0 16 16" class="bi bi-question-circle"
+									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+										d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                                    <path
+										d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z" />
+                                </svg>
+						</span> <span>사용자 관리</span>
+					</a></li>
 				</ul>
 				<!--//app-menu-->
 			</nav>
@@ -537,71 +351,3 @@
 	<!--//app-sidepanel-->
 </header>
 <!--//app-header-->
-<div class="modal newPrjFrm" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">새로운 프로젝트 생성하기</h5>
-				<button type="button" class="btn-close clsBtn"
-					data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<form>
-				<div class="prjInput modal-body">
-					프로젝트명 <input name="title" class="form-control mr-sm-2"
-						placeholder="프로젝트 이름 입력" required /><br> 시작날짜 <input
-						type="date" name="start_date" class="form-control mr-sm-2"
-						placeholder="프로젝트 이름 입력" required /><br> 종료날짜 <input
-						type="date" name="end_date" class="form-control mr-sm-2"
-						placeholder="프로젝트 이름 입력" required /><br> 프로젝트 설명
-					<textarea style="width: 100%; height: 300px;" name="description"
-						class="form-control mr-sm-2" placeholder="프로젝트 설명 입력" required></textarea>
-					<br>
-					<div id="inTeamList">
-						참여 인원<br>
-					</div>
-					<input type="email" name="invEmail" class="form-control"
-						placeholder="이메일 검색" required />
-					<button type="button" id="schEmailBtn" class="btn btn-info"
-						style="width: 15%;">검색</button>
-					<br>
-
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary clsBtn"
-						data-bs-dismiss="modal">닫기</button>
-					<button type="button" class="btn btn-primary insNewPrjBtn">프로젝트
-						생성하기</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-
-
-<div class="modal emailSch" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="invNickname modal-title"></h5>
-				<br>
-				<div class="modal-body">
-					<select name="auth" class="authSel form-select form-select-lg mb-3"
-						aria-label=".form-select-lg example">
-						<option selected value="">권한</option>
-						<option value="admin">대표/임원</option>
-						<option value="manager">관리자</option>
-						<option value="user">참여자</option>
-						<option value="viewer">조회자</option>
-					</select>
-					<button type="button" class="btn btn-info inviteBtn"
-						data-bs-dismiss="modal">확인</button>
-					<button type="button" class="btn btn-secondary innerCls"
-						data-bs-dismiss="modal">닫기</button>
-				</div>
-				<button type="button" class="btn-close innerCls"
-					data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-		</div>
-	</div>
-</div>

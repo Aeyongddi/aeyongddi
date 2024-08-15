@@ -23,7 +23,7 @@ public interface NDaoCalendar {
 	  int uptScheduleCalendarIndiv(Calendar upt);
 	  int delScheduleCalendarIndiv(@Param("id") String id);
 	  
-	  List<Calendar> getScheduleCalendarListTeam(String id);
+	  List<Calendar> getScheduleCalendarListTeam(@Param("id") String id);
 	  int insScheduleCalendarGroup(Calendar ins);
 	  int uptScheduleCalendarGroup(Calendar upt);
 	  int delScheduleCalendarGroup(@Param("id") String id);

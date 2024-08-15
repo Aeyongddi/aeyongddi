@@ -25,4 +25,6 @@ public class User_info {
 	private List<Team> teams;
 	private List<Project> projects;
 	private String auth;
+	private String tid;
+	private String pid;
 }

@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko"> 
 <head>
-    <title>TRACER - 프로젝트 목록</title>
+    <title>TRACER - 팀 목록</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
@@ -36,53 +36,51 @@ $(document).ready(function(){
         }
     });
     // 프로젝트 검색 버튼 클릭 이벤트
-    $(".prjSchBtn").click(function(){
+    $(".teamSchBtn").click(function(){
         var pid = $(this).parent().attr('class');
         $.ajax({
-            data: $("form.schPrj").serialize(),  // 데이터 객체로 전달
-            url: 'prjList',
+            data: $("form.schTeam").serialize(),  // 데이터 객체로 전달
+            url: 'teamList',
             type: 'POST',
             success: function(data){
-            	$("tbody.prjList").empty();  // 기존 목록 지우기
+            	$("tbody.teamList").empty();  // 기존 목록 지우기
 				for(i=0;i<data.length;i++){
-	                $("tbody.prjList").append('<tr class="' + data[i].pid + '">'
+					$("tbody.teamList").append('<tr class="' + data[i].tid + '">'
                             + '<td class="cell">' + data[i].pid + '</td>'
-                            + '<td class="cell"><span class="truncate">' + data[i].title + '</span></td>'
-                            + '<td class="cell">' + formatDate(data[i].start_date) + '</td>'
-                            + '<td class="cell">' + formatDate(data[i].end_date) + '</td>'
-                            + '<td class="cell"><a class="btn-sm app-btn-secondary prjDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary prjDelBtn" href="#">삭제</a></td>'
+                            + '<td class="cell">' + data[i].tid + '</td>'
+                            + '<td class="cell">' + data[i].name + '</td>'
+                            + '<td class="cell"><a class="btn-sm app-btn-secondary teamDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary teamDelBtn" href="#">삭제</a></td>'
                             + '</tr>')
 				}
-				$(".prjDelBtn").off('click').on('click', prjDel);
+				$(".teamDelBtn").off('click').on('click', teamDel);
             },
             error: function(err){
                 console.log(err);
             }
         });
     });
-	$(".prjDetail").click(function(){
-		location.href='prjDetail?pid='+$(this).parent().parent().attr('class')
+	$(".teamDetail").click(function(){
+		location.href='teamDetail?tid='+$(this).parent().parent().attr('class')
 	})
     // 프로젝트 삭제 함수 정의
-    var prjDel = function() {
+    var teamDel = function() {
         var that = this; // `this`의 컨텍스트 저장
         if(confirm('정말 삭제하시겠습니까?')) {
-            var pid = $(that).parent().parent().attr('class');
-            console.log(pid)
+            var tid = $(that).parent().parent().attr('class');
+            console.log(tid)
             $.ajax({
-                data: { pid: pid },  // 데이터 객체로 전달
-                url: 'delPrj',
+                data: { tid: tid, pid:${user_info.pid} },  // 데이터 객체로 전달
+                url: 'delTeam',
                 type: 'POST',
                 success: function(data) {
                     // 서버에서 JSON 형식으로 프로젝트 목록을 반환한다고 가정
-                    $("tbody.prjList").empty();  // 기존 목록 지우기
+                    $("tbody.teamList").empty();  // 기존 목록 지우기
                     for(i=0;i<data.length;i++) {
-                    	$("tbody.prjList").append('<tr class="' + data[i].pid + '">'
+                    	$("tbody.teamList").append('<tr class="' + data[i].tid + '">'
                                 + '<td class="cell">' + data[i].pid + '</td>'
-                                + '<td class="cell"><span class="truncate">' + data[i].title + '</span></td>'
-                                + '<td class="cell">' + formatDate(data[i].start_date) + '</td>'
-                                + '<td class="cell">' + formatDate(data[i].end_date) + '</td>'
-                                + '<td class="cell"><a class="btn-sm app-btn-secondary prjDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary prjDelBtn" href="#">삭제</a></td>'
+                                + '<td class="cell">' + data[i].tid + '</td>'
+                                + '<td class="cell">' + data[i].name + '</td>'
+                                + '<td class="cell"><a class="btn-sm app-btn-secondary teamDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary teamDelBtn" href="#">삭제</a></td>'
                                 + '</tr>')
                         
                     };
@@ -98,20 +96,8 @@ $(document).ready(function(){
     };
 
     // 초기 삭제 버튼에 클릭 이벤트 등록
-    $(".prjDelBtn").click(prjDel);
+    $(".teamDelBtn").click(teamDel);
 
-    // 날짜 형식 변환 함수
-    function formatDate(date) {
-        var d = new Date(date);
-        var month = '' + (d.getMonth() + 1);
-        var day = '' + d.getDate();
-        var year = d.getFullYear();
-
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        return [year, month, day].join('-');
-    }
 });
 
 </script>
@@ -125,18 +111,19 @@ $(document).ready(function(){
 			    
 			    <div class="row g-3 mb-4 align-items-center justify-content-between">
 				    <div class="col-auto">
-			            <h1 class="app-page-title mb-0">프로젝트 목록</h1>
+			            <h1 class="app-page-title mb-0">팀 목록</h1>
 				    </div>
 				    <div class="col-auto">
 					     <div class="page-utilities">
 						    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 							    <div class="col-auto">
-								    <form class="schPrj table-search-form row gx-1 align-items-center">
+								    <form class="schTeam table-search-form row gx-1 align-items-center">
 					                    <div class="col-auto">
-					                        <input type="text" id="search-orders" name="prjTitle" class="form-control search-orders" placeholder="프로젝트 명 입력">
+					                        <input type="text" id="search-orders" name="name" class="form-control search-orders" placeholder="팀명 입력">
+					                        <input type="hidden" name="pid" value="${user_info.pid }"/>
 					                    </div>
 					                    <div class="col-auto">
-					                        <button type="button" class="prjSchBtn btn app-btn-secondary">검색</button>
+					                        <button type="button" class="teamSchBtn btn app-btn-secondary">검색</button>
 					                    </div>
 					                </form>
 					                
@@ -159,20 +146,17 @@ $(document).ready(function(){
 										<thead>
 											<tr>
 												<th class="cell">프로젝트 id</th>
-												<th class="cell">프로젝트명</th>
-												<th class="cell">시작일</th>
-												<th class="cell">종료일</th>
+												<th class="cell">팀 id</th>
+												<th class="cell">팀명</th>
 												<th class="cell"></th>
 											</tr>
 										</thead>
-										<tbody class="prjList">
-										<c:forEach items="${prjs }" var="prj">
-											<tr class="${prj.pid }">
-												<td class="cell">${prj.pid}</td>
-												<td class="cell"><span class="truncate">${prj.title }</span></td>
-												<td class="cell"><fmt:formatDate value="${prj.start_date}" pattern="yyyy-MM-dd"/></td>
-												<td class="cell"><fmt:formatDate value="${prj.end_date}" pattern="yyyy-MM-dd"/></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary prjDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary prjDelBtn">삭제</a></td>
+										<tbody class="teamList">
+										<c:forEach items="${teams }" var="team">
+											<tr class="${team.tid }">
+												<td class="cell">${team.pid}</td>
+												<td class="cell">${team.tid}</td>
+												<td class="cell"><a class="btn-sm app-btn-secondary teamDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary teamDelBtn">삭제</a></td>
 											</tr>
 										</c:forEach>
 										</tbody>

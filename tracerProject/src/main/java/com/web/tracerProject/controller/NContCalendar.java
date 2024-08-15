@@ -14,7 +14,7 @@ import com.web.tracerProject.service.NSerCalendar;
 import com.web.tracerProject.vo.Calendar;
 
 @Controller
-public class NContCalendar {
+public class NContCalendar extends NContBase{
 	@Autowired(required=false)
 	NSerCalendar service;
 	

@@ -15,7 +15,7 @@ import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.User_info;
 
 @Controller
-public class NContPrjDetail {
+public class NContPrjDetail extends NContBase{
 	@Autowired(required=false)
 	private NSerPrjDetail service;
 	
@@ -23,6 +23,11 @@ public class NContPrjDetail {
 	public String prjDetail(@RequestParam("pid") String pid, Model d) {
 		d.addAttribute("selPrj", service.selPrj(pid));
 		return "tracerPages/prjDetail";
+	}
+	@GetMapping("prjInfo")
+	public String prjInfo(@RequestParam("pid") String pid, Model d) {
+		d.addAttribute("selPrj", service.selPrj(pid));
+		return "tracerPages/prjInfo";
 	}
 	@PostMapping("uptDetailPrj")
     public ResponseEntity<String> uptDetailPrj(Project project) {

@@ -15,7 +15,7 @@ import com.web.tracerProject.service.NSerGantt;
 import com.web.tracerProject.vo.Gantt;
 
 @Controller
-public class NContGantt {
+public class NContGantt extends NContBase{
 	@Autowired(required=false)
 	NSerGantt service;
 	

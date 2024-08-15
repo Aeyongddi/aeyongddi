@@ -30,93 +30,29 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("form").on("keypress", function(event) {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Enter 키 입력 시 폼 제출을 막음
-        }
-    });
-    // 프로젝트 검색 버튼 클릭 이벤트
-    $(".prjSchBtn").click(function(){
-        var pid = $(this).parent().attr('class');
-        $.ajax({
-            data: $("form.schPrj").serialize(),  // 데이터 객체로 전달
-            url: 'prjList',
-            type: 'POST',
-            success: function(data){
-            	$("tbody.prjList").empty();  // 기존 목록 지우기
-				for(i=0;i<data.length;i++){
-	                $("tbody.prjList").append('<tr class="' + data[i].pid + '">'
-                            + '<td class="cell">' + data[i].pid + '</td>'
-                            + '<td class="cell"><span class="truncate">' + data[i].title + '</span></td>'
-                            + '<td class="cell">' + formatDate(data[i].start_date) + '</td>'
-                            + '<td class="cell">' + formatDate(data[i].end_date) + '</td>'
-                            + '<td class="cell"><a class="btn-sm app-btn-secondary prjDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary prjDelBtn" href="#">삭제</a></td>'
-                            + '</tr>')
-				}
-				$(".prjDelBtn").off('click').on('click', prjDel);
-            },
-            error: function(err){
-                console.log(err);
-            }
-        });
-    });
-	$(".prjDetail").click(function(){
-		location.href='prjDetail?pid='+$(this).parent().parent().attr('class')
+	
+	$("#mainBtn").click(function(){
+		location.href="index"
 	})
-    // 프로젝트 삭제 함수 정의
-    var prjDel = function() {
-        var that = this; // `this`의 컨텍스트 저장
-        if(confirm('정말 삭제하시겠습니까?')) {
-            var pid = $(that).parent().parent().attr('class');
-            console.log(pid)
-            $.ajax({
-                data: { pid: pid },  // 데이터 객체로 전달
-                url: 'delPrj',
-                type: 'POST',
-                success: function(data) {
-                    // 서버에서 JSON 형식으로 프로젝트 목록을 반환한다고 가정
-                    $("tbody.prjList").empty();  // 기존 목록 지우기
-                    for(i=0;i<data.length;i++) {
-                    	$("tbody.prjList").append('<tr class="' + data[i].pid + '">'
-                                + '<td class="cell">' + data[i].pid + '</td>'
-                                + '<td class="cell"><span class="truncate">' + data[i].title + '</span></td>'
-                                + '<td class="cell">' + formatDate(data[i].start_date) + '</td>'
-                                + '<td class="cell">' + formatDate(data[i].end_date) + '</td>'
-                                + '<td class="cell"><a class="btn-sm app-btn-secondary prjDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary prjDelBtn" href="#">삭제</a></td>'
-                                + '</tr>')
-                        
-                    };
-					
-                    // 동적으로 추가된 삭제 버튼에 클릭 이벤트 다시 등록
-                    $(".prjDelBtn").off('click').on('click', prjDel);
-                },
-                error: function(err) {
-                    console.log(err);
-                }
-            });
-        }
-    };
-
-    // 초기 삭제 버튼에 클릭 이벤트 등록
-    $(".prjDelBtn").click(prjDel);
-
-    // 날짜 형식 변환 함수
-    function formatDate(date) {
-        var d = new Date(date);
-        var month = '' + (d.getMonth() + 1);
-        var day = '' + d.getDate();
-        var year = d.getFullYear();
-
-        if (month.length < 2) month = '0' + month;
-        if (day.length < 2) day = '0' + day;
-
-        return [year, month, day].join('-');
-    }
+	$.ajax({
+		data: {pid: $('[name=pid]').val()},
+		url: 'getParticipants',
+		type: 'POST',
+		success: function(data){
+			$('#participantList').html('')
+			data.forEach(function(item){
+				console.log(item.email)
+				$('#participantList').append('<button value="'+item.email+'" class="btn" type="button">'+item.nickname+'</button>')
+			})
+			
+		}
+	})
 });
 
 </script>
 </head> 
 <body class="app">   	
+<input class="loading" type="hidden"/>
 <jsp:include page="/headerSidebar.jsp"/> 
     <div class="app-wrapper">
 	    
@@ -125,20 +61,13 @@ $(document).ready(function(){
 			    
 			    <div class="row g-3 mb-4 align-items-center justify-content-between">
 				    <div class="col-auto">
-			            <h1 class="app-page-title mb-0">프로젝트 목록</h1>
+			            <h1 class="app-page-title mb-0">프로젝트 정보</h1>
 				    </div>
 				    <div class="col-auto">
 					     <div class="page-utilities">
 						    <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
 							    <div class="col-auto">
-								    <form class="schPrj table-search-form row gx-1 align-items-center">
-					                    <div class="col-auto">
-					                        <input type="text" id="search-orders" name="prjTitle" class="form-control search-orders" placeholder="프로젝트 명 입력">
-					                    </div>
-					                    <div class="col-auto">
-					                        <button type="button" class="prjSchBtn btn app-btn-secondary">검색</button>
-					                    </div>
-					                </form>
+								    
 					                
 							    </div><!--//col-->
 						    </div><!--//row-->
@@ -146,42 +75,60 @@ $(document).ready(function(){
 				    </div><!--//col-auto-->
 			    </div><!--//row-->
 			   
-			    
+			
 			  
 				
 				
-				<div class="tab-content" id="orders-table-tab-content">
-			        <div class="tab-pane fade show active" id="orders-all" role="tabpanel" aria-labelledby="orders-all-tab">
-					    <div class="app-card app-card-orders-table shadow-sm mb-5">
-						    <div class="app-card-body">
-							    <div class="table-responsive">
-							        <table class="table app-table-hover mb-0 text-left">
-										<thead>
-											<tr>
-												<th class="cell">프로젝트 id</th>
-												<th class="cell">프로젝트명</th>
-												<th class="cell">시작일</th>
-												<th class="cell">종료일</th>
-												<th class="cell"></th>
-											</tr>
-										</thead>
-										<tbody class="prjList">
-										<c:forEach items="${prjs }" var="prj">
-											<tr class="${prj.pid }">
-												<td class="cell">${prj.pid}</td>
-												<td class="cell"><span class="truncate">${prj.title }</span></td>
-												<td class="cell"><fmt:formatDate value="${prj.start_date}" pattern="yyyy-MM-dd"/></td>
-												<td class="cell"><fmt:formatDate value="${prj.end_date}" pattern="yyyy-MM-dd"/></td>
-												<td class="cell"><a class="btn-sm app-btn-secondary prjDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary prjDelBtn">삭제</a></td>
-											</tr>
-										</c:forEach>
-										</tbody>
-									</table>
-						        </div><!--//table-responsive-->
-						    </div><!--//app-card-body-->		
-						</div><!--//app-card-->
-			        </div><!--//tab-pane-->
-		    </div><!--//container-fluid-->
+				<div class="container">
+	<form> <!-- 등록시 controller호출.. -->
+	<div class="input-group mb-3">	
+		<div class="input-group-prepend ">
+			<span class="input-group-text  justify-content-center">프로젝트 id</span>
+		</div>
+		<input name="pid" class="form-control" value="${selPrj.pid}" readonly />	
+	</div>	
+	<div class="input-group mb-3">	
+		<div class="input-group-prepend ">
+			<span class="input-group-text  justify-content-center">프로젝트명</span>
+		</div>
+		<input name="title" class="form-control" value="${selPrj.title}" readonly/>	
+	</div>	
+	<div class="input-group mb-3">	
+		<div class="input-group-prepend">
+			<span class="input-group-text">프로젝트설명</span>
+		</div>
+		<input name="description" class="form-control" value="${selPrj.description }" readonly/>
+		
+	</div>	
+	<div class="input-group mb-3">	
+		<div class="input-group-prepend ">
+			<span class="input-group-text  justify-content-center">시작날짜</span>
+		</div>
+		<input type="date" name="start_date" class="form-control" 
+			value='<fmt:formatDate value="${selPrj.start_date}" pattern="yyyy-MM-dd" />' readonly/>
+		
+	</div>	
+	<div class="input-group mb-3">	
+		<div class="input-group-prepend ">
+			<span class="input-group-text  justify-content-center">종료날짜</span>
+		</div>
+		<input type="date" name="end_date" class="form-control" 
+			value='<fmt:formatDate value="${selPrj.end_date}" pattern="yyyy-MM-dd" />' readonly/>
+		
+	</div>	
+	<div class="input-group mb-3 participants">	
+		<div class="input-group-prepend ">
+			<span class="input-group-text  justify-content-center">참여자</span>
+		</div>
+		<div id="participantList">
+		
+		</div>
+		
+	</div>	
+	<div style="text-align:right;">
+			<input type="button" class="btn btn-secondary" value="메인화면으로" id="mainBtn"/>
+			
+	</div></form>	<!--  http://localhost:7080/springweb/emp.do?empno=1000 -->
 	    </div><!--//app-content-->
 	    
 	    <footer class="app-footer">
@@ -192,7 +139,8 @@ $(document).ready(function(){
 	    </footer><!--//app-footer-->
 	    
     </div><!--//app-wrapper-->    					
-
+</div>
+</div>    
  
     <!-- Javascript -->          
     <script src="assets/plugins/popper.min.js"></script>

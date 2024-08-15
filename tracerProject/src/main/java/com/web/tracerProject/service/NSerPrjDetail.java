@@ -12,7 +12,7 @@ import com.web.tracerProject.vo.User_info;
 @Service
 public class NSerPrjDetail {
 	@Autowired(required=false)
-	NDaoPrjDetail dao;
+	private NDaoPrjDetail dao;
 	
 	public Project selPrj(String pid) {
 		return dao.selPrj(pid);
@@ -36,6 +36,6 @@ public class NSerPrjDetail {
 		return dao.insUserPid(pid, email)>0?"프로젝트참가성공":"프로젝트참가실패";
 	}
 	public String delUserPid(String email) {
-		return dao.delUserPid(email)>0?"프로젝트참가성공":"프로젝트참가실패";
+		return dao.delUserPid(email)>0?"프로젝트퇴출성공":"프로젝트퇴출실패";
 	}
 }

@@ -38,15 +38,35 @@ $(document).ready(function(){
 	
     $("#uptBtn").click(function(){
     	if(confirm("수정하시겠습니까?")){
-			$("form").attr("action","empUpdate100.do");
-			$("form").submit();	  	
+    		$.ajax({
+				url: 'uptDetailTeam',
+				type: 'POST',
+				data: $('#teamFrm').serialize(),
+				success: function(data){
+					alert(data)
+				},
+				error: function(err){
+					console.log(err)
+				}
+			})	
     	}
     })
     $("#delBtn").click(function(){
     	if(confirm("삭제하시겠습니까?")){
-			location.href="empDelete100.do?empno="+$("[name=empno]").val()	
+			$.ajax({
+				url: 'delDetailTeam',
+				type: 'POST',
+				data: {tid : $('[name=tid]').val()},
+				success: function(data){
+					alert(data)
+					location.href='index'
+				},
+				error: function(err){
+					console.log(err)
+				}
+			})
     	}
-    })	 
+    })	  
 
 
 
@@ -60,14 +80,15 @@ $(document).ready(function(){
 	})
 	
 	$(".clsBtn").click(function(){
-		$('.participantsFrm').hide()
+		alert('참여 인원을 저장합니다.')
+		window.location.reload()
 	})
 	
 	$("#schNicknameBtn").click(function(){
 			var nickname = $('[name=nickname]').val()
 		$.ajax({
-			data: {nickname: nickname},
-			url: 'getCanWork',
+			data: {nickname: nickname, pid:$('[name=pid]').val()},
+			url: 'getCanWorkTeam',
 			type: 'POST',
 			success: function(data){
 				$('#canWorkList').html('')
@@ -80,11 +101,11 @@ $(document).ready(function(){
 	})
 	$(document).on('click','#canWorkList button',function(){
 		var email = $(this).val();
-		var pid = $('[name=pid]').val()
+		var tid = $('[name=tid]').val()
 		 $.ajax({
-			url: 'insUserPid',
+			url: 'insUserTid',
 			type: 'POST',
-			data: {email: email, pid: pid},
+			data: {email: email, tid: tid},
 			success:function(data){
 				console.log(data)
 				$('.loading').click()
@@ -98,11 +119,10 @@ $(document).ready(function(){
     })
 	$(document).on('click','#participantList button',function(){
 		var email = $(this).val();
-		var pid = $('[name=pid]').val()
 		 $.ajax({
-			url: 'delUserPid',
+			url: 'delUserTid',
 			type: 'POST',
-			data: {email: email, pid: pid},
+			data: {email: email},
 			success:function(data){
 				console.log(data)
 				$('.loading').click()
@@ -115,24 +135,26 @@ $(document).ready(function(){
     })
 	$(document).on('click','.loading',function(){
 		var email = $(this).val();
-		var pid = $('[name=pid]').val()
+		var tid = ${selteam.tid}
 		 $.ajax({
-			data: {pid: $('[name=pid]').val()},
-			url: 'getParticipants',
+			data: {tid: $('[name=tid]').val()},
+			url: 'getParticipantsTeam',
 			type: 'POST',
 			success: function(data){
 				$('#participantList').html('')
 				data.forEach(function(item){
 					$('#participantList').append('<button value="'+item.email+'" class="btn" type="button">'+item.nickname+'</button>')
 				})
-				
+			},
+			error:function(err){
+				console.log(err)
 			}
 		})
     })
     
 	$.ajax({
-		data: {nickname: ""},
-		url: 'getCanWork',
+		data: {nickname: "", pid:$('[name=pid]').val()},
+		url: 'getCanWorkTeam',
 		type: 'POST',
 		success: function(data){
 			$('#canWorkList').html('')
@@ -143,8 +165,8 @@ $(document).ready(function(){
 		}
 	})
 	$.ajax({
-		data: {pid: $('[name=pid]').val()},
-		url: 'getParticipants',
+		data: {tid: $('[name=tid]').val()},
+		url: 'getParticipantsTeam',
 		type: 'POST',
 		success: function(data){
 			$('#participantList').html('')
@@ -188,40 +210,24 @@ $(document).ready(function(){
 				
 				
 				<div class="container">
-	<form> <!-- 등록시 controller호출.. -->
+	<form id="teamFrm"> <!-- 등록시 controller호출.. -->
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">프로젝트 id</span>
 		</div>
-		<input name="pid" class="form-control" value="${selPrj.pid}" readonly />	
+		<input name="pid" class="form-control" value="${selTeam.pid}" readonly />	
 	</div>	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
-			<span class="input-group-text  justify-content-center">프로젝트명</span>
+			<span class="input-group-text  justify-content-center">팀 id</span>
 		</div>
-		<input name="title" class="form-control" value="${selPrj.title}" />	
+		<input name="tid" class="form-control" value="${selTeam.tid}" />	
 	</div>	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend">
-			<span class="input-group-text">프로젝트설명</span>
+			<span class="input-group-text">팀명</span>
 		</div>
-		<input name="description" class="form-control" value="${selPrj.description }"/>
-		
-	</div>	
-	<div class="input-group mb-3">	
-		<div class="input-group-prepend ">
-			<span class="input-group-text  justify-content-center">시작날짜</span>
-		</div>
-		<input type="date" name="start_date" class="form-control" 
-			value='<fmt:formatDate value="${selPrj.start_date}" pattern="yyyy-MM-dd" />' />
-		
-	</div>	
-	<div class="input-group mb-3">	
-		<div class="input-group-prepend ">
-			<span class="input-group-text  justify-content-center">종료날짜</span>
-		</div>
-		<input type="date" name="end_date" class="form-control" 
-			value='<fmt:formatDate value="${selPrj.end_date}" pattern="yyyy-MM-dd" />' />
+		<input name="name" class="form-control" value="${selTeam.name }"/>
 		
 	</div>	
 	<div class="input-group mb-3 participants">	
@@ -232,7 +238,6 @@ $(document).ready(function(){
 		
 	</div>	
 	<div style="text-align:right;">
-			<input type="button" class="btn btn-primary" value="등록" id="insBtn"/>
 			<input type="button" class="btn btn-info" value="수정" id="uptBtn"/>
 			<input type="button" class="btn btn-warning" value="삭제" id="delBtn"/>
 			<input type="button" class="btn btn-secondary" value="메인화면으로" id="mainBtn"/>

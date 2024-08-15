@@ -14,7 +14,7 @@ import com.web.tracerProject.service.NSerPrj;
 import com.web.tracerProject.vo.Project;
 
 @Controller
-public class NContPrj {
+public class NContPrj extends NContBase{
 	@Autowired(required=false)
 	private NSerPrj service;
 	

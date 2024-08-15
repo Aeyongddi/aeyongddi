@@ -38,14 +38,35 @@ $(document).ready(function(){
 	
     $("#uptBtn").click(function(){
     	if(confirm("수정하시겠습니까?")){
-			  	
+    		$.ajax({
+				url: 'uptDetailPrj',
+				type: 'POST',
+				data: $('#prjFrm').serialize(),
+				success: function(data){
+					alert(data)
+				},
+				error: function(err){
+					console.log(err)
+				}
+			})	
     	}
     })
     $("#delBtn").click(function(){
     	if(confirm("삭제하시겠습니까?")){
-			
+			$.ajax({
+				url: 'delDetailPrj',
+				type: 'POST',
+				data: {pid : $('[name=pid]').val()},
+				success: function(data){
+					alert(data)
+					location.href='index'
+				},
+				error: function(err){
+					console.log(err)
+				}
+			})
     	}
-    })	 
+    })	  
 
 
 
@@ -59,7 +80,8 @@ $(document).ready(function(){
 	})
 	
 	$(".clsBtn").click(function(){
-		$('.participantsFrm').hide()
+		alert('참여 인원을 저장합니다.')
+		window.location.reload()
 	})
 	
 	$("#schNicknameBtn").click(function(){
@@ -187,7 +209,7 @@ $(document).ready(function(){
 				
 				
 				<div class="container">
-	<form> <!-- 등록시 controller호출.. -->
+	<form id="prjFrm"> <!-- 등록시 controller호출.. -->
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">프로젝트 id</span>

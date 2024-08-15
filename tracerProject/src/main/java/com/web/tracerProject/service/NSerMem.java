@@ -45,4 +45,8 @@ public class NSerMem {
 		return Pattern.matches(pattern, email);
 	}
 	
+	// 세션 처리
+	
+	
+	
 }

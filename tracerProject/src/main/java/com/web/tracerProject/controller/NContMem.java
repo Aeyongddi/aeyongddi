@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class NContMem {
+public class NContMem extends NContBase{
 	@Autowired(required=false)
 	private NSerMem service;
 	@Autowired(required=false)

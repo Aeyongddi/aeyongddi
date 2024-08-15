@@ -30,131 +30,44 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	console.log('${user_info.auth }, ${user_info.pid }')
 	$("form").on("keypress", function(event) {
         if (event.key === "Enter") {
             event.preventDefault(); 
         }
     });
-	
-    $("#uptBtn").click(function(){
-    	if(confirm("수정하시겠습니까?")){
-			$("form").attr("action","empUpdate100.do");
-			$("form").submit();	  	
-    	}
-    })
-    $("#delBtn").click(function(){
-    	if(confirm("삭제하시겠습니까?")){
-			location.href="empDelete100.do?empno="+$("[name=empno]").val()	
-    	}
-    })	 
-
-
-
 
 	$("#mainBtn").click(function(){
 		location.href="index"
 	})
 	
-	$(".checkParticipants").click(function(){
-		$('.participantsFrm').show()
-	})
-	
-	$(".clsBtn").click(function(){
-		$('.participantsFrm').hide()
-	})
-	
-	$("#schNicknameBtn").click(function(){
-			var nickname = $('[name=nickname]').val()
-		$.ajax({
-			data: {nickname: nickname},
-			url: 'getCanWork',
-			type: 'POST',
-			success: function(data){
-				$('#canWorkList').html('')
-				data.forEach(function(item){
-					$('#canWorkList').append('<button value="'+item.email+'" class="btn" type="button">'+item.nickname+'</button>')
-				})
-				
+	$("#insBtn").click(function(){
+		var isFormValid = true;
+		$('#insPrjFrm input').each(function(){
+			if ($(this).val().trim() === ''){
+				isFormValid = false;
+				return false;
 			}
 		})
-	})
-	$(document).on('click','#canWorkList button',function(){
-		var email = $(this).val();
-		var pid = $('[name=pid]').val()
-		 $.ajax({
-			url: 'insUserPid',
+		if(!isFormValid) {
+			alert('모든 입력 값을 채워주세요')
+		}
+		else {
+
+			$.ajax({
+			data: $("form").serialize(),
 			type: 'POST',
-			data: {email: email, pid: pid},
-			success:function(data){
-				console.log(data)
-				$('.loading').click()
-				$('#schNicknameBtn').click()
+			url: 'insertProject',
+			success: function(data){
+				alert(data)
 			},
-			error:function(err){
+			error: function(err){
 				console.log(err)
 			}
-		})
-		
-    })
-	$(document).on('click','#participantList button',function(){
-		var email = $(this).val();
-		var pid = $('[name=pid]').val()
-		 $.ajax({
-			url: 'delUserPid',
-			type: 'POST',
-			data: {email: email, pid: pid},
-			success:function(data){
-				console.log(data)
-				$('.loading').click()
-				$('#schNicknameBtn').click()
-			},
-			error:function(err){
-				console.log(err)
-			}
-		}) 
-    })
-	$(document).on('click','.loading',function(){
-		var email = $(this).val();
-		var pid = $('[name=pid]').val()
-		 $.ajax({
-			data: {pid: $('[name=pid]').val()},
-			url: 'getParticipants',
-			type: 'POST',
-			success: function(data){
-				$('#participantList').html('')
-				data.forEach(function(item){
-					$('#participantList').append('<button value="'+item.email+'" class="btn" type="button">'+item.nickname+'</button>')
-				})
-				
-			}
-		})
-    })
-    
-	$.ajax({
-		data: {nickname: ""},
-		url: 'getCanWork',
-		type: 'POST',
-		success: function(data){
-			$('#canWorkList').html('')
-			data.forEach(function(item){
-				$('#canWorkList').append('<button value="'+item.email+'" class="btn" type="button">'+item.nickname+'</button>')
-			})
 			
+			})
 		}
 	})
-	$.ajax({
-		data: {pid: $('[name=pid]').val()},
-		url: 'getParticipants',
-		type: 'POST',
-		success: function(data){
-			$('#participantList').html('')
-			data.forEach(function(item){
-				$('#participantList').append('<button value="'+item.email+'" class="btn" type="button">'+item.nickname+'</button>')
-			})
-			
-		}
-	})
-	
 });
 
 </script>
@@ -188,49 +101,40 @@ $(document).ready(function(){
 				
 				
 				<div class="container">
-	<form> <!-- 등록시 controller호출.. -->
-	<div class="input-group mb-3">	
-		<div class="input-group-prepend ">
-			<span class="input-group-text  justify-content-center">프로젝트 id</span>
-		</div>
-		<input name="pid" class="form-control" value="${selPrj.pid}" readonly />	
-	</div>	
+	<form id="insPrjFrm"> <!-- 등록시 controller호출.. -->
+	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">프로젝트명</span>
 		</div>
-		<input name="title" class="form-control" value="${selPrj.title}" />	
+		<input name="title" class="form-control" required/>	
 	</div>	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend">
 			<span class="input-group-text">프로젝트설명</span>
 		</div>
-		<input name="description" class="form-control" value="${selPrj.description }"/>
+		<input name="description" class="form-control" required/>
 		
 	</div>	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">시작날짜</span>
 		</div>
-		<input type="date" name="start_date" class="form-control" 
-			value='<fmt:formatDate value="${selPrj.start_date}" pattern="yyyy-MM-dd" />' />
+		<input type="date" name="start_date" class="form-control" required/>
 		
 	</div>	
 	<div class="input-group mb-3">	
 		<div class="input-group-prepend ">
 			<span class="input-group-text  justify-content-center">종료날짜</span>
 		</div>
-		<input type="date" name="end_date" class="form-control" 
-			value='<fmt:formatDate value="${selPrj.end_date}" pattern="yyyy-MM-dd" />' />
+		<input type="date" name="end_date" class="form-control" required/>
 		
-	</div>
+	</div></form>
 	<div style="text-align:right;">
 			<input type="button" class="btn btn-primary" value="등록" id="insBtn"/>
-			<input type="button" class="btn btn-info" value="수정" id="uptBtn"/>
-			<input type="button" class="btn btn-warning" value="삭제" id="delBtn"/>
 			<input type="button" class="btn btn-secondary" value="메인화면으로" id="mainBtn"/>
 			
-	</div></form>	<!--  http://localhost:7080/springweb/emp.do?empno=1000 -->
+	</div>	<!--  http://localhost:7080/springweb/emp.do?empno=1000 -->
 	    </div><!--//app-content-->
 	    
 	    <footer class="app-footer">
@@ -242,41 +146,6 @@ $(document).ready(function(){
 	    
     </div><!--//app-wrapper-->    					
 </div>
-</div>    
- <div class="modal participantsFrm" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">참여자</h5>
-				<button type="button" class="btn-close clsBtn"
-					data-bs-dismiss="modal" aria-label="Close"></button>
-			</div>
-			<form>
-				<div class="prjInput modal-body">
-						참여 인원<br>
-					<div id="participantList">
-						
-					</div>
-					<hr>
-					<input name="nickname" class="form-control"
-						placeholder="닉네임 검색" required />
-					<button type="button" id="schNicknameBtn" class="btn btn-info"
-						style="width: 15%;">검색</button>
-						참여 가능인원<br>
-					<div id="canWorkList">
-						
-					</div>
-					<br>
-
-
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary clsBtn"
-						data-bs-dismiss="modal">닫기</button>
-				</div>
-			</form>
-		</div>
-	</div>
 </div>
     <!-- Javascript -->          
     <script src="assets/plugins/popper.min.js"></script>

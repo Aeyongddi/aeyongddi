@@ -14,7 +14,7 @@ import com.web.tracerProject.service.NSerUserMgmt;
 import com.web.tracerProject.vo.User_info;
 
 @Controller
-public class NContUserMgmt {
+public class NContUserMgmt extends NContBase{
 	@Autowired(required=false)
 	NSerUserMgmt service;
 	    @GetMapping("userManagement")

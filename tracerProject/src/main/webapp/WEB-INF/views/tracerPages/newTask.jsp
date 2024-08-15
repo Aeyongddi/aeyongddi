@@ -22,39 +22,38 @@
                     </div>
                 </div>
 
-                <!-- 결재 요청 모달 트리거 -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addApprovalModal">결재 요청</button>
+                <!-- 작업 추가 버튼 -->
+                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTaskModal">작업 추가</button>
 
-                <!-- 결재 요청 모달 -->
-                <div class="modal fade" id="addApprovalModal" tabindex="-1" aria-labelledby="addApprovalModalLabel" aria-hidden="true">
+                <!-- 작업 추가 모달 -->
+                <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="addApprovalModalLabel">결재 요청</h5>
+                                <h5 class="modal-title" id="addTaskModalLabel">작업 추가</h5>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <form action="/newTask/requestApproval" method="post" enctype="multipart/form-data">
-                                    <input type="hidden" name="tkid" value="${task.tkid}" />
-
+                                <form action="/newTask/add" method="post">
                                     <div class="form-group">
-                                        <label for="approvalTitle">결재 제목</label> 
-                                        <input type="text" class="form-control" id="approvalTitle" name="approvalTitle" required>
+                                        <label for="taskName">작업 제목</label>
+                                        <input type="text" class="form-control" id="taskName" name="name" required>
                                     </div>
-
                                     <div class="form-group">
-                                        <label for="approvalDescription">설명</label>
-                                        <textarea class="form-control" id="approvalDescription" name="approvalDescription" required></textarea>
+                                        <label for="taskDescription">설명</label>
+                                        <textarea class="form-control" id="taskDescription" name="description" required></textarea>
                                     </div>
-
                                     <div class="form-group">
-                                        <label for="approvalFile">파일 첨부</label> 
-                                        <input type="file" class="form-control" id="approvalFile" name="approvalFile">
+                                        <label for="taskStartDate">시작 날짜</label>
+                                        <input type="date" class="form-control" id="taskStartDate" name="startDate" required>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label for="taskEndDate">종료 날짜</label>
+                                        <input type="date" class="form-control" id="taskEndDate" name="endDate">
+                                    </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                        <button type="submit" class="btn btn-primary">결재 요청</button>
+                                        <button type="submit" class="btn btn-primary">추가하기</button>
                                     </div>
                                 </form>
                             </div>
@@ -75,6 +74,7 @@
                                         <th class="cell">종료 날짜</th>
                                         <th class="cell">상태</th>
                                         <th class="cell">수정/삭제</th>
+                                        <th class="cell">결재 요청</th>
                                         <th class="cell">피드백 확인</th>
                                     </tr>
                                 </thead>
@@ -97,10 +97,13 @@
 
                                                 <!-- 삭제 버튼 -->
                                                 <form action="/newTask/delete" method="post" style="display: inline;">
-                                                    <input type="hidden" name="tkid" value="${task.tkid}" /> 
-                                                    <input type="hidden" name="sid" value="${task.sid}" />
+                                                    <input type="hidden" name="tkid" value="${task.tkid}" />
                                                     <button type="submit" class="btn btn-sm btn-danger">삭제</button>
                                                 </form>
+                                            </td>
+                                            <td class="cell">
+                                                <!-- 결재 요청 버튼 -->
+                                                <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#requestApprovalModal-${task.tkid}">결재 요청</button>
                                             </td>
                                             <td class="cell">
                                                 <!-- 피드백 확인 버튼 -->
@@ -119,10 +122,9 @@
                                                     <div class="modal-body">
                                                         <form action="/newTask/update" method="post">
                                                             <input type="hidden" name="tkid" value="${task.tkid}" />
-                                                            <input type="hidden" name="sid" value="${task.sid}" />
 
                                                             <div class="form-group">
-                                                                <label for="name-${task.tkid}">제목</label> 
+                                                                <label for="name-${task.tkid}">제목</label>
                                                                 <input type="text" class="form-control" id="name-${task.tkid}" name="name" value="${task.name}" required>
                                                             </div>
 
@@ -132,18 +134,55 @@
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="startDate-${task.tkid}">시작 날짜</label> 
+                                                                <label for="startDate-${task.tkid}">시작 날짜</label>
                                                                 <input type="date" class="form-control" id="startDate-${task.tkid}" name="startDate" value="${task.formattedStartDate}" required>
                                                             </div>
 
                                                             <div class="form-group">
-                                                                <label for="endDate-${task.tkid}">종료 날짜</label> 
+                                                                <label for="endDate-${task.tkid}">종료 날짜</label>
                                                                 <input type="date" class="form-control" id="endDate-${task.tkid}" name="endDate" value="${task.formattedEndDate}">
                                                             </div>
 
                                                             <div class="modal-footer">
                                                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
                                                                 <button type="submit" class="btn btn-primary">수정하기</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 결재 요청 모달 -->
+                                        <div class="modal fade" id="requestApprovalModal-${task.tkid}" tabindex="-1" aria-labelledby="requestApprovalModalLabel-${task.tkid}" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="requestApprovalModalLabel-${task.tkid}">결재 요청</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <form action="/newTask/requestApproval" method="post" enctype="multipart/form-data">
+                                                            <input type="hidden" name="tkid" value="${task.tkid}" />
+
+                                                            <div class="form-group">
+                                                                <label for="approvalTitle-${task.tkid}">결재 제목</label>
+                                                                <input type="text" class="form-control" id="approvalTitle-${task.tkid}" name="approvalTitle" required>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="approvalDescription-${task.tkid}">설명</label>
+                                                                <textarea class="form-control" id="approvalDescription-${task.tkid}" name="approvalDescription" required></textarea>
+                                                            </div>
+
+                                                            <div class="form-group">
+                                                                <label for="approvalFile-${task.tkid}">파일 첨부</label>
+                                                                <input type="file" class="form-control" id="approvalFile-${task.tkid}" name="approvalFile">
+                                                            </div>
+
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                                                                <button type="submit" class="btn btn-primary">결재 요청</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -168,8 +207,8 @@
                                                         <form action="/newTask/submitFeedback" method="post">
                                                             <input type="hidden" name="apid" value="${task.approval.apid}" />
                                                             <div class="form-group">
-                                                                <label for="userFeedback">보완 피드백:</label>
-                                                                <textarea class="form-control" id="userFeedback" name="userFeedback" required></textarea>
+                                                                <label for="userFeedback-${task.tkid}">보완 피드백:</label>
+                                                                <textarea class="form-control" id="userFeedback-${task.tkid}" name="userFeedback" required></textarea>
                                                             </div>
                                                             <button type="submit" class="btn btn-primary mt-3">피드백 제출</button>
                                                         </form>

@@ -29,6 +29,7 @@ public interface JDaoNewAppro {
     @Update("UPDATE \"C##JH\".\"APPROVAL\" SET \"FEEDBACK\" = #{feedback} WHERE \"APID\" = #{apid}")
     void updateFeedback(@Param("apid") String apid, @Param("feedback") String feedback);
 
-    @Select("SELECT * FROM \"C##JH\".\"APPROVAL\" WHERE \"TKID\" = #{tkid}")
-    Approval findApprovalByTaskId(String tkid);
+    @Select("SELECT * FROM \"C##JH\".\"APPROVAL\" WHERE \"TKID\" = #{tkid, jdbcType=VARCHAR}")
+    Approval findApprovalByTaskId(@Param("tkid") String tkid);
+
 }

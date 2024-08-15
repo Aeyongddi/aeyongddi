@@ -55,8 +55,7 @@ public class JContNewTask {
                                   @RequestParam("approvalTitle") String approvalTitle,
                                   @RequestParam("approvalDescription") String approvalDescription,
                                   @RequestParam("approvalFile") MultipartFile approvalFile) throws IOException {
-        
-        // 파일 업로드 처리
+
         String uploadDir = "C:/upload/files/";
         String fileName = approvalFile.getOriginalFilename();
         File file = new File(uploadDir + fileName);

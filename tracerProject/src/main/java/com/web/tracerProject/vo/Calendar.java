@@ -21,5 +21,7 @@ public class Calendar {
 	private boolean allDay;
 	private String url;
 	
+	private String email;
 	private String tid;
+	private String pid;
 }

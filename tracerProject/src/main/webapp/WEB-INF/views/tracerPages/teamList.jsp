@@ -59,9 +59,9 @@ $(document).ready(function(){
             }
         });
     });
-	$(".teamDetail").click(function(){
-		location.href='teamDetail?tid='+$(this).parent().parent().attr('class')
-	})
+    $(document).on('click', '.teamDetail', function() {
+        location.href = 'teamDetail?tid=' + $(this).closest('tr').attr('class');
+    });
     // 프로젝트 삭제 함수 정의
     var teamDel = function() {
         var that = this; // `this`의 컨텍스트 저장
@@ -156,6 +156,7 @@ $(document).ready(function(){
 											<tr class="${team.tid }">
 												<td class="cell">${team.pid}</td>
 												<td class="cell">${team.tid}</td>
+												<td class="cell">${team.name}</td>
 												<td class="cell"><a class="btn-sm app-btn-secondary teamDetail">세부내용/수정</a><a class="btn-sm app-btn-secondary teamDelBtn">삭제</a></td>
 											</tr>
 										</c:forEach>

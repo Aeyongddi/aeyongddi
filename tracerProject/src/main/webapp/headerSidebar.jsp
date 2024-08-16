@@ -308,7 +308,7 @@
                                 </svg>
 						</span> <span>팀 생성하기</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="teamDetail"> <span
+					<li class="nav-item"><a class="nav-link" href="teamDetail?tid=${user_info.tid }"> <span
 							class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-question-circle"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">

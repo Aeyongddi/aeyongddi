@@ -1,6 +1,7 @@
 package com.web.tracerProject.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -13,6 +14,9 @@ public abstract class NContBase {
 	@Autowired(required = false)
 	    private JSerMain service;
 	 
+	@Value("${server.servlet.session.timeout}")
+	private int sessionTimeout;
+	
 	@ModelAttribute
 	public void addAttributes(Model d, HttpSession session) {
 		User_info user_info = (User_info)session.getAttribute("info");
@@ -22,5 +26,7 @@ public abstract class NContBase {
 			Object newUserSession = session.getAttribute("user_info");
 			d.addAttribute("user_info", newUserSession);
 		}
+		
+		session.setMaxInactiveInterval(sessionTimeout);
 	}
 }

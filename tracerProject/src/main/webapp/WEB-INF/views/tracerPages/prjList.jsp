@@ -60,9 +60,9 @@ $(document).ready(function(){
             }
         });
     });
-	$(".prjDetail").click(function(){
-		location.href='prjDetail?pid='+$(this).parent().parent().attr('class')
-	})
+    $(document).on('click', '.prjDetail', function() {
+        location.href = 'prjDetail?pid=' + $(this).closest('tr').attr('class');
+    });
     // 프로젝트 삭제 함수 정의
     var prjDel = function() {
         var that = this; // `this`의 컨텍스트 저장

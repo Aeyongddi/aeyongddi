@@ -24,6 +24,11 @@ public class NContTeamDetail extends NContBase{
 		d.addAttribute("selTeam", service.selTeam(tid));
 		return "tracerPages/teamDetail";
 	}
+	@GetMapping("teamInfo")
+	public String teamInfo(@RequestParam("tid") String tid, Model d) {
+		d.addAttribute("selTeam", service.selTeam(tid));
+		return "tracerPages/teamInfo";
+	}
 	@PostMapping("uptDetailTeam")
     public ResponseEntity<String> uptDetailTeam(Team team) {
     	return ResponseEntity.ok(service.uptTeam(team));

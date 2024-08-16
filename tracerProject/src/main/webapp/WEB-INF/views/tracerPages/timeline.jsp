@@ -53,7 +53,8 @@
 $(document).ready(function(){
 // 초기세팅
 var opts
-
+if(auth == "member")
+	gantt.config.readonly = true
 	
 	gantt.locale.labels.icon_save = "저장";
 	gantt.locale.labels.icon_cancel = "취소";

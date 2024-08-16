@@ -13,6 +13,30 @@
 	src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api"
 	type="text/javascript"></script>
 <script type="text/javascript">
+var auth = '${user_info.auth}'
+var pid = '${user_info.pid}'
+var tid = '${user_info.tid}'
+$(document).ready(function(){
+	
+	if(auth == 'noauth' || auth == ''){
+		alert('권한이 존재하지 않습니다')
+		location.href = 'login'
+	}
+	if(auth != 'admin' && pid == '0'){
+		$('.noAdminOrNoPrj').hide()
+	}
+	if(auth == 'manager'){
+		$('.nomgr').hide()	
+	}
+	if(auth == 'member'){
+		$('.nomem').hide()
+	}
+	if(pid == '0'){
+		$('.noprj').hide()
+	}
+	if(tid == '0'){
+		$('.noteam').hide()
+	}
 	$(document)
 			.ready(
 					function() {
@@ -29,7 +53,7 @@
 							$('#chatModal').hide();
 						});
 					});
-
+})
 </script>
 <header class="app-header fixed-top">
 	<div class="app-header-inner">
@@ -135,7 +159,7 @@
 					</a>
 					<!--//nav-link--></li>
 					<!--//nav-item-->
-					<li class="nav-item"><a class="nav-link newProject" href="newPrj">
+					<li class="nav-item nomem"><a class="nav-link newProject" href="newPrj">
 							<span class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-house-door"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -148,7 +172,7 @@
 					</a>
 					<!--//nav-link--></li>
 					<!--//nav-item-->
-					<li class="nav-item"><a class="nav-link" href="timeline">
+					<li class="nav-item noAdminOrNoPrj"><a class="nav-link" href="timeline">
 							<span class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor"
 									xmlns="http://www.w3.org/2000/svg">
@@ -161,7 +185,7 @@
 					</a>
 					<!--//nav-link--></li>
 					<!--//nav-item-->
-					<li class="nav-item"><a class="nav-link" href="calendar">
+					<li class="nav-item noAdminOrNoPrj"><a class="nav-link" href="calendar">
 							<span class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-card-list" fill="currentColor"
 									xmlns="http://www.w3.org/2000/svg">
@@ -264,7 +288,7 @@
 							</div>
 						</div>
 					</div>
-					<li class="nav-item"><a class="nav-link" href="prjList"> <span
+					<li class="nav-item nomem nomgr"><a class="nav-link" href="prjList"> <span
 							class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-question-circle"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -275,7 +299,8 @@
                                 </svg>
 						</span> <span>프로젝트 목록</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="prjDetail?pid=${user_info.pid }"> <span
+					<li class="nav-item noprj"><a class="nav-link" href="${user_info.auth == 'member'?
+												'prjInfo':'prjDetail' }?pid=${user_info.pid }"> <span
 							class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-question-circle"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -297,7 +322,7 @@
                                 </svg>
 						</span> <span>팀 목록</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="newTeam"> <span
+					<li class="nav-item nomem"><a class="nav-link" href="newTeam"> <span
 							class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-question-circle"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -308,7 +333,8 @@
                                 </svg>
 						</span> <span>팀 생성하기</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="teamDetail?tid=${user_info.tid }"> <span
+					<li class="nav-item noteam"><a class="nav-link" href="${user_info.auth == 'member'?
+											'teamInfo':'teamDetail' }?tid=${user_info.tid }"> <span
 							class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-question-circle"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -319,7 +345,7 @@
                                 </svg>
 						</span> <span>팀 정보[인적자원 관리]</span>
 					</a></li>
-					<li class="nav-item"><a class="nav-link" href="userManagement"> <span
+					<li class="nav-item nomem nomgr"><a class="nav-link" href="userManagement"> <span
 							class="nav-icon"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-question-circle"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">

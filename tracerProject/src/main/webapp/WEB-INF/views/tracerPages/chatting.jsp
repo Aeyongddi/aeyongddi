@@ -153,6 +153,23 @@ var currentChatType = 'group';
 var currentChatName = '단체 채팅1';
 var socket = new WebSocket('ws://192.168.0.10:5656/chat');
 
+socket.onopen = function(event) {
+    console.log('Connection established');
+};
+
+socket.onmessage = function(event) {
+    console.log('Message received: ' + event.data);
+};
+
+socket.onclose = function(event) {
+    console.log('Connection closed');
+};
+
+socket.onerror = function(event) {
+    console.error('WebSocket Error: ', event);
+};
+
+
 $(document).ready(function () {
     showNicknameModal();
 

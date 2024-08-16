@@ -44,7 +44,7 @@ $(document).ready(function(){
 				    <div class="app-auth-branding mb-4"><a class="app-logo" href="logout"><img class="logo-icon me-2" src="/logo.png" alt="logo"></a></div>
 					<h2 class="auth-heading text-center mb-5">TRACER 로그인</h2>
 			        <div class="auth-form-container text-start">
-						<form action="index" class="auth-form login-form" method="post">         
+						<form action="${pageContext.request.contextPath}/login" method="post">
 							<div class="email mb-3">
 								<input id="signin-email" name="email" type="email" class="form-control signin-email" placeholder="이메일 입력" required="required">
 							</div><!--//form-group-->

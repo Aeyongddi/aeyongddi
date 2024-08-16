@@ -26,6 +26,8 @@ public class Task {
     private String description;
     private String sid;
     private boolean endYn;
+    private String email;
+    private String approvalStatus;
     
     // 포맷팅된 날짜 필드 추가
     private String formattedStartDate;

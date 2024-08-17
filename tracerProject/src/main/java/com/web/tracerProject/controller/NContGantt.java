@@ -8,25 +8,32 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.tracerProject.service.NSerGantt;
+import com.web.tracerProject.service.NSerPrj;
+import com.web.tracerProject.vo.Calendar;
 import com.web.tracerProject.vo.Gantt;
 
 @Controller
 public class NContGantt extends NContBase{
 	@Autowired(required=false)
 	NSerGantt service;
+	@Autowired(required=false)
+	NSerPrj getPrj;
 	
 	@GetMapping("timeline")
-	public String timeline() {
+	public String timeline(Model d) {
+		d.addAttribute("prjs", getPrj.schProject(""));
 		return "tracerPages/timeline";
 	}
 	@PostMapping("timeline")
-    public ResponseEntity<Map<String, Object>> getGanttScheduleTask() {
-        List<Gantt> ganttSchedule = service.getGanttSchedule();
-        List<Gantt> ganttTask = service.getGanttTask();
+    public ResponseEntity<Map<String, Object>> getGanttScheduleTask(@RequestParam("pid") String pid) {
+        List<Gantt> ganttSchedule = service.getGanttSchedule(pid);
+        List<Gantt> ganttTask = service.getGanttTask(pid);
         
         List<Gantt> ganttData = new ArrayList<>();
         ganttData.addAll(ganttSchedule);

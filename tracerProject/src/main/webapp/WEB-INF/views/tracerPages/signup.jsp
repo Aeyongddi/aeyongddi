@@ -99,7 +99,7 @@ $(document).ready(function(){
 	    <div class="col-12 col-md-7 col-lg-6 auth-main-col text-center p-5">
 		    <div class="d-flex flex-column align-content-end">
 			    <div class="app-auth-body mx-auto">	
-				    <div class="app-auth-branding mb-4"><a class="app-logo" href="signup"><img class="logo-icon me-2" src="/logo.png" alt="logo"></a></div>
+				    <div class="app-auth-branding mb-4"><a class="app-logo" href="signup"><img class="logo-icon me-2" src="image/logo.png" alt="logo"></a></div>
 					<h2 class="auth-heading text-center mb-4">TRACER 회원가입</h2>					
 					<input type="hidden"/>
 					<div class="auth-form-container text-start mx-auto">

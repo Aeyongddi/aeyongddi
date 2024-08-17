@@ -51,8 +51,20 @@
 	</style>
 <script type="text/javascript">
 $(document).ready(function(){
+if(auth != 'admin')
+	$('#prjList').hide()
 // 초기세팅
 var opts
+$('#prjList').change(function() {
+	var selectedVal = $(this).val();
+	if(selectedVal == "")
+		$('#gantt_here').hide()
+	else{
+		$('#gantt_here').show()
+		pid = selectedVal
+		timelineFunc('1', pid)
+	}
+})
 if(auth == "member")
 	gantt.config.readonly = true
 	
@@ -92,13 +104,13 @@ if(auth == "member")
 		if(task.$level==0){
 			gantt.deleteTask(id)
 			ganttAjaxSchedule("insSchByGantt" ,task, function(){
-				timelineFunc('1')
-			})
+				timelineFunc('1', pid)
+			}, pid)
         }else{
         	gantt.deleteTask(id)
         	ganttAjaxTask("insTaskByGantt" ,task, function(){
-				timelineFunc('1')
-			})
+				timelineFunc('1', pid)
+			}, pid)
         }
         return true; 
     });
@@ -106,12 +118,12 @@ if(auth == "member")
         console.log("Task update:", id, task);
         if(task.$level==0){
         	ganttAjaxSchedule("uptSchByGantt" ,task, function(){
-				timelineFunc(task)
-			})
+				timelineFunc(task, pid)
+			}, pid)
         }else{
         	ganttAjaxSchedule("uptTaskByGantt" ,task, function(){
-				timelineFunc(task)
-			})
+				timelineFunc(task, pid)
+			}, pid)
         }
         return true; 
     });
@@ -120,12 +132,12 @@ if(auth == "member")
         console.log("Task delete:", id, task);
 		if(task.$level==0){
 			ganttAjaxSchedule("delSchByGantt" ,task, function(){
-				timelineFunc('1')
-			})
+				timelineFunc('1', pid)
+			}, pid)
         }else{
         	ganttAjaxSchedule("delTaskByGantt" ,task, function(){
-				timelineFunc('1')
-			})	
+				timelineFunc('1', pid)
+			}, pid)	
         }
         return true; 
     });
@@ -155,7 +167,7 @@ if(auth == "member")
 					n.map(function(username) { return { key: username, label: username }; }) },
                 { name: "time", height: 72, type: "duration", map_to: "auto" }
             ];
-            timelineFunc('1')
+            timelineFunc('1', pid)
         },
         error: function(err) {
             console.error("Failed to load users", err);
@@ -164,12 +176,14 @@ if(auth == "member")
 });
 	
 	
-	function timelineFunc(task){
+	function timelineFunc(task, pid){
 		$.ajax({
+			data: {pid: pid},
 			url: 'timeline',
 			type: 'POST',
 			dataType: 'json',
 			success: function(data){
+				
 				console.log("Received data:", data)
 				gantt.clearAll()
 				gantt.init("gantt_here")
@@ -194,7 +208,7 @@ if(auth == "member")
 
         return count;
     }// insSchByGantt, insTaskByGantt
-	function ganttAjaxSchedule(url, sel, callback){
+	function ganttAjaxSchedule(url, sel, callback, pid){
 		$.ajax({
 			data: sel,
 			url: 'getEmail',
@@ -203,7 +217,7 @@ if(auth == "member")
 				sel.start_date = new Date(sel.start_date).toISOString()
 				sel.end_date = new Date(sel.end_date).toISOString()
 				sel.email = data
-				sel.pid = '${user_info.pid}' // 추후 수정할 것. 세션처리
+				sel.pid = pid 
 				$.ajax({
 					data: sel,
 					url: url,
@@ -253,10 +267,18 @@ if(auth == "member")
 			    
 			    <div class="row g-3 mb-4 align-items-center justify-content-between">
 				    <div class="col-auto">
-			            <h1 class="app-page-title mb-0">타임라인</h1>
+			            <span class="h1 app-page-title mb-0">타임라인</span>
+			            <label class="ms-3">
+			            <select name="prjOpts" id="prjList" class="form-select">
+			            	<option value="">프로젝트 선택</option>
+			            	<c:forEach items="${prjs}" var="prj">
+			            		<option value="${prj.pid }">${prj.title }</option>
+			            	</c:forEach>
+			            </select></label>
 				    </div>
+				    
 			    </div><!--//row-->
-			   
+			   <br><br><br>
 			    
 		<div id="gantt_here" style='width:960px; height:700px;'></div>
 	<script>

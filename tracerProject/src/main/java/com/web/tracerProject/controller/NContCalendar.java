@@ -6,21 +6,27 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.tracerProject.service.NSerCalendar;
+import com.web.tracerProject.service.NSerPrj;
 import com.web.tracerProject.vo.Calendar;
+import com.web.tracerProject.vo.Project;
 
 @Controller
 public class NContCalendar extends NContBase{
 	@Autowired(required=false)
 	NSerCalendar service;
+	@Autowired(required=false)
+	NSerPrj getPrj;
 	
 	// http://localhost:5656/calendar
 	@GetMapping("calendar")
-	public String calendar() {
+	public String calendar(Model d) {
+		d.addAttribute("prjs", getPrj.schProject(""));
 		return "tracerPages/calendar";
 	}
 	@PostMapping("getScheduleCalendarList")

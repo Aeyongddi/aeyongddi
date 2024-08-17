@@ -52,12 +52,20 @@
 			            <label for="checkbox1">
 			            prj<br>
 			            <input type="checkbox" id="checkbox1" name="prj" value="" checked/></label>
-			            <label for="checkbox2">
+			            <label class="haveTeam" for="checkbox2">
 			            팀<br>
 			            <input type="checkbox" id="checkbox2" name="team" value="Team"/></label>
 			            <label for="checkbox3">
 			            개인<br>
 			            <input type="checkbox" id="checkbox3" name="indiv" value="Indiv"/></label>
+			            <label for="prjList">
+			            프로젝트명<br>
+			            <select name="prjOpts" id="prjList" class="form-select">
+			            	<option value="">프로젝트 선택</option>
+			            	<c:forEach items="${prjs}" var="prj">
+			            		<option value="${prj.pid }">${prj.title }</option>
+			            	</c:forEach>
+			            </select></label>
 				    </div>
 			    </div><!--//row-->
 			   
@@ -100,7 +108,7 @@
 							</div>
 							<select name="insOpt" class="form-select">
 								<option value="indiv">개인</option>
-								<option value="team">팀</option>
+								<option class="haveTeam" value="team">팀</option>
 								<option value="">프로젝트</option>
 							</select>
 						</div>	
@@ -155,7 +163,22 @@
 	</div>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function() {
-	console.log('${user_info.pid}')
+	if(tid == '0')
+		$('.haveTeam').hide()
+	if(auth != 'admin')
+		$('[for="prjList"]').hide()
+	$('#prjList').change(function() {
+		var selectedVal = $(this).val();
+		if(selectedVal == "")
+			$('.container').hide()
+		else{
+			$('.container').show()
+			pid = selectedVal
+			$('[name="pid"]').val(pid)
+			getCalendar(calendarOpt)
+		}
+	})
+	console.log(tid)
 		var calendarOpt = [""]
 		const prjColor = "rgb(46, 204, 113)"
 		const teamColor = "rgb(32, 178, 170)"

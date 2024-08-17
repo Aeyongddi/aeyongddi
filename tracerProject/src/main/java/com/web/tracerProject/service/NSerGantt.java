@@ -15,11 +15,11 @@ public class NSerGantt {
 	@Autowired(required=false)
 	NDaoGantt dao;
 	
-	public List<Gantt> getGanttSchedule() {
-		return dao.getGanttSchedule();
+	public List<Gantt> getGanttSchedule(String pid) {
+		return dao.getGanttSchedule(pid);
 	}
-	public List<Gantt> getGanttTask() {
-		return dao.getGanttTask();
+	public List<Gantt> getGanttTask(String pid) {
+		return dao.getGanttTask(pid);
 	}
 	
 	public List<String> getUsers(){ 

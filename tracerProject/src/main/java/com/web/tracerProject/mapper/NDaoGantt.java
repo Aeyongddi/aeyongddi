@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -24,8 +25,9 @@ public interface NDaoGantt {
 				nickname AS "users"
 			FROM schedule s, user_info u
 			WHERE s.email = u.email
+			AND s.PID = #{pid}
 			""")
-	List<Gantt> getGanttSchedule();
+	List<Gantt> getGanttSchedule(@Param("pid") String pid);
 	@Select("""
 			SELECT 	
 				TRIM(LEADING '0' FROM REGEXP_REPLACE(tkid, '[^0-9]', '')) + 10000 AS id,
@@ -39,8 +41,9 @@ public interface NDaoGantt {
 			FROM schedule s, task t, user_info u
 			WHERE t.sid = s.sid 
 			AND u.email = s.email
+			AND s.PID = #{pid}
 			""")
-	List<Gantt> getGanttTask();
+	List<Gantt> getGanttTask(@Param("pid") String pid);
 	@Select("""
 			SELECT NICKNAME FROM USER_INFO
 			""")

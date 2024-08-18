@@ -156,52 +156,66 @@
         <!-- Modal -->
         <c:forEach var="approval" items="${approvals}">
             <div class="modal fade" id="approvalModal-${approval.apid}" tabindex="-1" aria-labelledby="approvalModalLabel-${approval.apid}" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="approvalModalLabel-${approval.apid}">결재 상세 정보</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form action="/approval/updateStatus" method="post">
-                                <input type="hidden" name="apid" value="${approval.apid}" />
-                                <div class="mb-3">
-                                    <label class="form-label">결재 상태</label>
-                                    <select class="form-control" name="approvalStatus">
-                                        <option value="결재 대기" ${approval.approvalStatus == '결재 대기' ? 'selected' : ''}>결재 대기</option>
-                                        <option value="결재 완료" ${approval.approvalStatus == '결재 완료' ? 'selected' : ''}>결재 완료</option>
-                                        <option value="보류" ${approval.approvalStatus == '보류' ? 'selected' : ''}>보류</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">요청 일시</label>
-                                    <p class="form-control-plaintext">${approval.formattedRequestDateTime}</p>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">상태 업데이트 일시</label>
-                                    <p class="form-control-plaintext">${approval.formattedUpdateDateTime}</p>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">작업 ID</label>
-                                    <p class="form-control-plaintext">${approval.tkid}</p>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">업로드 파일</label>
-                                    <p class="form-control-plaintext"><a href="${approval.upfile}">다운로드</a></p>
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">피드백</label>
-                                    <textarea class="form-control" name="feedback">${approval.feedback}</textarea>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
-                                    <button type="submit" class="btn btn-primary">상태 업데이트</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="approvalModalLabel-${approval.apid}">결재 상세 정보</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+            <div class="modal-body">
+                <form action="/approval/updateStatus" method="post">
+                    <input type="hidden" name="apid" value="${approval.apid}" />
+                    
+                    <!-- 결재 제목 -->
+                    <div class="mb-3">
+                        <label class="form-label">결재 제목</label>
+                        <p class="form-control-plaintext">${approval.approvalTitle}</p>
+                    </div>
+                    
+                    <!-- 결재 설명 -->
+                    <div class="mb-3">
+                        <label class="form-label">결재 설명</label>
+                        <p class="form-control-plaintext">${approval.approvalDescription}</p>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">결재 상태</label>
+                        <select class="form-control" name="approvalStatus">
+                            <option value="결재 대기" ${approval.approvalStatus == '결재 대기' ? 'selected' : ''}>결재 대기</option>
+                            <option value="결재 완료" ${approval.approvalStatus == '결재 완료' ? 'selected' : ''}>결재 완료</option>
+                            <option value="보류" ${approval.approvalStatus == '보류' ? 'selected' : ''}>보류</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">요청 일시</label>
+                        <p class="form-control-plaintext">${approval.formattedRequestDateTime}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">상태 업데이트 일시</label>
+                        <p class="form-control-plaintext">${approval.formattedUpdateDateTime}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">작업 ID</label>
+                        <p class="form-control-plaintext">${approval.tkid}</p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">업로드 파일</label>
+                        <p class="form-control-plaintext"><a href="${approval.upfile}">다운로드</a></p>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">피드백</label>
+                        <textarea class="form-control" name="feedback">${approval.feedback}</textarea>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                        <button type="submit" class="btn btn-primary">상태 업데이트</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
         </c:forEach>
     </div>
 

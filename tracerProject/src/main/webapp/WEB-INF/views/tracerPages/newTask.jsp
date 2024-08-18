@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -23,15 +24,18 @@
                 </div>
 
                 <!-- 작업 추가 버튼 -->
-                <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addTaskModal">작업 추가</button>
+                <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                    data-bs-target="#addTaskModal">작업 추가</button>
 
                 <!-- 작업 추가 모달 -->
-                <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+                <div class="modal fade" id="addTaskModal" tabindex="-1"
+                    aria-labelledby="addTaskModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
                                 <h5 class="modal-title" id="addTaskModalLabel">작업 추가</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
                                 <form action="/newTask/add" method="post">
@@ -85,16 +89,13 @@
                                             <td class="cell task-row" data-taskid="${task.tkid}">${task.name}</td>
                                             <td class="cell task-row" data-taskid="${task.tkid}">${task.formattedStartDate}</td>
                                             <td class="cell task-row" data-taskid="${task.tkid}">${task.formattedEndDate}</td>
-                                            <td class="cell">
-                                                <select class="form-control status-select" data-taskid="${task.tkid}">
-                                                    <option value="false" ${!task.endYn ? 'selected' : ''}>진행 중</option>
-                                                    <option value="true" ${task.endYn ? 'selected' : ''}>완료</option>
-                                                </select>
-                                            </td>
+                                            <td class="cell"><select class="form-control status-select" data-taskid="${task.tkid}">
+                                                <option value="0" ${!task.endYn ? 'selected' : ''}>진행 중</option>
+                                                <option value="1" ${task.endYn ? 'selected' : ''}>완료</option>
+                                            </select></td>
                                             <td class="cell">
                                                 <!-- 수정 버튼 -->
                                                 <button type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" data-bs-target="#editTaskModal-${task.tkid}">수정</button>
-
                                                 <!-- 삭제 버튼 -->
                                                 <form action="/newTask/delete" method="post" style="display: inline;">
                                                     <input type="hidden" name="tkid" value="${task.tkid}" />
@@ -166,6 +167,12 @@
                                                             <input type="hidden" name="tkid" value="${task.tkid}" />
 
                                                             <div class="form-group">
+                                                                <label for="approvalEmail-${task.tkid}">작성자 이메일</label>
+                                                                <input type="text" class="form-control" id="approvalEmail-${task.tkid}" name="approvalEmail" value="${user_info.email}" readonly>
+                                                                <input type="hidden" name="email" value="${user_info.email}">
+                                                            </div>
+
+                                                            <div class="form-group">
                                                                 <label for="approvalTitle-${task.tkid}">결재 제목</label>
                                                                 <input type="text" class="form-control" id="approvalTitle-${task.tkid}" name="approvalTitle" required>
                                                             </div>
@@ -201,7 +208,7 @@
                                                     <div class="modal-body">
                                                         <h4>결재 제목: ${task.approval.approvalTitle}</h4>
                                                         <p><strong>결재 설명:</strong> ${task.approval.approvalDescription}</p>
-                                                        <p><strong>피드백:</strong> ${task.approval.feedback}</p>
+                                                        <p><strong>피드백:</strong> ${task.approval.feedback.replace('\n', '<br/>')}</p>
                                                         <p><strong>첨부 파일:</strong> <a href="/upload/files/${task.approval.upfile}">다운로드</a></p>
 
                                                         <form action="/newTask/submitFeedback" method="post">
@@ -244,7 +251,7 @@
             // 상태 변경 시 AJAX 요청을 통해 상태 업데이트
             $('.status-select').on('change', function() {
                 const taskId = $(this).data('taskid');
-                const newStatus = $(this).val() === "true";
+                const newStatus = $(this).val() === "1";
 
                 fetch('/newTask/updateStatus', {
                     method: 'POST',
@@ -259,9 +266,9 @@
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        alert('현재 상태가 수정되었습니다.');
+                        alert('상태가 성공적으로 업데이트되었습니다.');
                     } else {
-                        alert('현재 상태가 변경되지 않았습니다.');
+                        alert('상태 업데이트에 실패했습니다.');
                     }
                 })
                 .catch(error => {

@@ -15,7 +15,7 @@ import lombok.Setter;
 @Setter
 public class Approval {
     private String apid;
-    private String approvalStatus;
+    private String approvalStatus = "결재 대기";
     
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime requestDateTime;

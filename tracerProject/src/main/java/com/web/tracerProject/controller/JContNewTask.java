@@ -2,11 +2,11 @@ package com.web.tracerProject.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,8 +19,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.tracerProject.service.JSerNewAppro;
 import com.web.tracerProject.service.JSerNewTask;
-import com.web.tracerProject.vo.Approval;
 import com.web.tracerProject.vo.Task;
+import com.web.tracerProject.vo.User_info;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class JContNewTask {
@@ -37,16 +39,24 @@ public class JContNewTask {
 
     @GetMapping("/newTask")
     public String showTaskList(Model model) {
-        model.addAttribute("tasks", taskService.getAllTasks());
+        List<Task> tasks = taskService.getAllTasks(); // taskService에서 가져온다
+
+        model.addAttribute("tasks", tasks);
         return "tracerPages/newTask";
     }
 
+
     @PostMapping("/newTask/add")
-    public String addTask(@ModelAttribute Task task) {
+    public String addTask(@ModelAttribute Task task, HttpSession session) {
+        // 세션에서 이메일 가져오기
+        User_info user_info = (User_info) session.getAttribute("user_info");
+        String email = user_info != null ? user_info.getEmail() : null;
+
         task.setEndYn(false); // 기본적으로 작업 상태는 "진행 중"
-        taskService.addTask(task);
+        taskService.addTask(task, email);  // email 인자 추가
         return "redirect:/newTask";
     }
+
 
     @PostMapping("/newTask/update")
     public String updateTask(@ModelAttribute Task task) {
@@ -64,7 +74,8 @@ public class JContNewTask {
     public String requestApproval(@RequestParam("tkid") String tkid,
                                   @RequestParam("approvalTitle") String approvalTitle,
                                   @RequestParam("approvalDescription") String approvalDescription,
-                                  @RequestParam("approvalFile") MultipartFile approvalFile) throws IOException {
+                                  @RequestParam("approvalFile") MultipartFile approvalFile,
+                                  HttpSession session) throws IOException {
 
         // 파일 업로드 경로
         String uploadDir = "C:\\Users\\human-07\\git\\aeyongFinal\\tracerProject\\src\\main\\webapp\\WEB-INF\\upload";
@@ -75,21 +86,22 @@ public class JContNewTask {
             dir.mkdirs(); // 디렉터리를 생성합니다.
         }
 
-        // 파일 저장 경로 및 파일 전송
-        String fileName = approvalFile.getOriginalFilename();
-        File file = new File(uploadDir + File.separator + fileName);
-        approvalFile.transferTo(file);
+        // 파일 저장 경로 및 파일 전송 처리
+        String fileName = null;
+        if (!approvalFile.isEmpty()) { // 파일이 비어 있지 않은 경우에만 처리
+            fileName = approvalFile.getOriginalFilename();
+            File file = new File(uploadDir + File.separator + fileName);
+            approvalFile.transferTo(file);
+        }
 
-        taskService.requestApproval(tkid, approvalTitle, approvalDescription, fileName);
+        // 세션에서 이메일 가져오기
+        User_info user_info = (User_info) session.getAttribute("user_info");
+        String email = user_info != null ? user_info.getEmail() : null;
+
+        // 올바른 인수로 메서드 호출 (이메일이 null일 가능성도 고려)
+        taskService.requestApproval(tkid, approvalTitle, approvalDescription, fileName, email);
+
         return "redirect:/newTask";
-    }
-
-
-    @GetMapping("/newTask/feedback")
-    public String showFeedback(@RequestParam("tkid") String tkid, Model model) {
-        Approval approval = approvalService.getApprovalByTaskId(tkid);
-        model.addAttribute("approval", approval);
-        return "tracerPages/taskFeedback";
     }
 
     @PostMapping("/newTask/submitFeedback")
@@ -102,17 +114,13 @@ public class JContNewTask {
     @PostMapping("/newTask/updateStatus")
     public ResponseEntity<String> updateTaskStatus(@RequestBody Map<String, Object> requestData) {
         String tkid = (String) requestData.get("tkid");
-        boolean endYn = (Boolean) requestData.get("endYn");
+        boolean endYn = Boolean.parseBoolean(requestData.get("endYn").toString());
 
-        // Task 상태 업데이트
-        Task task = taskService.getTaskById(tkid);
-        if (task != null) {
-            task.setEndYn(endYn);
-            taskService.updateTask(task);
-            return ResponseEntity.ok("{\"success\": true}");
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("{\"success\": false}");
-        }
+        // 서비스 메서드를 호출하여 endYn 상태를 업데이트
+        taskService.updateTaskEndYn(tkid, endYn);
+
+        return ResponseEntity.ok("{\"success\": true}");
     }
+
 
 }

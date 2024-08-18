@@ -28,16 +28,13 @@ public class JContNewAppro {
 
     @GetMapping("/newApproval")
     public String showApprovalList(Model model) {
-        // 서비스에서 결재 리스트 가져오기
         List<Approval> approvals = service.getAllApprovals();
         model.addAttribute("approvals", approvals);
-        // JSP 경로 설정
         return "tracerPages/newApproval";
     }
 
     @PostMapping("/approval/updateStatus")
     public String updateApprovalStatus(@ModelAttribute Approval approval) {
-        // 서비스에서 결재 상태 업데이트
         service.updateApprovalStatus(approval);
         return "redirect:/newApproval";
     }
@@ -57,5 +54,12 @@ public class JContNewAppro {
             throw new IOException("파일을 찾을 수 없거나 읽을 수 없습니다: " + fileName);
         }
     }
-
+    
+    @GetMapping("/newTask/feedback")
+    public String showFeedback(@RequestParam("tkid") String tkid, Model model) {
+        Approval approval = service.getApprovalWithEmail(tkid);
+        model.addAttribute("approval", approval);
+        model.addAttribute("email", approval.getEmail());
+        return "tracerPages/taskFeedback";
+    }
 }

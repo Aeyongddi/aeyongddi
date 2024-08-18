@@ -23,21 +23,16 @@ public class JSerNewTask {
 
     public List<Task> getAllTasks() {
         List<Task> tasks = dao.findAllTasks();
-
         for (Task task : tasks) {
-            if (task.getStartDate() != null) {
-                task.setFormattedStartDate(formatter.format(task.getStartDate()));
-            }
-            if (task.getEndDate() != null) {
-                task.setFormattedEndDate(formatter.format(task.getEndDate()));
-            }
+            task.setFormattedDates(); // 날짜 포맷팅 설정
 
-            Approval approval = approvalService.getApprovalByTaskId(task.getTkid());
-            task.setApproval(approval);
+            // 여러 개의 Approval을 Task에 설정
+            List<Approval> approvals = approvalService.findApprovalsByTaskId(task.getTkid());
+            task.setApprovals(approvals);
         }
-
         return tasks;
     }
+
 
     public void addTask(Task task, String userEmail) {
         if (task.getStartDate() == null) {
@@ -68,11 +63,21 @@ public class JSerNewTask {
     }
 
     public Task getTaskById(String tkid) {
+        // Task를 데이터베이스에서 가져옴
         Task task = dao.findTaskById(tkid);
-        Approval approval = approvalService.getApprovalByTaskId(task.getTkid());
-        task.setApproval(approval);
+
+        // task가 null이 아닌지 확인
+        if (task != null) {
+            // 해당 Task에 연결된 모든 Approval 객체를 가져옴
+            List<Approval> approvals = approvalService.findApprovalsByTaskId(task.getTkid());
+            
+            // 가져온 Approval 리스트를 Task 객체에 설정
+            task.setApprovals(approvals);
+        }
+
         return task;
     }
+
 
     public void requestApproval(String tkid, String approvalTitle, String approvalDescription, String fileName, String email) {
         Approval approval = new Approval();

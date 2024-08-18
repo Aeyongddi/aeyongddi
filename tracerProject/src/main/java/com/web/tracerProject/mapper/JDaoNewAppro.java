@@ -30,7 +30,7 @@ public interface JDaoNewAppro {
     */
     
     @Insert("INSERT INTO APPROVAL (APID, APPROVALSTATUS, REQUESTDATETIME, STATUSUPDATEDATETIME, FEEDBACK, TKID, UPFILE, EMAIL) " +
-            "VALUES (#{apid,jdbcType=VARCHAR}, #{approvalStatus,jdbcType=VARCHAR}, #{requestDateTime,jdbcType=TIMESTAMP}, " +
+            "VALUES ('APID'||LPAD(APID_SEQ.NEXTVAL, 4, '0'), #{approvalStatus,jdbcType=VARCHAR}, #{requestDateTime,jdbcType=TIMESTAMP}, " +
             "#{statusUpdateDateTime,jdbcType=TIMESTAMP}, #{feedback,jdbcType=VARCHAR}, #{tkid,jdbcType=VARCHAR}, " +
             "#{upfile,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR})")
     void insertApproval(Approval approval);
@@ -65,9 +65,9 @@ public interface JDaoNewAppro {
     /*
     @Select("SELECT * FROM \"C##JH\".\"APPROVAL\" WHERE \"TKID\" = #{tkid, jdbcType=VARCHAR}")
     */
-    
+
     @Select("SELECT * FROM approval WHERE TKID = #{tkid, jdbcType=VARCHAR}")
-    Approval findApprovalByTaskId(@Param("tkid") String tkid);
+    List<Approval> findApprovalsByTaskId(@Param("tkid") String tkid);
     
     @Select("SELECT a.APID, a.APPROVALSTATUS, a.REQUESTDATETIME, a.STATUSUPDATEDATETIME, " +
             "a.FEEDBACK, a.TKID, a.UPFILE, u.EMAIL " +

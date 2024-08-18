@@ -2,6 +2,7 @@ package com.web.tracerProject.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,16 +39,24 @@ public class JContNewTask {
 
     @GetMapping("/newTask")
     public String showTaskList(Model model) {
-        model.addAttribute("tasks", taskService.getAllTasks());
+        List<Task> tasks = taskService.getAllTasks(); // taskService에서 가져온다
+
+        model.addAttribute("tasks", tasks);
         return "tracerPages/newTask";
     }
 
+
     @PostMapping("/newTask/add")
     public String addTask(@ModelAttribute Task task, HttpSession session) {
+        // 세션에서 이메일 가져오기
+        User_info user_info = (User_info) session.getAttribute("user_info");
+        String email = user_info != null ? user_info.getEmail() : null;
+
         task.setEndYn(false); // 기본적으로 작업 상태는 "진행 중"
-        taskService.addTask(task, ((User_info)session.getAttribute("user_info")).getEmail());
+        taskService.addTask(task, email);  // email 인자 추가
         return "redirect:/newTask";
     }
+
 
     @PostMapping("/newTask/update")
     public String updateTask(@ModelAttribute Task task) {

@@ -15,7 +15,7 @@ import com.web.tracerProject.vo.Task;
 public interface JDaoNewTask {
 
     // 기존 주석을 실제 코드로 변환
-    @Select("SELECT * FROM TASK") 
+	@Select("SELECT tkid, start_date AS startDate, end_date AS endDate, name, description, endYn, sid FROM TASK")
     List<Task> findAllTasks();
 
     @Insert("INSERT INTO task (tkid, start_date, end_date, name, description, endYN, sid) " +
@@ -34,7 +34,7 @@ public interface JDaoNewTask {
     @Delete("DELETE FROM TASK WHERE TKID = #{tkid}")
     void deleteTask(String tkid);
 
-    @Select("SELECT * FROM TASK WHERE TKID = #{tkid}") 
+    @Select("SELECT tkid, start_date AS startDate, end_date AS endDate, name, description, endYn, sid FROM TASK WHERE tkid = #{tkid}")
     Task findTaskById(String tkid);
 
     /*

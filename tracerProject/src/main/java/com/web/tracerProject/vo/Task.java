@@ -1,6 +1,8 @@
 package com.web.tracerProject.vo;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -34,5 +36,17 @@ public class Task {
     private String formattedEndDate;
     
     // Approval 객체를 필드로 추가
-    private Approval approval; 
+    private List<Approval> approvals; 
+    
+    // 날짜 포맷팅 메서드 추가
+    public void setFormattedDates() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        if (startDate != null) {
+            this.formattedStartDate = formatter.format(startDate);
+        }
+        if (endDate != null) {
+            this.formattedEndDate = formatter.format(endDate);
+        }
+    }
+
 }

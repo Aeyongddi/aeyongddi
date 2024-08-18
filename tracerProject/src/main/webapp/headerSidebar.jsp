@@ -4,14 +4,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <fmt:setBundle basename="messages" />
-<script src="${path}/a00_com/jquery.min.js"></script>
-<script src="${path}/a00_com/popper.min.js"></script>
-<script src="${path}/a00_com/bootstrap.min.js"></script>
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Bootstrap JavaScript (Bootstrap 5 이상은 Popper.js 포함) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- jQuery UI (선택사항) -->
 <script src="${path}/a00_com/jquery-ui.js"></script>
+
+<!-- Vue.js (선택사항) -->
 <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script
-	src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api"
-	type="text/javascript"></script>
+
+<!-- 추가적인 스크립트들 -->
+<script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 var auth = '${user_info.auth}'
 var pid = '${user_info.pid}'

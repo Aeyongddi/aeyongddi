@@ -43,8 +43,8 @@ public class JSerNewAppro {
         dao.updateApproval(approval);
     }
 
-    public Approval getApprovalByTaskId(String tkid) {
-        return dao.findApprovalByTaskId(tkid);
+    public List<Approval> getApprovalsByTaskId(String tkid) {
+        return dao.findApprovalsByTaskId(tkid);
     }
 
     public void updateUserFeedback(String apid, String userFeedback) {
@@ -53,5 +53,9 @@ public class JSerNewAppro {
     
     public Approval getApprovalWithEmail(String apid) {
         return dao.getApprovalWithEmail(apid);
+    }
+    
+    public List<Approval> findApprovalsByTaskId(String tkid) {
+        return dao.findApprovalsByTaskId(tkid);
     }
 }

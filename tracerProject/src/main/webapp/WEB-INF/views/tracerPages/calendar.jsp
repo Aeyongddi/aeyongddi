@@ -227,12 +227,18 @@
 				calendar.unselect()
 			},
 			eventClick : function(arg) {
+				console.log(arg.backgroundColor)
+				if(auth == "member" && arg.event.backgroundColor == '#2ecc71'){
+					$("#uptBtn").hide()
+					$("#delBtn").hide()
+				}else{
+					$("#uptBtn").show()
+					$("#delBtn").show()
+				}
 				console.log("# 상세 일정 #")
 				console.log(arg.event)
 				$("#modalTitle").text("일정상세")
 				$("#regBtn").hide()
-				$("#uptBtn").show()
-				$("#delBtn").show()
 				$("[name=insOpt]").hide()
 				addForm(arg.event)
 				$("#showModel").click()
@@ -283,6 +289,7 @@
 						calendar.removeAllEvents() // 현재 기본 일정 데이터 초기화(삭제처리)
 						successCallback(data) // data.모델명(json형식데이터)
 						// d.addAttribute("calList", service.getFullCalendarList());
+						getCalendar([""])
 					}
 				})	
 			},
@@ -365,6 +372,13 @@
 					url: "getScheduleCalendarList"+url,
 					dataType: "json",
 					success: function(data){
+						console.log(auth, url)
+						if(auth == 'member' && url == ""){
+							data.forEach(function(event){
+								event.editable = false;
+							})
+							
+						}
 						console.log(data) 
 						calendar.addEventSource(data)
 					}

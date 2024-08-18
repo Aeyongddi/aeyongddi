@@ -30,6 +30,10 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	if (auth=="member"){
+		 $(".teamDelBtn").hide()
+		 $(".teamDetail").hide()
+	}
 	$("form").on("keypress", function(event) {
         if (event.key === "Enter") {
             event.preventDefault(); // Enter 키 입력 시 폼 제출을 막음

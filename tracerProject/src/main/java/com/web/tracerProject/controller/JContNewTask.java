@@ -6,7 +6,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.tracerProject.service.JSerNewAppro;
 import com.web.tracerProject.service.JSerNewTask;
-import com.web.tracerProject.vo.Approval;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 
@@ -45,9 +43,9 @@ public class JContNewTask {
     }
 
     @PostMapping("/newTask/add")
-    public String addTask(@ModelAttribute Task task) {
+    public String addTask(@ModelAttribute Task task, HttpSession session) {
         task.setEndYn(false); // 기본적으로 작업 상태는 "진행 중"
-        taskService.addTask(task);
+        taskService.addTask(task, ((User_info)session.getAttribute("user_info")).getEmail());
         return "redirect:/newTask";
     }
 

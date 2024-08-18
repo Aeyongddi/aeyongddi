@@ -218,11 +218,11 @@ $(document).ready(function(){
 							data-bs-parent="#menu-accordion">
 							<ul class="submenu-list list-unstyled">
 								<li class="submenu-item"><a class="submenu-link"
-									href="riskBoard"><fmt:message key='risk.management.board' /></a></li>
+									href=""><fmt:message key='risk.management.board' /></a></li>
 								<li class="submenu-item"><a class="submenu-link"
-									href="taskList"><fmt:message key='schedule.board' /></a></li>
+									href="newTask"><fmt:message key='schedule.board' /></a></li>
 								<li class="submenu-item"><a class="submenu-link"
-									href="approval"><fmt:message key='approval.board' /></a></li>
+									href="newApproval"><fmt:message key='approval.board' /></a></li>
 							</ul>
 						</div></li>
 					<!--//nav-item-->

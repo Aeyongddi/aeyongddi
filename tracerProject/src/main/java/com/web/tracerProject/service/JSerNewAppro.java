@@ -39,29 +39,16 @@ public class JSerNewAppro {
     }
 
     public void updateApprovalStatus(Approval approval) {
-        approval.setApprovalStatus("결재 대기");
         approval.setStatusUpdateDateTime(LocalDateTime.now());
         dao.updateApproval(approval);
     }
 
-    public List<Approval> getApprovalsByTaskId(String tkid) {
-        List<Approval> approvals = dao.findApprovalsByTaskId(tkid);
-
-        for (Approval approval : approvals) {
-            if (approval != null) {
-                // 필요에 따라 피드백 처리
-                approval.setFeedback(approval.getFeedback().replace("\n", "<br/>"));
-            }
-        }
-
-        return approvals;
+    public Approval getApprovalByTaskId(String tkid) {
+        return dao.findApprovalByTaskId(tkid);
     }
 
     public void updateUserFeedback(String apid, String userFeedback) {
-        // 기존 피드백에 새로운 피드백을 추가하는 로직
-        Approval approval = dao.findApprovalById(apid);
-        String updatedFeedback = approval.getFeedback() + "\n" + userFeedback;  // 피드백 추가
-        dao.updateFeedback(apid, updatedFeedback);
+        dao.updateFeedback(apid, userFeedback);
     }
     
     public Approval getApprovalWithEmail(String apid) {

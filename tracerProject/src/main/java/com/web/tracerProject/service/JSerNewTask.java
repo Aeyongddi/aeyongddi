@@ -13,27 +13,25 @@ import com.web.tracerProject.vo.Task;
 
 @Service
 public class JSerNewTask {
-
     @Autowired(required = false)
     private JDaoNewTask dao;
 
     @Autowired(required = false)
     private JSerNewAppro approvalService;
 
-    private static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 
     public List<Task> getAllTasks() {
         List<Task> tasks = dao.findAllTasks();
 
         for (Task task : tasks) {
             if (task.getStartDate() != null) {
-                task.setFormattedStartDate(dateFormatter.format(task.getStartDate()));
+                task.setFormattedStartDate(formatter.format(task.getStartDate()));
             }
             if (task.getEndDate() != null) {
-                task.setFormattedEndDate(dateFormatter.format(task.getEndDate()));
+                task.setFormattedEndDate(formatter.format(task.getEndDate()));
             }
 
-            // 단일 Approval 객체 설정
             Approval approval = approvalService.getApprovalByTaskId(task.getTkid());
             task.setApproval(approval);
         }
@@ -43,23 +41,23 @@ public class JSerNewTask {
 
     public void addTask(Task task, String userEmail) {
         if (task.getStartDate() == null) {
-            task.setStartDate(new Date());
+            task.setStartDate(new Date()); // 또는 null 처리
         }
         if (task.getEndDate() == null) {
-            task.setEndDate(null);
+            task.setEndDate(null); // 또는 다른 기본값
         }
         if (task.getEndYn() == null) {
             task.setEndYn(false);
         }
-        task.setEmail(userEmail);
-
+        
         dao.insertTask(task);
     }
+
 
     public void updateTask(Task task) {
         dao.updateTask(task);
     }
-
+    
     public void updateTaskEndYn(String tkid, boolean endYn) {
         int endYnValue = endYn ? 1 : 0;
         dao.updateTaskEndYn(tkid, endYnValue);
@@ -82,7 +80,11 @@ public class JSerNewTask {
         approval.setApprovalTitle(approvalTitle);
         approval.setApprovalDescription(approvalDescription);
         approval.setUpfile(fileName);
-        approval.setEmail(email);
+        approval.setEmail(email); // 이메일 추가
         approvalService.addApproval(approval);
     }
+
+
+
+
 }

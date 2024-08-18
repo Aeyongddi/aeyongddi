@@ -2,11 +2,11 @@ package com.web.tracerProject.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.tracerProject.service.JSerNewAppro;
 import com.web.tracerProject.service.JSerNewTask;
+import com.web.tracerProject.vo.Approval;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 
@@ -39,24 +40,16 @@ public class JContNewTask {
 
     @GetMapping("/newTask")
     public String showTaskList(Model model) {
-        List<Task> tasks = taskService.getAllTasks(); // taskService에서 가져온다
-
-        model.addAttribute("tasks", tasks);
+        model.addAttribute("tasks", taskService.getAllTasks());
         return "tracerPages/newTask";
     }
 
-
     @PostMapping("/newTask/add")
-    public String addTask(@ModelAttribute Task task, HttpSession session) {
-        // 세션에서 이메일 가져오기
-        User_info user_info = (User_info) session.getAttribute("user_info");
-        String email = user_info != null ? user_info.getEmail() : null;
-
+    public String addTask(@ModelAttribute Task task) {
         task.setEndYn(false); // 기본적으로 작업 상태는 "진행 중"
-        taskService.addTask(task, email);  // email 인자 추가
+        taskService.addTask(task);
         return "redirect:/newTask";
     }
-
 
     @PostMapping("/newTask/update")
     public String updateTask(@ModelAttribute Task task) {

@@ -24,8 +24,8 @@ public class NContCalendar extends NContBase{
 		return "tracerPages/calendar";
 	}
 	@PostMapping("getScheduleCalendarList")
-	public ResponseEntity<List<Calendar>> getSchduleCalendarList(){
-		return ResponseEntity.ok(service.getScheduleCalendarList());
+	public ResponseEntity<List<Calendar>> getSchduleCalendarList(@RequestParam("pid") String pid){
+		return ResponseEntity.ok(service.getScheduleCalendarList(pid));
 	}
 	@PostMapping("insScheduleCalendar")
 	public ResponseEntity<Map<String, Object>> insScheduleCalendar(Calendar ins) {
@@ -40,6 +40,45 @@ public class NContCalendar extends NContBase{
 	@PostMapping("delScheduleCalendar")
 	public ResponseEntity<Map<String, Object>> delScheduleCalendar(@RequestParam("id")String id) {
 		Map<String, Object> response = service.delScheduleCalendar(id);
+		return ResponseEntity.ok(response);
+	}
+	@PostMapping("getScheduleCalendarListIndiv")
+	public ResponseEntity<List<Calendar>> getSchduleCalendarListIndiv(@RequestParam("email") String email){
+		return ResponseEntity.ok(service.getScheduleCalendarListIndiv(email));
+	}
+	@PostMapping("insScheduleCalendarIndiv")
+	public ResponseEntity<Map<String, Object>> insScheduleCalendarIndiv(Calendar ins) {
+		Map<String, Object> response = service.insScheduleCalendarIndiv(ins);
+		return ResponseEntity.ok(response);
+	}
+	@PostMapping("uptScheduleCalendarIndiv")
+	public ResponseEntity<Map<String, Object>> uptScheduleCalendarIndiv(Calendar upt) {
+		Map<String, Object> response = service.uptScheduleCalendarIndiv(upt);
+		return ResponseEntity.ok(response);
+	}
+	@PostMapping("delScheduleCalendarIndiv")
+	public ResponseEntity<Map<String, Object>> delScheduleCalendarIndiv(@RequestParam("id")String id) {
+		Map<String, Object> response = service.delScheduleCalendarIndiv(id);
+		return ResponseEntity.ok(response);
+	}
+	@PostMapping("getScheduleCalendarListTeam")
+	public ResponseEntity<List<Calendar>> getSchduleCalendarListTeam(@RequestParam("tid") String tid,
+																	@RequestParam("email") String email){
+		return ResponseEntity.ok(service.getScheduleCalendarListTeam(tid, email));
+	}
+	@PostMapping("insScheduleCalendarTeam")
+	public ResponseEntity<Map<String, Object>> insScheduleCalendarTeam(Calendar ins) {
+		Map<String, Object> response = service.insScheduleCalendarTeam(ins);
+		return ResponseEntity.ok(response);
+	}
+	@PostMapping("uptScheduleCalendarTeam")
+	public ResponseEntity<Map<String, Object>> uptScheduleCalendarTeam(Calendar upt) {
+		Map<String, Object> response = service.uptScheduleCalendarTeam(upt);
+		return ResponseEntity.ok(response);
+	}
+	@PostMapping("delScheduleCalendarTeam")
+	public ResponseEntity<Map<String, Object>> delScheduleCalendarTeam(@RequestParam("id")String id) {
+		Map<String, Object> response = service.delScheduleCalendarTeam(id);
 		return ResponseEntity.ok(response);
 	}
 }

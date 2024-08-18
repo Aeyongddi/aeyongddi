@@ -13,20 +13,20 @@ import com.web.tracerProject.vo.Calendar;
 
 @Mapper
 public interface NDaoCalendar {
-	  List<Calendar> getScheduleCalendarList();
+	  List<Calendar> getScheduleCalendarList(@Param("pid") String pid);
 	  int insScheduleCalendar(Calendar ins);
 	  int uptScheduleCalendar(Calendar upt);
 	  int delScheduleCalendar(@Param("id") String id);
 	  
-	  List<Calendar> getScheduleCalendarListIndiv(@Param("id") String id);
+	  List<Calendar> getScheduleCalendarListIndiv(@Param("email") String email);
 	  int insScheduleCalendarIndiv(Calendar ins);
 	  int uptScheduleCalendarIndiv(Calendar upt);
 	  int delScheduleCalendarIndiv(@Param("id") String id);
 	  
-	  List<Calendar> getScheduleCalendarListTeam(@Param("id") String id);
-	  int insScheduleCalendarGroup(Calendar ins);
-	  int uptScheduleCalendarGroup(Calendar upt);
-	  int delScheduleCalendarGroup(@Param("id") String id);
-	  
+	  List<Calendar> getScheduleCalendarListTeam(@Param("tid") String tid, 
+			  										@Param("email") String email);  
+	  int insScheduleCalendarTeam(Calendar ins);
+	  int uptScheduleCalendarTeam(Calendar upt);
+	  int delScheduleCalendarTeam(@Param("id") String id);
 }
 

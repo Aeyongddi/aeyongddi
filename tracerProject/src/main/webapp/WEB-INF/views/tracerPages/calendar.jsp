@@ -49,11 +49,15 @@
 				    <div class="col-auto">
 			            <h1 class="app-page-title mb-0">캘린더</h1>
 			            <br>
-			            <select class="calendar-opts">
-			            	<option>프로젝트 일정</option>
-			            	<option>팀 일정</option>
-			            	<option>개인 일정</option>
-			            </select>
+			            <label for="checkbox1">
+			            prj<br>
+			            <input type="checkbox" id="checkbox1" name="prj" value="" checked/></label>
+			            <label for="checkbox2">
+			            팀<br>
+			            <input type="checkbox" id="checkbox2" name="team" value="Team"/></label>
+			            <label for="checkbox3">
+			            개인<br>
+			            <input type="checkbox" id="checkbox3" name="indiv" value="Indiv"/></label>
 				    </div>
 			    </div><!--//row-->
 			   
@@ -76,7 +80,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="modalTitle">타이틀</h5>
-					<button type="button" class="close" data-dismiss="modal"
+					<button type="button" class="close clsBtn" data-dismiss="modal"
 						aria-label="Close" id="clsBtn">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -90,6 +94,17 @@
 				 --%>
 				<div class="modal-body">
 					<form id="frm02" class="form" method="post">
+						<div class="input-group mb-3">	
+							<div class="input-group-prepend ">
+								<span class="input-group-text  justify-content-center">일정종류</span>
+							</div>
+							<select name="insOpt" class="form-select">
+								<option value="indiv">개인</option>
+								<option value="team">팀</option>
+								<option value="">프로젝트</option>
+							</select>
+						</div>	
+						
 						<input type="hidden" name="id" value="0"/>
 						<div class="input-group mb-3">	
 							<div class="input-group-prepend ">
@@ -99,9 +114,9 @@
 						</div>	
 						<div class="input-group mb-3">	
 							<div class="input-group-prepend ">
-								<span class="input-group-text  justify-content-center">담당자</span>
+								<span class="input-group-text  justify-content-center">담당자 이메일</span>
 							</div>
-							<input name="writer" placeholder="담당자 입력"  class="form-control" />	
+							<input name="writer" placeholder="담당자 입력"  class="form-control" value="${user_info.email }"/>	
 						</div>	
 						<div class="input-group mb-3">	
 							<div class="input-group-prepend ">
@@ -122,14 +137,17 @@
 								<span class="input-group-text  justify-content-center">내용</span>
 							</div>
 							<textarea name="content" rows="5" cols="10" class="form-control"></textarea>			
-						</div>																				
+						</div>	
+						<input type = "hidden" name="pid" value="${user_info.pid }"/>																			
+						<input type = "hidden" name="tid" value="${user_info.tid }"/>																			
+						<input type = "hidden" name="email" value="${user_info.email }"/>																			
 					</form>
 				</div>
 				<div class="modal-footer">
 					<button id="regBtn" type="button" class="btn btn-primary">등록</button>				
 					<button id="uptBtn" type="button" class="btn btn-info">수정</button>				
 					<button id="delBtn" type="button" class="btn btn-warning">삭제</button>				
-					<button id="clsBtn" type="button" class="btn btn-secondary"
+					<button id="clsBtn" type="button" class="btn btn-secondary clsBtn"
 						data-dismiss="modal">창닫기</button>
 				</div>
 			</div>
@@ -137,6 +155,18 @@
 	</div>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function() {
+	console.log('${user_info.pid}')
+		var calendarOpt = [""]
+		const prjColor = "rgb(46, 204, 113)"
+		const teamColor = "rgb(32, 178, 170)"
+		const indivColor = "rgb(102, 205, 170)"
+		$("input[type='checkbox']").change(function(){
+			calendarOpt = []
+			$("input[type='checkbox']:checked").each(function() {
+				calendarOpt.push($(this).val())
+			})
+			getCalendar(calendarOpt)
+		})
 		
 		var calendarEl = document.getElementById('calendar');
 
@@ -160,6 +190,7 @@
 				// 같은 모달창에서 상세와 등록 같이 처리하기에
 				$("form")[0].reset()
 				// 입력form의 내용을 초기화:이전 입력데이터/상세데이터 삭제 처리
+				$("[name=insOpt]").show()
 				$("#regBtn").show()
 				$("#uptBtn").hide()
 				$("#delBtn").hide()
@@ -170,7 +201,6 @@
 				// 실제 저장할 날짜 처리 형식..
 				$("#end").val(arg.end.toLocaleString())
 				$("[name=end]").val(arg.endStr)
-				
 				calendar.unselect()
 			},
 			eventClick : function(arg) {
@@ -180,6 +210,7 @@
 				$("#regBtn").hide()
 				$("#uptBtn").show()
 				$("#delBtn").show()
+				$("[name=insOpt]").hide()
 				addForm(arg.event)
 				$("#showModel").click()
 				// 상세화면 - 수정/삭제
@@ -191,19 +222,36 @@
 			},
 			eventDrop:function(arg){
 				addForm(arg.event)
-				ajaxFun("uptScheduleCalendar")
+				var color = $(arg.el).css('background-color')
+				if(color == prjColor){
+					ajaxFun("uptScheduleCalendar")
+				}else if(color == teamColor){
+					ajaxFun("uptScheduleCalendarTeam")
+				}else{
+					ajaxFun("uptScheduleCalendarIndiv")
+				}
 				$(".form")[0].reset()
+				getCalendar(calendarOpt)
 			},
 			eventResize:function(arg){
 				addForm(arg.event)
-				ajaxFun("uptScheduleCalendar")		
+				var color = $(arg.el).css('background-color')
+				if(color == prjColor){
+					ajaxFun("uptScheduleCalendar")
+				}else if(color == teamColor){
+					ajaxFun("uptScheduleCalendarTeam")
+				}else{
+					ajaxFun("uptScheduleCalendarIndiv")
+				}
 				$(".form")[0].reset()
+				getCalendar(calendarOpt)
 			},
 			editable : true,
 			dayMaxEvents : true, // allow "more" link when too many events
 			events : function(info, successCallback, failureCallback){
 				// callList.do
 				$.ajax({
+					data : $(".form").serialize(),
 					type : "POST",
 					url: "getScheduleCalendarList",
 					dataType: "json",
@@ -244,11 +292,18 @@
 		calendar.render();
 		$("#regBtn").click(function(){
 			if(confirm("등록하시겠습니까?")){
-				ajaxFun("insScheduleCalendar")
+				var insOpt = $("select[name=insOpt]").val()
+				if(insOpt == "indiv")
+					ajaxFun("insScheduleCalendarIndiv")
+				else if(insOpt == "team")
+					ajaxFun("insScheduleCalendarTeam")
+				else
+					ajaxFun("insScheduleCalendar")
 			}
+			getCalendar(calendarOpt)
 		})	
 		
-		$("#clsBtn").click(function(){
+		$(".clsBtn").click(function(){
 			console.log('초기화')
 			$(".form")[0].reset()
 			$("#showModel").click()
@@ -256,14 +311,43 @@
 		
 		$("#uptBtn").click(function(){
 			if(confirm("수정하시겠습니까?")){
-				ajaxFun("uptScheduleCalendar")
+				var insOpt = $("select[name=insOpt]").val()
+				if(insOpt == "indiv")
+					ajaxFun("uptScheduleCalendarIndiv")
+				else if(insOpt == "team")
+					ajaxFun("uptScheduleCalendarTeam")
+				else
+					ajaxFun("uptScheduleCalendar")
 			}
+			getCalendar(calendarOpt)
 		})	
 		$("#delBtn").click(function(){
 			if(confirm("삭제하시겠습니까?")){
-				ajaxFun("delScheduleCalendar")
+				var insOpt = $("select[name=insOpt]").val()
+				if(insOpt == "indiv")
+					ajaxFun("delScheduleCalendarIndiv")
+				else if(insOpt == "team")
+					ajaxFun("delScheduleCalendarTeam")
+				else
+					ajaxFun("delScheduleCalendar")
 			}
+			getCalendar(calendarOpt)
 		})	
+		function getCalendar(check){
+			calendar.removeAllEvents()
+			check.forEach(function(url){
+				$.ajax({
+					data : $(".form").serialize(),
+					type : "POST",
+					url: "getScheduleCalendarList"+url,
+					dataType: "json",
+					success: function(data){
+						console.log(data) 
+						calendar.addEventSource(data)
+					}
+				})	
+			})
+		}
 		function ajaxFun(url){
 			$.ajax({
 				type :"POST",
@@ -271,35 +355,17 @@
 				url:url,
 				data:$(".form").serialize(),
 				success:function(data){
-					// 등록이 완료된 후,  등록성공/실패 메시지와 다시 등록이 된 내용을 적용한
-					// 화면을 로딩하기 위한 처리..
-					alert(data.msg)
-					calendar.removeAllEvents()
-					var events = data.res.map(function(item){
-						return{
-							allDay: item.allDay,
-							backgroundColor: item.backgroundColor,
-							content: item.content,
-							end: item.end,
-							id: item.id,
-							start: item.start,
-							textColor: item.textColor,
-							title: item.title,
-							url: item.url,
-							writer: item.writer,	
-						}
-					})
-					console.log(events)
-					calendar.addEventSource(events)
+					console.log(data)
 					if(data.msg.indexOf('수정')==-1){
-						$("#clsBtn").click()
+						$(".clsBtn").click()
 					}
 				},
 				error:function(err){
 					console.log(err)
 				}
 			})
-		}		
+		}
+			
 		
 		
 	});

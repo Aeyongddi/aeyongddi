@@ -25,7 +25,7 @@ public class Task {
     private String name;
     private String description;
     private String sid;
-    private boolean endYn;
+    private Boolean endYn;
     private String email;
     private String approvalStatus;
     

@@ -26,6 +26,7 @@ public class Approval {
     private String feedback;
     private String tkid;
     private String upfile;
+    private String originalFileName;
     private String email;
     private String content;
     private String approvalTitle;

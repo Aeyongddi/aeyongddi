@@ -187,7 +187,7 @@
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">업로드 파일</label>
-                                    <p class="form-control-plaintext"><a href="${approval.upfile}">다운로드</a></p>
+                                   <p class="form-control-plaintext"><a href="/downloadFile?apid=${approval.apid}">다운로드</a></p>
                                 </div>
                                 <div class="mb-3">
                                     <label class="form-label">피드백</label>

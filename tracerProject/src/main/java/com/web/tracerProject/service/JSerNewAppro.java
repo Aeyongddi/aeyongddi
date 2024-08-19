@@ -43,19 +43,21 @@ public class JSerNewAppro {
         dao.updateApproval(approval);
     }
 
-    public List<Approval> getApprovalsByTaskId(String tkid) {
+    public List<Approval> findApprovalsByTaskId(String tkid) {
         return dao.findApprovalsByTaskId(tkid);
     }
 
     public void updateUserFeedback(String apid, String userFeedback) {
         dao.updateFeedback(apid, userFeedback);
     }
-    
+
     public Approval getApprovalWithEmail(String apid) {
         return dao.getApprovalWithEmail(apid);
     }
-    
-    public List<Approval> findApprovalsByTaskId(String tkid) {
-        return dao.findApprovalsByTaskId(tkid);
+
+    public Approval getApprovalById(String apid) {
+        return dao.findApprovalById(apid); 
     }
+
 }
+

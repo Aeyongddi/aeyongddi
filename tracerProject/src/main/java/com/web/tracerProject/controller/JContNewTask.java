@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.web.tracerProject.service.JSerNewAppro;
 import com.web.tracerProject.service.JSerNewTask;
+import com.web.tracerProject.vo.Approval;
 import com.web.tracerProject.vo.Task;
 import com.web.tracerProject.vo.User_info;
 
@@ -77,32 +78,32 @@ public class JContNewTask {
                                   @RequestParam("approvalFile") MultipartFile approvalFile,
                                   HttpSession session) throws IOException {
 
-        // 파일 업로드 경로
-        String uploadDir = "C:\\Users\\human-07\\git\\aeyongFinal\\tracerProject\\src\\main\\webapp\\WEB-INF\\upload";
-
-        // 경로에 디렉터리가 존재하지 않으면 생성
-        File dir = new File(uploadDir);
-        if (!dir.exists()) {
-            dir.mkdirs(); // 디렉터리를 생성합니다.
-        }
-
-        // 파일 저장 경로 및 파일 전송 처리
         String fileName = null;
-        if (!approvalFile.isEmpty()) { // 파일이 비어 있지 않은 경우에만 처리
-            fileName = approvalFile.getOriginalFilename();
+        if (!approvalFile.isEmpty()) {
+            fileName = approvalFile.getOriginalFilename();  // 업로드된 파일의 원본 파일 이름 가져오기
             File file = new File(uploadDir + File.separator + fileName);
-            approvalFile.transferTo(file);
+            approvalFile.transferTo(file);  // 파일 저장
         }
 
-        // 세션에서 이메일 가져오기
+        // 세션에서 사용자 정보 가져오기
         User_info user_info = (User_info) session.getAttribute("user_info");
         String email = user_info != null ? user_info.getEmail() : null;
 
-        // 올바른 인수로 메서드 호출 (이메일이 null일 가능성도 고려)
-        taskService.requestApproval(tkid, approvalTitle, approvalDescription, fileName, email);
+        // Approval 객체 생성 및 설정
+        Approval approval = new Approval();
+        approval.setTkid(tkid);
+        approval.setApprovalTitle(approvalTitle);
+        approval.setApprovalDescription(approvalDescription);
+        approval.setUpfile(fileName);  // 저장된 파일 이름 설정
+        approval.setOriginalFileName(fileName);  // 원본 파일 이름 설정
+        approval.setEmail(email);
+
+        // Approval을 데이터베이스에 저장
+        approvalService.addApproval(approval);
 
         return "redirect:/newTask";
     }
+
 
     @PostMapping("/newTask/submitFeedback")
     public String submitFeedback(@RequestParam("apid") String apid,

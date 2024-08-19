@@ -48,7 +48,10 @@ public class JSerNewAppro {
     }
 
     public void updateUserFeedback(String apid, String userFeedback) {
-        dao.updateFeedback(apid, userFeedback);
+        Approval approval = dao.findApprovalById(apid);
+        String currentFeedback = approval.getFeedback();
+        String newFeedback = (currentFeedback != null ? currentFeedback + "\n" : "") + userFeedback;
+        dao.updateFeedback(apid, newFeedback);
     }
 
     public Approval getApprovalWithEmail(String apid) {

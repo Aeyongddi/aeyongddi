@@ -106,8 +106,9 @@ public class JContNewTask {
 
 
     @PostMapping("/newTask/submitFeedback")
-    public String submitFeedback(@RequestParam("apid") String apid,
-                                 @RequestParam("userFeedback") String userFeedback) {
+    public String submitTaskFeedback(@RequestParam("apid") String apid,
+                                     @RequestParam("userFeedback") String userFeedback) {
+        // 피드백 업데이트
         approvalService.updateUserFeedback(apid, userFeedback);
         return "redirect:/newTask";
     }

@@ -267,7 +267,7 @@
 															</p>
 															<p>
 																<strong>첨부 파일:</strong> <a
-																	href="/upload/files/${task.approvals[0].upfile}">다운로드</a>
+																	href="/downloadFile?apid=${task.approvals[0].apid}">다운로드</a>
 															</p>
 
 															<form action="/newTask/submitFeedback" method="post">
@@ -282,9 +282,6 @@
 																<button type="submit" class="btn btn-primary mt-3">피드백
 																	제출</button>
 															</form>
-														</c:if>
-														<c:if test="${empty task.approvals}">
-															<p>결재 정보가 없습니다.</p>
 														</c:if>
 													</div>
 												</div>

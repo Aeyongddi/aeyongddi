@@ -36,7 +36,8 @@ public class JContNewAppro {
 
     @PostMapping("/approval/updateStatus")
     public String updateApprovalStatus(@ModelAttribute Approval approval) {
-        service.updateApprovalStatus(approval);
+        // 피드백이 업데이트되면 해당 작업에 연결된 피드백도 업데이트
+    	service.updateApprovalStatus(approval);
         return "redirect:/newApproval";
     }
     
@@ -62,11 +63,10 @@ public class JContNewAppro {
 
         // 파일을 다운로드하도록 HTTP 응답 생성
         return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)  // 이 부분은 파일의 MIME 타입을 설정합니다.
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + file.getName() + "\"")  // 파일을 강제로 다운로드하게 설정합니다.
                 .body(new InputStreamResource(new FileInputStream(file)));
     }
-
 
     @GetMapping("/newTask/feedback")
     public String showFeedback(@RequestParam("tkid") String tkid, Model model) {

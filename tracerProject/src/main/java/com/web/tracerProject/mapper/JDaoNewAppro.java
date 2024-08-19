@@ -25,7 +25,6 @@ public interface JDaoNewAppro {
             "FEEDBACK = #{feedback,jdbcType=CLOB}, ORIGINALFILENAME = #{originalFileName,jdbcType=VARCHAR} WHERE APID = #{apid}")
     void updateApproval(Approval approval);
 
-
     @Select("SELECT * FROM approval WHERE APID = #{apid}")
     Approval findApprovalById(String apid);
 

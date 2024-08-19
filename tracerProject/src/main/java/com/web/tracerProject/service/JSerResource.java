@@ -11,34 +11,11 @@ import org.springframework.stereotype.Service;
 import com.web.tracerProject.mapper.JDaoResource;
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ResourceManage;
-import com.web.tracerProject.vo.User_info;
 
 @Service
 public class JSerResource {
     @Autowired(required = false)
     private JDaoResource dao;
-
-    
-    public List<User_info> getAllUsersInfo() {
-        List<User_info> users = dao.getAllUsersInfo();
-        for (User_info user : users) {
-            user.setTeams(dao.getTeamsByEmail(user.getEmail()));
-            user.setProjects(dao.getProjectsByEmail(user.getEmail()));
-        }
-        return users;
-    }
-
-    public void addUser(User_info user) {
-        dao.addUser(user);
-    }
-
-    public void updateUser(User_info user) {
-        dao.updateUser(user);
-    }
-
-    public void deleteUser(String email) {
-        dao.deleteUser(email);
-    }
 
     public ResourceManage getBudget(String pid) {
         ResourceManage budget = dao.getBudget(pid);

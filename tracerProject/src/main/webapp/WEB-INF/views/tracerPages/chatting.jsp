@@ -151,7 +151,7 @@ var userNickname = '${userNickname}';
 var userEmail = '${userEmail}';
 var currentChatType = 'group';
 var currentChatName = '단체 채팅1';
-var socket = new WebSocket('ws://192.168.0.10:5656/chat');
+var socket = new WebSocket(${socketServer});
 
 socket.onopen = function(event) {
     console.log('Connection established');

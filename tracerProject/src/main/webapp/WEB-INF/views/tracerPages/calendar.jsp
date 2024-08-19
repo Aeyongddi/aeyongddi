@@ -163,6 +163,8 @@
 	</div>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function() {
+	if(auth == 'member')
+		$('option[value=""]').hide()
 	if(tid == '0')
 		$('.haveTeam').hide()
 	if(auth != 'admin')

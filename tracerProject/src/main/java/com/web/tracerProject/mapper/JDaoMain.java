@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.web.tracerProject.vo.Task;
@@ -36,7 +35,7 @@ public interface JDaoMain {
     		+ "WHERE ROWNUM = 1")
     String getDday(Task task);
 
-    @Select("SELECT COUNT(*) FROM APPROVAL WHERE APPROVALSTATUS = 'REQUESTED'")
+    @Select("SELECT COUNT(*) FROM APPROVAL WHERE APPROVALSTATUS = '결재 대기'")
     int getRequestApprovalCount(Task task);
 
     @Select("SELECT u.email, u.nickname, " +

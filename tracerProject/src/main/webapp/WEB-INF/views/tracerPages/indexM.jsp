@@ -61,7 +61,7 @@
                             <h4 class="stats-type mb-1">오늘 할 일</h4>
                             <div class="stats-figure">${todayDoCount } 개</div>
                         </div><!--//app-card-body-->
-                        <a class="app-card-link-mask" href="#"></a>
+                        <a class="app-card-link-mask" href="newTask"></a>
                     </div><!--//app-card-->
                 </div><!--//col-->
                 <div class="col-6 col-lg-3">
@@ -70,7 +70,7 @@
                             <h4 class="stats-type mb-1">이번 주 할 일</h4>
                             <div class="stats-figure">${thisWeekDo } 개</div>
                         </div><!--//app-card-body-->
-                        <a class="app-card-link-mask" href="#"></a>
+                        <a class="app-card-link-mask" href="newTask"></a>
                     </div><!--//app-card-->
                 </div><!--//col-->
                 <div class="col-6 col-lg-3">
@@ -82,7 +82,7 @@
                                 <fmt:formatDate value="${dueto}" pattern="yyyy-MM-dd"/>
                             </div>
                         </div><!--//app-card-body-->
-                        <a class="app-card-link-mask" href="#"></a>
+                        <a class="app-card-link-mask" href="timeline"></a>
                     </div><!--//app-card-->
                 </div><!--//col-->
                 <div class="col-6 col-lg-3">
@@ -91,7 +91,7 @@
                             <h4 class="stats-type mb-1">요청받은 결재 개수</h4>
                             <div class="stats-figure">${requestApprovalCount} 개</div>
                         </div><!--//app-card-body-->
-                        <a class="app-card-link-mask" href="#"></a>
+                        <a class="app-card-link-mask" href="newApproval"></a>
                     </div><!--//app-card-->
                 </div><!--//col-->
             </div><!--//row-->

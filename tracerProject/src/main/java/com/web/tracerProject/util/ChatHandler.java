@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.web.tracerProject.service.JSerChat;
 import com.web.tracerProject.vo.Chatting;
 
 @Component
@@ -19,7 +18,6 @@ public class ChatHandler extends TextWebSocketHandler {
 	private final AtomicInteger guestCounter = new AtomicInteger(1); // 게스트 카운터
 
 	@Autowired
-	private JSerChat chatService;
 
 	private ObjectMapper objectMapper = new ObjectMapper();
 
@@ -74,8 +72,15 @@ public class ChatHandler extends TextWebSocketHandler {
 
 	@Override
 	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
-		System.out.println(session.getId() + " 에러 발생: " + exception.getMessage());
+	    System.out.println(session.getId() + " 에러 발생: " + exception.getMessage());
+	    // 예외 발생 시 세션 종료
+	    if (session.isOpen()) {
+	        session.close(CloseStatus.SERVER_ERROR);
+	    }
+	    // 더 구체적인 로그를 남김
+	    exception.printStackTrace();
 	}
+
 
 	private void sendUserList() throws Exception {
 	    List<String> userList = new ArrayList<>(userNicknames.values());

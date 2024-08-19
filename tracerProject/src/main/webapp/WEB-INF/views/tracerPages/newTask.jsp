@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -90,8 +91,10 @@
 										<tr>
 											<td class="cell task-row" data-taskid="${task.tkid}">${task.tkid}</td>
 											<td class="cell task-row" data-taskid="${task.tkid}">${task.name}</td>
-											<td class="cell task-row" data-taskid="${task.tkid}">${task.startDate}</td>
-											<td class="cell task-row" data-taskid="${task.tkid}">${task.endDate}</td>
+											<td class="cell task-row" data-taskid="${task.tkid}"><fmt:formatDate
+													value="${task.startDate}" pattern="MM월 dd일" /></td>
+											<td class="cell task-row" data-taskid="${task.tkid}"><fmt:formatDate
+													value="${task.endDate}" pattern="MM월 dd일" /></td>
 											<td class="cell"><select
 												class="form-control status-select"
 												data-taskid="${task.tkid}">
@@ -240,53 +243,53 @@
 										</div>
 
 										<!-- 피드백 확인 모달 -->
-<div class="modal fade" id="feedbackModal-${task.tkid}"
-    tabindex="-1"
-    aria-labelledby="feedbackModalLabel-${task.tkid}"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"
-                    id="feedbackModalLabel-${task.tkid}">피드백 확인</h5>
-                <button type="button" class="btn-close"
-                    data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <c:if test="${not empty task.approvals}">
-                    <h4>결재 제목: ${task.approvals[0].approvalTitle}</h4>
-                    <p>
-                        <strong>결재 설명:</strong>
-                        ${task.approvals[0].approvalDescription}
-                    </p>
-                    <p>
-                        <strong>피드백:</strong> ${task.approvals[0].feedback}
-                    </p>
-                    <p>
-                        <strong>첨부 파일:</strong> <a
-                            href="/upload/files/${task.approvals[0].upfile}">다운로드</a>
-                    </p>
+										<div class="modal fade" id="feedbackModal-${task.tkid}"
+											tabindex="-1"
+											aria-labelledby="feedbackModalLabel-${task.tkid}"
+											aria-hidden="true">
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title"
+															id="feedbackModalLabel-${task.tkid}">피드백 확인</h5>
+														<button type="button" class="btn-close"
+															data-bs-dismiss="modal" aria-label="Close"></button>
+													</div>
+													<div class="modal-body">
+														<c:if test="${not empty task.approvals}">
+															<h4>결재 제목: ${task.approvals[0].approvalTitle}</h4>
+															<p>
+																<strong>결재 설명:</strong>
+																${task.approvals[0].approvalDescription}
+															</p>
+															<p>
+																<strong>피드백:</strong> ${task.approvals[0].feedback}
+															</p>
+															<p>
+																<strong>첨부 파일:</strong> <a
+																	href="/upload/files/${task.approvals[0].upfile}">다운로드</a>
+															</p>
 
-                    <form action="/newTask/submitFeedback" method="post">
-                        <input type="hidden" name="apid"
-                            value="${task.approvals[0].apid}" />
-                        <div class="form-group">
-                            <label for="userFeedback-${task.tkid}">보완 피드백:</label>
-                            <textarea class="form-control"
-                                id="userFeedback-${task.tkid}" name="userFeedback"
-                                required></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary mt-3">피드백
-                            제출</button>
-                    </form>
-                </c:if>
-                <c:if test="${empty task.approvals}">
-                    <p>결재 정보가 없습니다.</p>
-                </c:if>
-            </div>
-        </div>
-    </div>
-</div>
+															<form action="/newTask/submitFeedback" method="post">
+																<input type="hidden" name="apid"
+																	value="${task.approvals[0].apid}" />
+																<div class="form-group">
+																	<label for="userFeedback-${task.tkid}">보완 피드백:</label>
+																	<textarea class="form-control"
+																		id="userFeedback-${task.tkid}" name="userFeedback"
+																		required></textarea>
+																</div>
+																<button type="submit" class="btn btn-primary mt-3">피드백
+																	제출</button>
+															</form>
+														</c:if>
+														<c:if test="${empty task.approvals}">
+															<p>결재 정보가 없습니다.</p>
+														</c:if>
+													</div>
+												</div>
+											</div>
+										</div>
 
 
 									</c:forEach>

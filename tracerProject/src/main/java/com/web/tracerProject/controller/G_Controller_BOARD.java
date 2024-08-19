@@ -25,7 +25,6 @@ public class G_Controller_BOARD {
      
     @Autowired(required=false)
     private G_Service_BOARD service;
-   
      
     // http://localhost:5656/riskBoard
     @GetMapping("riskBoard")

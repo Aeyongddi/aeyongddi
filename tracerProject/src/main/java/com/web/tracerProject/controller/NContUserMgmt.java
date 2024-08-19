@@ -1,8 +1,7 @@
 package com.web.tracerProject.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,28 +13,51 @@ import com.web.tracerProject.service.NSerUserMgmt;
 import com.web.tracerProject.vo.User_info;
 
 @Controller
-public class NContUserMgmt extends NContBase{
-	@Autowired(required=false)
-	NSerUserMgmt service;
-	    @GetMapping("userManagement")
-	    public String prjList(User_info user_info, Model d) {
-	    	d.addAttribute("users", service.getUser_info());
-	    	return "tracerPages/user-management";
-	    }
-	    @PostMapping("userList")
-	    public ResponseEntity<List<User_info>> schPrjList(@RequestParam("name") String name, 
-															@RequestParam("auth") String auth) {
-	    	return ResponseEntity.ok(service.schUserInfo(name, auth));
-	    }
-	    @PostMapping("delUser")
-	    public ResponseEntity<List<User_info>> delUser(@RequestParam("name") String name, 
-														@RequestParam("auth") String auth,
-														@RequestParam("email") String email) {
-	    	return ResponseEntity.ok(service.delUser(name, auth, email));
-	    }
-	    @PostMapping("uptUser")
-	    public ResponseEntity<String> uptUser(@RequestParam("auth") String auth,
-	    												@RequestParam("email") String email) {
-	    	return ResponseEntity.ok(service.uptUser(auth, email));
-	    }
+public class NContUserMgmt {
+
+    @Autowired
+    private NSerUserMgmt service;
+
+    // 사용자 관리 페이지를 불러오는 메서드
+    @GetMapping("userManagement")
+    public String prjList(@RequestParam(value = "page", defaultValue = "0") int page,
+                          @RequestParam(value = "size", defaultValue = "10") int size, 
+                          Model model) {
+        // 사용자 정보를 페이징 처리하여 가져옵니다.
+        Page<User_info> users = service.getUser_info(page, size);
+        model.addAttribute("users", users);
+        return "tracerPages/user-management";
+    }
+
+    // 사용자 목록을 검색하는 메서드
+    @PostMapping("userList")
+    public ResponseEntity<Page<User_info>> schPrjList(@RequestParam(value = "name", defaultValue = "") String name, 
+                                                       @RequestParam(value = "auth", defaultValue = "") String auth,
+                                                       @RequestParam(value = "page", defaultValue = "0") int page,
+                                                       @RequestParam(value = "size", defaultValue = "10") int size) {
+        // 이름과 권한으로 필터링된 사용자 정보를 페이징 처리하여 가져옵니다.
+        Page<User_info> users = service.schUserInfo(name, auth, page, size);
+        return ResponseEntity.ok(users);
+    }
+
+    // 사용자 삭제 메서드
+    @PostMapping("delUser")
+    public ResponseEntity<Page<User_info>> delUser(@RequestParam(value = "name", defaultValue = "") String name, 
+                                                    @RequestParam(value = "auth", defaultValue = "") String auth,
+                                                    @RequestParam("email") String email,
+                                                    @RequestParam(value = "page", defaultValue = "0") int page,
+                                                    @RequestParam(value = "size", defaultValue = "10") int size) {
+        // 사용자를 삭제하고, 삭제 후 필터링된 사용자 목록을 페이징 처리하여 가져옵니다.
+        Page<User_info> users = service.delUser(name, auth, email, page, size);
+        return ResponseEntity.ok(users);
+    }
+
+    // 사용자 권한 업데이트 메서드
+    @PostMapping("uptUser")
+    public ResponseEntity<String> uptUser(@RequestParam("auth") String auth,
+                                           @RequestParam("email") String email) {
+        // 사용자의 권한을 업데이트합니다.
+        String result = service.uptUser(auth, email);
+        return ResponseEntity.ok(result);
+    }
 }

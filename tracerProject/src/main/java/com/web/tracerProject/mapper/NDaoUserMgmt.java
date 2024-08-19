@@ -12,28 +12,56 @@ import com.web.tracerProject.vo.User_info;
 
 @Mapper
 public interface NDaoUserMgmt {
-	@Select("""
-			SELECT *
-			FROM USER_INFO
-			""")
-	List<User_info> getUserInfo();
-	@Select("""
-			SELECT *
-			FROM USER_INFO
-			WHERE NAME LIKE '%'||#{name}||'%'
-			AND AUTH LIKE '%'||#{auth}||'%'
-			""")
-	List<User_info> schUserInfo(@Param("name") String name, 
-									@Param("auth") String auth);
-	@Update("""
-			UPDATE USER_INFO
-			SET AUTH = #{auth}
-			WHERE EMAIL = #{email}
-			""")
-	int uptUser(@Param("auth") String auth, @Param("email") String email);
-	@Delete("""
-			DELETE FROM USER_INFO
-			WHERE EMAIL = #{email}
-			""")
-	int delUser(@Param("email") String email);
+
+    @Select("""
+            SELECT * 
+            FROM (
+                SELECT a.*, ROW_NUMBER() OVER (ORDER BY email) AS rn
+                FROM USER_INFO a
+            )
+            WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{pageSize}
+            """)
+    List<User_info> getUserInfo(@Param("offset") int offset, @Param("pageSize") int pageSize);
+
+    @Select("""
+            SELECT * 
+            FROM (
+                SELECT a.*, ROW_NUMBER() OVER (ORDER BY email) AS rn
+                FROM USER_INFO a
+                WHERE NAME LIKE '%' || #{name} || '%'
+                AND AUTH LIKE '%' || #{auth} || '%'
+            )
+            WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{pageSize}
+            """)
+    List<User_info> schUserInfo(@Param("name") String name, 
+                                @Param("auth") String auth,
+                                @Param("offset") int offset, 
+                                @Param("pageSize") int pageSize);
+    
+    @Update("""
+            UPDATE USER_INFO
+            SET AUTH = #{auth}
+            WHERE EMAIL = #{email}
+            """)
+    int uptUser(@Param("auth") String auth, @Param("email") String email);
+    
+    @Delete("""
+            DELETE FROM USER_INFO
+            WHERE EMAIL = #{email}
+            """)
+    int delUser(@Param("email") String email);
+    
+    @Select("""
+            SELECT COUNT(*) 
+            FROM USER_INFO
+            """)
+    int countAllUsers();
+
+    @Select("""
+            SELECT COUNT(*) 
+            FROM USER_INFO 
+            WHERE NAME LIKE '%' || #{name} || '%' 
+            AND AUTH LIKE '%' || #{auth} || '%'
+            """)
+    int countUsers(@Param("name") String name, @Param("auth") String auth);
 }

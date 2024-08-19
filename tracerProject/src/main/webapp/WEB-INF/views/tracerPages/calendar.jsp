@@ -379,7 +379,6 @@
 							data.forEach(function(event){
 								event.editable = false;
 							})
-							
 						}
 						console.log(data) 
 						calendar.addEventSource(data)

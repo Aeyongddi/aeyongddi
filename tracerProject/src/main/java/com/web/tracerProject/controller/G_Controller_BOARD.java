@@ -59,20 +59,6 @@ public class G_Controller_BOARD {
         return "tracerPages/riskBoard"; // JSP 파일 경로를 반환합니다.
     }
     
-    // 등록하는 코드
- // 단일 게시판 조회
-    @GetMapping("/{bid}")
-    @ResponseBody
-    public String getBoardById(@PathVariable("bid") String bid) {
-        Board board = service.getBoardById(bid);
-        if (board != null) {
-            // JSON 형태로 반환
-            return "{ \"bid\": \"" + board.getBid() + "\", \"title\": \"" + board.getTitle() + "\", \"content\": \"" + board.getContent() + "\" }";
-        } else {
-            return "게시물 없음";
-        }
-    }
-
     @PostMapping("/boardUpdate")
     @ResponseBody
     public ResponseEntity<String> updateBoard(@RequestBody Board updatedBoard) {

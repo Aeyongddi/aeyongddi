@@ -32,18 +32,5 @@ public class JContChat {
         return "tracerPages/chatting";
     }
     
-	/*
-	 * @GetMapping("/private-chat") public String privateChat(Model model,
-	 * HttpSession session) { // 세션에서 이메일과 닉네임 가져오기 String userEmail = (String)
-	 * session.getAttribute("userEmail"); String userNickname = (String)
-	 * session.getAttribute("userNickname");
-	 * 
-	 * model.addAttribute("userEmail", userEmail);
-	 * model.addAttribute("userNickname", userNickname);
-	 * model.addAttribute("socketServer", socketServer);
-	 * 
-	 * return "tracerPages/privateChat"; // 개인 채팅 페이지로 연결 }
-	 */
-    
 }
 

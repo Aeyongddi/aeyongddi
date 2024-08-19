@@ -41,7 +41,7 @@ public class JContNewAppro {
     
     @GetMapping("/downloadFile")
     public ResponseEntity<Resource> downloadFile(@RequestParam("fileName") String fileName) throws IOException {
-        String uploadDir = "C:\\Users\\human-07\\git\\aeyongFinal\\tracerProject\\src\\main\\webapp\\WEB-INF\\upload";
+        String uploadDir = "C:\\Users\\human-07\\git\\aeyongFinal\\aeyongddi11111111111\\tracerProject\\src\\main\\webapp\\WEB-INF\\upload";
         Path filePath = Paths.get(uploadDir).resolve(fileName).normalize();
         Resource resource = new UrlResource(filePath.toUri());
 

@@ -73,27 +73,6 @@
 								<div class="item border-bottom py-3">
 									<div class="row justify-content-between align-items-center">
 										<div class="col-auto">
-											<div class="item-label mb-2">
-												<strong><fmt:message key="profile.picture" /></strong>
-											</div>
-											<div class="item-data">
-												<img class="profile-image" src="assets/images/user.png"
-													alt="">
-											</div>
-										</div>
-										<!--//col-->
-										<div class="col text-end">
-											<a class="btn-sm app-btn-secondary" href="#"><fmt:message
-													key="change" /></a>
-										</div>
-										<!--//col-->
-									</div>
-									<!--//row-->
-								</div>
-								<!--//item-->
-								<div class="item border-bottom py-3">
-									<div class="row justify-content-between align-items-center">
-										<div class="col-auto">
 											<div class="item-label">
 												<strong><fmt:message key="name" /></strong>
 											</div>

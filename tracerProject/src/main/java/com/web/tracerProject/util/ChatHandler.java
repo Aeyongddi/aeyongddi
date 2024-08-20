@@ -77,8 +77,6 @@ public class ChatHandler extends TextWebSocketHandler {
 	    if (session.isOpen()) {
 	        session.close(CloseStatus.SERVER_ERROR);
 	    }
-	    // 더 구체적인 로그를 남김
-	    exception.printStackTrace();
 	}
 
 

@@ -145,7 +145,7 @@
 				<a class="app-logo"
 					href="index${user_info.auth == 'member' ? 'U' : 'M'}"><img
 					class="logo-icon me-2" src="image/logo.png" alt="logo"><span
-					class="logo-text">TRACER</span></a>
+					class="logo-text">TRACERzz</span></a>
 			</div>
 			<!--//app-branding-->
 			<nav id="app-nav-main" class="app-nav app-nav-main flex-grow-1">

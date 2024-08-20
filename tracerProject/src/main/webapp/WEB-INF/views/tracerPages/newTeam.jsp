@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko"> 
 <head>
-    <title>TRACER - 프로젝트 목록</title>
+    <title>TRACER - 팀 생성</title>
     
     <!-- Meta -->
     <meta charset="utf-8">

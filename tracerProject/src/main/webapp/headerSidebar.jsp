@@ -265,13 +265,9 @@
 					<li class="nav-item has-submenu"><a
 						class="nav-link submenu-toggle" href="#" data-bs-toggle="collapse"
 						data-bs-target="#chat-submenu" aria-expanded="false"
-						aria-controls="chat-submenu"> <span class="nav-icon"> <svg
-									width="1em" height="1em" viewBox="0 0 16 16"
-									class="bi bi-chat-dots" fill="currentColor"
-									xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-										d="M8 1a7 7 0 1 0 4.546 12.874l3.584 1.3c.464.168.89-.342.688-.808l-1.27-2.952A7 7 0 0 0 8 1zm3.336 9.836c.206-.267.413-.628.507-1.057a.5.5 0 0 0-.647-.518 2.47 2.47 0 0 1-.676.197.5.5 0 0 0-.431.514c.054.512.229.916.392 1.207.081.143.164.262.255.381a6.978 6.978 0 0 1-2.25.725 1 1 0 0 1-.596-.106 1 1 0 0 1-.311-.193 1 1 0 0 1-.221-.454 1.006 1.006 0 0 1 .217-.706c.175-.234.427-.384.707-.384a7.097 7.097 0 0 1 1.235-.223zM6.326 10.83a.5.5 0 0 0-.415-.253H5.5a.5.5 0 0 0 0 1h.176a2.495 2.495 0 0 1 1.003-.215.5.5 0 0 0 .512-.518z" />
-            </svg>
+						aria-controls="chat-submenu"> <span class="nav-icon"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6" style="width: 24px; height: 24px;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.25 8.25V15a2.25 2.25 0 0 1-2.25 2.25h-4.5L12 20.25V17.25H5.75A2.25 2.25 0 0 1 3.5 15V8.25A2.25 2.25 0 0 1 5.75 6h13A2.25 2.25 0 0 1 21.25 8.25Z"/>
+        </svg>
 						</span> <span class="nav-link-text">채팅[의사소통 관리]</span> <span
 							class="submenu-arrow"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-chevron-down"

@@ -29,7 +29,9 @@ public interface JDaoResource {
     @Insert("INSERT INTO ResourceManage (rid, pid, rtype, assigned_budget) VALUES (#{rid}, #{pid}, 'BUDGET', #{amount})")
     void assignBudget(@Param("rid") String rid, @Param("pid") String pid, @Param("amount") BigDecimal amount);
 
-    @Select("SELECT MAX(CAST(SUBSTR(rid, 2) AS INT)) FROM ResourceManage")
+    @Select("SELECT MAX(CAST(SUBSTR(rid, 4) AS INT)) \r\n"
+    		+ "FROM ResourceManage \r\n"
+    		+ "WHERE REGEXP_LIKE(RID, '^RID[0-9]+$')")
     Integer getMaxRid();
     
     @Insert("INSERT INTO ResourceManage (rid, pid, rtype, software_name, license_purchase_date, license_expiry_date, software_price) VALUES (#{rid}, #{pid}, #{rtype}, #{software_name}, #{license_purchase_date}, #{license_expiry_date}, #{software_price})")

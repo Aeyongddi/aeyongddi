@@ -26,15 +26,15 @@ public interface JDaoResource {
     @Update("UPDATE ResourceManage SET assigned_budget = assigned_budget - #{amount} WHERE pid = #{pid} AND rtype = 'BUDGET'")
     void reduceBudget(@Param("pid") String pid, @Param("amount") BigDecimal amount);
 
-    @Insert("INSERT INTO ResourceManage (rid, pid, rtype, assigned_budget) VALUES (#{rid}, #{pid}, 'BUDGET', #{amount})")
-    void assignBudget(@Param("rid") String rid, @Param("pid") String pid, @Param("amount") BigDecimal amount);
+    @Insert("INSERT INTO ResourceManage (rid, pid, rtype, assigned_budget) VALUES ('RID'||LPAD(RID_SEQ.NEXTVAL, 5, '0'), #{pid}, 'BUDGET', #{amount})")
+    void assignBudget(@Param("pid") String pid, @Param("amount") BigDecimal amount);
 
     @Select("SELECT MAX(CAST(SUBSTR(rid, 4) AS INT)) \r\n"
     		+ "FROM ResourceManage \r\n"
     		+ "WHERE REGEXP_LIKE(RID, '^RID[0-9]+$')")
     Integer getMaxRid();
     
-    @Insert("INSERT INTO ResourceManage (rid, pid, rtype, software_name, license_purchase_date, license_expiry_date, software_price) VALUES (#{rid}, #{pid}, #{rtype}, #{software_name}, #{license_purchase_date}, #{license_expiry_date}, #{software_price})")
+    @Insert("INSERT INTO ResourceManage (rid, pid, rtype, software_name, license_purchase_date, license_expiry_date, software_price) VALUES ('RID'||LPAD(RID_SEQ.NEXTVAL, 5, '0'), #{pid}, #{rtype}, #{software_name}, #{license_purchase_date}, #{license_expiry_date}, #{software_price})")
     void addAsset(ResourceManage asset);
 
     @Update("UPDATE ResourceManage SET used_budget = COALESCE(used_budget, 0) + #{amount} WHERE pid = #{pid} AND rtype = 'BUDGET'")

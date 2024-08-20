@@ -42,18 +42,17 @@ public class JSerResource {
         dao.reduceBudget(pid, amount);
     }
 
-    public void assignBudget(String pid, BigDecimal amount) {
-        Integer maxRid = dao.getMaxRid();
-        String newRid = String.format("R%03d", (maxRid == null ? 1 : maxRid + 1));
-        dao.assignBudget(newRid, pid, amount);
+    public void assignBudget(String pid,BigDecimal amount) {
+        dao.assignBudget(pid,amount);
     }
 
     public ResourceManage addAssetAndUpdateBudget(String pid, String rtype, String software_name, String license_purchase_date, String license_expiry_date, BigDecimal software_price) {
-        Integer maxRid = dao.getMaxRid();
-        String newRid = String.format("R%03d", (maxRid == null ? 1 : maxRid + 1));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
-            ResourceManage asset = new ResourceManage(newRid, pid, rtype, software_name, sdf.parse(license_purchase_date), sdf.parse(license_expiry_date), software_price);
+            // ResourceManage 객체 생성 시, RID는 쿼리에서 자동으로 생성되므로 null로 설정
+            ResourceManage asset = new ResourceManage(null, pid, rtype, software_name, sdf.parse(license_purchase_date), sdf.parse(license_expiry_date), software_price);
+            
+            // 자산 추가
             dao.addAsset(asset);
 
             // 사용 예산 업데이트

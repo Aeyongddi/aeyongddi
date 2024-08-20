@@ -113,7 +113,7 @@
 							</select>
 						</div>	
 						
-						<input type="hidden" name="id" value="0"/>
+						<input class="schId" type="hidden" name="id" value="0"/>
 						<div class="input-group mb-3">	
 							<div class="input-group-prepend ">
 								<span class="input-group-text  justify-content-center">일정명</span>
@@ -229,10 +229,14 @@
 				calendar.unselect()
 			},
 			eventClick : function(arg) {
-				console.log(arg.backgroundColor)
-				if(auth == "member" && arg.event.backgroundColor == '#2ecc71'){
-					$("#uptBtn").hide()
-					$("#delBtn").hide()
+				console.log(arg.event.id)
+				$('.schId').val(arg.event.id)
+				if(arg.event.backgroundColor == '#2ecc71'){
+					$("select[name=insOpt]").val("")
+					if(auth == "member"){
+						$("#uptBtn").hide()
+						$("#delBtn").hide()
+					}
 				}else{
 					$("#uptBtn").show()
 					$("#delBtn").show()
@@ -393,6 +397,7 @@
 				url:url,
 				data:$(".form").serialize(),
 				success:function(data){
+					console.log($(".form").serialize())
 					console.log(data)
 					if(data.msg.indexOf('수정')==-1){
 						$(".clsBtn").click()

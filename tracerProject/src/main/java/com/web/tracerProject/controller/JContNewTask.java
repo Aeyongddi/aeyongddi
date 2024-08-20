@@ -46,15 +46,13 @@ public class JContNewTask {
         return "tracerPages/newTask";
     }
 
-
     @PostMapping("/newTask/add")
     public String addTask(@ModelAttribute Task task, HttpSession session) {
-        // 세션에서 이메일 가져오기
         User_info user_info = (User_info) session.getAttribute("user_info");
         String email = user_info != null ? user_info.getEmail() : null;
 
-        task.setEndYn(false); // 기본적으로 작업 상태는 "진행 중"
-        taskService.addTask(task, email);  // email 인자 추가
+        task.setEndYn(false);
+        taskService.addTask(task, email);
         return "redirect:/newTask";
     }
 
@@ -80,25 +78,20 @@ public class JContNewTask {
 
         String fileName = null;
         if (!approvalFile.isEmpty()) {
-            fileName = approvalFile.getOriginalFilename();  // 업로드된 파일의 원본 파일 이름 가져오기
+            fileName = approvalFile.getOriginalFilename();
             File file = new File(uploadDir + File.separator + fileName);
-            approvalFile.transferTo(file);  // 파일 저장
+            approvalFile.transferTo(file); 
         }
-
-        // 세션에서 사용자 정보 가져오기
         User_info user_info = (User_info) session.getAttribute("user_info");
         String email = user_info != null ? user_info.getEmail() : null;
 
-        // Approval 객체 생성 및 설정
         Approval approval = new Approval();
         approval.setTkid(tkid);
         approval.setApprovalTitle(approvalTitle);
         approval.setApprovalDescription(approvalDescription);
-        approval.setUpfile(fileName);  // 저장된 파일 이름 설정
-        approval.setOriginalFileName(fileName);  // 원본 파일 이름 설정
+        approval.setUpfile(fileName);
+        approval.setOriginalFileName(fileName); 
         approval.setEmail(email);
-
-        // Approval을 데이터베이스에 저장
         approvalService.addApproval(approval);
 
         return "redirect:/newTask";
@@ -108,10 +101,10 @@ public class JContNewTask {
     @PostMapping("/newTask/submitFeedback")
     public String submitTaskFeedback(@RequestParam("apid") String apid,
                                      @RequestParam("userFeedback") String userFeedback) {
-        // 피드백 업데이트
         approvalService.updateUserFeedback(apid, userFeedback);
         return "redirect:/newTask";
     }
+    
     
     @PostMapping("/newTask/updateStatus")
     public ResponseEntity<String> updateTaskStatus(@RequestBody Map<String, Object> requestData) {

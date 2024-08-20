@@ -257,12 +257,12 @@
 													</div>
 													<div class="modal-body">
 														<c:if test="${not empty task.approvals}">
-															<h4>결재 제목: ${task.approvals[0].approvalTitle}</h4>
+															<%-- <h4>결재 제목: ${task.approvals[0].approvalTitle}</h4>
 															<p>
 																<strong>결재 설명:</strong>
 																${task.approvals[0].approvalDescription}
 															</p>
-															<p>
+															<p> --%>
 																<strong>피드백:</strong> ${task.approvals[0].feedback}
 															</p>
 															<p>

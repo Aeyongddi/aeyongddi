@@ -25,7 +25,7 @@ public class NSerMail {
 				+ "인증번호\n\n"
 				+ chkNum
 				+ "\n\n------------------------------- \n"
-				+ "바로가기 : http://localhost:5656/login"
+				+ "바로가기 : http://192.168.0.10:5656/login"
 		);
 		try {
 			mailSender.send(message);
@@ -48,7 +48,7 @@ public class NSerMail {
 				+ newPwd+"\n"
 				+ "빠른 시일 내에 비밀번호 변경을 권장드립니다."
 				+ "\n\n------------------------------- \n"
-				+ "바로가기 : http://localhost:5656/login"
+				+ "바로가기 : http://192.168.0.10:5656/login"
 		);
 			mailSender.send(message);
 			System.out.println(email);
@@ -69,7 +69,7 @@ public class NSerMail {
 				+ "회원가입 절차가 완료되었습니다.\n"
 				+ "로그인 후 서비스를 이용해 주시기 바랍니다.\n"
 				+ "------------------------------- \n"
-				+ "바로가기 : http://localhost:5656/login"
+				+ "바로가기 : http://192.168.0.10:5656/login"
 				);
 		try {
 			mailSender.send(message);

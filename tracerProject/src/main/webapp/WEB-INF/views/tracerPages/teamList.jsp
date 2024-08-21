@@ -90,7 +90,7 @@ $(document).ready(function(){
                     };
 					
                     // 동적으로 추가된 삭제 버튼에 클릭 이벤트 다시 등록
-                    $(".prjDelBtn").off('click').on('click', prjDel);
+                    $(".teamDelBtn").off('click').on('click', teamDel);
                 },
                 error: function(err) {
                     console.log(err);

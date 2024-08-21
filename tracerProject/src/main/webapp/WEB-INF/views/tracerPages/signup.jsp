@@ -33,8 +33,6 @@
 <script src="https://developers.google.com/web/ilt/pwa/working-with-the-fetch-api" type="text/javascript"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	if(${msg!=null})
-		alert("${msg}")
 	$('form').on('keydown', 'input', function(event) {
          if (event.keyCode === 13) { 
                event.preventDefault();
@@ -53,16 +51,30 @@ $(document).ready(function(){
 		}else{
 			$.ajax({
 				data: $("form").serialize(),
-				url: 'mail/sendSingupSuccess',
+				url: 'signup',
 				type: 'POST',
 				success: function(data){
-					console.log(data)
+					if(data=="회원가입성공"){
+						$.ajax({
+							data: $("form").serialize(),
+							url: 'mail/sendSingupSuccess',
+							type: 'POST',
+							success: function(data){
+								console.log(data)
+								location.href='signupSuccess'
+							},
+							error: function(err){
+								console.log(err)
+							}
+						})
+					} else {
+						alert(data)
+					}
 				},
 				error: function(err){
 					console.log(err)
 				}
 			})
-			$('form').submit()		
 		}
 	})
 	$('#emailChkBtn').click(function(){
@@ -134,7 +146,7 @@ $(document).ready(function(){
 								<button id="emailChkBtn" type="button" class="form-control">인증번호 전송</button>
 							인증번호	
 								<input id="signup-name4" type="text" class="chkNum form-control signup-name" placeholder="인증번호 입력" required="required">
-							비밀번호
+							비밀번호<br><span style="font-size: smaller">비밀번호는 영어 대소문자, 숫자, 특수문자를 <br>포함한 8~20자로 입력</span>
 								<input id="signup-password" name="password" type="password" class="form-control signup-password" placeholder="비밀번호 입력" required="required">
 							비밀번호 확인
 								<input id="signup-passwordChk" type="password" class="form-control signup-password" placeholder="비밀번호 확인" required="required">

@@ -1,11 +1,15 @@
 package com.web.tracerProject.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.web.tracerProject.service.NSerMem;
@@ -27,13 +31,9 @@ public class NContMem extends NContBase{
 		return "tracerPages/signup";
 	}
 	@PostMapping("signup")
-	public String signup(User_info user_info, Model d) {
-		String msg = service.insMember(user_info);
-		d.addAttribute("msg", msg);
-		if(msg=="회원가입성공")
-			return "tracerPages/signupSuccess";
-		else	return "tracerPages/signup";
-	}
+    public ResponseEntity<String> signup(User_info user_info) {
+        return ResponseEntity.ok(service.insMember(user_info));
+    }
 	// http://localhost:5656/signupSuccess
 	@GetMapping("signupSuccess")
 	public String signupSuccess() {

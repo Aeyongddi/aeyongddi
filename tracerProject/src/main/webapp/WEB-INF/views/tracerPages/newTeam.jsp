@@ -49,7 +49,7 @@ $(document).ready(function(){
 		})
 	})
 	$("#mainBtn").click(function(){
-		location.href="index"
+		location.href="index${user_info.auth == 'member' ? 'U' : 'M'}"
 	})
 	
 	$(".checkParticipants").click(function(){

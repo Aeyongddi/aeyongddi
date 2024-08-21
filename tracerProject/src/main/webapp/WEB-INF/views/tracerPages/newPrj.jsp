@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html lang="ko"> 
 <head>
-    <title>TRACER - 프로젝트 목록</title>
+    <title>TRACER - 프로젝트 생성</title>
     
     <!-- Meta -->
     <meta charset="utf-8">
@@ -86,7 +86,7 @@ $(document).ready(function(){
 			    
 			    <div class="row g-3 mb-4 align-items-center justify-content-between">
 				    <div class="col-auto">
-			            <h1 class="app-page-title mb-0">프로젝트 정보</h1>
+			            <h1 class="app-page-title mb-0">프로젝트 생성</h1>
 				    </div>
 				    <div class="col-auto">
 					     <div class="page-utilities">

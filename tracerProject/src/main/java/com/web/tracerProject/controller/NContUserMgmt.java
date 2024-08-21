@@ -26,7 +26,7 @@ public class NContUserMgmt {
         // 사용자 정보를 페이징 처리하여 가져옵니다.
         Page<User_info> users = service.getUser_info(page, size);
         model.addAttribute("users", users);
-        return "tracerPages/user-management2";
+        return "tracerPages/user-management";
     }
 
     // 사용자 목록을 검색하는 메서드

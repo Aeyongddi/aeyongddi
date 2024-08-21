@@ -53,7 +53,6 @@
 $(document).ready(function(){
 if(auth != 'admin')
 	$('#prjList').hide()
-// 초기세팅
 var opts
 $('#prjList').change(function() {
 	var selectedVal = $(this).val();

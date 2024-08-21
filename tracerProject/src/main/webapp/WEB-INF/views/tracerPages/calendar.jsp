@@ -122,22 +122,22 @@
 						</div>	
 						<div class="input-group mb-3">	
 							<div class="input-group-prepend ">
-								<span class="input-group-text  justify-content-center">담당자 이메일</span>
+								<span class="input-group-text  justify-content-center" >담당자 이메일</span>
 							</div>
-							<input name="writer" placeholder="담당자 입력"  class="form-control" value="${user_info.email }"/>	
+							<input name="writer" placeholder="담당자 입력"  class="form-control" value="${user_info.email }" readonly/>	
 						</div>	
 						<div class="input-group mb-3">	
 							<div class="input-group-prepend ">
 								<span class="input-group-text  justify-content-center">시 작(일/시)</span>
 							</div>
-							<input id="start"  class="form-control" /><!-- 화면에 보일 날짜/시간.. -->	
+							<input id="start"  class="form-control" readonly/><!-- 화면에 보일 날짜/시간.. -->	
 							<input name="start" type="hidden"   />	<!-- 실제 저장할 날짜/시간 -->
 						</div>	
 						<div class="input-group mb-3">	
 							<div class="input-group-prepend ">
 								<span class="input-group-text  justify-content-center">종 료(일/시)</span>
 							</div>
-							<input id="end"  class="form-control" />	
+							<input id="end"  class="form-control" readonly/>	
 							<input name="end" type="hidden"   />	
 						</div>		
 						<div class="input-group mb-3">	
@@ -205,32 +205,24 @@
 			navLinks : true, // can click day/week names to navigate views
 			selectable : true,
 			selectMirror : true,
-			select : function(arg) { // 기본 일정 등록시, 처리되는 이벤트..
-				$("#showModel").click() //강제이벤트 처리.
-				console.log("# 캘린터 기본 속성 확인 #")
-				console.log(arg)
-				console.log(arg.startStr)
-				console.log(arg.endStr)
+			select : function(arg) { 
+				$("#showModel").click()
 				$("#modalTitle").text("일정 등록") 
-				// 같은 모달창에서 상세와 등록 같이 처리하기에
 				$("form")[0].reset()
-				// 입력form의 내용을 초기화:이전 입력데이터/상세데이터 삭제 처리
 				$("[name=insOpt]").show()
 				$("#regBtn").show()
 				$("#uptBtn").hide()
 				$("#delBtn").hide()
-				// 같은 모달창(등록/상세)에서 등록버튼만 화성화 처리..
 				$("#start").val(arg.start.toLocaleString())
-				// 보이는 날짜 처리 형식
 				$("[name=start]").val(arg.startStr)
-				// 실제 저장할 날짜 처리 형식..
 				$("#end").val(arg.end.toLocaleString())
 				$("[name=end]").val(arg.endStr)
 				calendar.unselect()
 			},
 			eventClick : function(arg) {
-				console.log(arg.event.id)
 				$('.schId').val(arg.event.id)
+				$("#uptBtn").show()
+				$("#delBtn").show()
 				if(arg.event.backgroundColor == '#2ecc71'){
 					$("select[name=insOpt]").val("")
 					if(auth == "member"){
@@ -248,12 +240,6 @@
 				$("[name=insOpt]").hide()
 				addForm(arg.event)
 				$("#showModel").click()
-				// 상세화면 - 수정/삭제
-				/*
-				if (confirm('Are you sure you want to delete this event?')) {
-					arg.event.remove()
-				}
-				*/
 			},
 			eventDrop:function(arg){
 				addForm(arg.event)

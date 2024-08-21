@@ -26,7 +26,7 @@ public class NSerMem {
 	
 	// mem 이메일 중복 검사
 	public String emailDupChk(String email) {
-		return dao.emailDupChk(email)>0?"이미 가입된 이메일입니다":"인증번호 전송됨";
+		return dao.emailDupChk(email)>0?"이미 가입된 이메일입니다":"잠시만 기다려주세요.";
 	}
 		
 	// mem 비밀번호변경

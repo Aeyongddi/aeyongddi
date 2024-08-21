@@ -1,6 +1,7 @@
 package com.web.tracerProject.service;
 
 import org.apache.ibatis.annotations.Param;
+import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class NSerMail {
 	public String sendEmailChk(@Param("email") String email) {
 		String chkNum = random();
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("gimnamwon3131@gamil.com");
+		message.setFrom("gimnamwon3131@gmail.com");
 		message.setTo(email);
 		message.setSubject("TRACER::인증번호 전송");
 		message.setText(
@@ -26,17 +27,19 @@ public class NSerMail {
 				+ "\n\n------------------------------- \n"
 				+ "바로가기 : http://localhost:5656/login"
 		);
+		try {
 			mailSender.send(message);
-			System.out.println(email);
-			
-	return chkNum;
+		} catch (MailException e) {
+			return "메일전송실패";
+		}	
+		return chkNum;
 	}
 	
 	// 비밀번호 초기화 시 메일로 랜덤 비밀번호 전송
 	public String sendResetPwd(@Param("email") String email) {
 		String newPwd = random();
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("gimnamwon3131@gamil.com");
+		message.setFrom("gimnamwon3131@gmail.com");
 		message.setTo(email);
 		message.setSubject("TRACER::비밀번호 초기화");
 		message.setText(
@@ -56,7 +59,7 @@ public class NSerMail {
 	public String sendSingupSuccess(@Param("email") String email
 										, @Param("nickname") String nickname ) {
 		SimpleMailMessage message = new SimpleMailMessage();
-		message.setFrom("gimnamwon3131@gamil.com");
+		message.setFrom("gimnamwon3131@gmail.com");
 		message.setTo(email);
 		message.setSubject("TRACER::" + nickname + "님의 회원가입을 진심으로 축하합니다.");
 		message.setText(
@@ -68,16 +71,14 @@ public class NSerMail {
 				+ "------------------------------- \n"
 				+ "바로가기 : http://localhost:5656/login"
 				);
-		mailSender.send(message);
-		System.out.println(email);
+		try {
+			mailSender.send(message);
+		} catch (MailException e) {
+			return "메일전송실패";
+		}
 		
 		return "메일전송완료";
 	}
-	// 알림 메일 전송
-	public String notificationMail() {
-		return "알림 메일 전송";
-	}
-	
 	// 인증번호 / 비밀번호 초기화 랜덤 값 생성
 	String random() {
 		StringBuilder sb = new StringBuilder();

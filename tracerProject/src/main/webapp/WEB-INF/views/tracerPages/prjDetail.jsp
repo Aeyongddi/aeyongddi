@@ -59,7 +59,7 @@ $(document).ready(function(){
 				data: {pid : $('[name=pid]').val()},
 				success: function(data){
 					alert(data)
-					location.href='index'
+					location.href="index${user_info.auth == 'member' ? 'U' : 'M'}"
 				},
 				error: function(err){
 					console.log(err)
@@ -72,7 +72,7 @@ $(document).ready(function(){
 
 
 	$("#mainBtn").click(function(){
-		location.href="index"
+		location.href="index${user_info.auth == 'member' ? 'U' : 'M'}"
 	})
 	
 	$(".checkParticipants").click(function(){

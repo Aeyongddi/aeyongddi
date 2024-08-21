@@ -42,12 +42,15 @@ $(document).ready(function(){
          }
     });
 	$('.signupBtn').click(function(){
-		if($('#signup-password').val()!=$('#signup-passwordChk').val())
+		if(!/^010-\d{4}-\d{4}$/.test($("#signup-phone").val().trim())){
+			alert("전화번호 형식이 유효하지 않습니다.")
+		}else if($('#signup-password').val()!=$('#signup-passwordChk').val()){
 			alert('비밀번호와 비밀번호 확인 입력이 일치하지 않습니다.')
-		else if($("input[type=hidden]").val()!=$('.chkNum').val()){	
+		}else if($("input[type=hidden]").val()!=$('.chkNum').val()){	
 			alert('인증번호가 일치하지 않습니다.')
-		}
-		else{
+		}else if($('.chkNum').val()==""){
+			alert('이메일을 인증해주세요')
+		}else{
 			$.ajax({
 				data: $("form").serialize(),
 				url: 'mail/sendSingupSuccess',
@@ -63,6 +66,12 @@ $(document).ready(function(){
 		}
 	})
 	$('#emailChkBtn').click(function(){
+		var email = $('#signup-email').val();
+		
+		if (!isValidEmail(email)) {
+			alert('유효한 이메일 주소를 입력하세요.');
+			return;
+		}
 		$.ajax({
 			data: $("form").serialize(),
 			url: 'emailDupChk',
@@ -76,7 +85,10 @@ $(document).ready(function(){
 							url: 'mail/sendEmailChk',
 							type: 'POST',
 							success: function(data){
-								alert('인증번호가 전송되었습니다.')
+								if(data == "메일전송실패")
+									alert('존재하지 않는 이메일입니다. 이메일을 다시 입력해주세요')
+								else
+									alert("인증번호 전송 성공")
 								$("input[type=hidden]").val(data)
 							},
 							error: function(err){
@@ -92,6 +104,10 @@ $(document).ready(function(){
 		})
 		
 	})
+	function isValidEmail(email) {
+		var emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+		return emailPattern.test(email);
+	}
 })
 </script>
 <body class="app app-signup p-0">    	
@@ -108,16 +124,16 @@ $(document).ready(function(){
 							이름	
 								<input id="signup-name" name="name" type="text" class="form-control signup-name" placeholder="이름 입력" required="required">
 							닉네임	
-								<input id="signup-name" name="nickname" type="text" class="form-control signup-name" placeholder="닉네임 입력" required="required">
+								<input id="signup-name1" name="nickname" type="text" class="form-control signup-name" placeholder="닉네임 입력" required="required">
 							전화번호	
-								<input id="signup-name" name="phone" type="text" class="form-control signup-name" placeholder="전화번호 입력 ( - 빼고 입력 )" required="required">
+								<input id="signup-phone" name="phone" type="text" class="form-control signup-name" placeholder="전화번호 입력 ( 010-0000-0000 형식 )" required="required">
 							생일	
-								<input id="signup-name" name="birth" type="date" class="form-control signup-name" placeholder="생일 입력" required="required">
+								<input id="signup-name3" name="birth" type="date" class="form-control signup-name" placeholder="생일 입력" required="required">
 							이메일
 								<input id="signup-email" name="email" type="email" class="form-control signup-email" placeholder="이메일 입력" required="required">
 								<button id="emailChkBtn" type="button" class="form-control">인증번호 전송</button>
 							인증번호	
-								<input id="signup-name" type="text" class="chkNum form-control signup-name" placeholder="인증번호 입력" required="required">
+								<input id="signup-name4" type="text" class="chkNum form-control signup-name" placeholder="인증번호 입력" required="required">
 							비밀번호
 								<input id="signup-password" name="password" type="password" class="form-control signup-password" placeholder="비밀번호 입력" required="required">
 							비밀번호 확인

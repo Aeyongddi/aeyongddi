@@ -30,7 +30,7 @@ public interface JDaoNewTask {
     void updateTaskEndYn(@Param("tkid") String tkid, @Param("endYn") int endYn);
 
     @Update("UPDATE TASK SET START_DATE = #{startDate}, END_DATE = #{endDate}, " +
-            "NAME = #{name}, DESCRIPTION = #{description}, SID = #{sid}, ENDYN = #{endYn} " +
+            "NAME = #{name}, DESCRIPTION = #{description}, SID = #{sid,jdbcType=VARCHAR}, ENDYN = #{endYn,jdbcType=NUMERIC} " +
             "WHERE TKID = #{tkid}")
     void updateTask(Task task);
 

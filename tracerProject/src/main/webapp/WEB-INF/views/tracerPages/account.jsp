@@ -559,24 +559,30 @@
 							});
 
 							$('#saveNicknameBtn').click(function() {
-								var newNickname = $('#newNickname').val();
-								$.ajax({
-									url : '/updateNickname',
-									type : 'POST',
-									data : {
-										nickname : newNickname
-									},
-									success : function(response) {
-										alert(response);
-										if (response === '닉네임 변경 성공') {
-											location.reload();
-										}
-									},
-									error : function(xhr, status, error) {
-										console.error('Error: ' + error);
-									}
-								});
+							    var newNickname = $('#newNickname').val().trim();
+							    
+							    // 닉네임이 공백만으로 이루어진 경우 확인
+							    if (newNickname === '') {
+							        alert('닉네임을 공백만으로 설정할 수 없습니다.');
+							        return;
+							    }
+							    
+							    $.ajax({
+							        url: '/updateNickname',
+							        type: 'POST',
+							        data: { nickname: newNickname },
+							        success: function(response) {
+							            alert(response);
+							            if (response === '닉네임 변경 성공') {
+							                location.reload();
+							            }
+							        },
+							        error: function(xhr, status, error) {
+							            console.error('Error: ' + error);
+							        }
+							    });
 							});
+
 
 							// 전화번호 변경 모달 초기화
 							$('#changePhoneBtn').click(function() {
@@ -584,23 +590,29 @@
 							});
 
 							$('#savePhoneBtn').click(function() {
-								var newPhone = $('#newPhone').val();
-								$.ajax({
-									url : '/updatePhone',
-									type : 'POST',
-									data : {
-										phone : newPhone
-									},
-									success : function(response) {
-										alert(response);
-										if (response === '전화번호 변경 성공') {
-											location.reload();
-										}
-									},
-									error : function(xhr, status, error) {
-										console.error('Error: ' + error);
-									}
-								});
+							    var newPhone = $('#newPhone').val().trim();
+							    var phoneRegex = /^010-\d{4}-\d{4}$/;
+							    
+							    // 전화번호 형식 확인
+							    if (!phoneRegex.test(newPhone)) {
+							        alert('전화번호는 010-0000-0000 형태로 입력해야 합니다.');
+							        return;
+							    }
+							    
+							    $.ajax({
+							        url: '/updatePhone',
+							        type: 'POST',
+							        data: { phone: newPhone },
+							        success: function(response) {
+							            alert(response);
+							            if (response === '전화번호 변경 성공') {
+							                location.reload();
+							            }
+							        },
+							        error: function(xhr, status, error) {
+							            console.error('Error: ' + error);
+							        }
+							    });
 							});
 						});
 

@@ -8,14 +8,51 @@ import org.springframework.stereotype.Service;
 
 import com.web.tracerProject.mapper.G_Dao_Notice;
 import com.web.tracerProject.vo.Notice;
+import com.web.tracerProject.vo.NoticeSch;
 
 @Service
 public class G_Service_Notice {
 	@Autowired(required=false)
     private G_Dao_Notice dao;
 // 조회하는 코드
-public List<Notice> getNoticeList(Notice sch) {
-        return dao.getNoticeList();
+	public List<Notice> getNoticeList(NoticeSch sch) {
+        if (sch.getSubject() == null) sch.setSubject("");
+        if (sch.getWriter() == null) sch.setWriter("");
+
+        // 총 데이터 수
+        sch.setCount(dao.getNoticeCount(sch));
+
+        // 현재 페이지 설정
+        if (sch.getCurPage() == 0) {
+            sch.setCurPage(1);
+        }
+
+        // 한 페이지에 보일 데이터 수 설정
+        if (sch.getPageSize() == 0) {
+            sch.setPageSize(5);
+        }
+
+        // 총 페이지 수 계산
+        sch.setPageCount((int) Math.ceil(sch.getCount() / (double) sch.getPageSize()));
+
+        // 현재 페이지가 총 페이지 수보다 큰 경우 처리
+        if (sch.getCurPage() > sch.getPageCount()) {
+            sch.setCurPage(sch.getPageCount());
+        }
+
+        // 시작번호와 마지막번호 설정
+        sch.setStart((sch.getCurPage() - 1) * sch.getPageSize() + 1);
+        int imEnd = sch.getPageSize() * sch.getCurPage();
+        sch.setEnd(imEnd > sch.getCount() ? sch.getCount() : imEnd);
+
+        // 페이지 블럭 처리
+        sch.setBlockSize(5);
+        int blockNum = (int) Math.ceil(sch.getCurPage() / (double) sch.getBlockSize());
+        sch.setStartBlock((blockNum - 1) * sch.getBlockSize() + 1);
+        int endBlock = blockNum * sch.getBlockSize();
+        sch.setEndBlock(endBlock > sch.getPageCount() ? sch.getPageCount() : endBlock);
+
+        return dao.getNoticeListWithPagination(sch);
     }
 
 // 등록하는 코드
@@ -41,10 +78,6 @@ public int insertNotice(Notice ins) {
     
     return dao.insertNotice(ins);
 }
-  // 댓글 등록하는 코드
-  public int insertcomm(Notice ins) {
-	return dao.insertcomm(ins);
-  }
   
   // 삭제하는 코드
   public int deleteNotice(String vid) {
@@ -60,4 +93,12 @@ public int insertNotice(Notice ins) {
   public Notice getNoticeById(String vid) {
       return dao.getNoticeById(vid);
   }
+  
+  // 수정하는 코드
+  public int updateNotice(Notice notice) {
+      return dao.updateNotice(notice);
+  }
+  
+ 
+
 }

@@ -163,6 +163,9 @@
 	</div>
 	<script type="text/javascript">
 	document.addEventListener('DOMContentLoaded', function() {
+		if(pid != 0){
+			$("option[value='"+pid+"']").prop("selected", true)
+		}
 	if(auth == 'member')
 		$('option[value=""]').hide()
 	if(tid == '0')

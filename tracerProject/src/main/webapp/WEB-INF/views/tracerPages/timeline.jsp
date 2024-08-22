@@ -54,6 +54,9 @@ $(document).ready(function(){
 if(auth != 'admin')
 	$('#prjList').hide()
 var opts
+console.log(pid)
+if(pid != "")
+	$("option[value='"+pid+"']").prop("selected", true)
 $('#prjList').change(function() {
 	var selectedVal = $(this).val();
 	if(selectedVal == "")

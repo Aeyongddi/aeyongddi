@@ -42,7 +42,7 @@
                                         <form @submit.prevent="searchUsers" class="schUser table-search-form row gx-1 align-items-center">
                                             <div class="col-auto">
                                                 <select v-model="filters.auth" class="auth-select">
-                                                    <option value="">전체</option>
+                                                    <option value="">전체[권한]</option>
                                                     <option value="admin">admin</option>
                                                     <option value="manager">manager</option>
                                                     <option value="member">member</option>
@@ -51,6 +51,9 @@
                                             </div>
                                             <div class="col-auto">
                                                 <input type="text" v-model="filters.name" class="form-control search-orders" placeholder="사용자 이름 입력">
+                                            </div>
+                                            <div class="col-auto">
+                                                <input type="text" v-model="filters.nickname" class="form-control search-orders" placeholder="사용자 닉네임 입력">
                                             </div>
                                             <div class="col-auto">
                                                 <button type="submit" class="btn app-btn-secondary">검색</button>
@@ -71,6 +74,7 @@
                                             <tr>
                                                 <th class="cell">email</th>
                                                 <th class="cell">이름</th>
+                                                <th class="cell">닉네임</th>
                                                 <th class="cell">생일</th>
                                                 <th class="cell">권한</th>
                                                 <th class="cell">삭제</th>
@@ -80,6 +84,7 @@
                                             <tr v-for="user in users" :key="user.email" :class="user.email">
                                                 <td class="cell">{{ user.email }}</td>
                                                 <td class="cell">{{ user.name }}</td>
+                                                <td class="cell">{{ user.nickname }}</td>
                                                 <td class="cell">{{ formatDate(user.birth) }}</td>
                                                 <td class="cell">
                                                     <select v-model="user.auth" @change="updateAuth(user)" class="auth-select">
@@ -122,7 +127,8 @@
                     users: [],
                     filters: {
                         auth: '',
-                        name: ''
+                        name: '',
+                        nickname: ''
                     },
                     totalPages: 0,
                     pageSize: 10

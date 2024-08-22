@@ -30,10 +30,12 @@ public interface NDaoUserMgmt {
                 FROM USER_INFO a
                 WHERE NAME LIKE '%' || #{name} || '%'
                 AND AUTH LIKE '%' || #{auth} || '%'
+                AND NICKNAME LIKE '%' || #{nickname} || '%'
             )
             WHERE rn BETWEEN #{offset} + 1 AND #{offset} + #{pageSize}
             """)
-    List<User_info> schUserInfo(@Param("name") String name, 
+    List<User_info> schUserInfo(@Param("nickname") String nickname, 
+    							@Param("name") String name, 
                                 @Param("auth") String auth,
                                 @Param("offset") int offset, 
                                 @Param("pageSize") int pageSize);
@@ -62,6 +64,8 @@ public interface NDaoUserMgmt {
             FROM USER_INFO 
             WHERE NAME LIKE '%' || #{name} || '%' 
             AND AUTH LIKE '%' || #{auth} || '%'
+            AND NICKNAME LIKE '%' || #{nickname} || '%'
             """)
-    int countUsers(@Param("name") String name, @Param("auth") String auth);
+    int countUsers(@Param("nickname") String nickname, 
+    				@Param("name") String name, @Param("auth") String auth);
 }

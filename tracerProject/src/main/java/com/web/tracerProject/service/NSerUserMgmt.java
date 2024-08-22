@@ -26,17 +26,18 @@ public class NSerUserMgmt {
         return new PageImpl<>(users, pageable, total);
     }
 
-    public Page<User_info> schUserInfo(String name, String auth, int page, int size) {
+    public Page<User_info> schUserInfo(String nickname, 
+    									String name, String auth, int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
         int offset = page * size;
-        List<User_info> users = dao.schUserInfo(name, auth, offset, size);
-        int total = dao.countUsers(name, auth);  // Total records matching search criteria
+        List<User_info> users = dao.schUserInfo(nickname, name, auth, offset, size);
+        int total = dao.countUsers(nickname, name, auth);  // Total records matching search criteria
         return new PageImpl<>(users, pageable, total);
     }
 
-    public Page<User_info> delUser(String name, String auth, String email, int page, int size) {
+    public Page<User_info> delUser(String nickname, String name, String auth, String email, int page, int size) {
         dao.delUser(email);
-        return schUserInfo(name, auth, page, size);  // Refresh the list after deletion
+        return schUserInfo(nickname, name, auth, page, size);  // Refresh the list after deletion
     }
 
     public String uptUser(String auth, String email) {

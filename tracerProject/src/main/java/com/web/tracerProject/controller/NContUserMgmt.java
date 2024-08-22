@@ -31,24 +31,26 @@ public class NContUserMgmt {
 
     // 사용자 목록을 검색하는 메서드
     @PostMapping("userList")
-    public ResponseEntity<Page<User_info>> schPrjList(@RequestParam(value = "name", defaultValue = "") String name, 
+    public ResponseEntity<Page<User_info>> schPrjList( @RequestParam(value = "nickname", defaultValue = "") String nickname, 
+    												   @RequestParam(value = "name", defaultValue = "") String name, 
                                                        @RequestParam(value = "auth", defaultValue = "") String auth,
                                                        @RequestParam(value = "page", defaultValue = "0") int page,
                                                        @RequestParam(value = "size", defaultValue = "10") int size) {
         // 이름과 권한으로 필터링된 사용자 정보를 페이징 처리하여 가져옵니다.
-        Page<User_info> users = service.schUserInfo(name, auth, page, size);
+        Page<User_info> users = service.schUserInfo(nickname, name, auth, page, size);
         return ResponseEntity.ok(users);
     }
 
     // 사용자 삭제 메서드
     @PostMapping("delUser")
-    public ResponseEntity<Page<User_info>> delUser(@RequestParam(value = "name", defaultValue = "") String name, 
+    public ResponseEntity<Page<User_info>> delUser(@RequestParam(value = "nickname", defaultValue = "") String nickname, 
+    												@RequestParam(value = "name", defaultValue = "") String name, 
                                                     @RequestParam(value = "auth", defaultValue = "") String auth,
                                                     @RequestParam("email") String email,
                                                     @RequestParam(value = "page", defaultValue = "0") int page,
                                                     @RequestParam(value = "size", defaultValue = "10") int size) {
         // 사용자를 삭제하고, 삭제 후 필터링된 사용자 목록을 페이징 처리하여 가져옵니다.
-        Page<User_info> users = service.delUser(name, auth, email, page, size);
+        Page<User_info> users = service.delUser(nickname, name, auth, email, page, size);
         return ResponseEntity.ok(users);
     }
 

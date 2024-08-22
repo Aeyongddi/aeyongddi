@@ -42,6 +42,7 @@ $(document).ready(function(){
 			type: 'POST',
 			success: function(data){
 				alert(data)
+				$("input[name='name']").val("")
 			},
 			error: function(err){
 				console.log(err)

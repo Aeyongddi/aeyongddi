@@ -386,7 +386,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     $('#addBudgetForm').on('submit', function(event) {
-		if (!validateAmount(amountInput[0])) {
+    	const amountInput = $(this).find('input[name="amount"]');
+		if (!validateAmount(amountInput)) {
             event.preventDefault(); // 폼 제출을 막습니다.
         }else{
 	        const formData = $(this).serialize();
@@ -394,13 +395,14 @@ document.addEventListener('DOMContentLoaded', function() {
 	            alert(response);
 	            window.location.reload();
 	        }).fail(function(xhr) {
-	            alert('예산 추가 실패: ' + xhr.responseText);
+	            
 	        });
         }
     });
 
     $('#reduceBudgetForm').on('submit', function(event) {
-    	if (!validateAmount(amountInput[0])) {
+    	const amountInput = $(this).find('input[name="amount"]');
+    	if (!validateAmount(amountInput)) {
             event.preventDefault(); // 폼 제출을 막습니다.
         }else{
 	        event.preventDefault();
@@ -409,7 +411,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	            alert(response);
 	            window.location.reload();
 	        }).fail(function(xhr) {
-	            alert('예산 삭감 실패: ' + xhr.responseText);
+	            
 	        });
         }
     });

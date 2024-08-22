@@ -16,3 +16,10 @@
 2024-08-22T09:21:36.162+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
 2024-08-22T09:21:36.171+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 14.309 seconds (process running for 17.633)
 2024-08-22T09:22:35.834+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T09:23:42.322+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T09:23:42.323+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T09:23:42.324+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-22T09:23:42.398+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-08-22T09:23:42.404+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T09:23:42.714+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@aa56952
+2024-08-22T09:23:42.716+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.

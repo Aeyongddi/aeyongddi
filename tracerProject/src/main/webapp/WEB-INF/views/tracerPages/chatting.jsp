@@ -173,30 +173,34 @@ socket.onerror = function(event) {
 $(document).ready(function () {
     showNicknameModal();
 
-    function initializeChat() {
-        loadChatHistory();  // 페이지 로드 시 채팅 기록 불러오기
+    socket.onopen = function(evt) {
+        console.log("Connection opened");
 
-        socket.onopen = function (evt) {
-            console.log("Connection opened");
-            const joinMessage = {
-                email: userEmail,
-                nickname: userNickname,
-                content: userNickname + "님이 입장하셨습니다!"
-            };
-            socket.send(JSON.stringify(joinMessage));
-
-            // "단체 채팅1" 버튼을 자동으로 강조 표시
-            highlightCurrentChatButton($("#group-1"));
+        const joinMessage = {
+            email: userEmail,
+            nickname: userNickname,
+            content: userNickname + "님이 입장하셨습니다!"
         };
+        socket.send(JSON.stringify(joinMessage));
 
-        socket.onmessage = function (evt) {
-            console.log("Message received: ", evt.data);
-            if (evt.data.startsWith("USER_LIST")) {
-                handleUserList(evt.data.substring(9));
-            } else {
-                revMsg(evt.data);
-            }
+        // 서버에 사용자 목록 요청
+        const requestUserListMessage = {
+            type: "REQUEST_USER_LIST"
         };
+        socket.send(JSON.stringify(requestUserListMessage));
+
+        // "단체 채팅1" 버튼을 자동으로 강조 표시
+        highlightCurrentChatButton($("#group-1"));
+    };
+
+    socket.onmessage = function (evt) {
+        console.log("Message received: ", evt.data);
+        if (evt.data.startsWith("USER_LIST")) {
+            handleUserList(evt.data.substring(9));
+        } else {
+            revMsg(evt.data);
+        }
+    };
 
         socket.onclose = function () {
             console.log("Connection closed");
@@ -216,7 +220,6 @@ $(document).ready(function () {
         $("#clearChatBtn").click(function () {
             clearChatHistory();
         });
-    }
 
     function showNicknameModal() {
         $("#nicknameModal").show();
@@ -240,7 +243,6 @@ $(document).ready(function () {
             userNickname = newNickname;
             $("#userNickname").text(userNickname + " 님");
             $("#nicknameModal").hide();
-            initializeChat();
         } else {
             alert("닉네임을 입력해주세요.");
         }
@@ -286,13 +288,14 @@ function revMsg(data) {
     const chatName = message.chatName;
     const isSender = (nickname === userNickname.trim());
 
+    // 중복 메시지 방지
+    if (isSender) {
+        return;
+    }
+
     if (chatType === currentChatType && chatName === currentChatName) {
         console.log("Received message from:", nickname, " Content: ", content);
-
-        if (!isSender) {
-            addMessageToChat(nickname, content, false);
-        }
-
+        addMessageToChat(nickname, content, false);
         saveMessageToLocalStorage(message);
     }
 }

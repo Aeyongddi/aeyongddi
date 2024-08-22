@@ -87,9 +87,9 @@
 								</div>
 								<!-- 등록 버튼 -->
 								<div class="col-auto">
-									<a class="btn app-btn-secondary" id="openModalButton"
+									<a class="btn app-btn-secondary" id="openModalButton" class="nomem"
 										data-bs-toggle="modal" data-bs-target="#noticeModal">등록</a> <a
-										class="btn app-btn-secondary" id="openMailModalButton"
+										class="btn app-btn-secondary" id="openMailModalButton" class="nomem"
 										data-bs-toggle="modal" data-bs-target="#mailModal">메일 발송</a>
 								</div>
 							</div>
@@ -132,7 +132,7 @@
 													<td class="cell"><fmt:formatDate
 															value="${no.date_of_registration}"
 															pattern="yyyy-MM-dd HH:mm" /></td>
-													<td class="cell"><a href="#"
+													<td class="cell nomem"><a href="#"
 														class="btn-sm app-btn-primary"
 														onclick="openEditModal('${no.vid}'); return false;">수정</a>
 														<a href="#" class="btn-sm app-btn-secondary delete-btn"
@@ -234,7 +234,7 @@
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
 							data-bs-dismiss="modal">닫기</button>
-						<button type="button" class="btn btn-primary" id="submitNotice"
+						<button type="button" class="btn btn-primary nomem" id="submitNotice"
 							style="background-color: #17A663; border-color: #17A663;">등록</button>
 					</div>
 				</div>
@@ -338,6 +338,9 @@
 
 
 	<script>
+	$(document).ready(function(){
+		$('nomem').hide()
+	})
 	document.getElementById('sendMail').addEventListener('click', function () {
 	    const mailTitle = document.getElementById('mailTitle').value;
 	    const mailRecipients = document.getElementById('mailRecipients').value.split(',').map(email => email.trim()).filter(email => email !== ''); // 쉼표로 이메일 분리

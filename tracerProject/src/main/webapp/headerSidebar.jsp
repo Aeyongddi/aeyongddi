@@ -255,7 +255,7 @@
 											key='risk.management.board' /></a></li>
 								<li class="submenu-item"><a class="submenu-link"
 									href="newTask"><fmt:message key='schedule.board' /></a></li>
-								<li class="submenu-item"><a class="submenu-link"
+								<li class="submenu-item nomem"><a class="submenu-link"
 									href="newApproval"><fmt:message key='approval.board' /></a></li>
 								<li class="submenu-item"><a class="submenu-link"
 									href="Notice"><fmt:message key='notice.board' /></a></li>

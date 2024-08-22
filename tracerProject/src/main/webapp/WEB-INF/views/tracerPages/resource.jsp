@@ -196,7 +196,7 @@
 </div>
 
 <!-- 새 프로젝트 예산 부여 모달 -->
-<div class="modal fade" id="assignBudgetModal" tabindex="-1" aria-labelledby="assignBudgetModalLabel" aria-hidden="true">
+<div class="modal fade newPrjMoney" id="assignBudgetModal" tabindex="-1" aria-labelledby="assignBudgetModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -312,8 +312,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('[data-bs-target="#assignBudgetModal"]').addEventListener('click', function(event) {
         const projectOptions = document.querySelectorAll('#assignBudgetProjectSelect option');
         if (projectOptions.length === 0) {
-            event.preventDefault();
             alert('새 프로젝트가 없습니다. 새 프로젝트를 추가한 후 시도해주세요.');
+            window.location.reload()
         }
     });
 
@@ -426,7 +426,8 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     $('#assignBudgetForm').on('submit', function(event) {
-    	if (!validateAmount(amountInput[0])) {
+    	const amountInput = $(this).find('input[name="amount"]')
+    	if (!validateAmount(amountInput)) {
             event.preventDefault(); // 폼 제출을 막습니다.
         }else{
 	        event.preventDefault();

@@ -33,8 +33,10 @@ public class ChatHandler extends TextWebSocketHandler {
 	    users.put(session.getId(), session);
 	    System.out.println(nickname + "님 접속하셨습니다. 현재 접속자 수: " + users.size());
 	    
-	    // 접속한 사용자 목록을 모든 사용자에게 브로드캐스트
+	    // 닉네임을 모든 클라이언트에게 브로드캐스트하기 전에 사용자 목록을 보냅니다.
 	    sendUserList();
+
+	    // 입장 메시지 전송
 	    sendJoinMessage(session, nickname);
 	}
 

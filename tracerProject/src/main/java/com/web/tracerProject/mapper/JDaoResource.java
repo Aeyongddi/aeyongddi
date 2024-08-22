@@ -1,6 +1,5 @@
 package com.web.tracerProject.mapper;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
@@ -21,13 +20,13 @@ public interface JDaoResource {
     List<ResourceManage> getAllAssets();
 
     @Update("UPDATE ResourceManage SET assigned_budget = assigned_budget + #{amount} WHERE pid = #{pid} AND rtype = 'BUDGET'")
-    void addBudget(@Param("pid") String pid, @Param("amount") BigDecimal amount);
+    void addBudget(@Param("pid") String pid, @Param("amount") int amount);
 
     @Update("UPDATE ResourceManage SET assigned_budget = assigned_budget - #{amount} WHERE pid = #{pid} AND rtype = 'BUDGET'")
-    void reduceBudget(@Param("pid") String pid, @Param("amount") BigDecimal amount);
+    void reduceBudget(@Param("pid") String pid, @Param("amount") int amount);
 
     @Insert("INSERT INTO ResourceManage (rid, pid, rtype, assigned_budget) VALUES ('RID'||LPAD(RID_SEQ.NEXTVAL, 5, '0'), #{pid}, 'BUDGET', #{amount})")
-    void assignBudget(@Param("pid") String pid, @Param("amount") BigDecimal amount);
+    void assignBudget(@Param("pid") String pid, @Param("amount") int amount);
 
     @Select("SELECT MAX(CAST(SUBSTR(rid, 4) AS INT)) \r\n"
     		+ "FROM ResourceManage \r\n"
@@ -38,7 +37,7 @@ public interface JDaoResource {
     void addAsset(ResourceManage asset);
 
     @Update("UPDATE ResourceManage SET used_budget = COALESCE(used_budget, 0) + #{amount} WHERE pid = #{pid} AND rtype = 'BUDGET'")
-    void updateUsedBudget(@Param("pid") String pid, @Param("amount") BigDecimal amount);
+    void updateUsedBudget(@Param("pid") String pid, @Param("amount") int software_price);
 
     @Select("SELECT * FROM PROJECT")
     List<Project> getAllProjects();

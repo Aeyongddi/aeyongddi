@@ -1,6 +1,5 @@
 package com.web.tracerProject.service;
 
-import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -20,7 +19,7 @@ public class JSerResource {
     public ResourceManage getBudget(String pid) {
         ResourceManage budget = dao.getBudget(pid);
         if (budget != null) {
-            BigDecimal remainingBudget = budget.getAssigned_budget().subtract(budget.getUsed_budget());
+        	int remainingBudget = budget.getAssigned_budget() - budget.getUsed_budget();
             budget.setRemainingBudget(remainingBudget); // ResourceManage 객체에 남은 예산 필드를 추가했다고 가정
         }
         return budget;
@@ -34,19 +33,19 @@ public class JSerResource {
         return dao.getAllAssets();
     }
 
-    public void addBudget(String pid, BigDecimal amount) {
+    public void addBudget(String pid, int amount) {
         dao.addBudget(pid, amount);
     }
 
-    public void reduceBudget(String pid, BigDecimal amount) {
+    public void reduceBudget(String pid, int amount) {
         dao.reduceBudget(pid, amount);
     }
 
-    public void assignBudget(String pid,BigDecimal amount) {
+    public void assignBudget(String pid,int amount) {
         dao.assignBudget(pid,amount);
     }
 
-    public ResourceManage addAssetAndUpdateBudget(String pid, String rtype, String software_name, String license_purchase_date, String license_expiry_date, BigDecimal software_price) {
+    public ResourceManage addAssetAndUpdateBudget(String pid, String rtype, String software_name, String license_purchase_date, String license_expiry_date, int software_price) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             // ResourceManage 객체 생성 시, RID는 쿼리에서 자동으로 생성되므로 null로 설정

@@ -95,6 +95,9 @@
                 <p>${notice.content}</p>
             </c:if>
         </div>
+        <div class="page-header">
+        ${notice.link}
+        </div>
         <div class="registration">
          <p><strong>등록 날짜:</strong> <fmt:formatDate value="${notice.date_of_registration}" pattern="yyyy-MM-dd HH:mm" /></p>
          </div>

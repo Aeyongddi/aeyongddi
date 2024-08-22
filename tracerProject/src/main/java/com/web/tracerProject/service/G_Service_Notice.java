@@ -29,7 +29,7 @@ public class G_Service_Notice {
 
         // 한 페이지에 보일 데이터 수 설정
         if (sch.getPageSize() == 0) {
-            sch.setPageSize(5);
+            sch.setPageSize(9);
         }
 
         // 총 페이지 수 계산
@@ -53,6 +53,10 @@ public class G_Service_Notice {
         sch.setEndBlock(endBlock > sch.getPageCount() ? sch.getPageCount() : endBlock);
 
         return dao.getNoticeListWithPagination(sch);
+    }
+	// 총 공지사항 수 조회
+    public int getTotalNoticeCount(NoticeSch sch) {
+        return dao.getNoticeCount(sch);
     }
 
 // 등록하는 코드

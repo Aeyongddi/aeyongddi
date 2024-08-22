@@ -23,3 +23,1003 @@
 2024-08-22T09:23:42.404+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
 2024-08-22T09:23:42.714+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@aa56952
 2024-08-22T09:23:42.716+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-08-22T09:44:29.635+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T09:44:29.648+09:00  INFO 7856 --- [Thread-5] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T09:44:29.649+09:00  INFO 7856 --- [Thread-5] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7aaa59ae]]
+2024-08-22T09:44:29.649+09:00  INFO 7856 --- [Thread-5] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T09:44:29.654+09:00  INFO 7856 --- [Thread-5] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T09:44:29.661+09:00  INFO 7856 --- [Thread-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T09:44:29.676+09:00  WARN 7856 --- [Thread-5] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [oracle.jdbc.driver.BlockSource.ThreadedCachingBlockSource.BlockReleaser] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ oracle.jdbc.internal.Monitor$WaitableMonitor.monitorWait(Monitor.java:258)
+ oracle.jdbc.internal.Monitor$WaitableMonitor.monitorWait(Monitor.java:240)
+ oracle.jdbc.driver.BlockSource$ThreadedCachingBlockSource$BlockReleaser.run(BlockSource.java:345)
+2024-08-22T09:44:29.677+09:00  WARN 7856 --- [Thread-5] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [InterruptTimer] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/java.lang.Object.wait0(Native Method)
+ java.base/java.lang.Object.wait(Object.java:366)
+ java.base/java.util.TimerThread.mainLoop(Timer.java:563)
+ java.base/java.util.TimerThread.run(Timer.java:516)
+2024-08-22T09:44:29.677+09:00  WARN 7856 --- [Thread-5] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-1 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T09:44:29.690+09:00  INFO 7856 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-08-22T09:44:29.703+09:00  INFO 7856 --- [Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2024-08-22T09:44:29.819+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T09:44:29.819+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T09:44:30.204+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T09:44:30.205+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T09:44:30.206+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T09:44:30.385+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T09:44:30.389+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T09:44:30.389+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 565 ms
+2024-08-22T09:44:30.738+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T09:44:30.753+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T09:44:30.753+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T09:44:30.753+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2b218694]]
+2024-08-22T09:44:30.754+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T09:44:30.758+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.992 seconds (process running for 1392.221)
+2024-08-22T09:44:30.761+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T09:45:00.202+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T09:45:00.203+09:00  INFO 7856 --- [Thread-37] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T09:45:00.203+09:00  INFO 7856 --- [Thread-37] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2b218694]]
+2024-08-22T09:45:00.203+09:00  INFO 7856 --- [Thread-37] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T09:45:00.205+09:00  INFO 7856 --- [Thread-37] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T09:45:00.308+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T09:45:00.309+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T09:45:00.556+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T09:45:00.556+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T09:45:00.556+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T09:45:00.698+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T09:45:00.702+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T09:45:00.702+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 391 ms
+2024-08-22T09:45:00.908+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T09:45:00.919+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T09:45:00.920+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T09:45:00.920+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@26cb209c]]
+2024-08-22T09:45:00.920+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T09:45:00.923+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.639 seconds (process running for 1422.385)
+2024-08-22T09:45:00.925+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T09:45:13.895+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T09:45:13.897+09:00  INFO 7856 --- [Thread-41] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T09:45:13.897+09:00  INFO 7856 --- [Thread-41] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@26cb209c]]
+2024-08-22T09:45:13.898+09:00  INFO 7856 --- [Thread-41] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T09:45:13.901+09:00  INFO 7856 --- [Thread-41] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T09:45:14.010+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T09:45:14.010+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T09:45:14.260+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T09:45:14.261+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T09:45:14.261+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T09:45:14.405+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T09:45:14.407+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T09:45:14.408+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 396 ms
+2024-08-22T09:45:14.603+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T09:45:14.615+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T09:45:14.616+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T09:45:14.617+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3c43594a]]
+2024-08-22T09:45:14.617+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T09:45:14.622+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.637 seconds (process running for 1436.085)
+2024-08-22T09:45:14.624+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T09:46:14.541+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T10:10:50.732+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:10:50.733+09:00  INFO 7856 --- [Thread-45] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:10:50.734+09:00  INFO 7856 --- [Thread-45] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3c43594a]]
+2024-08-22T10:10:50.734+09:00  INFO 7856 --- [Thread-45] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:10:50.736+09:00  INFO 7856 --- [Thread-45] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:10:50.828+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:10:50.829+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:10:51.173+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:10:51.174+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:10:51.174+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:10:51.320+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:10:51.323+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:10:51.323+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 491 ms
+2024-08-22T10:10:51.574+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:10:51.590+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:10:51.591+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:10:51.591+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@342ecc18]]
+2024-08-22T10:10:51.591+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:10:51.595+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.799 seconds (process running for 2973.057)
+2024-08-22T10:10:51.597+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:11:51.487+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T10:12:20.953+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:12:20.955+09:00  INFO 7856 --- [Thread-49] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:12:20.956+09:00  INFO 7856 --- [Thread-49] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@342ecc18]]
+2024-08-22T10:12:20.956+09:00  INFO 7856 --- [Thread-49] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:12:20.958+09:00  INFO 7856 --- [Thread-49] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:12:21.059+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:12:21.059+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:12:21.323+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:12:21.324+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:12:21.324+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:12:21.473+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:12:21.478+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:12:21.478+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 416 ms
+2024-08-22T10:12:21.698+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:12:21.709+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:12:21.710+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:12:21.711+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@542d254d]]
+2024-08-22T10:12:21.711+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:12:21.715+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.686 seconds (process running for 3063.177)
+2024-08-22T10:12:21.718+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:12:38.860+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:12:38.864+09:00  INFO 7856 --- [Thread-53] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:12:38.864+09:00  INFO 7856 --- [Thread-53] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@542d254d]]
+2024-08-22T10:12:38.864+09:00  INFO 7856 --- [Thread-53] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:12:38.869+09:00  INFO 7856 --- [Thread-53] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:12:38.974+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:12:38.974+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:12:39.216+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:12:39.217+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:12:39.217+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:12:39.363+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:12:39.366+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:12:39.366+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 390 ms
+2024-08-22T10:12:39.594+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:12:39.604+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:12:39.605+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:12:39.605+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@740b40a2]]
+2024-08-22T10:12:39.605+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:12:39.607+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.655 seconds (process running for 3081.07)
+2024-08-22T10:12:39.610+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:12:45.214+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:12:45.217+09:00  INFO 7856 --- [Thread-57] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:12:45.218+09:00  INFO 7856 --- [Thread-57] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@740b40a2]]
+2024-08-22T10:12:45.218+09:00  INFO 7856 --- [Thread-57] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:12:45.224+09:00  INFO 7856 --- [Thread-57] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:12:45.338+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:12:45.338+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:12:45.622+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:12:45.622+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:12:45.623+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:12:45.764+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:12:45.768+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:12:45.768+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 428 ms
+2024-08-22T10:12:45.980+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:12:45.994+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:12:45.995+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:12:45.995+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3c9d53ab]]
+2024-08-22T10:12:45.995+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:12:45.999+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.686 seconds (process running for 3087.462)
+2024-08-22T10:12:46.002+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:13:15.794+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:13:15.796+09:00  INFO 7856 --- [Thread-61] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:13:15.796+09:00  INFO 7856 --- [Thread-61] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3c9d53ab]]
+2024-08-22T10:13:15.796+09:00  INFO 7856 --- [Thread-61] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:13:15.798+09:00  INFO 7856 --- [Thread-61] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:13:15.914+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:13:15.914+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:13:16.209+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:13:16.210+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:13:16.210+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:13:16.376+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:13:16.378+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:13:16.378+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 462 ms
+2024-08-22T10:13:16.576+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:13:16.586+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:13:16.587+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:13:16.587+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7d424698]]
+2024-08-22T10:13:16.587+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:13:16.589+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.713 seconds (process running for 3118.053)
+2024-08-22T10:13:16.592+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:13:25.357+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:13:25.359+09:00  INFO 7856 --- [Thread-65] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:13:25.359+09:00  INFO 7856 --- [Thread-65] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7d424698]]
+2024-08-22T10:13:25.359+09:00  INFO 7856 --- [Thread-65] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:13:25.360+09:00  INFO 7856 --- [Thread-65] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:13:25.439+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:13:25.440+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:13:25.732+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:13:25.734+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:13:25.734+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:13:25.913+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:13:25.918+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:13:25.918+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 476 ms
+2024-08-22T10:13:26.227+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:13:26.239+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:13:26.240+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:13:26.240+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@412b9504]]
+2024-08-22T10:13:26.240+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:13:26.243+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.825 seconds (process running for 3127.705)
+2024-08-22T10:13:26.245+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:13:27.688+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:13:27.689+09:00  INFO 7856 --- [Thread-69] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:13:27.689+09:00  INFO 7856 --- [Thread-69] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@412b9504]]
+2024-08-22T10:13:27.689+09:00  INFO 7856 --- [Thread-69] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:13:27.691+09:00  INFO 7856 --- [Thread-69] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:13:27.774+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:13:27.774+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:13:28.008+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:13:28.008+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:13:28.008+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:13:28.143+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:13:28.145+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:13:28.145+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 369 ms
+2024-08-22T10:13:28.385+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:13:28.395+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:13:28.396+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:13:28.398+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@75ee6521]]
+2024-08-22T10:13:28.398+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:13:28.402+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.651 seconds (process running for 3129.865)
+2024-08-22T10:13:28.404+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:13:28.506+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:13:28.506+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:13:28.508+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-08-22T10:13:28.516+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2024-08-22T10:13:28.516+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T10:13:28.571+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-2 - Added connection oracle.jdbc.driver.T4CConnection@20ab9113
+2024-08-22T10:13:28.571+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2024-08-22T10:13:45.462+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:13:45.464+09:00  INFO 7856 --- [Thread-73] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:13:45.464+09:00  INFO 7856 --- [Thread-73] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@75ee6521]]
+2024-08-22T10:13:45.464+09:00  INFO 7856 --- [Thread-73] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:13:45.468+09:00  INFO 7856 --- [Thread-73] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:13:45.468+09:00  INFO 7856 --- [Thread-73] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T10:13:45.481+09:00  WARN 7856 --- [Thread-73] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [OJDBC-WORKER-THREAD-2] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:410)
+ java.base/java.util.concurrent.LinkedTransferQueue$DualNode.await(LinkedTransferQueue.java:452)
+ java.base/java.util.concurrent.SynchronousQueue$Transferer.xferLifo(SynchronousQueue.java:194)
+ java.base/java.util.concurrent.SynchronousQueue.xfer(SynchronousQueue.java:233)
+ java.base/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:336)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1069)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T10:13:45.482+09:00  WARN 7856 --- [Thread-73] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-2 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T10:13:45.488+09:00  INFO 7856 --- [Thread-73] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown initiated...
+2024-08-22T10:13:45.513+09:00  INFO 7856 --- [Thread-73] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2024-08-22T10:13:45.600+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:13:45.600+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:13:45.859+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:13:45.860+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:13:45.860+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:13:45.998+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:13:46.000+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:13:46.001+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 399 ms
+2024-08-22T10:13:46.217+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:13:46.231+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:13:46.231+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:13:46.231+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@21dca674]]
+2024-08-22T10:13:46.231+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:13:46.234+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.657 seconds (process running for 3147.696)
+2024-08-22T10:13:46.236+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:13:48.249+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:13:48.249+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:13:48.251+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-22T10:14:35.863+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:14:35.866+09:00  INFO 7856 --- [Thread-78] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:14:35.866+09:00  INFO 7856 --- [Thread-78] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@21dca674]]
+2024-08-22T10:14:35.867+09:00  INFO 7856 --- [Thread-78] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:14:35.873+09:00  INFO 7856 --- [Thread-78] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:14:35.874+09:00  INFO 7856 --- [Thread-78] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T10:14:35.992+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:14:35.992+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:14:36.268+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:14:36.269+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:14:36.269+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:14:36.411+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:14:36.414+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:14:36.414+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 419 ms
+2024-08-22T10:14:36.658+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:14:36.671+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:14:36.672+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:14:36.672+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@69d165a3]]
+2024-08-22T10:14:36.672+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:14:36.675+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.712 seconds (process running for 3198.138)
+2024-08-22T10:14:36.677+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:14:44.369+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:14:44.370+09:00  INFO 7856 --- [Thread-82] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:14:44.370+09:00  INFO 7856 --- [Thread-82] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@69d165a3]]
+2024-08-22T10:14:44.370+09:00  INFO 7856 --- [Thread-82] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:14:44.373+09:00  INFO 7856 --- [Thread-82] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:14:44.458+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:14:44.459+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:14:44.694+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:14:44.695+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:14:44.695+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:14:44.826+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:14:44.829+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:14:44.829+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 368 ms
+2024-08-22T10:14:45.011+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:14:45.022+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:14:45.022+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:14:45.022+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@60ead3d7]]
+2024-08-22T10:14:45.023+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:14:45.026+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.59 seconds (process running for 3206.488)
+2024-08-22T10:14:45.027+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:14:46.454+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:14:46.457+09:00  INFO 7856 --- [Thread-86] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:14:46.457+09:00  INFO 7856 --- [Thread-86] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@60ead3d7]]
+2024-08-22T10:14:46.457+09:00  INFO 7856 --- [Thread-86] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:14:46.461+09:00  INFO 7856 --- [Thread-86] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:14:46.585+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:14:46.585+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:14:46.829+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:14:46.830+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:14:46.830+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:14:46.968+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:14:46.971+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:14:46.971+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 384 ms
+2024-08-22T10:14:47.159+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:14:47.170+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:14:47.171+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:14:47.171+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@442de27f]]
+2024-08-22T10:14:47.171+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:14:47.175+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.617 seconds (process running for 3208.637)
+2024-08-22T10:14:47.177+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:14:48.851+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:14:48.851+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:14:48.852+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-22T10:14:48.863+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2024-08-22T10:14:48.864+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T10:14:48.911+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-3 - Added connection oracle.jdbc.driver.T4CConnection@58b55fe5
+2024-08-22T10:14:48.911+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2024-08-22T10:15:10.542+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:15:10.545+09:00  INFO 7856 --- [Thread-90] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:15:10.546+09:00  INFO 7856 --- [Thread-90] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@442de27f]]
+2024-08-22T10:15:10.546+09:00  INFO 7856 --- [Thread-90] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:15:10.551+09:00  INFO 7856 --- [Thread-90] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:15:10.552+09:00  INFO 7856 --- [Thread-90] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T10:15:10.561+09:00  WARN 7856 --- [Thread-90] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [OJDBC-WORKER-THREAD-3] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:410)
+ java.base/java.util.concurrent.LinkedTransferQueue$DualNode.await(LinkedTransferQueue.java:452)
+ java.base/java.util.concurrent.SynchronousQueue$Transferer.xferLifo(SynchronousQueue.java:194)
+ java.base/java.util.concurrent.SynchronousQueue.xfer(SynchronousQueue.java:233)
+ java.base/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:336)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1069)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T10:15:10.563+09:00  WARN 7856 --- [Thread-90] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-3 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T10:15:10.571+09:00  INFO 7856 --- [Thread-90] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown initiated...
+2024-08-22T10:15:10.589+09:00  INFO 7856 --- [Thread-90] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2024-08-22T10:15:10.711+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:15:10.711+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:15:11.348+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:15:11.348+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:15:11.349+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:15:11.469+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:15:11.471+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:15:11.471+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 757 ms
+2024-08-22T10:15:11.661+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:15:11.671+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:15:11.672+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:15:11.672+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@32f73cac]]
+2024-08-22T10:15:11.672+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:15:11.675+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.987 seconds (process running for 3233.137)
+2024-08-22T10:15:11.677+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:15:19.345+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:15:19.346+09:00  INFO 7856 --- [Thread-95] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:15:19.346+09:00  INFO 7856 --- [Thread-95] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@32f73cac]]
+2024-08-22T10:15:19.346+09:00  INFO 7856 --- [Thread-95] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:15:19.349+09:00  INFO 7856 --- [Thread-95] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:15:19.451+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:15:19.451+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:15:19.787+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:15:19.787+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:15:19.787+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:15:19.924+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:15:19.928+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:15:19.928+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 476 ms
+2024-08-22T10:15:20.136+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:15:20.149+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:15:20.150+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:15:20.150+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2b6dd648]]
+2024-08-22T10:15:20.151+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:15:20.156+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.729 seconds (process running for 3241.619)
+2024-08-22T10:15:20.158+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:15:20.934+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:15:20.934+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:15:20.935+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-22T10:15:20.941+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2024-08-22T10:15:20.941+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T10:15:20.984+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-4 - Added connection oracle.jdbc.driver.T4CConnection@4f89ff19
+2024-08-22T10:15:20.984+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2024-08-22T10:15:46.442+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:15:46.444+09:00  INFO 7856 --- [Thread-99] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:15:46.444+09:00  INFO 7856 --- [Thread-99] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@2b6dd648]]
+2024-08-22T10:15:46.444+09:00  INFO 7856 --- [Thread-99] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:15:46.445+09:00  INFO 7856 --- [Thread-99] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:15:46.446+09:00  INFO 7856 --- [Thread-99] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T10:15:46.451+09:00  WARN 7856 --- [Thread-99] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-4 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T10:15:46.454+09:00  INFO 7856 --- [Thread-99] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown initiated...
+2024-08-22T10:15:46.477+09:00  INFO 7856 --- [Thread-99] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Shutdown completed.
+2024-08-22T10:15:46.574+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:15:46.575+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:15:46.837+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:15:46.837+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:15:46.837+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:15:46.990+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:15:46.994+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:15:46.995+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 417 ms
+2024-08-22T10:15:47.192+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:15:47.208+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:15:47.208+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:15:47.208+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@118ce737]]
+2024-08-22T10:15:47.208+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:15:47.210+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.662 seconds (process running for 3268.673)
+2024-08-22T10:15:47.212+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:16:47.136+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T10:17:59.851+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:17:59.851+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:17:59.853+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-08-22T10:17:59.859+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Starting...
+2024-08-22T10:17:59.859+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T10:17:59.902+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-5 - Added connection oracle.jdbc.driver.T4CConnection@13d88913
+2024-08-22T10:17:59.902+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Start completed.
+2024-08-22T10:35:59.918+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:35:59.920+09:00  INFO 7856 --- [Thread-107] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:35:59.921+09:00  INFO 7856 --- [Thread-107] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@118ce737]]
+2024-08-22T10:35:59.921+09:00  INFO 7856 --- [Thread-107] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:35:59.924+09:00  INFO 7856 --- [Thread-107] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:35:59.925+09:00  INFO 7856 --- [Thread-107] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T10:35:59.935+09:00  WARN 7856 --- [Thread-107] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-5 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T10:35:59.941+09:00  INFO 7856 --- [Thread-107] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown initiated...
+2024-08-22T10:35:59.965+09:00  INFO 7856 --- [Thread-107] com.zaxxer.hikari.HikariDataSource       : HikariPool-5 - Shutdown completed.
+2024-08-22T10:36:00.134+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:36:00.134+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:36:00.580+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:36:00.581+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:36:00.581+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:36:00.766+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:36:00.769+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:36:00.769+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 631 ms
+2024-08-22T10:36:01.107+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:36:01.123+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:36:01.124+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:36:01.124+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@75aa45b8]]
+2024-08-22T10:36:01.124+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:36:01.128+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 1.076 seconds (process running for 4482.591)
+2024-08-22T10:36:01.130+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:36:22.171+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:36:22.174+09:00  INFO 7856 --- [Thread-135] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:36:22.174+09:00  INFO 7856 --- [Thread-135] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@75aa45b8]]
+2024-08-22T10:36:22.174+09:00  INFO 7856 --- [Thread-135] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:36:22.178+09:00  INFO 7856 --- [Thread-135] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:36:22.284+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:36:22.285+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:36:22.558+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:36:22.558+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:36:22.559+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:36:22.687+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:36:22.690+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:36:22.690+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 404 ms
+2024-08-22T10:36:22.918+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:36:22.932+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:36:22.932+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:36:22.932+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5405411c]]
+2024-08-22T10:36:22.932+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:36:22.935+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.679 seconds (process running for 4504.398)
+2024-08-22T10:36:22.937+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:36:26.507+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:36:26.509+09:00  INFO 7856 --- [Thread-139] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:36:26.510+09:00  INFO 7856 --- [Thread-139] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5405411c]]
+2024-08-22T10:36:26.510+09:00  INFO 7856 --- [Thread-139] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:36:26.513+09:00  INFO 7856 --- [Thread-139] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:36:26.609+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:36:26.609+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:36:26.867+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:36:26.867+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:36:26.868+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:36:27.005+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:36:27.008+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:36:27.008+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 397 ms
+2024-08-22T10:36:27.242+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:36:27.254+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:36:27.255+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:36:27.255+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@356b6435]]
+2024-08-22T10:36:27.255+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:36:27.258+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.675 seconds (process running for 4508.721)
+2024-08-22T10:36:27.262+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:37:27.189+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T10:38:16.444+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 2 class path changes (0 additions, 0 deletions, 2 modifications)
+2024-08-22T10:38:16.447+09:00  INFO 7856 --- [Thread-143] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:38:16.447+09:00  INFO 7856 --- [Thread-143] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@356b6435]]
+2024-08-22T10:38:16.448+09:00  INFO 7856 --- [Thread-143] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:38:16.453+09:00  INFO 7856 --- [Thread-143] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:38:16.561+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:38:16.561+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:38:16.813+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:38:16.813+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:38:16.813+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:38:16.947+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:38:16.951+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:38:16.951+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 388 ms
+2024-08-22T10:38:17.171+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:38:17.183+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:38:17.183+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:38:17.183+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6c5d6cee]]
+2024-08-22T10:38:17.183+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:38:17.186+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.651 seconds (process running for 4618.649)
+2024-08-22T10:38:17.188+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:38:37.236+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:38:37.237+09:00  INFO 7856 --- [Thread-147] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:38:37.238+09:00  INFO 7856 --- [Thread-147] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6c5d6cee]]
+2024-08-22T10:38:37.238+09:00  INFO 7856 --- [Thread-147] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:38:37.240+09:00  INFO 7856 --- [Thread-147] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:38:37.320+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:38:37.321+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:38:37.569+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:38:37.570+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:38:37.570+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:38:37.698+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:38:37.700+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:38:37.701+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 377 ms
+2024-08-22T10:38:37.899+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:38:37.911+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:38:37.912+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:38:37.912+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5f2a814a]]
+2024-08-22T10:38:37.912+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:38:37.915+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.617 seconds (process running for 4639.378)
+2024-08-22T10:38:37.917+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:39:37.842+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T10:44:19.099+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:44:19.099+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:44:19.101+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-08-22T10:45:12.029+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:45:12.031+09:00  INFO 7856 --- [Thread-151] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:45:12.032+09:00  INFO 7856 --- [Thread-151] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5f2a814a]]
+2024-08-22T10:45:12.032+09:00  INFO 7856 --- [Thread-151] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:45:12.035+09:00  INFO 7856 --- [Thread-151] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:45:12.035+09:00  INFO 7856 --- [Thread-151] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T10:45:12.132+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:45:12.133+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:45:12.423+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:45:12.424+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:45:12.424+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:45:12.559+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:45:12.562+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:45:12.562+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 427 ms
+2024-08-22T10:45:12.792+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:45:12.811+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:45:12.812+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:45:12.812+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4bded8ae]]
+2024-08-22T10:45:12.812+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:45:12.815+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.708 seconds (process running for 5034.277)
+2024-08-22T10:45:12.816+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:45:15.332+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:45:15.335+09:00  INFO 7856 --- [Thread-155] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:45:15.335+09:00  INFO 7856 --- [Thread-155] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@4bded8ae]]
+2024-08-22T10:45:15.335+09:00  INFO 7856 --- [Thread-155] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:45:15.341+09:00  INFO 7856 --- [Thread-155] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:45:15.438+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:45:15.438+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:45:15.676+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:45:15.676+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:45:15.676+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:45:15.806+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:45:15.809+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:45:15.809+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 369 ms
+2024-08-22T10:45:16.034+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:45:16.045+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:45:16.045+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:45:16.045+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7d308164]]
+2024-08-22T10:45:16.045+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:45:16.049+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.631 seconds (process running for 5037.511)
+2024-08-22T10:45:16.050+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:45:21.250+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:45:21.250+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:45:21.251+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-22T10:45:26.904+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:45:26.905+09:00  INFO 7856 --- [Thread-159] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:45:26.905+09:00  INFO 7856 --- [Thread-159] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7d308164]]
+2024-08-22T10:45:26.905+09:00  INFO 7856 --- [Thread-159] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:45:26.907+09:00  INFO 7856 --- [Thread-159] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:45:26.907+09:00  INFO 7856 --- [Thread-159] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T10:45:26.998+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:45:26.999+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:45:27.288+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:45:27.289+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:45:27.289+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:45:27.441+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:45:27.447+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:45:27.448+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 446 ms
+2024-08-22T10:45:27.685+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:45:27.698+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:45:27.698+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:45:27.698+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5aac4d0f]]
+2024-08-22T10:45:27.698+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:45:27.702+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.734 seconds (process running for 5049.164)
+2024-08-22T10:45:27.703+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:45:34.360+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:45:34.362+09:00  INFO 7856 --- [Thread-163] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:45:34.362+09:00  INFO 7856 --- [Thread-163] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@5aac4d0f]]
+2024-08-22T10:45:34.362+09:00  INFO 7856 --- [Thread-163] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:45:34.365+09:00  INFO 7856 --- [Thread-163] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:45:34.470+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:45:34.471+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:45:34.720+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:45:34.721+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:45:34.721+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:45:34.849+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:45:34.851+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:45:34.851+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 378 ms
+2024-08-22T10:45:35.042+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:45:35.056+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:45:35.057+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:45:35.057+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64a203e8]]
+2024-08-22T10:45:35.057+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:45:35.059+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.62 seconds (process running for 5056.521)
+2024-08-22T10:45:35.060+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:45:45.425+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:45:45.425+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:45:45.427+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-08-22T10:45:56.156+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:45:56.157+09:00  INFO 7856 --- [Thread-167] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:45:56.158+09:00  INFO 7856 --- [Thread-167] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@64a203e8]]
+2024-08-22T10:45:56.158+09:00  INFO 7856 --- [Thread-167] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:45:56.161+09:00  INFO 7856 --- [Thread-167] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:45:56.161+09:00  INFO 7856 --- [Thread-167] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T10:45:56.254+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:45:56.255+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:45:56.481+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:45:56.481+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:45:56.481+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:45:56.608+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:45:56.611+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:45:56.611+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 353 ms
+2024-08-22T10:45:56.827+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:45:56.839+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:45:56.839+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:45:56.840+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7db9a1f4]]
+2024-08-22T10:45:56.840+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:45:56.842+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.614 seconds (process running for 5078.305)
+2024-08-22T10:45:56.843+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:46:01.464+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:46:01.466+09:00  INFO 7856 --- [Thread-171] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:46:01.467+09:00  INFO 7856 --- [Thread-171] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@7db9a1f4]]
+2024-08-22T10:46:01.467+09:00  INFO 7856 --- [Thread-171] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:46:01.476+09:00  INFO 7856 --- [Thread-171] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:46:01.591+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:46:01.592+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:46:01.818+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:46:01.818+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:46:01.818+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:46:01.954+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:46:01.957+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:46:01.957+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 364 ms
+2024-08-22T10:46:02.160+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:46:02.176+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:46:02.177+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:46:02.177+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@76ab16f7]]
+2024-08-22T10:46:02.177+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:46:02.179+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.611 seconds (process running for 5083.642)
+2024-08-22T10:46:02.181+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:46:02.371+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:46:02.371+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:46:02.372+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-22T10:46:02.378+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Starting...
+2024-08-22T10:46:02.378+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T10:46:02.445+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-6 - Added connection oracle.jdbc.driver.T4CConnection@39e1296c
+2024-08-22T10:46:02.445+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Start completed.
+2024-08-22T10:47:02.102+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T10:58:55.163+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T10:58:55.167+09:00  INFO 7856 --- [Thread-175] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T10:58:55.168+09:00  INFO 7856 --- [Thread-175] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@76ab16f7]]
+2024-08-22T10:58:55.168+09:00  INFO 7856 --- [Thread-175] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T10:58:55.175+09:00  INFO 7856 --- [Thread-175] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T10:58:55.176+09:00  INFO 7856 --- [Thread-175] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T10:58:55.198+09:00  WARN 7856 --- [Thread-175] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-6 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T10:58:55.211+09:00  INFO 7856 --- [Thread-175] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown initiated...
+2024-08-22T10:58:55.225+09:00  INFO 7856 --- [Thread-175] com.zaxxer.hikari.HikariDataSource       : HikariPool-6 - Shutdown completed.
+2024-08-22T10:58:55.327+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T10:58:55.328+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T10:58:55.693+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T10:58:55.694+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T10:58:55.694+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T10:58:55.819+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T10:58:55.821+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T10:58:55.821+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 491 ms
+2024-08-22T10:58:56.089+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T10:58:56.101+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T10:58:56.101+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T10:58:56.102+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@d1fe7c9]]
+2024-08-22T10:58:56.102+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T10:58:56.104+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.812 seconds (process running for 5857.567)
+2024-08-22T10:58:56.106+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T10:59:26.330+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T10:59:26.331+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T10:59:26.333+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-08-22T10:59:26.343+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Starting...
+2024-08-22T10:59:26.343+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T10:59:26.387+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-7 - Added connection oracle.jdbc.driver.T4CConnection@2b6326c2
+2024-08-22T10:59:26.387+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Start completed.
+2024-08-22T10:59:56.010+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T11:12:53.281+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T11:12:53.285+09:00  INFO 7856 --- [Thread-181] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T11:12:53.286+09:00  INFO 7856 --- [Thread-181] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@d1fe7c9]]
+2024-08-22T11:12:53.286+09:00  INFO 7856 --- [Thread-181] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T11:12:53.291+09:00  INFO 7856 --- [Thread-181] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T11:12:53.292+09:00  INFO 7856 --- [Thread-181] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T11:12:53.312+09:00  WARN 7856 --- [Thread-181] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-7 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T11:12:53.321+09:00  INFO 7856 --- [Thread-181] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown initiated...
+2024-08-22T11:12:53.339+09:00  INFO 7856 --- [Thread-181] com.zaxxer.hikari.HikariDataSource       : HikariPool-7 - Shutdown completed.
+2024-08-22T11:12:53.471+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T11:12:53.471+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T11:12:53.914+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T11:12:53.915+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T11:12:53.916+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T11:12:54.072+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T11:12:54.075+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T11:12:54.076+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 601 ms
+2024-08-22T11:12:54.406+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T11:12:54.421+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T11:12:54.422+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T11:12:54.422+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@715a10d5]]
+2024-08-22T11:12:54.422+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T11:12:54.426+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 1.014 seconds (process running for 6695.888)
+2024-08-22T11:12:54.427+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T11:12:59.024+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T11:12:59.027+09:00  INFO 7856 --- [Thread-224] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T11:12:59.027+09:00  INFO 7856 --- [Thread-224] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@715a10d5]]
+2024-08-22T11:12:59.027+09:00  INFO 7856 --- [Thread-224] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T11:12:59.033+09:00  INFO 7856 --- [Thread-224] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T11:12:59.167+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T11:12:59.168+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T11:12:59.432+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T11:12:59.433+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T11:12:59.434+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T11:12:59.563+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T11:12:59.566+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T11:12:59.566+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 396 ms
+2024-08-22T11:12:59.808+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T11:12:59.820+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T11:12:59.820+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T11:12:59.820+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@14bda130]]
+2024-08-22T11:12:59.820+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T11:12:59.823+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.68 seconds (process running for 6701.286)
+2024-08-22T11:12:59.825+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T11:13:02.675+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T11:13:02.675+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T11:13:02.676+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-22T11:13:02.684+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Starting...
+2024-08-22T11:13:02.684+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T11:13:02.732+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-8 - Added connection oracle.jdbc.driver.T4CConnection@61131ab9
+2024-08-22T11:13:02.732+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Start completed.
+2024-08-22T11:13:13.735+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T11:13:13.738+09:00  INFO 7856 --- [Thread-228] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T11:13:13.738+09:00  INFO 7856 --- [Thread-228] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@14bda130]]
+2024-08-22T11:13:13.738+09:00  INFO 7856 --- [Thread-228] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T11:13:13.742+09:00  INFO 7856 --- [Thread-228] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T11:13:13.742+09:00  INFO 7856 --- [Thread-228] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T11:13:13.749+09:00  WARN 7856 --- [Thread-228] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [OJDBC-WORKER-THREAD-7] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:410)
+ java.base/java.util.concurrent.LinkedTransferQueue$DualNode.await(LinkedTransferQueue.java:452)
+ java.base/java.util.concurrent.SynchronousQueue$Transferer.xferLifo(SynchronousQueue.java:194)
+ java.base/java.util.concurrent.SynchronousQueue.xfer(SynchronousQueue.java:233)
+ java.base/java.util.concurrent.SynchronousQueue.poll(SynchronousQueue.java:336)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1069)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T11:13:13.749+09:00  WARN 7856 --- [Thread-228] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-8 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T11:13:13.756+09:00  INFO 7856 --- [Thread-228] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown initiated...
+2024-08-22T11:13:13.774+09:00  INFO 7856 --- [Thread-228] com.zaxxer.hikari.HikariDataSource       : HikariPool-8 - Shutdown completed.
+2024-08-22T11:13:13.875+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T11:13:13.876+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T11:13:14.115+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T11:13:14.116+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T11:13:14.116+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T11:13:14.242+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T11:13:14.244+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T11:13:14.244+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 366 ms
+2024-08-22T11:13:14.464+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T11:13:14.477+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T11:13:14.477+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T11:13:14.477+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3689bf78]]
+2024-08-22T11:13:14.478+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T11:13:14.480+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.63 seconds (process running for 6715.943)
+2024-08-22T11:13:14.482+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T11:13:17.350+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T11:13:17.350+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T11:13:17.351+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-22T11:13:17.355+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Starting...
+2024-08-22T11:13:17.355+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T11:13:17.399+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-9 - Added connection oracle.jdbc.driver.T4CConnection@55682aa2
+2024-08-22T11:13:17.399+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Start completed.
+2024-08-22T11:13:18.006+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T11:13:18.007+09:00  INFO 7856 --- [Thread-233] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T11:13:18.008+09:00  INFO 7856 --- [Thread-233] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3689bf78]]
+2024-08-22T11:13:18.008+09:00  INFO 7856 --- [Thread-233] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T11:13:18.010+09:00  INFO 7856 --- [Thread-233] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T11:13:18.010+09:00  INFO 7856 --- [Thread-233] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T11:13:18.012+09:00  WARN 7856 --- [Thread-233] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-9 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T11:13:18.012+09:00  WARN 7856 --- [Thread-233] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-9 connection adder] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.LinkedBlockingQueue.poll(LinkedBlockingQueue.java:460)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1069)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T11:13:18.015+09:00  INFO 7856 --- [Thread-233] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown initiated...
+2024-08-22T11:13:18.027+09:00  INFO 7856 --- [Thread-233] com.zaxxer.hikari.HikariDataSource       : HikariPool-9 - Shutdown completed.
+2024-08-22T11:13:18.122+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T11:13:18.122+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T11:13:18.394+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T11:13:18.394+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T11:13:18.395+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T11:13:18.533+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T11:13:18.537+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T11:13:18.537+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 413 ms
+2024-08-22T11:13:18.750+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T11:13:18.763+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T11:13:18.763+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T11:13:18.764+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1ab8e134]]
+2024-08-22T11:13:18.764+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T11:13:18.766+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.677 seconds (process running for 6720.229)
+2024-08-22T11:13:18.768+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T11:13:18.937+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T11:13:18.937+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T11:13:18.938+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2024-08-22T11:13:21.759+09:00  INFO 7856 --- [http-nio-5656-exec-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Starting...
+2024-08-22T11:13:21.759+09:00  WARN 7856 --- [http-nio-5656-exec-9] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T11:13:21.810+09:00  INFO 7856 --- [http-nio-5656-exec-9] com.zaxxer.hikari.pool.HikariPool        : HikariPool-10 - Added connection oracle.jdbc.driver.T4CConnection@7135a322
+2024-08-22T11:13:21.810+09:00  INFO 7856 --- [http-nio-5656-exec-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Start completed.
+2024-08-22T11:14:18.695+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T11:19:31.495+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T11:19:31.496+09:00  INFO 7856 --- [Thread-238] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T11:19:31.497+09:00  INFO 7856 --- [Thread-238] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@1ab8e134]]
+2024-08-22T11:19:31.497+09:00  INFO 7856 --- [Thread-238] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T11:19:31.499+09:00  INFO 7856 --- [Thread-238] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T11:19:31.500+09:00  INFO 7856 --- [Thread-238] o.a.c.c.C.[Tomcat].[localhost].[/]       : Destroying Spring FrameworkServlet 'dispatcherServlet'
+2024-08-22T11:19:31.507+09:00  WARN 7856 --- [Thread-238] o.a.c.loader.WebappClassLoaderBase       : The web application [ROOT] appears to have started a thread named [HikariPool-10 housekeeper] but has failed to stop it. This is very likely to create a memory leak. Stack trace of thread:
+ java.base/jdk.internal.misc.Unsafe.park(Native Method)
+ java.base/java.util.concurrent.locks.LockSupport.parkNanos(LockSupport.java:269)
+ java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject.awaitNanos(AbstractQueuedSynchronizer.java:1758)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:1182)
+ java.base/java.util.concurrent.ScheduledThreadPoolExecutor$DelayedWorkQueue.take(ScheduledThreadPoolExecutor.java:899)
+ java.base/java.util.concurrent.ThreadPoolExecutor.getTask(ThreadPoolExecutor.java:1070)
+ java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1130)
+ java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642)
+ java.base/java.lang.Thread.run(Thread.java:1583)
+2024-08-22T11:19:31.511+09:00  INFO 7856 --- [Thread-238] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown initiated...
+2024-08-22T11:19:31.530+09:00  INFO 7856 --- [Thread-238] com.zaxxer.hikari.HikariDataSource       : HikariPool-10 - Shutdown completed.
+2024-08-22T11:19:31.632+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T11:19:31.632+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T11:19:32.004+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T11:19:32.004+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T11:19:32.004+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T11:19:32.162+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T11:19:32.164+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T11:19:32.164+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 530 ms
+2024-08-22T11:19:32.444+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T11:19:32.456+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T11:19:32.456+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T11:19:32.456+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@25d37e61]]
+2024-08-22T11:19:32.456+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T11:19:32.458+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.862 seconds (process running for 7093.921)
+2024-08-22T11:19:32.460+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T11:19:43.367+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T11:19:43.370+09:00  INFO 7856 --- [Thread-252] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T11:19:43.370+09:00  INFO 7856 --- [Thread-252] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@25d37e61]]
+2024-08-22T11:19:43.370+09:00  INFO 7856 --- [Thread-252] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T11:19:43.376+09:00  INFO 7856 --- [Thread-252] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T11:19:43.501+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T11:19:43.501+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T11:19:43.765+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T11:19:43.765+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T11:19:43.766+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T11:19:43.894+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T11:19:43.897+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T11:19:43.897+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 394 ms
+2024-08-22T11:19:44.106+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T11:19:44.117+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T11:19:44.117+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T11:19:44.118+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6c1b1ad4]]
+2024-08-22T11:19:44.118+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T11:19:44.120+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.647 seconds (process running for 7105.583)
+2024-08-22T11:19:44.122+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T11:20:44.059+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]
+2024-08-22T11:21:17.281+09:00  INFO 7856 --- [File Watcher] rtingClassPathChangeChangedEventListener : Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2024-08-22T11:21:17.283+09:00  INFO 7856 --- [Thread-256] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopping...
+2024-08-22T11:21:17.284+09:00  INFO 7856 --- [Thread-256] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=false, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@6c1b1ad4]]
+2024-08-22T11:21:17.284+09:00  INFO 7856 --- [Thread-256] o.s.m.s.b.SimpleBrokerMessageHandler     : Stopped.
+2024-08-22T11:21:17.287+09:00  INFO 7856 --- [Thread-256] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2024-08-22T11:21:17.412+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Starting TracerProjectApplication using Java 21.0.3 with PID 7856 (C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject\target\classes started by human-17 in C:\Users\human-17\git\aeyongddigg\aeyongddi\tracerProject)
+2024-08-22T11:21:17.412+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : No active profile set, falling back to 1 default profile: "default"
+2024-08-22T11:21:17.714+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 5656 (http)
+2024-08-22T11:21:17.714+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-08-22T11:21:17.714+09:00  INFO 7856 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.11]
+2024-08-22T11:21:17.848+09:00  INFO 7856 --- [restartedMain] org.apache.jasper.servlet.TldScanner     : At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+2024-08-22T11:21:17.852+09:00  INFO 7856 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-08-22T11:21:17.853+09:00  INFO 7856 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 438 ms
+2024-08-22T11:21:18.097+09:00  INFO 7856 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2024-08-22T11:21:18.111+09:00  INFO 7856 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 5656 (http) with context path ''
+2024-08-22T11:21:18.111+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Starting...
+2024-08-22T11:21:18.111+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : BrokerAvailabilityEvent[available=true, SimpleBrokerMessageHandler [org.springframework.messaging.simp.broker.DefaultSubscriptionRegistry@3192613c]]
+2024-08-22T11:21:18.111+09:00  INFO 7856 --- [restartedMain] o.s.m.s.b.SimpleBrokerMessageHandler     : Started.
+2024-08-22T11:21:18.115+09:00  INFO 7856 --- [restartedMain] c.w.t.TracerProjectApplication           : Started TracerProjectApplication in 0.733 seconds (process running for 7199.577)
+2024-08-22T11:21:18.116+09:00  INFO 7856 --- [restartedMain] .ConditionEvaluationDeltaLoggingListener : Condition evaluation unchanged
+2024-08-22T11:21:43.722+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-22T11:21:43.722+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-08-22T11:21:43.724+09:00  INFO 7856 --- [http-nio-5656-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2024-08-22T11:21:43.731+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Starting...
+2024-08-22T11:21:43.731+09:00  WARN 7856 --- [http-nio-5656-exec-1] c.zaxxer.hikari.util.DriverDataSource    : Registered driver with driverClassName=oracle.jdbc.driver.OracleDriver was not found, trying direct instantiation.
+2024-08-22T11:21:43.775+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.pool.HikariPool        : HikariPool-11 - Added connection oracle.jdbc.driver.T4CConnection@42b96b87
+2024-08-22T11:21:43.775+09:00  INFO 7856 --- [http-nio-5656-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-11 - Start completed.
+2024-08-22T11:22:18.021+09:00  INFO 7856 --- [MessageBroker-1] o.s.w.s.c.WebSocketMessageBrokerStats    : WebSocketSession[0 current WS(0)-HttpStream(0)-HttpPoll(0), 0 total, 0 closed abnormally (0 connect failure, 0 send limit, 0 transport error)], stompSubProtocol[processed CONNECT(0)-CONNECTED(0)-DISCONNECT(0)], stompBrokerRelay[null], inboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], outboundChannel[pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 0], sockJsScheduler[pool size = 1, active threads = 1, queued tasks = 0, completed tasks = 0]

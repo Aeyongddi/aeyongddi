@@ -16,7 +16,6 @@ public class Notice {
  private String title;
  private String content;
  private String email;
- private String comments;
  private Date date_of_registration;
  private Date start_date;
  private Date end_date;

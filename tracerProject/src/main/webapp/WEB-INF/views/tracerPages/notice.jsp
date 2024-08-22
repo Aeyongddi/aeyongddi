@@ -87,9 +87,9 @@
 								</div>
 								<!-- 등록 버튼 -->
 								<div class="col-auto">
-									<a class="btn app-btn-secondary" id="openModalButton" class="nomem"
+									<a class="btn app-btn-secondary nomem" id="openModalButton"
 										data-bs-toggle="modal" data-bs-target="#noticeModal">등록</a> <a
-										class="btn app-btn-secondary" id="openMailModalButton" class="nomem"
+										class="btn app-btn-secondary nomem" id="openMailModalButton"
 										data-bs-toggle="modal" data-bs-target="#mailModal">메일 발송</a>
 								</div>
 							</div>

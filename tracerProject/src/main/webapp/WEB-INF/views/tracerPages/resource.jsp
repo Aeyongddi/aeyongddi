@@ -386,36 +386,47 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     $('#addBudgetForm').on('submit', function(event) {
-        event.preventDefault();
-        const formData = $(this).serialize();
-        $.post('/addBudget', formData, function(response) {
-            alert(response);
-            window.location.reload();
-        }).fail(function(xhr) {
-            alert('예산 추가 실패: ' + xhr.responseText);
-        });
+		if (!validateAmount(amountInput[0])) {
+            event.preventDefault(); // 폼 제출을 막습니다.
+        }else{
+	        const formData = $(this).serialize();
+	        $.post('/addBudget', formData, function(response) {
+	            alert(response);
+	            window.location.reload();
+	        }).fail(function(xhr) {
+	            alert('예산 추가 실패: ' + xhr.responseText);
+	        });
+        }
     });
 
     $('#reduceBudgetForm').on('submit', function(event) {
-        event.preventDefault();
-        const formData = $(this).serialize();
-        $.post('/reduceBudget', formData, function(response) {
-            alert(response);
-            window.location.reload();
-        }).fail(function(xhr) {
-            alert('예산 삭감 실패: ' + xhr.responseText);
-        });
+    	if (!validateAmount(amountInput[0])) {
+            event.preventDefault(); // 폼 제출을 막습니다.
+        }else{
+	        event.preventDefault();
+	        const formData = $(this).serialize();
+	        $.post('/reduceBudget', formData, function(response) {
+	            alert(response);
+	            window.location.reload();
+	        }).fail(function(xhr) {
+	            alert('예산 삭감 실패: ' + xhr.responseText);
+	        });
+        }
     });
 
     $('#assignBudgetForm').on('submit', function(event) {
-        event.preventDefault();
-        const formData = $(this).serialize();
-        $.post('/assignBudget', formData, function(response) {
-            alert(response);
-            window.location.reload();
-        }).fail(function(xhr) {
-            alert('새 프로젝트 예산 부여 실패: ' + xhr.responseText);
-        });
+    	if (!validateAmount(amountInput[0])) {
+            event.preventDefault(); // 폼 제출을 막습니다.
+        }else{
+	        event.preventDefault();
+	        const formData = $(this).serialize();
+	        $.post('/assignBudget', formData, function(response) {
+	            alert(response);
+	            window.location.reload();
+	        }).fail(function(xhr) {
+	            alert('새 프로젝트 예산 부여 실패: ' + xhr.responseText);
+	        });
+        }
     });
     
     const assetProjectSelect = document.getElementById('assetProjectSelect');

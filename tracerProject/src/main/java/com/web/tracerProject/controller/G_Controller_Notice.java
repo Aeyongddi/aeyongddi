@@ -38,32 +38,37 @@ public class G_Controller_Notice extends NContBase{
     private ObjectMapper objectMapper; // ObjectMapper 추가
 	
 	// http://localhost:5656/Notice
-	 @GetMapping("Notice")
-	    public String notice(@RequestParam(value = "subject", defaultValue = "") String subject,
-	                         @RequestParam(value = "writer", defaultValue = "") String writer,
-	                         @RequestParam(value = "curPage", defaultValue = "1") int curPage,
-	                         @RequestParam(value = "pageSize", defaultValue = "5") int pageSize,
-	                         HttpSession session, Model d) {
+	@GetMapping("/Notice")
+	public String notice(@RequestParam(value = "subject", defaultValue = "") String subject,
+			@RequestParam(value = "writer", defaultValue = "") String writer,
+			@RequestParam(value = "curPage", defaultValue = "1") int curPage,
+			@RequestParam(value = "pageSize", defaultValue = "9") int pageSize, HttpSession session, Model d) {
 
-	        // NoticeSch 객체 생성 및 초기화
-	        NoticeSch sch = new NoticeSch();
-	        sch.setSubject(subject);
-	        sch.setWriter(writer);
-	        sch.setCurPage(curPage);
-	        sch.setPageSize(pageSize);
+      // NoticeSch 객체 생성 및 초기화
+		NoticeSch sch = new NoticeSch();
+		sch.setSubject(subject);
+		sch.setWriter(writer);
+		sch.setCurPage(curPage);
+		sch.setPageSize(pageSize);
 
-	        // 페이지네이션을 적용한 공지사항 목록을 가져오기
-	        List<Notice> noticeList = service.getNoticeList(sch);
-	        d.addAttribute("NoticeList", noticeList);
+      // 페이지네이션을 적용한 공지사항 목록을 가져오기
+		List<Notice> noticeList = service.getNoticeList(sch);
+		d.addAttribute("NoticeList", noticeList);
 
-	        // 세션에서 User_info 객체 가져오기
-	        User_info user_info = (User_info) session.getAttribute("user_info");
-	        if (user_info != null) {
-	            d.addAttribute("user_info", user_info);
-	        }
+      // 페이지네이션 관련 정보 설정
+		d.addAttribute("currentPage", sch.getCurPage());
+		d.addAttribute("totalPages", sch.getPageCount());
+		d.addAttribute("pageSize", sch.getPageSize());
+		d.addAttribute("count", sch.getCount());  // 총 개수 추가
 
-	        return "tracerPages/notice";
-	    }
+      // 세션에서 User_info 객체 가져오기
+		User_info user_info = (User_info) session.getAttribute("user_info");
+		if (user_info != null) {
+			d.addAttribute("user_info", user_info);
+		}
+
+		return "tracerPages/notice";
+	}
 	
 	 // 공지사항 상세 페이지
 	@GetMapping("/noticeDetail")

@@ -41,6 +41,11 @@
 .custom-link:hover {
 	text-decoration: underline; /* 호버 시 밑줄 추가 (선택 사항) */
 }
+.pagination-container {
+    display: flex;
+    justify-content: center; /* 수평 중앙 정렬 */
+    margin-top: 20px; /* 원하는 상단 여백 추가 */
+}
 </style>
 
 <body>
@@ -60,6 +65,9 @@
 								onclick="redirectToNotice()">공지사항</a>
 						</h1>
 					</div>
+					<div class="col-auto">
+        <span>총 ${count}개 항목</span>
+    </div>
 					<div class="col-auto">
 						<div class="page-utilities">
 							<div
@@ -141,7 +149,39 @@
 				</div>
 			</div>
 		</div>
-<!-- 페이지네이션 -->
+<!-- 페이지 네이션 -->
+ <div class="pagination-container">
+    <div class="d-flex justify-content-between align-items-center">
+        <nav>
+            <ul class="pagination">
+                <!-- 이전 페이지 버튼 -->
+                <c:if test="${currentPage > 1}">
+                    <li class="page-item">
+                        <a class="page-link" href="?subject=${param.subject}&writer=${param.writer}&curPage=${currentPage - 1}&pageSize=${pageSize}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+
+                <!-- 페이지 번호 버튼 -->
+                <c:forEach var="pageNum" begin="1" end="${totalPages}">
+                    <li class="page-item ${pageNum == currentPage ? 'active' : ''}">
+                        <a class="page-link" href="?subject=${param.subject}&writer=${param.writer}&curPage=${pageNum}&pageSize=${pageSize}">${pageNum}</a>
+                    </li>
+                </c:forEach>
+
+                <!-- 다음 페이지 버튼 -->
+                <c:if test="${currentPage < totalPages}">
+                    <li class="page-item">
+                        <a class="page-link" href="?subject=${param.subject}&writer=${param.writer}&curPage=${currentPage + 1}&pageSize=${pageSize}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </c:if>
+            </ul>
+        </nav>
+    </div>
+</div>
 
 		<!-- 모달 창 -->
 		<div class="modal fade" id="noticeModal" tabindex="-1"
@@ -296,8 +336,6 @@
 	<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 	<script src="assets/js/app.js"></script>
 
-	<!-- Page Specific JS -->
-	<script src="assets/js/app.js"></script>
 
 	<script>
 	document.getElementById('sendMail').addEventListener('click', function () {

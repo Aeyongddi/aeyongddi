@@ -308,6 +308,15 @@ document.addEventListener('DOMContentLoaded', function() {
         return true;
     }
 
+    // '새 프로젝트 예산 부여' 버튼 클릭 시 새 프로젝트가 있는지 확인
+    document.querySelector('[data-bs-target="#assignBudgetModal"]').addEventListener('click', function(event) {
+        const projectOptions = document.querySelectorAll('#assignBudgetProjectSelect option');
+        if (projectOptions.length === 0) {
+            event.preventDefault();
+            alert('새 프로젝트가 없습니다. 새 프로젝트를 추가한 후 시도해주세요.');
+        }
+    });
+
     // 예산 관련 폼에서 금액 입력 시 제한을 검증합니다.
     $('#addBudgetForm, #reduceBudgetForm, #assignBudgetForm').on('submit', function(event) {
         const amountInput = $(this).find('input[name="amount"]');
@@ -462,9 +471,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
-
-
 </script>
+
 
 </body>
 </html>

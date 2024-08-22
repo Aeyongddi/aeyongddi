@@ -107,8 +107,9 @@
 												<button type="button" class="btn btn-sm btn-secondary"
 													data-bs-toggle="modal"
 													data-bs-target="#editTaskModal-${task.tkid}">수정</button> <!-- 삭제 버튼 -->
+												<!-- 삭제 버튼 -->
 												<form action="/newTask/delete" method="post"
-													style="display: inline;">
+													style="display: inline;" onsubmit="return confirmDelete();">
 													<input type="hidden" name="tkid" value="${task.tkid}" />
 													<button type="submit" class="btn btn-sm btn-danger">삭제</button>
 												</form>
@@ -263,7 +264,7 @@
 																${task.approvals[0].approvalDescription}
 															</p>
 															<p> --%>
-																<strong>피드백:</strong> ${task.approvals[0].feedback}
+															<strong>피드백:</strong> ${task.approvals[0].feedback}
 															</p>
 															<p>
 																<strong>첨부 파일:</strong> <a
@@ -344,6 +345,9 @@
                 });
             });
         });
+        function confirmDelete() {
+            return confirm("정말로 이 작업을 삭제하시겠습니까?");
+        }
     </script>
 
 	<script src="assets/plugins/popper.min.js"></script>

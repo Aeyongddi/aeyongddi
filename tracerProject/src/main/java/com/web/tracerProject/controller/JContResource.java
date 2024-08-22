@@ -1,6 +1,5 @@
 package com.web.tracerProject.controller;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,14 +7,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.web.tracerProject.service.JSerResource;
 import com.web.tracerProject.vo.Project;
 import com.web.tracerProject.vo.ResourceManage;
-import com.web.tracerProject.vo.User_info;
 
 @Controller
 public class JContResource {
@@ -50,7 +47,7 @@ public class JContResource {
                            @RequestParam String software_name,
                            @RequestParam String license_purchase_date,
                            @RequestParam String license_expiry_date,
-                           @RequestParam BigDecimal software_price) {
+                           @RequestParam int software_price) {
         try {
             service.addAssetAndUpdateBudget(pid, rtype, software_name, license_purchase_date, license_expiry_date, software_price);
             return "성공적으로 자산이 추가되었습니다.";
@@ -61,7 +58,7 @@ public class JContResource {
 
     @PostMapping("/addBudget")
     @ResponseBody
-    public String addBudget(@RequestParam String pid, @RequestParam BigDecimal amount) {
+    public String addBudget(@RequestParam String pid, @RequestParam int amount) {
         try {
             service.addBudget(pid, amount);
             return "예산 추가 성공";
@@ -72,7 +69,7 @@ public class JContResource {
 
     @PostMapping("/reduceBudget")
     @ResponseBody
-    public String reduceBudget(@RequestParam String pid, @RequestParam BigDecimal amount) {
+    public String reduceBudget(@RequestParam String pid, @RequestParam int amount) {
         try {
             service.reduceBudget(pid, amount);
             return "예산 삭감 성공";
@@ -83,7 +80,7 @@ public class JContResource {
 
     @PostMapping("/assignBudget")
     @ResponseBody
-    public String assignBudget(@RequestParam String pid, @RequestParam BigDecimal amount) {
+    public String assignBudget(@RequestParam String pid, @RequestParam int amount) {
         try {
             service.assignBudget(pid, amount);
             return "새 프로젝트 예산 부여 성공";

@@ -282,6 +282,48 @@
 <!-- JavaScript 코드 -->
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // 최대 금액을 설정합니다 (예: 21억).
+    const MAX_AMOUNT = 2100000000; // 21억
+
+    // 금액을 검증하는 함수
+    function validateAmount(inputElement) {
+        const value = parseInt(inputElement.value, 10);
+
+        // 음수 금액이 입력되었는지 확인
+        if (value < 0) {
+            alert('금액은 음수가 될 수 없습니다.');
+            inputElement.value = ''; // 입력을 초기화합니다.
+            inputElement.focus();
+            return false;
+        }
+
+        // 최대 금액 초과 여부 확인
+        if (value > MAX_AMOUNT) {
+            alert('금액은 ' + MAX_AMOUNT.toLocaleString() + ' 원 이하로 입력해주세요.');
+            inputElement.value = ''; // 입력을 초기화합니다.
+            inputElement.focus();
+            return false;
+        }
+
+        return true;
+    }
+
+    // 예산 관련 폼에서 금액 입력 시 제한을 검증합니다.
+    $('#addBudgetForm, #reduceBudgetForm, #assignBudgetForm').on('submit', function(event) {
+        const amountInput = $(this).find('input[name="amount"]');
+        if (!validateAmount(amountInput[0])) {
+            event.preventDefault(); // 폼 제출을 막습니다.
+        }
+    });
+
+    // 자산 추가 폼에서 가격 입력 시 제한을 검증합니다.
+    $('#addAssetForm').on('submit', function(event) {
+        const priceInput = $(this).find('input[name="software_price"]');
+        if (!validateAmount(priceInput[0])) {
+            event.preventDefault(); // 폼 제출을 막습니다.
+        }
+    });
+
     // 예산 관리 차트 초기화 함수
     function updateChart(pid) {
         $.ajax({
@@ -408,8 +450,9 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('자산 추가 실패: ' + error.message);
         });
     });
-
 });
+
+
 </script>
 
 </body>

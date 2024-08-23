@@ -19,14 +19,10 @@ public class Board {
 	private String content;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date upt_date;
-	private int views;
-	private String btype;
-	private String cid;
 	private String email;
-	private String sid;
 	private boolean endYN;
 	private String uf;
-	private String name;
+	private String nickname;
  }
 
 

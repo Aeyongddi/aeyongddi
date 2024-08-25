@@ -209,8 +209,6 @@
 									stroke-width="1.5" stroke="currentColor" class="bi bi-folder">
   							<path stroke-linecap="round" stroke-linejoin="round"
 										d="M3.75 6.75h16.5M3.75 12H12m-8.25 5.25h16.5" />
-
-                                   
                                 </svg>
 						</span> <span>간트 차트[일정 관리]</span>
 					</a> <!--//nav-link--></li>
@@ -338,7 +336,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round"
 										d="M3 7a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
             </svg>
-						</span> <span>자산 관리[자원 관리]</span>
+						</span> <span>자원 관리</span>
 					</a></li>
 				</ul>
 				<!--//app-menu-->

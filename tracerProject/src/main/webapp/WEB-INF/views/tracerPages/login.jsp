@@ -34,6 +34,28 @@
 $(document).ready(function(){
 	if(${loginFailed==null?0:1}>0)
 		alert("아이디와 비밀번호가 유효하지 않습니다.")
+		$('#login-form').on('submit', function(event){
+	        event.preventDefault(); // 폼 제출 막기
+
+	        var email = $('#signin-email').val();
+	        var password = $('#signin-password').val();
+
+	        $.ajax({
+				data: $("form").serialize(),
+				url: 'chkAuth',
+				type: 'POST',
+				success: function(data){
+					if(data=="권한인정성공"){
+						$('#login-form').off('submit').submit();
+					} else {
+						alert('권한이 없습니다.')
+					}
+				},
+				error: function(err){
+					console.log(err)
+				}
+			})
+	    });
 })
 </script>
 <body class="app app-login p-0">    	
@@ -44,7 +66,7 @@ $(document).ready(function(){
 				    <div class="app-auth-branding mb-4"><a class="app-logo" href="logout"><img class="logo-icon me-2" src="image/logo.png" alt="logo"></a></div>
 					<h2 class="auth-heading text-center mb-5">TRACER 로그인</h2>
 			        <div class="auth-form-container text-start">
-						<form action="${pageContext.request.contextPath}/login" method="post">
+						<form id="login-form" action="${pageContext.request.contextPath}/login" method="post">
 							<div class="email mb-3">
 								<input id="signin-email" name="email" type="email" class="form-control signin-email" placeholder="이메일 입력" required="required">
 							</div><!--//form-group-->

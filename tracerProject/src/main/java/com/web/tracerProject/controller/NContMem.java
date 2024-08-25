@@ -50,7 +50,11 @@ public class NContMem extends NContBase{
 	public String loginFrm(User_info user_info) {
 		return "tracerPages/login";
 	}
-	
+	@PostMapping("chkAuth")
+	public ResponseEntity<String> chkAuth(@RequestParam("password") String password,
+											@RequestParam("email") String email) {
+		return ResponseEntity.ok(service.chkAuth(password, email));
+	}
 	// mem - 로그아웃
 	@GetMapping("logout")
 	public String logout(HttpServletRequest request) {

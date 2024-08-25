@@ -11,6 +11,60 @@
 <link rel="stylesheet" href="assets/css/portal.css">
 <script src="${path}/a00_com/jquery.min.js"></script>
 <script src="${path}/a00_com/bootstrap.min.js"></script>
+<style>
+.nav-tabs {
+    margin-bottom: 15px;
+}
+
+.nav-tabs .nav-link {
+    padding: 10px 20px;
+}
+
+#searchInput {
+    width: 200px;
+    margin-left: 10px;
+}
+
+.table th, .table td {
+    padding: 15px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.cell {
+    width: auto;
+    white-space: nowrap;
+}
+
+.status-select {
+    min-width: 100px;
+}
+.custom-tabs {
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.custom-tabs .nav-link {
+    color: #007bff;
+    border: none;
+    background-color: transparent;
+    padding: 10px 20px;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.custom-tabs .nav-link.active {
+    color: #ffffff;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+
+.custom-tabs .nav-link:hover {
+    color: #0056b3;
+    background-color: #e9ecef;
+    border-radius: 5px;
+}
+</style>
 </head>
 
 <body class="app">
@@ -19,11 +73,26 @@
 		<div class="app-content pt-3 p-md-3 p-lg-4">
 			<div class="container-xl">
 				<div class="row g-3 mb-4 align-items-center justify-content-between">
-					<div class="col-auto">
-						<h1 class="app-page-title mb-0">작업 관리</h1>
-					</div>
-				</div>
-
+    <div class="col-auto">
+        <h1 class="app-page-title mb-0">작업 관리</h1>
+    </div>
+    <div class="col-auto">
+        <ul class="nav nav-tabs custom-tabs">
+    <li class="nav-item">
+        <a class="nav-link active" href="#" id="allTab">전체</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" id="inProgressTab">진행 중</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="#" id="completedTab">완료</a>
+    </li>
+</ul>
+    </div>
+    <div class="col-auto">
+        <input type="text" id="searchInput" class="form-control" placeholder="TKID 검색">
+    </div>
+</div>
 				<!-- 작업 추가 버튼 -->
 				<button type="button" class="btn btn-success" data-bs-toggle="modal"
 					data-bs-target="#addTaskModal">작업 추가</button>
@@ -309,45 +378,99 @@
 	</div>
 
 	<script>
-        $(document).ready(function() {
-            // 작업 상세 정보를 보기 위해 테이블 셀을 클릭 시 모달을 띄움
-            $('.task-row').on('click', function() {
-                var taskId = $(this).data('taskid');
-                var target = '#viewTaskModal-' + taskId;
-                $(target).modal('show');
-            });
+	$(document).ready(function() {
+	    // 탭 필터링 기능
+	    $('.nav-link').on('click', function(event) {
+	        event.preventDefault();
+	        $('.nav-link').removeClass('active');
+	        $(this).addClass('active');
+	        
+	        var status = $(this).attr('id');
+	        filterTasks(status);
+	    });
 
-            // 상태 변경 시 AJAX 요청을 통해 상태 업데이트
-            $('.status-select').on('change', function() {
-                const taskId = $(this).data('taskid');
-                const newStatus = $(this).val() === "1";
+	    // TKID 검색 기능
+	    $('#searchInput').on('keyup', function() {
+	        var value = $(this).val().toLowerCase();
+	        filterTasks($('.nav-link.active').attr('id'), value);
+	    });
 
-                fetch('/newTask/updateStatus', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        tkid: taskId,
-                        endYn: newStatus
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert('상태가 성공적으로 업데이트되었습니다.');
-                    } else {
-                        alert('상태 업데이트에 실패했습니다.');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        });
-        function confirmDelete() {
-            return confirm("정말로 이 작업을 삭제하시겠습니까?");
-        }
+	    // 필터링 함수
+	    function filterTasks(status, searchValue = '') {
+	        $('tbody tr').each(function() {
+	            var taskRow = $(this);
+	            var taskId = taskRow.find('.task-row').first().data('taskid').toString();
+	            var isCompleted = taskRow.find('.status-select').val() === "1"; // 완료 상태 확인
+
+	            var showRow = true;
+
+	            // 상태 필터링
+	            if (status === 'inProgressTab' && isCompleted) {
+	                showRow = false; // 완료된 작업은 진행 중 탭에서 숨깁니다.
+	            } else if (status === 'completedTab' && !isCompleted) {
+	                showRow = false; // 완료되지 않은 작업은 완료 탭에서 숨깁니다.
+	            }
+
+	            // TKID 검색 필터링
+	            if (searchValue && !taskId.includes(searchValue)) {
+	                showRow = false;
+	            }
+
+	            // 필터링 결과에 따라 행을 보여주거나 숨깁니다.
+	            if (showRow) {
+	                taskRow.show();
+	            } else {
+	                taskRow.hide();
+	            }
+	        });
+	    }
+
+	    filterTasks('allTab');
+
+	    // 작업 상세 정보를 보기 위해 테이블 셀을 클릭 시 모달을 띄움
+	    $('tbody tr').on('click', '.task-row', function() {
+	        var taskId = $(this).data('taskid');
+	        var target = '#viewTaskModal-' + taskId;
+	        $(target).modal('show');
+	    });
+
+	    // 상태 변경 시 AJAX 요청을 통해 상태 업데이트
+	    $('.status-select').on('change', function() {
+	        const taskId = $(this).data('taskid');
+	        const newStatus = $(this).val() === "1";
+
+	        fetch('/newTask/updateStatus', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify({
+	                tkid: taskId,
+	                endYn: newStatus
+	            })
+	        })
+	        .then(response => response.json())
+	        .then(data => {
+	            if (data.success) {
+	                alert('상태가 성공적으로 업데이트되었습니다.');
+	            } else {
+	                alert('상태 업데이트에 실패했습니다.');
+	            }
+	        })
+	        .catch(error => {
+	            console.error('Error:', error);
+	        });
+
+	        // 상태 변경 후 필터링 다시 적용
+	        var activeTab = $('.nav-link.active').attr('id');
+	        filterTasks(activeTab, $('#searchInput').val().toLowerCase());
+	    });
+	});
+
+
+	function confirmDelete() {
+	    return confirm("정말로 이 작업을 삭제하시겠습니까?");
+	}
     </script>
 
 	<script src="assets/plugins/popper.min.js"></script>

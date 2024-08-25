@@ -160,7 +160,7 @@
                                     <path fill-rule="evenodd"
 										d="M13 2.5V6l-2-2V2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5z" />
                                 </svg>
-						</span> <span>메인 페이지[대시보드]</span>
+						</span> <span>대시보드 [통합 관리]</span>
 					</a> <!--//nav-link--></li>
 					<!--//nav-item-->
 					<li class="nav-item dropdown"><a
@@ -172,7 +172,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round"
 										d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0 .5 1.5m-.5-1.5h-9.5m0 0-.5 1.5M9 11.25v1.5M12 9v3.75m3-6v6" />
             </svg>
-						</span> <span class="nav-link-text">프로젝트 관리</span> <span
+						</span> <span class="nav-link-text">프로젝트 관리 [범위 관리]</span> <span
 							class="submenu-arrow"> <svg width="1em" height="1em"
 									viewBox="0 0 16 16" class="bi bi-chevron-down"
 									fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -190,7 +190,7 @@
 										class="nav-link-text">프로젝트 목록</span></a></li>
 								<li class="submenu-item"><a class="submenu-link noprj"
 									href="${user_info.auth == 'member' ? 'prjInfo' : 'prjDetail'}?pid=${user_info.pid}"><span
-										class="nav-link-text">프로젝트정보[인적자원 관리]</span></a></li>
+										class="nav-link-text">프로젝트정보</span></a></li>
 								<li class="submenu-item"><a class="submenu-link noprj"
 									href="teamList?pid=${user_info.pid}"><span
 										class="nav-link-text">팀 목록</span></a></li>
@@ -199,7 +199,7 @@
 										class="nav-link-text"> 팀 생성하기</span></a></li>
 								<li class="submenu-item"><a class="submenu-link noteam"
 									href="${user_info.auth == 'member' ? 'teamInfo' : 'teamDetail'}?tid=${user_info.tid}"><span
-										class="nav-link-text">팀 정보[인적자원 관리]</span></a></li>
+										class="nav-link-text">팀 정보</span></a></li>
 							</ul>
 						</div></li>
 					<!--//nav-item-->
@@ -212,7 +212,7 @@
 
                                    
                                 </svg>
-						</span> <span>일정 관리[간트차트]</span>
+						</span> <span>간트 차트[일정 관리]</span>
 					</a> <!--//nav-link--></li>
 					<!--//nav-item-->
 					<li class="nav-item noAdminOrNoPrj"><a class="nav-link"
@@ -224,7 +224,7 @@
 										d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-9-6h.008v.008H12v-.008ZM12 15h.008v.008H12V15Zm0 2.25h.008v.008H12v-.008ZM9.75 15h.008v.008H9.75V15Zm0 2.25h.008v.008H9.75v-.008ZM7.5 15h.008v.008H7.5V15Zm0 2.25h.008v.008H7.5v-.008Zm6.75-4.5h.008v.008h-.008v-.008Zm0 2.25h.008v.008h-.008V15Zm0 2.25h.008v.008h-.008v-.008Zm2.25-4.5h.008v.008H16.5v-.008Zm0 2.25h.008v.008H16.5V15Z" />
 							</svg>
 
-						</span> <span>일정 관리[캘린더]</span>
+						</span> <span>캘린더[일정 관리]</span>
 					</a> <!--//nav-link--></li>
 					<!--//nav-item-->
 					<li class="nav-item has-submenu"><a
@@ -327,7 +327,7 @@
 					  <path stroke-linecap="round" stroke-linejoin="round"
 										d="M10.5 6h9.75M10.5 6a1.5 1.5 0 1 1-3 0m3 0a1.5 1.5 0 1 0-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m-9.75 0h9.75" />
 					</svg>
-						</span> <span>사용자 관리</span>
+						</span> <span>사용자 관리[자원 관리]</span>
 					</a></li>
 
 					<li class="nav-item nomem nomgr"><a class="nav-link"
@@ -338,7 +338,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round"
 										d="M3 7a2 2 0 0 1 2-2h4l2 2h7a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z" />
             </svg>
-						</span> <span>자원 관리</span>
+						</span> <span>자산 관리[자원 관리]</span>
 					</a></li>
 				</ul>
 				<!--//app-menu-->

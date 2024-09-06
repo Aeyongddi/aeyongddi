@@ -93,9 +93,6 @@
  alt="한국어 페이지">
  <br> - 영어
  <img src = "https://github.com/user-attachments/assets/a92fe3ea-cb3c-4fa7-8937-c3004cc9f168" alt="영어 페이지">
-
-
-    
   </div>
 </details>
 <details>

@@ -43,7 +43,10 @@
 <details>
   <summary> 자산 관리 [박재현] </summary>
   <div markdown="1">
-    123
+  <br> - 드롭다운에서 프로젝트 선택 후 선택 된 프로젝트의 예산 현황 확인
+    <img src ="https://github.com/user-attachments/assets/f7cbb5e7-f446-4293-a0e2-c3d7a31ffc78" >
+  <br> - 예산 추가 / 예산 삭감 시 입력된 금액만큼 반영 <br>
+  <br> - 새 프로젝트 생성 시에는 '새 프로젝트 예산 부여'를 사용
   </div>
 </details>
 <details>

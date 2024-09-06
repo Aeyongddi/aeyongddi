@@ -41,49 +41,19 @@
 
 ### 🚩 주요 기능
 <details>
-  <summary> 프로젝트 관리 </summary>
+  <summary> 자산 관리 [박재현] </summary>
   <div markdown="1">
     123
   </div>
 </details>
 <details>
-  <summary> 간트 차트 </summary>
+  <summary> 결재 시스템 [박재현] </summary>
   <div markdown="1">
     123
   </div>
 </details>
 <details>
-  <summary> 캘린더 </summary>
-  <div markdown="1">
-    123
-  </div>
-</details>
-<details>
-  <summary> 자산 관리 </summary>
-  <div markdown="1">
-    123
-  </div>
-</details>
-<details>
-  <summary> 결재 시스템 </summary>
-  <div markdown="1">
-    123
-  </div>
-</details>
-<details>
-  <summary> 사용자 관리 </summary>
-  <div markdown="1">
-    123
-  </div>
-</details>
-<details>
-  <summary> 이슈 관리 </summary>
-  <div markdown="1">
-    123
-  </div>
-</details>
-<details>
-  <summary> 다국어 전환 </summary>
+  <summary> 다국어 전환 [박재현] </summary>
   <div markdown="1">
   <br> - 사용자의 접속 환경에 따라 한글 사용 시 'change to English', 영어 사용 시 '한국어로 변경' 출력 <br>
   <br> - 'change to English' : '내 정보' 페이지가 영어로 변경 <br>
@@ -96,7 +66,7 @@
   </div>
 </details>
 <details>
-  <summary> 채팅 </summary>
+  <summary> 채팅 [박재현] </summary>
   <div markdown="1">
   <h3> 단체 채팅 </h3> 
     - '단체 채팅' 입장 후 (기본 '단체 채팅1' 입장) 내용 입력 후 전송 <br>
@@ -107,11 +77,40 @@
     - '개인 채팅' 입장 후 수신자와 내용 입력 후 전송 <br>
     <br> - 수신자 닉네임이 정확히 일치해야 수신됨
     <img src = "https://github.com/user-attachments/assets/8533585e-625a-4eb0-a013-6623bafe3835" alt="개인 채팅">
-
   </div>
 </details>
 <details>
-  <summary> 메일 발송 </summary>
+  <summary> 간트 차트 [김남원] </summary>
+  <div markdown="1">
+    123
+  </div>
+</details>
+<details>
+  <summary> 캘린더 [김남원] </summary>
+  <div markdown="1">
+    123
+  </div>
+</details>
+<details>
+  <summary> 사용자 관리 [김남원] </summary>
+  <div markdown="1">
+    123
+  </div>
+</details>
+<details>
+  <summary> 프로젝트 관리 [김남원] </summary>
+  <div markdown="1">
+    123
+  </div>
+</details>
+<details>
+  <summary> 메일 발송 [김기억] </summary>
+  <div markdown="1">
+    123
+  </div>
+</details>
+<details>
+  <summary> 이슈 관리 [김기억] </summary>
   <div markdown="1">
     123
   </div>

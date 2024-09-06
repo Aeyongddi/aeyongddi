@@ -61,8 +61,10 @@
     <br> - 'To Do' 게시판에서 작업에 대해 결재 요청을 할 경우 
     <img src ="https://github.com/user-attachments/assets/43542d40-2ac0-4a0d-91ef-9be97fd2d016">
     <br> - '결재 관리' 게시판에서 결재 요청 된 작업을 확인하여 반려 / 결재 완료 가능 
-    <br> - '보류'시, 피드백 작성하여 반려 가능 <br>
+    <br> - '보류'시, 피드백 작성하여 반려 가능 <br>  
     <br> - 'To Do' 게시판에서 결재 요청 시 파일 업로드, '결재 관리' 게시판에서 파일 다운로드 가능
+    <img src = "https://github.com/user-attachments/assets/55a3af90-135c-4a10-a8d4-714c93f8b104">
+
   </div>
   </div>
 </details>
@@ -147,7 +149,7 @@
     <image src="https://github.com/user-attachments/assets/ab2d611e-e06b-4ef9-aeb5-c4dad54eb9c6"> <br>
   </div>
 </details>
-<details>
+<!-- <details>
   <summary> 메일 발송 [김기억] </summary>
   <div markdown="1">
     123
@@ -158,7 +160,11 @@
   <div markdown="1">
     123
   </div>
-</details>
+</details> --!>
 
 ### 🛠 아키텍처
 ![image](https://github.com/user-attachments/assets/108811b1-a091-499a-89e5-0caebae92335)
+
+### 🔐 ERD
+![image](https://github.com/user-attachments/assets/a082b1bc-68d1-414e-9219-120d404697d7)
+

@@ -43,13 +43,27 @@
 <details>
   <summary> 자산 관리 [박재현] </summary>
   <div markdown="1">
-    123
+  <br> - 예산 관리 <br>
+  <br> - 드롭다운에서 프로젝트 선택 후 선택 된 프로젝트의 예산 현황 확인
+    <img src ="https://github.com/user-attachments/assets/f7cbb5e7-f446-4293-a0e2-c3d7a31ffc78" >
+  <br> - 예산 추가 / 예산 삭감 시 입력된 금액만큼 반영 <br>
+  <br> - 새 프로젝트 생성 시에는 '새 프로젝트 예산 부여'를 사용 <br>
+  <br> - 자산 관리
+    <img src ="https://github.com/user-attachments/assets/12048821-0d39-451b-b0ce-29c18b1977de">
+  <br> - 프로젝트마다 자산 추가 가능: 자산 이름, 자산 유형, 구매일/임대일, 만료일, 가격
+    <img src ="https://github.com/user-attachments/assets/eab379b4-eba0-4746-95f3-b1e97ec6d37d">
   </div>
 </details>
-<details>
+<details> 
   <summary> 결재 시스템 [박재현] </summary>
   <div markdown="1">
-    123
+  <div>
+    <br> - 'To Do' 게시판에서 작업에 대해 결재 요청을 할 경우 
+    <img src ="https://github.com/user-attachments/assets/43542d40-2ac0-4a0d-91ef-9be97fd2d016">
+    <br> - '결재 관리' 게시판에서 결재 요청 된 작업을 확인하여 반려 / 결재 완료 가능 
+    <br> - '보류'시, 피드백 작성하여 반려 가능 <br>
+    <br> - 'To Do' 게시판에서 결재 요청 시 파일 업로드, '결재 관리' 게시판에서 파일 다운로드 가능
+  </div>
   </div>
 </details>
 <details>

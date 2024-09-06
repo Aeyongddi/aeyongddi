@@ -400,7 +400,7 @@
 										</div>
 										<div class="modal-body">
 											<p>
-												<fmt:message key="delete.account.confirm"  />
+												<fmt:message key="delete.account.confirm" />
 											</p>
 										</div>
 										<div class="modal-footer">
@@ -558,43 +558,62 @@
 								$('#changeNicknameModal').modal('show');
 							});
 
-							$('#saveNicknameBtn').click(function() {
-							    var newNickname = $('#newNickname').val().trim();
-							    
-							    if (newNickname === '') {
-							        alert('닉네임을 공백만으로 설정할 수 없습니다.');
-							        return;
-							    }
-							    
-							    $.ajax({
-							        url: '/updateNickname',
-							        type: 'POST',
-							        data: { nickname: newNickname },
-							        success: function(response) {
-							            if (response === '이미 사용 중인 닉네임입니다.') {
-							                alert(response);
-							            } else if (response === '닉네임 변경 성공: 로그아웃 필요') {
-							                alert('닉네임이 변경되었습니다. 다시 로그인해 주세요.');
-							                
-							                $.ajax({
-							                    url: '/memberLogout',
-							                    type: 'GET',
-							                    success: function() {
-							                        window.location.href = '/login'; // 로그인 페이지로 리디렉션
-							                    },
-							                    error: function(xhr, status, error) {
-							                        console.error('Error: ' + error);
-							                    }
-							                });
-							            } else {
-							                alert(response);
-							            }
-							        },
-							        error: function(xhr, status, error) {
-							            console.error('Error: ' + error);
-							        }
-							    });
-							});
+							$('#saveNicknameBtn')
+									.click(
+											function() {
+												var newNickname = $(
+														'#newNickname').val()
+														.trim();
+
+												if (newNickname === '') {
+													alert('닉네임을 공백만으로 설정할 수 없습니다.');
+													return;
+												}
+
+												$
+														.ajax({
+															url : '/updateNickname',
+															type : 'POST',
+															data : {
+																nickname : newNickname
+															},
+															success : function(
+																	response) {
+																if (response === '이미 사용 중인 닉네임입니다.') {
+																	alert(response);
+																} else if (response === '닉네임 변경 성공: 로그아웃 필요') {
+																	alert('닉네임이 변경되었습니다. 다시 로그인해 주세요.');
+
+																	$
+																			.ajax({
+																				url : '/memberLogout',
+																				type : 'GET',
+																				success : function() {
+																					window.location.href = '/login'; // 로그인 페이지로 리디렉션
+																				},
+																				error : function(
+																						xhr,
+																						status,
+																						error) {
+																					console
+																							.error('Error: '
+																									+ error);
+																				}
+																			});
+																} else {
+																	alert(response);
+																}
+															},
+															error : function(
+																	xhr,
+																	status,
+																	error) {
+																console
+																		.error('Error: '
+																				+ error);
+															}
+														});
+											});
 
 							// 전화번호 변경 모달 초기화
 							$('#changePhoneBtn').click(function() {
@@ -602,29 +621,31 @@
 							});
 
 							$('#savePhoneBtn').click(function() {
-							    var newPhone = $('#newPhone').val().trim();
-							    var phoneRegex = /^010-\d{4}-\d{4}$/;
-							    
-							    // 전화번호 형식 확인
-							    if (!phoneRegex.test(newPhone)) {
-							        alert('전화번호는 010-0000-0000 형태로 입력해야 합니다.');
-							        return;
-							    }
-							    
-							    $.ajax({
-							        url: '/updatePhone',
-							        type: 'POST',
-							        data: { phone: newPhone },
-							        success: function(response) {
-							            alert(response);
-							            if (response === '전화번호 변경 성공') {
-							                location.reload();
-							            }
-							        },
-							        error: function(xhr, status, error) {
-							            console.error('Error: ' + error);
-							        }
-							    });
+								var newPhone = $('#newPhone').val().trim();
+								var phoneRegex = /^010-\d{4}-\d{4}$/;
+
+								// 전화번호 형식 확인
+								if (!phoneRegex.test(newPhone)) {
+									alert('전화번호는 010-0000-0000 형태로 입력해야 합니다.');
+									return;
+								}
+
+								$.ajax({
+									url : '/updatePhone',
+									type : 'POST',
+									data : {
+										phone : newPhone
+									},
+									success : function(response) {
+										alert(response);
+										if (response === '전화번호 변경 성공') {
+											location.reload();
+										}
+									},
+									error : function(xhr, status, error) {
+										console.error('Error: ' + error);
+									}
+								});
 							});
 						});
 
@@ -634,10 +655,11 @@
 				url : 'chgPwd',
 				type : 'POST',
 				success : function(data) {
-					if (data == "비밀번호변경성공"){
+					if (data == "비밀번호변경성공") {
 						alert(data + ", 로그인 페이지로 이동합니다.")
 						location.href = 'logout'
-					}else alert(data)
+					} else
+						alert(data)
 				},
 				error : function(err) {
 					console.log(err)

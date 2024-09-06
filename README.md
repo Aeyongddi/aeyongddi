@@ -41,7 +41,7 @@
 
 ### 🚩 주요 기능
 <details>
-  <summary> 자원 관리 [박재현] </summary>
+  <summary> 자산 관리 [박재현] </summary>
   <div markdown="1">
   <br> - 예산 관리 <br>
   <br> - 드롭다운에서 프로젝트 선택 후 선택 된 프로젝트의 예산 현황 확인
@@ -94,27 +94,57 @@
   </div>
 </details>
 <details>
-  <summary> 간트 차트 [김남원] </summary>
+  <summary> 간트 차트 / 캘린더 [김남원] </summary>
   <div markdown="1">
-    123
-  </div>
-</details>
-<details>
-  <summary> 캘린더 [김남원] </summary>
-  <div markdown="1">
-    123
+    <h3> 간트 차트 </h3>
+    - 일정을 간트차트로 조회할 수 있다. <br>
+    - 프로젝트 별로 일정을 확인할 수 있다. <br>
+    - 드래그앤 드랍으로 일정을 변경할 수 있다. <br>
+    - + 버튼으로 새 일정을 등록할 수 있다. <br>
+    <image src="https://github.com/user-attachments/assets/92aa6e09-ab5b-412c-a6d7-64b816d1e873"> <br>
+    <h3> 캘린더 </h3>
+    - 일정을 캘린더 형식으로 조회할 수 있다. <br>
+    - 프로젝트 별로 일정을 확인할 수 있다. <br>
+    - 드래그앤 드랍으로 일정을 변경할 수 있다. <br>
+    - 셀 또는 일정 바를 클릭하여 일정을 등록 및 변경할 수 있다. <br>
+    - 프로젝트, 팀, 개인 별로 체크박스를 체크하여 해당하는 일정을 조회할 수 있다. <br>
+    <image src="https://github.com/user-attachments/assets/72fff869-ffbb-4734-9d1d-f7fd6ebdcf1f"> <br>
   </div>
 </details>
 <details>
   <summary> 사용자 관리 [김남원] </summary>
   <div markdown="1">
-    123
+    <h3> 로그인 </h3> 
+    - 등록된 회원의 이메일과 비밀번호를 입력하여 로그인할 수 있다. <br>
+    <image src="https://github.com/user-attachments/assets/0f53c305-aeee-4ce4-801b-10f6e0a86bb6"> <br>
+    <h3> 회원가입 </h3> 
+    - 회원 정보를 입력한다. <br>
+    - 입력한 이메일로 인증번호를 전송하여 회원가입을 할 수 있다. <br>
+    <image src="https://github.com/user-attachments/assets/74aee851-66e1-4173-b3c4-50fdd112a7e1"> <br>
+    <h3> 비밀번호 초기화 </h3> 
+    - 새 비밀번호를 이메일로 전송받을 수 있다. <br>
+    <image src="https://github.com/user-attachments/assets/d5d84fdc-f0ed-447a-bae0-99f1d367ceb9"> <br>
+    <h3> 회원 관리 </h3> 
+    - 권한, 이름, 닉네임을 입력하여 회원을 검색할 수 있다. <br>
+    - 드롭다운으로 회원의 권한을 변경하고, 삭제 버튼으로 삭제할 수 있다. <br>
+    - 해당하는 번호의 페이지의 회원목록을 조회할 수 있다. <br>
+    <image src="https://github.com/user-attachments/assets/2599884a-9a6e-4fe4-8697-cb3c773e2874"> <br>
+
   </div>
 </details>
 <details>
   <summary> 프로젝트 관리 [김남원] </summary>
   <div markdown="1">
-    123
+  <h3>프로젝트 생성</h3>
+  - 프로젝트 명, 설명, 기한을 입력하여 프로젝트를 생성할 수 있다. <br>
+    <image src="https://github.com/user-attachments/assets/0a31efe1-268f-4700-8a22-366b04f9d44c"> <br>
+  <h3>프로젝트 수정/삭제</h3>
+  - 프로젝트에 대한 정보를 수정할 수 있다. <br>
+  - 삭제 버튼으로 프로젝트를 삭제할 수 있다. <br>
+  - 참여인원 확인을 클릭하면 모달창으로 참여 인원과 참여 가능인원을 조회할 수 있고, <br> 
+      인원을 추가하거나 삭제할 수 있다. <br>
+    <image src="https://github.com/user-attachments/assets/2ebe7cfe-0f98-42c2-aca8-ff1ae2283ed2"> <br>
+    <image src="https://github.com/user-attachments/assets/ab2d611e-e06b-4ef9-aeb5-c4dad54eb9c6"> <br>
   </div>
 </details>
 <details>

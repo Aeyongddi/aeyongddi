@@ -174,5 +174,6 @@
 ![image](https://github.com/user-attachments/assets/108811b1-a091-499a-89e5-0caebae92335)
 
 ### 🔐 ERD
-![image](https://github.com/user-attachments/assets/a082b1bc-68d1-414e-9219-120d404697d7)
+![image](https://github.com/user-attachments/assets/900fe129-de47-44ca-8d67-c2f71b88bdb8)
+
 

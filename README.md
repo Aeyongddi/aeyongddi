@@ -160,13 +160,13 @@
 <details>
   <summary> 메일 발송 [김기억] </summary>
   <div markdown="1">
-    123
+    
   </div>
 </details>
 <details>
   <summary> 이슈 관리 [김기억] </summary>
   <div markdown="1">
-    123
+    
   </div>
 </details>
 

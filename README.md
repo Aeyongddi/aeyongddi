@@ -157,7 +157,7 @@
     <image src="https://github.com/user-attachments/assets/ab2d611e-e06b-4ef9-aeb5-c4dad54eb9c6"> <br>
   </div>
 </details>
-<!-- <details>
+<details>
   <summary> 메일 발송 [김기억] </summary>
   <div markdown="1">
     123
@@ -168,7 +168,7 @@
   <div markdown="1">
     123
   </div>
-</details> --!>
+</details>
 
 ### 🛠 아키텍처
 ![image](https://github.com/user-attachments/assets/108811b1-a091-499a-89e5-0caebae92335)
